@@ -4,7 +4,6 @@ import NavBar from "./components/NavBar/NavBar";
 import QuoteForm from "./components/QuoteForm/QuoteForm";
 import Home from "./components/Home/Home";
 import About from "./views/About/About";
-import "./App.css";
 
 function App() {
   return (
