@@ -1,12 +1,5 @@
-
-
 const About = () => {
-  return (
-    <div>
-      
-    </div>
-  )
-}
+  return <div>somos una empresa de envios</div>;
+};
 
-export default About
-
+export default About;
