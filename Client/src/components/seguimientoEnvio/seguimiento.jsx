@@ -7,7 +7,7 @@ import Table from "react-bootstrap/Table";
 
 import { validate } from "./validation";
 
-function BasicExample() {
+function SeguimientoEnvio() {
   const [errors, setErrors] = useState({
     numero: "",
   });
@@ -98,4 +98,4 @@ function BasicExample() {
   );
 }
 
-export default BasicExample;
+export default SeguimientoEnvio;

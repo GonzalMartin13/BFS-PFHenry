@@ -1,11 +1,9 @@
-import ProgressBar from "../../components/barraprogreso/barraprogreso";
-import BasicExample from "../../components/seguimientoEnvio/seguimiento";
+import SeguimientoEnvio from "../../components/seguimientoEnvio/seguimiento";
 const Home = () => {
   return (
     <div>
       <p>Estas en la home </p>
-      <BasicExample />
-      {/* <ProgressBar /> */}
+      <SeguimientoEnvio />
     </div>
   );
 };
