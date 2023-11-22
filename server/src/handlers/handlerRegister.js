@@ -28,4 +28,4 @@ const handlerRegister = async (req, res) => {
 };
 
 
-module.export = { handlerRegister };
+module.exports = { handlerRegister };

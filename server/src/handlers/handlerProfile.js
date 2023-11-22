@@ -36,7 +36,7 @@ res.status(500).json({error:error.message});
 //     }
 // };
 
-module.export = {
+module.exports = {
   //  handlerDelProfile,
     handlerGetProfile,
     handlerPutProfile

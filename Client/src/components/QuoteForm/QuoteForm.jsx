@@ -1,9 +1,16 @@
-import React from "react";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
+import NavBar from "../NavBar/NavBar";
+
 export default function QuoteForm() {
   return (
-    <div>
+    <div style={{ top: 0, 
+      left: 0,
+      right: 0,
+      bottom: 0,
+      width: "25%"
+    }}>
+        <NavBar />
       crear pedidos
       <InputGroup className="mb-3">
         <InputGroup.Text id="basic-addon1">Origen: </InputGroup.Text>
