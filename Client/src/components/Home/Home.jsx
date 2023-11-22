@@ -1,11 +1,13 @@
-import NavBar from "../NavBar/NavBar";
+
+import SeguimientoEnvio from "../../components/seguimientoEnvio/seguimiento";
 
 const Home = () => {
   return (
     <div>
-      <NavBar/>
+
 
       <p>Estas en la home </p>
+      <SeguimientoEnvio />
     </div>
   );
 };
