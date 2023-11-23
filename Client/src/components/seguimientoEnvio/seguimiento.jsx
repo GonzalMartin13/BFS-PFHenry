@@ -42,34 +42,31 @@ function SeguimientoEnvio() {
   };
 
   return (
-    <div>
+    <div className="seguimiento-envio-container">
       <Form className="form-container d-flex">
         <Form.Group>
           <Form.Control
-            className="me-2"
+            className="me-2 form-input"
             placeholder="Ingresá el número de seguimiento"
-            size="sm"
+            size="lg" // Cambiado a tamaño grande
             value={input.numero}
             onChange={handleChange}
             autoComplete="off"
             name="numero"
             aria-label="Search"
             type="search"
-            // Asegúrate de que el nombre del campo sea "numero"
           />
           {errors.numero && <div className="text-danger">{errors.numero}</div>}
         </Form.Group>
-        ;
         <Button
           className="form-button"
           variant="outline-success"
           type="button"
-          size="sm"
+          size="lg" // Cambiado a tamaño grande
           onClick={handleButtonClick}
         >
           🔎
         </Button>
-        ;
       </Form>
 
       <Modal show={showModal} onHide={handleCloseModal}>

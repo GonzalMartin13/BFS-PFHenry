@@ -18,7 +18,6 @@ function NavBar() {
           style={{ height: "85px" }}
         >
           {" "}
-          {/* Adjusted margin, padding, and set a specific width */}
           <Container fluid>
             <Navbar.Brand href="/home">
               <Image
