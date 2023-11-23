@@ -55,7 +55,7 @@ function NavBar() {
                   <Nav.Link href="/about">Sobre nosotros</Nav.Link>
                   <Nav.Link href="/contacto">Contacto</Nav.Link>
                   <Nav.Link href="/servicios">Servicios</Nav.Link>
-                  <NavDropdown
+                  {/* <NavDropdown
                     title="Servicios"
                     id={`offcanvasNavbarDropdown-expand-${expand}`}
                   >
@@ -68,7 +68,7 @@ function NavBar() {
                     <NavDropdown.Item href="#action5">
                       Tipo de envio 3{" "}
                     </NavDropdown.Item>
-                  </NavDropdown>
+                  </NavDropdown> */}
                 </Nav>
               </Offcanvas.Body>
             </Navbar.Offcanvas>

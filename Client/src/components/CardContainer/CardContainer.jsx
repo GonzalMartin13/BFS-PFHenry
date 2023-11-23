@@ -1,4 +1,4 @@
-import Card1 from "../Card/Card";
+// import Card1 from "../Card/Card";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import styles from "../CardContainer/cardContainer.module.css"
