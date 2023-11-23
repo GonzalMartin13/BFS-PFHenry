@@ -1,37 +1,50 @@
-import Carousel from 'react-bootstrap/Carousel';
+import Carousel from "react-bootstrap/Carousel";
 
 const Slider = () => {
   return (
-      <>
-          <Carousel>
-              <Carousel.Item interval={1000}>
-                  <img
-                      className="d-block w-100"
-                      src="https://thelogisticsworld.com/wp-content/uploads/2021/12/servicios-paqueteria.jpg"
-                      alt="First slide"
-                      style={{ height: '500px' }}
-                  />
-                  <Carousel.Caption>
-                      <h2 style={{ color: "black"}}>Nuestro equipo</h2>
-                      <h4 style={{ color: "black"}}>Se encarga del traslado de su paquete</h4>
-                  </Carousel.Caption>
-              </Carousel.Item>
-             
-              <Carousel.Item>
-                  <img
-                      className="d-block w-100"
-                      src="https://blog.eiffmx.com/hs-fs/hubfs/shutterstock_573099904-1.jpg?width=1000&height=668&name=shutterstock_573099904-1.jpg"
-                      alt="Third slide"
-                      style={{ height: '500px' }}
-                  />
-                  <Carousel.Caption>
-                      <h2 style={{ color: "black"}}>Bodega</h2>
-                      <h4 style={{ color: "black"}}>Sus paquetes son manejado por personal calificado en nuestras sucursales</h4>
-                  </Carousel.Caption>
-              </Carousel.Item>
-            </Carousel>
-      </>
-  )
-}
+    <div className="text-center mx-auto" style={{ width: '40%', height: "40%" }}>
+      <Carousel>
+        <Carousel.Item>
+          <img
+            className="d-block w-100"
+            src="https://static.vecteezy.com/system/resources/previews/004/688/626/non_2x/a-courier-man-delivers-packages-to-the-recipient-s-home-daily-of-a-postman-as-delivery-service-worker-delivering-packages-to-the-recipient-free-photo.jpg"
+            alt="First slide"
+            style={{ height: '400px' }}
+          />
+          <Carousel.Caption>
+            <h5>Nuestros clientes</h5>
+            <h6>Son la clave de nuestro exito</h6>
+          </Carousel.Caption>
+        </Carousel.Item>
+        <Carousel.Item>
+          <img
+            className="d-block w-100"
+            src="https://noticiaslogisticaytransporte.com/wp-content/uploads/2015/11/entrega-paquetes-online.jpg"
+            alt="Second slide"
+            style={{ height: '400px' }}
+          />
+          <Carousel.Caption>
+            <h5>Atencion</h5>
+            <h6>Los 365 dias del año</h6>
+          </Carousel.Caption>
+        </Carousel.Item>
+        <Carousel.Item>
+          <img
+            className="d-block w-100"
+            src="https://www.eltiempo.com/files/image_640_428/uploads/2018/04/24/5adf56453d3ce.jpeg"
+            alt="Tercer slide"
+            style={{ height: '400px' }}
+          />
+          <Carousel.Caption>
+            <h5>Servicio Express</h5>
+            <p>
+              Entregamos su pedido en tiempo record
+            </p>
+          </Carousel.Caption>
+        </Carousel.Item>
+      </Carousel>
+    </div>
+  );
+};
 
-export default Slider
+export default Slider;
