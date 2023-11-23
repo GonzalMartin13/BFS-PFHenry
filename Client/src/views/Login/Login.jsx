@@ -12,12 +12,20 @@ function Login() {
     email: "",
     password: "",
     confirmPassword: "",
+    nombre: "",
+    apellido: "",
+    telefono: "",
+    direccion: "",
   });
 
   const [errors, setErrors] = useState({
     email: "Email required",
     password: "Password required",
     confirmPassword: "Confirm Password required",
+    nombre: "",
+    apellido: "",
+    telefono: "",
+    direccion: "",
   });
 
   const [showForm, setShowForm] = useState(false);
@@ -61,20 +69,21 @@ function Login() {
 
     if (isRegistering) {
       Swal.fire({
-        title: "Resgistrado Exitosamente",
+        title: "Registrado Exitosamente",
         text: "Te has registrado en BFS",
-        icon: "Exito",
+        icon: "success",
       });
     } else {
       Swal.fire({
         title: "Sesión iniciada",
         text: "Has iniciado sesión exitosamente",
-        icon: "Exito",
+        icon: "success",
       });
     }
 
-    navigate("/home");
+    navigate("/");
   };
+
   const handleLoginClick = () => {
     setShowForm(true);
     setShowButtons(false);
@@ -92,6 +101,71 @@ function Login() {
       <Col md={4}>
         {showForm && (
           <Form onSubmit={handleSubmit}>
+            {isRegistering && (
+              <>
+                {/* Nombre y Apellido en la misma línea */}
+                <Row className="mb-3">
+                  <Col>
+                    <Form.Control
+                      name="nombre"
+                      value={input.nombre}
+                      onChange={handleChange}
+                      type="text"
+                      placeholder="Nombre"
+                      size="sm"
+                    />
+                    {errors.nombre && (
+                      <span className="text-danger">{errors.nombre}</span>
+                    )}
+                  </Col>
+                  <Col>
+                    <Form.Control
+                      name="apellido"
+                      value={input.apellido}
+                      onChange={handleChange}
+                      type="text"
+                      placeholder="Apellido"
+                      size="sm"
+                    />
+                    {errors.apellido && (
+                      <span className="text-danger">{errors.apellido}</span>
+                    )}
+                  </Col>
+                </Row>
+
+                {/* Teléfono y Dirección en la misma línea */}
+                <Row className="mb-3">
+                  <Col>
+                    <Form.Control
+                      name="telefono"
+                      value={input.telefono}
+                      onChange={handleChange}
+                      type="text"
+                      placeholder="Teléfono"
+                      size="sm"
+                    />
+                    {errors.telefono && (
+                      <span className="text-danger">{errors.telefono}</span>
+                    )}
+                  </Col>
+                  <Col>
+                    <Form.Control
+                      name="direccion"
+                      value={input.direccion}
+                      onChange={handleChange}
+                      type="text"
+                      placeholder="Dirección"
+                      size="sm"
+                    />
+                    {errors.direccion && (
+                      <span className="text-danger">{errors.direccion}</span>
+                    )}
+                  </Col>
+                </Row>
+              </>
+            )}
+
+            {/* Email y Password */}
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Control
                 name="email"
@@ -119,6 +193,7 @@ function Login() {
               )}
             </Form.Group>
 
+            {/* Confirm Password */}
             {isRegistering && (
               <Form.Group className="mb-3" controlId="formBasicConfirmPassword">
                 <Form.Control
