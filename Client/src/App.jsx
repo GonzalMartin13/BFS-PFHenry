@@ -7,6 +7,7 @@ import About from "./views/About/About";
 import Footer from "./components/Footer/Footer";
 import Slider from "./components/Carrousel/Carrousel";
 import CardContainer from "./components/CardContainer/CardContainer";
+import Register from "./views/register/register";
 
 import FormContact from "./components/Contact/Contact";
 import Login from "./views/Login/Login";
@@ -30,6 +31,7 @@ function App() {
         <Route path="/payment" element={<About />} />
         <Route path="/servicios" element={<CardContainer />} />
         <Route path="/envios" element={<MisEnvios />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
       <Footer />
     </>

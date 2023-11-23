@@ -1,12 +1,14 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { validar } from "./validacionlogin";
-
+import { addUser } from "../../redux/Slices/userSlice";
 import Swal from "sweetalert2";
 
 function Login() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [input, setInput] = useState({
     email: "",
@@ -19,9 +21,9 @@ function Login() {
   });
 
   const [errors, setErrors] = useState({
-    email: "Email required",
-    password: "Password required",
-    confirmPassword: "Confirm Password required",
+    email: "",
+    password: "",
+    confirmPassword: "",
     nombre: "",
     apellido: "",
     telefono: "",
@@ -29,7 +31,6 @@ function Login() {
   });
 
   const [showForm, setShowForm] = useState(false);
-  const [showButtons, setShowButtons] = useState(true);
   const [isRegistering, setIsRegistering] = useState(false);
 
   const handleChange = (event) => {
@@ -67,6 +68,17 @@ function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    dispatch(addUser(input));
+    setInput({
+      email: "",
+      password: "",
+      confirmPassword: "",
+      nombre: "",
+      apellido: "",
+      telefono: "",
+      direccion: "",
+    });
+
     if (isRegistering) {
       Swal.fire({
         title: "Registrado Exitosamente",
@@ -86,14 +98,12 @@ function Login() {
 
   const handleLoginClick = () => {
     setShowForm(true);
-    setShowButtons(false);
     setIsRegistering(false);
   };
 
   const handleRegisterClick = () => {
-    setShowForm(true);
-    setShowButtons(false);
-    setIsRegistering(true);
+    // Redirecciona a la ruta "/register" al hacer clic en "Registrarse"
+    navigate("/register");
   };
 
   return (
@@ -219,7 +229,7 @@ function Login() {
             </Button>
           </Form>
         )}
-        {showButtons && (
+        {!showForm && (
           <div className="d-grid gap-2">
             <Button
               onClick={handleLoginClick}
