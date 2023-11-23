@@ -8,9 +8,9 @@ import Footer from "./components/Footer/Footer";
 import Slider from "./components/Carrousel/Carrousel";
 import CardContainer from "./components/CardContainer/CardContainer";
 
-
 import FormContact from "./components/Contact/Contact";
 import Login from "./views/Login/Login";
+import MisEnvios from "./components/misEnvios/misEnvios";
 
 import "./App.css";
 
@@ -21,7 +21,6 @@ function App() {
     <>
       {location.pathname !== "/login" && <NavBar />}
 
-      
       <Routes>
         <Route exact path="/home" element={<Home />} />
         <Route path="/cotizacion" element={<QuoteForm />} />
@@ -30,7 +29,7 @@ function App() {
         <Route path="/contacto" element={<FormContact />} />
         <Route path="/payment" element={<About />} />
         <Route path="/servicios" element={<CardContainer />} />
-
+        <Route path="/envios" element={<MisEnvios />} />
       </Routes>
       <Footer />
     </>
