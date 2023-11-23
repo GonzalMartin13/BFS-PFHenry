@@ -1,4 +1,4 @@
-
+const {putLogin} = require("../controllers/putLogin")
 
 const handlerLog= async (req, res) => {
 
@@ -8,7 +8,7 @@ const handlerLog= async (req, res) => {
         } = req.body;
 
     try {
-        const response = await postLogin(
+        const response = await putLogin(
            email,
            password  
         );
