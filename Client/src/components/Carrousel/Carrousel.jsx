@@ -43,7 +43,7 @@ const Slider = () => {
   return (
     <>
       <Carousel>
-      <Carousel.Item interval={1000}>
+      <Carousel.Item interval={700}>
           <img
             className="d-block mx-auto w-50"
             src="https://i.imgur.com/agQUfTA.png"
@@ -52,6 +52,9 @@ const Slider = () => {
           />
           <Carousel.Caption>
             <h2 style={{ color: "black" }}>Nuestro equipo</h2>
+
+            <h4 style={{ color: "black" }}>Se encarga <br />del traslado <br />de su paquete</h4>
+
             <h4 style={{ color: "black" }}>Flota moderna y eficiente</h4>
           </Carousel.Caption>
         </Carousel.Item>
@@ -65,6 +68,7 @@ const Slider = () => {
           <Carousel.Caption>
             <h2 style={{ color: "black" }}>Nuestro equipo</h2>
             <h4 style={{ color: "black" }}>Se encarga del traslado de su paquete</h4>
+
           </Carousel.Caption>
         </Carousel.Item>
       <Carousel.Item interval={1000}>
@@ -75,8 +79,8 @@ const Slider = () => {
             style={{ height: '500px' }}
           />
           <Carousel.Caption>
-            <h2 style={{ color: "black" }}>Nuestro equipo</h2>
-            <h4 style={{ color: "black" }}>Se encarga del traslado de su paquete</h4>
+            <h2 style={{ color: "black" }}>Hasta su hogar</h2>
+            <h4 style={{ color: "black" }}>Reciba su paquete <br /> en la comodidad <br /> de su hogar</h4>
           </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item interval={1000}>
@@ -87,8 +91,8 @@ const Slider = () => {
             style={{ height: '500px' }}
           />
           <Carousel.Caption>
-            <h2 style={{ color: "black" }}>Nuestro equipo</h2>
-            <h4 style={{ color: "black" }}>Se encarga del traslado de su paquete</h4>
+            <h2 style={{ color: "black" }}>Retiro</h2>
+            <h4 style={{ color: "black" }}>Puede retirar su  <br />paquete en la <br />sucursal</h4>
           </Carousel.Caption>
         </Carousel.Item>
 
@@ -101,7 +105,7 @@ const Slider = () => {
           />
           <Carousel.Caption>
             <h2 style={{ color: "black" }}>Bodega</h2>
-            <h4 style={{ color: "black" }}>Sus paquetes son manejados por personal calificado en nuestras sucursales</h4>
+            <h4 style={{ color: "black" }}>Sus paquetes <br />son manejados por <br />personal calificado <br /> en nuestras <br /> sucursales</h4>
           </Carousel.Caption>
         </Carousel.Item>
       </Carousel>

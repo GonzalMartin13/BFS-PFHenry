@@ -5,7 +5,6 @@ import QuoteForm from "./components/QuoteForm/QuoteForm";
 import Home from "./components/Home/Home";
 import About from "./views/About/About";
 import Footer from "./components/Footer/Footer";
-import Slider from "./components/Carrousel/Carrousel";
 import CardContainer from "./components/CardContainer/CardContainer";
 import Mapa from "./components/Mapa/Mapa";
 
