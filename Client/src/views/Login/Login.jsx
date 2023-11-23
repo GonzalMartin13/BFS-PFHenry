@@ -3,6 +3,8 @@ import { Form, Button, Row, Col } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { validar } from "./validacionlogin";
 
+import Swal from "sweetalert2";
+
 function Login() {
   const navigate = useNavigate();
 
@@ -58,12 +60,21 @@ function Login() {
     e.preventDefault();
 
     if (isRegistering) {
+      Swal.fire({
+        title: "Resgistrado Exitosamente",
+        text: "Te has registrado en BFS",
+        icon: "Exito",
+      });
     } else {
+      Swal.fire({
+        title: "Sesión iniciada",
+        text: "Has iniciado sesión exitosamente",
+        icon: "Exito",
+      });
     }
 
     navigate("/home");
   };
-
   const handleLoginClick = () => {
     setShowForm(true);
     setShowButtons(false);
