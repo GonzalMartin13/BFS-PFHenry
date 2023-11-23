@@ -1,3 +1,6 @@
+const {getProfileUser} = require("../controllers/getProfileUser");
+const {putProfile} = require("../controllers/putProfile");
+
 
 const handlerGetProfile = async (req, res) => {
 
@@ -12,10 +15,16 @@ res.status(500).json({error:error.message});
 };
 
 const handlerPutProfile = async(req,res)=>{
-    const { name } = req.query;
+    const { 
+        email, 
+        password 
+    } = req.body;
     try {
-        const response = await putProfile(name);
-        !response ? res.status(400).json({ error:`No se encontró el usuario ${name}` })
+        const response = await putProfile(
+            email, 
+            password
+        );
+        !response ? res.status(400).json({ error:`No se encontró el usuario ${email}` })
             : res.status(200).json(response)
     } catch (error) {
 res.status(500).json({error:error.message});

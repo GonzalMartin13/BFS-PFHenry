@@ -3,41 +3,6 @@ Carlos E. Gonzalez G.
 Luz Rivas Espinoza
 Marcel Causone Hidalgo
 Wilson Caro.
-Gonzalo Martin en la rama
+Gonzalo Martin en la rama 2.0
 David Henao
 
-
-
-
-Tabla de Ubicaciones Comerciales
-Zona norte
-Zona Sur
-Zona Oeste
-Zona Este
-Zona NorOeste
-Zona Sudoeste
-Zona Sudeste
-Zona Central
-Zona Noreste 
-
-Tabla de costos: 
-Costo al centro 5 usd
-Costo al norte 10 usd
-Costo al sur 10 usd
-Costo al este 10 usd
-Costo al oeste 10 usd
-Costo al Sudeste 7 usd
-Costo al Sudoeste 7 usd
-Costo al Noreste 7 usd
-Costo al NorOeste 7 usd 
-
-envio rapido 50% mas
-envio discreto 35% mas
-envio cuidado 75% mas
-carteria 10% mas
-packeteria tamaño pequeño (1 - 25)  15 
-                  mediano (25 - 60)  20 
-                 grande    (60 - 100)   25     
-peso 0.75usd x kg pesado (+25)  25 
-                  mediao (10 - 25)  20
-                  liviano (0- 10) 15

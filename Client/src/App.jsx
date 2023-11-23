@@ -12,6 +12,7 @@ import Mapa from "./components/Mapa/Mapa";
 
 import FormContact from "./components/Contact/Contact";
 import Login from "./views/Login/Login";
+import MisEnvios from "./components/misEnvios/misEnvios";
 
 import "./App.css";
 
@@ -22,9 +23,8 @@ function App() {
     <>
       {location.pathname !== "/login" && <NavBar />}
 
-      
       <Routes>
-        <Route exact path="/home" element={<Home />} />
+        <Route exact path="/" element={<Home />} />
         <Route path="/cotizacion" element={<QuoteForm />} />
         <Route path="/about" element={<About />} />
         <Route path="/login" element={<Login />} />
@@ -32,7 +32,7 @@ function App() {
         <Route path="/payment" element={<About />} />
         <Route path="/servicios" element={<CardContainer />} />
         <Route path="/sucursales" element={<Mapa />} />
-
+        <Route path="/envios" element={<MisEnvios />} />
       </Routes>
       <Footer />
     </>

@@ -1,4 +1,4 @@
-
+const {postRegister} = require("../controllers/postRegister");
 
 const handlerRegister = async (req, res) => {
 
@@ -6,18 +6,21 @@ const handlerRegister = async (req, res) => {
         name,
         lastName,
         phone,
-        adress,
+        address,
         email,
+        password
         // aca van las propiedades del modelo usuarios.
     } = req.body;
+
 
     try {
         const response = await postRegister(
             name,
             lastName,
             phone,
-            adress,
+            address,
             email,
+            password
          //  Aca tambien debe ir la informacion del modelo igual que como va en la destruc.
         );
         !response ? res.status(400).json({ error: error.message })
