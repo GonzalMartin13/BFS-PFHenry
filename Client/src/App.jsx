@@ -7,6 +7,7 @@ import About from "./views/About/About";
 import Footer from "./components/Footer/Footer";
 import Slider from "./components/Carrousel/Carrousel";
 import CardContainer from "./components/CardContainer/CardContainer";
+import Mapa from "./components/Mapa/Mapa";
 
 
 import FormContact from "./components/Contact/Contact";
@@ -30,6 +31,7 @@ function App() {
         <Route path="/contacto" element={<FormContact />} />
         <Route path="/payment" element={<About />} />
         <Route path="/servicios" element={<CardContainer />} />
+        <Route path="/sucursales" element={<Mapa />} />
 
       </Routes>
       <Footer />

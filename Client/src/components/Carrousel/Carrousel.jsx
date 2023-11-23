@@ -46,8 +46,20 @@ const Slider = () => {
       <Carousel.Item interval={1000}>
           <img
             className="d-block mx-auto w-50"
-            src="https://noticiaslogisticaytransporte.com/wp-content/uploads/2015/11/entrega-paquetes-online.jpg"
+            src="https://i.imgur.com/agQUfTA.png"
             alt="First slide"
+            style={{ height: '500px' }}
+          />
+          <Carousel.Caption>
+            <h2 style={{ color: "black" }}>Nuestro equipo</h2>
+            <h4 style={{ color: "black" }}>Flota moderna y eficiente</h4>
+          </Carousel.Caption>
+        </Carousel.Item>
+      <Carousel.Item interval={1000}>
+          <img
+            className="d-block mx-auto w-50"
+            src="https://noticiaslogisticaytransporte.com/wp-content/uploads/2015/11/entrega-paquetes-online.jpg"
+            alt="Second slide"
             style={{ height: '500px' }}
           />
           <Carousel.Caption>
