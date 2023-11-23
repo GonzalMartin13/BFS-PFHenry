@@ -6,6 +6,8 @@ import Home from "./components/Home/Home";
 import About from "./views/About/About";
 import Footer from "./components/Footer/Footer";
 import CardContainer from "./components/CardContainer/CardContainer";
+import Mapa from "./components/Mapa/Mapa";
+
 
 import FormContact from "./components/Contact/Contact";
 import Login from "./views/Login/Login";
@@ -28,6 +30,7 @@ function App() {
         <Route path="/contacto" element={<FormContact />} />
         <Route path="/payment" element={<About />} />
         <Route path="/servicios" element={<CardContainer />} />
+        <Route path="/sucursales" element={<Mapa />} />
         <Route path="/envios" element={<MisEnvios />} />
       </Routes>
       <Footer />

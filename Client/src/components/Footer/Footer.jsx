@@ -59,6 +59,17 @@ const Footer = () => {
                 bfs01@gmail.com
               </a>
             </div>
+            <div className={style.row2}>
+              <img src="https://i.imgur.com/6cAn2M9.png" alt="" />
+              <a
+                className={style.link}
+                href="http://localhost:5173/sucursales"
+              
+                rel="noopener noreferrer"
+                >
+                sucursales
+              </a>
+            </div>
           </Col>
           <Col md={3}>
             <p className={style.colum1_p}>Redes Sociales</p>
