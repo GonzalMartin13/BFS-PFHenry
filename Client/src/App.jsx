@@ -17,7 +17,7 @@ function App() {
     <>
       {location.pathname !== "/login" && <NavBar />}
 
-      {/* <Slider /> */}
+      
       <Routes>
         <Route exact path="/home" element={<Home />} />
         <Route path="/cotizacion" element={<QuoteForm />} />
