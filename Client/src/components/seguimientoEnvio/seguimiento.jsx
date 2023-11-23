@@ -32,9 +32,11 @@ function SeguimientoEnvio() {
   };
 
   const [showModal, setShowModal] = useState(false);
+  const [trackingNumber, setTrackingNumber] = useState("");
 
   const handleButtonClick = () => {
     setShowModal(true);
+    setTrackingNumber(input.numero);
   };
 
   const handleCloseModal = () => {
@@ -71,7 +73,7 @@ function SeguimientoEnvio() {
 
       <Modal show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>
-          <Modal.Title>Estado del envío</Modal.Title>
+          <Modal.Title>Estado del envío:{trackingNumber}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <ProgressBar
