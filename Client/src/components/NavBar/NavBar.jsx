@@ -12,7 +12,7 @@ function NavBar() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <NavDropdown title="Servicios" id="collapsible-nav-dropdown">
+            {/* <NavDropdown title="Servicios" id="collapsible-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">
                 Tipo de envío 1
               </NavDropdown.Item>
@@ -26,7 +26,8 @@ function NavBar() {
               <NavDropdown.Item href="#action/3.4">
                 Capaz algo más
               </NavDropdown.Item>
-            </NavDropdown>
+            </NavDropdown> */}
+            <Nav.Link href="/servicios">Servicios</Nav.Link>
             <Nav.Link href="/cotizacion">Cotizador</Nav.Link>
             <Nav.Link href="/about">Sobre nosotros</Nav.Link>
             <Nav.Link href="/contacto">Contacto</Nav.Link>

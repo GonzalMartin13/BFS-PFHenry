@@ -6,6 +6,7 @@ import Home from "./components/Home/Home";
 import About from "./views/About/About";
 import Footer from "./components/Footer/Footer";
 import Slider from "./components/Carrousel/Carrousel";
+import CardContainer from "./components/CardContainer/CardContainer";
 
 
 import FormContact from "./components/Contact/Contact";
@@ -22,11 +23,10 @@ function App() {
         <Route exat path="/home" element={<Home />} />
         <Route path="/cotizacion" element={<QuoteForm />} />
         <Route path="/about" element={<About />} />
-
-
         <Route path="/contacto" element={<FormContact/>} />
-
         <Route path="/payment" element={<About />} />
+        <Route path="/servicios" element={<CardContainer />} />
+
       </Routes>
     <Footer/>  
     </>
