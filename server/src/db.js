@@ -43,21 +43,25 @@ let capsEntries = entries.map((entry) => [
 sequelize.models = Object.fromEntries(capsEntries);
 
 const {User, Shipment, Receive, Package, Branch} = sequelize.models;
+//Relación de uno a uno
+Shipment.hasOne(Receive, {foreignKey: "shipmentId"}); // Un envio a un recibido
+Receive.belongsTo(Shipment, {foreignKey: "receiveId"}); // Un recibido "recibe" un envio
 
-Shipment.hasOne(Receive, {foreignKey: "shipmentId"});
-Receive.belongsTo(Shipment, {foreignKey: "receiveId"});
+//Relacion de uno a muchos
+User.hasMany(Shipment, {foreignKey: "userId"}); // un usuario hace muchos envios
+Shipment.belongsTo(User, {foreignKey: "userId"}); // Muchis envios pertenecen a un usuario
 
-User.hasMany(Shipment, {foreignKey: "userId"});
-Shipment.belongsTo(User, {foreignKey: "userId"});
+//Relacion de uno a muchos
+Shipment.hasMany(Package, {foreignKey: "shipmentId"}); // En un envio puede tener muchos paquetes
+Package.belongsTo(Shipment, {foreignKey: "packageId"}); // Muchos paquetes pertenecen a un envio
 
-Shipment.hasMany(Package, {foreignKey: "shipmentId"});
-Package.belongsTo(Shipment, {foreignKey: "packageId"});
+//Relacion de uno a muchos
+Branch.hasMany(Shipment, {foreignKey: "branchId"}); // Una sucursal recibe muchos envios
+Shipment.belongsTo(Branch, {foreignKey: "shipmentId"}); // Muchos envios llegaran a una sucursal
 
-Branch.hasMany(Shipment, {foreignKey: "branchId"});
-Shipment.belongsTo(Branch, {foreignKey: "shipmentId"});
-
-User.belongsToMany(Branch, { through: 'User_Branch' });
-Branch.belongsToMany(User, { through: 'User_Branch' });
+// Relación de muchos a muchos
+User.belongsToMany(Branch, { through: 'User_Branch' }); // Muchos usuarios pueden enviar paquetes a muchas sucursales
+Branch.belongsToMany(User, { through: 'User_Branch' }); // Muchas sucursales reciben envios de muchos usuarios
 
 
 
