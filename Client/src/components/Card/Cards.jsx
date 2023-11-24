@@ -17,7 +17,7 @@ const Cards = () => {
             <Card.Text>
             Ideal para mandar a buscar lo que desees en cualquier provincia
             </Card.Text>
-            <Button variant="primary">Contactanos</Button>
+            <Button variant="primary" href="/contacto">Contactanos</Button>
           </Card.Body>
         </Card>
       </div>
@@ -33,7 +33,7 @@ const Cards = () => {
             <Card.Text>
             Ideal para empresas con alto volumen y personas que requieran de un servicio especializado
             </Card.Text>
-            <Button variant="primary">Cotizar mi envio</Button>
+            <Button variant="primary" href="/cotizacion">Cotizar mi envio</Button>
           </Card.Body>
         </Card>
       </div>
@@ -49,7 +49,7 @@ const Cards = () => {
             <Card.Text>
             Compra por internet y nosotros te llevamos tu artículo hasta la comodidad de tu hogar.
             </Card.Text>
-            <Button variant="primary">Cotizar</Button>
+            <Button variant="primary" href="/cotizacion">Cotizar</Button>
           </Card.Body>
         </Card>
       </div>
@@ -65,7 +65,7 @@ const Cards = () => {
             <Card.Text>
             Retira tus paquetes en la sucursal que este más cercana a tu domicilio
             </Card.Text>
-            <Button variant="primary">Consulta</Button>
+            <Button variant="primary" href="/envios">Consulta</Button>
           </Card.Body>
         </Card>
       </div>

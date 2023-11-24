@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import Table from "react-bootstrap/Table";
+import Image from 'react-bootstrap/Image';
 
 import "./MisEnvios.css";
 
@@ -19,6 +20,11 @@ function MisEnvios() {
   };
 
   return (
+    <div style={{ position: 'relative' }}>
+      <Image src="https://www.sendcloud.es/wp-content/uploads/2020/05/etiqueta-de-envio-paquete.png" fluid style={{ width: '100%', height: '400px' }}/>
+      <br />
+      <br />
+      <br />
     <div className="mis-envios-container">
       {Array.from({ length: 4 }).map((_, idx) => (
         <Card key={idx} style={{ width: "18rem" }}>
@@ -68,6 +74,10 @@ function MisEnvios() {
           </Table>
         </Modal.Body>
       </Modal>
+    </div>
+    <br />
+    <br />
+    <br />
     </div>
   );
 }
