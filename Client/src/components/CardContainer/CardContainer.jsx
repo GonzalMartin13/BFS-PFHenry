@@ -6,7 +6,7 @@ import styles from "../CardContainer/cardContainer.module.css"
 const CardContainer = () => {
   return (
     <div className={styles.divCard}>
-      <div className={styles.card}>
+      <div >
         <Card style={{ width: "18rem", height: "30rem", margin: "10px"}}>
           <Card.Img
             variant="top"
@@ -21,7 +21,7 @@ const CardContainer = () => {
           </Card.Body>
         </Card>
       </div>
-      <div className={styles.card}>
+      <div >
         <Card style={{ width: "18rem", height: "30rem", margin: "10px" }}>
           <Card.Img
             variant="top"

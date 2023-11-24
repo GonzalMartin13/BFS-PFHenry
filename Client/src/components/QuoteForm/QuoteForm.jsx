@@ -1,9 +1,15 @@
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
+import Image from 'react-bootstrap/Image';
 
 export default function QuoteForm() {
   return (
-    <div style={{ top: 0, left: 0, right: 0, bottom: 0, width: "25%" }}>
+    <div>
+    <div style={{ position: 'relative' }}>
+    <Image src="https://www.speedboy.cl/Images/index3xx_02.png" fluid style={{ width: '100%', height: '300px' }}/>
+    </div>
+    <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "50vh" }}>
+      <div style={{ width: "45%" }}>
       crear pedidos
       <InputGroup className="mb-3">
         <InputGroup.Text id="basic-addon1">Origen: </InputGroup.Text>
@@ -24,7 +30,7 @@ export default function QuoteForm() {
       <Form.Label htmlFor="basic-url">Your vanity URL</Form.Label>
       <InputGroup className="mb-3">
         <InputGroup.Text id="basic-addon3">
-          https://example.com/users/
+          example@.com
         </InputGroup.Text>
         <Form.Control id="basic-url" aria-describedby="basic-addon3" />
       </InputGroup>
@@ -37,6 +43,8 @@ export default function QuoteForm() {
         <InputGroup.Text>With textarea</InputGroup.Text>
         <Form.Control as="textarea" aria-label="With textarea" />
       </InputGroup>
+      </div>
+      </div>
     </div>
   );
 }
