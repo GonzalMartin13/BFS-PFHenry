@@ -6,7 +6,8 @@ const cotizarHandler = async(req, res) =>{
         const precioFinal = await contolerPrecio(origen, destino, volumen, peso, servicios)
         res.status(200).json(precioFinal)
     } catch (error){
-        return console.log(error.message)
+        console.log(error.message)
+        res.status(404).send(error.message)
     }
 
 }

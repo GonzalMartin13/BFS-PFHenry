@@ -58,7 +58,7 @@ function NavBar() {
                   <Nav.Link href="/about">Sobre nosotros</Nav.Link>
                   <Nav.Link href="/contacto">Contacto</Nav.Link>
                   <Nav.Link href="/servicios">Servicios</Nav.Link>
-                  <Nav.Link href="/envios">Mis envios</Nav.Link>
+                  <Nav.Link href="/envios">Mis envíos</Nav.Link>
                   {/* <NavDropdown
                     title="Servicios"
                     id={`offcanvasNavbarDropdown-expand-${expand}`}
