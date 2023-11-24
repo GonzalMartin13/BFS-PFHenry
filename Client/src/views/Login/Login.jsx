@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { validar } from "./validacionlogin";
-import { logUser } from "../../redux/Slices/userSlice";
+import { loginUser } from "../../redux/actions/userActions";
 import Swal from "sweetalert2";
 
 function Login() {
@@ -49,7 +49,7 @@ function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    dispatch(logUser(input));
+    dispatch(loginUser(input));
     setInput({
       email: "",
       password: "",
