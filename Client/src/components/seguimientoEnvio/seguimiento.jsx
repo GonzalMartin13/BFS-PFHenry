@@ -46,16 +46,17 @@ function SeguimientoEnvio() {
   return (
     <div className="seguimiento-envio-container">
       <Form className="form-container d-flex">
+        <Form.Label className="mb-1"></Form.Label>
         <Form.Group>
           <Form.Control
-            className="me-2 form-input"
-            placeholder="Ingresá el número de seguimiento"
-            size="lg" // Cambiado a tamaño grande
+            className="form-input"
+            placeholder="Ingrese el número de seguimiento"
+            size="lg"
             value={input.numero}
             onChange={handleChange}
             autoComplete="off"
             name="numero"
-            aria-label="Search"
+            aria-label="Número de Seguimiento"
             type="search"
           />
           {errors.numero && <div className="text-danger">{errors.numero}</div>}
@@ -64,16 +65,18 @@ function SeguimientoEnvio() {
           className="form-button"
           variant="outline-success"
           type="button"
-          size="lg" // Cambiado a tamaño grande
+          size="lg"
           onClick={handleButtonClick}
         >
           🔎
         </Button>
       </Form>
 
-      <Modal show={showModal} onHide={handleCloseModal}>
+      <Modal show={showModal} onHide={handleCloseModal} centered>
         <Modal.Header closeButton>
-          <Modal.Title>Estado del envío:{trackingNumber}</Modal.Title>
+          <Modal.Title className="text-center">
+            Estado del envío: {trackingNumber}
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <ProgressBar
@@ -82,20 +85,15 @@ function SeguimientoEnvio() {
             animated
             now={60}
           />
-          <Table striped bordered hover>
+          <Table striped bordered hover responsive className="mt-3">
             <thead>
               <tr>
-                <th>Estado</th>
+                <th>Ingreso a sucursal</th>
+                <th>Despachado</th>
+                <th>En camino</th>
+                <th>Entregado</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td>Ingreso a sucursal</td>
-                <td>Despachado</td>
-                <td>En camino</td>
-                <td>Entregado</td>
-              </tr>
-            </tbody>
           </Table>
         </Modal.Body>
       </Modal>
