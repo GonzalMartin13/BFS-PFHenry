@@ -4,10 +4,15 @@ import Slider from "../Carrousel/Carrousel";
 import Image from "react-bootstrap/Image";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 const Home = () => {
-  return (
+  const users = useSelector((state) => state.users);
+  console.log(users);
 
+  return (
+    
     <div style={{ position: 'relative' }}>
       <Image src="https://selfpackaging.es/blog/wp-content/uploads/2019/03/entrega-paquete-1.jpg" fluid style={{ width: '100%', height: '600px' }}/>
       <div style={{ position: 'absolute', top: 50, left: 0, width: '100%', height: '100%' }}>
