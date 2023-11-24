@@ -1,3 +1,5 @@
+//funcionamiento PENDIENTE
+
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Form, Button, Row, Col } from "react-bootstrap";
@@ -72,6 +74,8 @@ function Login() {
   const handleRegisterClick = () => {
     navigate("/register");
   };
+
+  const { users } = useSelector((state) => state);
 
   // const prueba = () => {
   //   dispatch(

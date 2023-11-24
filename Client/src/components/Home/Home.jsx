@@ -55,7 +55,7 @@ const Home = () => {
         </Card>
       </Button>
 
-      <Button variant="">
+      <Button href="/sucursales" variant="">
         <Card style={{ width: "18rem" }}>
           <Card.Body>
             <Card.Title>Buscar sucursal</Card.Title>
