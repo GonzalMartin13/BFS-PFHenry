@@ -6,6 +6,8 @@ import Home from "./components/Home/Home";
 import About from "./views/About/About";
 import Footer from "./components/Footer/Footer";
 import CardContainer from "./components/CardContainer/CardContainer";
+import Register from "./views/register/register";
+
 import Mapa from "./components/Mapa/Mapa";
 import Pdf from "./components/Pdf/Pdf";
 
@@ -21,7 +23,9 @@ function App() {
 
   return (
     <>
-      {location.pathname !== "/login" && <NavBar />}
+      {location.pathname !== "/login" && location.pathname !== "/register" && (
+        <NavBar />
+      )}
 
       <Routes>
         <Route exact path="/" element={<Home />} />
@@ -33,6 +37,7 @@ function App() {
         <Route path="/servicios" element={<CardContainer />} />
         <Route path="/sucursales" element={<Mapa />} />
         <Route path="/envios" element={<MisEnvios />} />
+        <Route path="/register" element={<Register />} />
         <Route path="/guia" element={<Pdf />} />
       </Routes>
       <Footer />
