@@ -7,6 +7,7 @@ import About from "./views/About/About";
 import Footer from "./components/Footer/Footer";
 import CardContainer from "./components/CardContainer/CardContainer";
 import Mapa from "./components/Mapa/Mapa";
+import Pdf from "./components/Pdf/Pdf";
 
 
 import FormContact from "./components/Contact/Contact";
@@ -32,6 +33,7 @@ function App() {
         <Route path="/servicios" element={<CardContainer />} />
         <Route path="/sucursales" element={<Mapa />} />
         <Route path="/envios" element={<MisEnvios />} />
+        <Route path="/guia" element={<Pdf />} />
       </Routes>
       <Footer />
     </>
