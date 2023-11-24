@@ -1,6 +1,6 @@
 // userActions.js
 import axios from "axios";
-import { addUser } from "../Slices/userSlice"; // Asegúrate de importar addUser desde el archivo correcto
+import { addUser, logUser } from "../Slices/userSlice"; // Asegúrate de importar addUser desde el archivo correcto
 
 export function registerUser(input) {
   return async function (dispatch) {
@@ -9,11 +9,22 @@ export function registerUser(input) {
         "http://localhost:3001/user/register",
         input
       );
-      console.log("Respuesta del servidor:", response.data);
-      dispatch(addUser(response.data)); // Asume que el servidor devuelve un objeto con un campo 'id'
-      // Puedes dispatch otras acciones si es necesario
+
+      dispatch(addUser(response.data));
     } catch (error) {
       console.error("Error al registrar el usuario:", error);
+    }
+  };
+}
+
+export function loginUser(input) {
+  return async function (dispatch) {
+    try {
+      const response = await axios.put("http://localhost:3001/user/log", input);
+
+      dispatch(logUser(response.data));
+    } catch (error) {
+      console.error("Error al inciar sesion:", error);
     }
   };
 }

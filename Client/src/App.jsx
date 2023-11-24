@@ -20,7 +20,9 @@ function App() {
 
   return (
     <>
-      {location.pathname !== "/login" && <NavBar />}
+      {location.pathname !== "/login" && location.pathname !== "/register" && (
+        <NavBar />
+      )}
 
       <Routes>
         <Route exact path="/" element={<Home />} />

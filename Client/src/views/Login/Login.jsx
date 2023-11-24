@@ -1,9 +1,9 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { validar } from "./validacionlogin";
-import { addUser } from "../../redux/Slices/userSlice";
+import { logUser } from "../../redux/Slices/userSlice";
 import Swal from "sweetalert2";
 
 function Login() {
@@ -13,21 +13,11 @@ function Login() {
   const [input, setInput] = useState({
     email: "",
     password: "",
-    confirmPassword: "",
-    nombre: "",
-    apellido: "",
-    telefono: "",
-    direccion: "",
   });
 
   const [errors, setErrors] = useState({
     email: "",
     password: "",
-    confirmPassword: "",
-    nombre: "",
-    apellido: "",
-    telefono: "",
-    direccion: "",
   });
 
   const [showForm, setShowForm] = useState(false);
@@ -51,41 +41,19 @@ function Login() {
   };
 
   function disableHandler() {
-    if (isRegistering) {
-      return (
-        errors.email ||
-        errors.password ||
-        errors.confirmPassword ||
-        !input.email ||
-        !input.password ||
-        !input.confirmPassword
-      );
-    } else {
-      return errors.email || errors.password || !input.email || !input.password;
-    }
+    return errors.email || errors.password || !input.email || !input.password;
   }
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    dispatch(addUser(input));
+    dispatch(logUser(input));
     setInput({
       email: "",
       password: "",
-      confirmPassword: "",
-      nombre: "",
-      apellido: "",
-      telefono: "",
-      direccion: "",
     });
 
-    if (isRegistering) {
-      Swal.fire({
-        title: "Registrado Exitosamente",
-        text: "Te has registrado en BFS",
-        icon: "success",
-      });
-    } else {
+    {
       Swal.fire({
         title: "Sesión iniciada",
         text: "Has iniciado sesión exitosamente",
@@ -102,78 +70,25 @@ function Login() {
   };
 
   const handleRegisterClick = () => {
-    // Redirecciona a la ruta "/register" al hacer clic en "Registrarse"
     navigate("/register");
   };
+
+  // const prueba = () => {
+  //   dispatch(
+  //     logUser({ email: "angellabruna@gmail.com ", password: "angel123  " })
+  //   );
+  //   setInput({
+  //     email: "",
+  //     password: "",
+  //   });
+  // };
 
   return (
     <Row className="justify-content-center align-items-center min-vh-100">
       <Col md={4}>
         {showForm && (
           <Form onSubmit={handleSubmit}>
-            {isRegistering && (
-              <>
-                {/* Nombre y Apellido en la misma línea */}
-                <Row className="mb-3">
-                  <Col>
-                    <Form.Control
-                      name="nombre"
-                      value={input.nombre}
-                      onChange={handleChange}
-                      type="text"
-                      placeholder="Nombre"
-                      size="sm"
-                    />
-                    {errors.nombre && (
-                      <span className="text-danger">{errors.nombre}</span>
-                    )}
-                  </Col>
-                  <Col>
-                    <Form.Control
-                      name="apellido"
-                      value={input.apellido}
-                      onChange={handleChange}
-                      type="text"
-                      placeholder="Apellido"
-                      size="sm"
-                    />
-                    {errors.apellido && (
-                      <span className="text-danger">{errors.apellido}</span>
-                    )}
-                  </Col>
-                </Row>
-
-                {/* Teléfono y Dirección en la misma línea */}
-                <Row className="mb-3">
-                  <Col>
-                    <Form.Control
-                      name="telefono"
-                      value={input.telefono}
-                      onChange={handleChange}
-                      type="text"
-                      placeholder="Teléfono"
-                      size="sm"
-                    />
-                    {errors.telefono && (
-                      <span className="text-danger">{errors.telefono}</span>
-                    )}
-                  </Col>
-                  <Col>
-                    <Form.Control
-                      name="direccion"
-                      value={input.direccion}
-                      onChange={handleChange}
-                      type="text"
-                      placeholder="Dirección"
-                      size="sm"
-                    />
-                    {errors.direccion && (
-                      <span className="text-danger">{errors.direccion}</span>
-                    )}
-                  </Col>
-                </Row>
-              </>
-            )}
+            {isRegistering && <></>}
 
             {/* Email y Password */}
             <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -202,22 +117,6 @@ function Login() {
                 <span className="text-danger">{errors.password}</span>
               )}
             </Form.Group>
-
-            {/* Confirm Password */}
-            {isRegistering && (
-              <Form.Group className="mb-3" controlId="formBasicConfirmPassword">
-                <Form.Control
-                  name="confirmPassword"
-                  value={input.confirmPassword}
-                  onChange={handleChange}
-                  type="password"
-                  placeholder="Confirm Password"
-                />
-                {errors.confirmPassword && (
-                  <span className="text-danger">{errors.confirmPassword}</span>
-                )}
-              </Form.Group>
-            )}
 
             <Button
               disabled={disableHandler()}

@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   users: [],
+  logUsers: [],
 };
 
 export const userSlice = createSlice({
@@ -10,12 +11,16 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     addUser: (state, action) => {
-      // Almacena el ID del usuario en lugar de todo el objeto del usuario
       state.users.push(action.payload);
+    },
+    logUser: (state, action) => {
+      state.logUsers.push(action.payload);
     },
   },
 });
 
-export const { addUser } = userSlice.actions;
+console.log(initialState);
+
+export const { addUser, logUser } = userSlice.actions;
 
 export default userSlice.reducer;
