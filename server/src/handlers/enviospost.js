@@ -1,4 +1,5 @@
 const contolerPrecio = require("../controllers/controlerPrecio")
+
 const cotizarHandler = async(req, res) =>{
     const {origen, destino, largo, ancho, alto, peso, servicios} = req.body
     const volumen = (ancho * largo * alto);
