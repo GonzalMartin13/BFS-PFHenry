@@ -4,7 +4,7 @@ const Slider = () => {
   return (
     <>
       <Carousel>
-      <Carousel.Item interval={700}>
+      <Carousel.Item interval={4000}>
           <img
             className="d-block mx-auto w-50"
             src="https://i.imgur.com/agQUfTA.png"
@@ -19,7 +19,7 @@ const Slider = () => {
             <h4 style={{ color: "black" }}>Flota moderna <br /> y eficiente</h4>
           </Carousel.Caption>
         </Carousel.Item>
-      <Carousel.Item interval={1000}>
+      <Carousel.Item>
           <img
             className="d-block mx-auto w-50"
             src="https://noticiaslogisticaytransporte.com/wp-content/uploads/2015/11/entrega-paquetes-online.jpg"
@@ -32,7 +32,7 @@ const Slider = () => {
 
           </Carousel.Caption>
         </Carousel.Item>
-      <Carousel.Item interval={1000}>
+      <Carousel.Item>
           <img
             className="d-block mx-auto w-50"
             src="https://www.beetrack.com/hs-fs/hubfs/entrega%20de%20paquetes%20fedex.jpg?width=724&name=entrega%20de%20paquetes%20fedex.jpg"
@@ -44,7 +44,7 @@ const Slider = () => {
             <h4 style={{ color: "black" }}>Reciba su paquete <br /> en la comodidad <br /> de su hogar</h4>
           </Carousel.Caption>
         </Carousel.Item>
-        <Carousel.Item interval={1000}>
+        <Carousel.Item>
           <img
             className="d-block mx-auto w-50"
             src="https://thelogisticsworld.com/wp-content/uploads/2021/12/servicios-paqueteria.jpg"

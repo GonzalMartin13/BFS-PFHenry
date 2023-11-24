@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useState, useEffect, useRef } from "react";
 import {
   Button,
   Form,
@@ -21,6 +22,7 @@ import icoCaja from "./utils/caja.png";
 import icoCuidado from "./utils/alerta.png";
 import icoSobre from "./utils/correo-electronico.png";
 import icoCamara from "./utils/camara-reflex-digital.png";
+
 
 export default function QuoteForm() {
   const fileInputRef = useRef(null);
@@ -104,6 +106,11 @@ export default function QuoteForm() {
     return form.origen && form.destino;
   };
   return (
+    <div style={{ position: 'relative' }}>
+      <Image src="https://www.speedboy.cl/Images/index3xx_02.png" fluid style={{ width: '100%', height: '300px' }}/>
+      <br />
+      <br />
+      <br />
     <Container className={style.containerForm} fluid>
       <Form
         onSubmit={handleFormSubmit}
@@ -401,5 +408,9 @@ export default function QuoteForm() {
         )}
       </>
     </Container>
+    <br />
+      <br />
+      <br />
+    </div>
   );
 }

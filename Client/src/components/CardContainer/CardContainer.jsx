@@ -2,9 +2,12 @@
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import styles from "../CardContainer/cardContainer.module.css"
+import Image from 'react-bootstrap/Image';
 
 const CardContainer = () => {
   return (
+    <div style={{ position: 'relative' }}>
+    <Image src="https://i.imgur.com/agQUfTA.png" fluid style={{ width: '100%', height: '300px' }}/>
     <div className={styles.divCard}>
       <div >
         <Card style={{ width: "18rem", height: "30rem", margin: "10px"}}>
@@ -69,9 +72,9 @@ const CardContainer = () => {
       </div>
     </div>
 
+ </div>
     // <div>
     //   <Card></Card>
-    // </div>
   );
 };
 
