@@ -14,10 +14,10 @@ return (
         <h1>En BFS</h1>
           <h2>¡Movemos tu mundo!</h2>
           <br />
-          <h4>Nuestra Misión:<br />
+          <h4><b>Nuestra Misión:</b><br />
           Nuestro compromiso es garantizar la seguridad e integridad de los valores de nuestros clientes, brindar una excelente asesoría y superar continuamente sus expectativas. Cada miembro de la gran familia Liberty Express trabaja con honestidad y está calificado para brindar a nuestros clientes la mejor atención..</h4>
           <br />
-          <h4>Nuestra Visión</h4>
+          <h4><b>Nuestra Visión</b></h4>
           
           <h4>Continuar siendo la empresa número uno del mercado en el transporte de compras por internet, y encomiendas,manteniendo a nuestros trabajadores comprometidos y capacitados con tecnología de punta para garantizar un servicio de calidad y con presencia en nuevos mercados.</h4>
         </div>

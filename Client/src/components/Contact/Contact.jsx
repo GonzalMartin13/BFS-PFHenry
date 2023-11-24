@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import Image from 'react-bootstrap/Image';
+import contacto from "../../assets/contacto.png"
 import {
   validateName,
   validatePhone,
@@ -83,6 +85,9 @@ function FormContact() {
 
   return (
     <div>
+    <Image src={contacto} fluid style={{ width: '100%', height: '300px' }}/>
+    <br />
+    <br />
       <h1>Contactanos</h1>
       <br />
       <p>Tienes dudas, comentarios, recomendaciones envianos un mensaje. </p>
@@ -132,6 +137,8 @@ function FormContact() {
           </div>
         )}
       </div>
+      <br />
+      <br />
     </div>
   );
 }

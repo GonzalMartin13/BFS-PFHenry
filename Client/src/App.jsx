@@ -6,9 +6,9 @@ import Home from "./components/Home/Home";
 import About from "./views/About/About";
 import Footer from "./components/Footer/Footer";
 import CardContainer from "./components/CardContainer/CardContainer";
+import Register from "./views/register/register";
+
 import Mapa from "./components/Mapa/Mapa";
-
-
 import FormContact from "./components/Contact/Contact";
 import Login from "./views/Login/Login";
 import MisEnvios from "./components/misEnvios/misEnvios";
@@ -20,7 +20,9 @@ function App() {
 
   return (
     <>
-      {location.pathname !== "/login" && <NavBar />}
+      {location.pathname !== "/login" && location.pathname !== "/register" && (
+        <NavBar />
+      )}
 
       <Routes>
         <Route exact path="/" element={<Home />} />
@@ -32,6 +34,7 @@ function App() {
         <Route path="/servicios" element={<CardContainer />} />
         <Route path="/sucursales" element={<Mapa />} />
         <Route path="/envios" element={<MisEnvios />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
       <Footer />
     </>
