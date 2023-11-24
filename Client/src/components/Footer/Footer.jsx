@@ -1,8 +1,10 @@
 import style from "./Footer.module.css";
 import { Container, Row, Col } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-
+import fb from "../../assets/fb.png"
+import insta from "../../assets/insta.png"
 import image from "../../assets/logo.png";
+import linkedin from "../../assets/linkedin.png"
 
 const Footer = () => {
   return (
@@ -17,11 +19,9 @@ const Footer = () => {
           <Col md={3}>
             <p className={style.colum1_p}>Mas informacion sobre BFS </p>
             <span className={style.colum1_spn}>
-              Es una empresa de envíos de paquetería que ofrece soluciones
-              logísticas rápidas, confiables y de alta calidad. Está
-              comprometida con la satisfacción de sus clientes y utiliza la
-              última tecnología para garantizar que sus envíos lleguen a su
-              destino de manera segura y oportuna.
+             <a href="/about"><p>Quienes Somos</p></a>
+             <a href="/sucursales"><p>Sucursales</p></a>
+             <a href="/servicios"><p>Servicios</p></a>
             </span>
           </Col>
           <Col md={3}>
@@ -59,63 +59,25 @@ const Footer = () => {
                 bfs01@gmail.com
               </a>
             </div>
+            <div className={style.row2}>
+              <img src="https://i.imgur.com/6cAn2M9.png" alt="" />
+              <a
+                className={style.link}
+                href="http://localhost:5173/sucursales"
+              
+                rel="noopener noreferrer"
+                >
+                sucursales
+              </a>
+            </div>
           </Col>
           <Col md={3}>
             <p className={style.colum1_p}>Redes Sociales</p>
             <div className={style.gd}>
-              <div className={style.row}>
-                <img src="https://i.ibb.co/ynz3ySx/ico-github.png" alt="" />
-                <a
-                  href="https://github.com/Lumari-suma"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Lumary S.
-                </a>
-              </div>
-              <div className={style.row}>
-                <img src="https://i.ibb.co/ynz3ySx/ico-github.png" alt="" />
-                <a href="https://github.com/GonzalMartin13" target="_blank"
-                rel="noopener noreferrer"
-                >
-                  Martin G.
-                </a>
-              </div>
-              <div className={style.row}>
-                <img src="https://i.ibb.co/ynz3ySx/ico-github.png" alt="" />
-                <a href="https://github.com/MarcelCausone" target="_blank"
-                rel="noopener noreferrer"
-                >
-                  Marcel C.
-                </a>
-              </div>
-              <div className={style.row}>
-                <img src="https://i.ibb.co/ynz3ySx/ico-github.png" alt="" />
-                <a href="https://github.com/xavierCS78" target="_blank"
-                rel="noopener noreferrer"
-                >
-                  Javier
-                </a>
-              </div>
-              <div className={style.row}>
-                <img src="https://i.ibb.co/ynz3ySx/ico-github.png" alt="" />
-                <a href=" https://github.com/DFHenaoTigreros" target="_blank">
-                  David H.
-                </a>
-              </div>
-              <div className={style.row}>
-                <img src="https://i.ibb.co/ynz3ySx/ico-github.png" alt="" />
-                <a href="  https://github.com/CEGGonzalez" target="_blank">
-                Carlos G.
-                </a>
-              </div>
-              <div className={style.row}>
-                <img src="https://i.ibb.co/ynz3ySx/ico-github.png" alt="" />
-                <a href="https://github.com/FSamayoa" target="_blank"
-                rel="noopener noreferrer"
-                >
-                  Fernando S.
-                </a>
+               <div className={style.row}>
+               <p><img src={fb} alt="" /></p>  
+               <p><img src={insta} alt="" /></p>  
+               <p><img src={linkedin} alt="" /></p>  
               </div>
             </div>
           </Col>

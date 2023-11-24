@@ -1,4 +1,5 @@
 import SeguimientoEnvio from "../../components/seguimientoEnvio/seguimiento";
+import Cards from "../Card/Cards";
 import Slider from "../Carrousel/Carrousel";
 import Image from "react-bootstrap/Image";
 import Button from "react-bootstrap/Button";
@@ -23,7 +24,6 @@ const Home = () => {
       >
         <SeguimientoEnvio />
       </div>
-
       <br />
       <br />
       <h2 className="title-carousel margin center-items">
@@ -32,10 +32,17 @@ const Home = () => {
       <Slider />
       <br />
       <br />
+
       <h3 className="title-carousel margin center-items">
         ¡Conoce <b>nuestros servicios</b> adaptados a nuestros clientes!
       </h3>
       <br />
+
+      <h3 className="title-carousel margin center-items">
+        ¡Conoce <b>nuestros servicios</b> adaptados a nuestros clientes!
+      </h3>
+      <Cards />
+
       <br />
       <Button href="/envios" variant="">
         <Card style={{ width: "18rem" }}>
