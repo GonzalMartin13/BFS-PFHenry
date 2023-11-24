@@ -3,10 +3,9 @@ const { DataTypes } = require('sequelize');
 module.exports = (sequelize) => {
     sequelize.define('Shipment', {
         id: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.UUID,
             primaryKey: true,
-            allowNull: false,
-            autoIncrement: true
+            defaultValue: DataTypes.UUIDV4,
         },
         name: {
             type: DataTypes.STRING,
@@ -28,7 +27,7 @@ module.exports = (sequelize) => {
             type: DataTypes.FLOAT,
             allowNull: false,
           },
-          email: {
+        email: {
             type: DataTypes.STRING,
             allowNull: false,
             unique: true,
