@@ -4,8 +4,8 @@ import userReducer from "../Slices/userSlice";
 import quoterReducer from "../Slices/quoterslice";
 export const store = configureStore({
   reducer: {
-    user: userReducer,
     quoter: quoterReducer,
+    user: userReducer,
     // packages: packageReducer,
   },
 });
