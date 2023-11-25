@@ -27,6 +27,7 @@ import icoSobre from "./utils/correo-electronico.png";
 import icoCamara from "./utils/camara-reflex-digital.png";
 import { useDispatch, useSelector } from "react-redux";
 import { setState } from "../../redux/Slices/quoterslice";
+import { PiMapPinThin } from "react-icons/pi";
 export default function QuoteForm() {
   const dispatch = useDispatch();
   const quoteState = useSelector((state) => state.quoter);
@@ -48,6 +49,7 @@ export default function QuoteForm() {
     alto: "",
     peso: "",
     servicios: [],
+    imagen: "",
   });
   // history para ir a otra ubicacion despues de una accion
   const navigate = useNavigate();
@@ -134,7 +136,12 @@ export default function QuoteForm() {
         >
           <div className="row">
             <div className="col-md-6 mb-3">
-              <h3>Origen </h3>
+              <h3>
+                Origen
+                <>
+                  <PiMapPinThin />
+                </>
+              </h3>
 
               <Form.Select
                 name="origen"
@@ -153,7 +160,12 @@ export default function QuoteForm() {
             </div>
 
             <div className="col-md-6 mb-3">
-              <h3>Destino</h3>
+              <h3>
+                Destino
+                <>
+                  <PiMapPinThin />
+                </>
+              </h3>
               <Form.Select
                 name="destino"
                 value={form.destino}
@@ -367,18 +379,20 @@ export default function QuoteForm() {
               )}
             </Form.Group>
           </Form.Group>
-          <Button
-            style={{
-              padding: "5px 30px",
-              fontSize: "25px",
-              marginBottom: "40px",
-            }}
-            variant="primary"
-            type="submit"
-            disabled={!isFormValid()}
-          >
-            Cotizar
-          </Button>
+          <>
+            <Button
+              style={{
+                padding: "5px 30px",
+                fontSize: "25px",
+                marginBottom: "40px",
+              }}
+              variant="primary"
+              type="submit"
+              disabled={!isFormValid()}
+            >
+              Cotizar
+            </Button>
+          </>
         </Form>
         <>
           {total ? (
