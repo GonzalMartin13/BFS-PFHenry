@@ -8,27 +8,27 @@ module.exports = (sequelize) => {
          allowNull: false,
          autoIncrement: true
     },
-        name: {
+        nameReceive: {
             type: DataTypes.STRING,
             allowNull: false,
           },
-        address: {
+        addressReceive: {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        city: {
+        cityReceive: {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        province: {
+        provinceReceive: {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        phone: {
+        phoneReceive: {
             type: DataTypes.FLOAT,
             allowNull: false,
           },
-          email: {
+          emailReceive: {
             type: DataTypes.STRING,
             allowNull: false,
             unique: true,
