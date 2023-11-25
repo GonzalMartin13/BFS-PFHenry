@@ -1,3 +1,4 @@
+
 import { Form, Button, Row, Col } from "react-bootstrap";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -26,15 +27,21 @@ function Register() {
   });
 
   const handleChange = (event) => {
+
+  if(event.target.name !== "confirmPassword"){
     setInput({
       ...input,
       [event.target.name]: event.target.value,
     });
+  }
+   
 
     const validationErrors = validarr({
       ...input,
       [event.target.name]: event.target.value,
     });
+
+    
 
     setErrors({
       ...errors,
@@ -84,8 +91,8 @@ function Register() {
               placeholder="Nombre"
               size="sm"
             />
-            {errors.nombre && (
-              <span className="text-danger">{errors.nombre}</span>
+            {errors.name && (
+              <span className="text-danger">{errors.name}</span>
             )}
           </Col>
           <Col>
@@ -97,8 +104,8 @@ function Register() {
               placeholder="Apellido"
               size="sm"
             />
-            {errors.apellido && (
-              <span className="text-danger">{errors.apellido}</span>
+            {errors.lastName && (
+              <span className="text-danger">{errors.lastName}</span>
             )}
           </Col>
         </Row>
@@ -114,8 +121,8 @@ function Register() {
               placeholder="Teléfono"
               size="sm"
             />
-            {errors.telefono && (
-              <span className="text-danger">{errors.telefono}</span>
+            {errors.phone && (
+              <span className="text-danger">{errors.phone}</span>
             )}
           </Col>
           <Col>
@@ -127,8 +134,8 @@ function Register() {
               placeholder="Dirección"
               size="sm"
             />
-            {errors.direccion && (
-              <span className="text-danger">{errors.direccion}</span>
+            {errors.address && (
+              <span className="text-danger">{errors.address}</span>
             )}
           </Col>
         </Row>
@@ -151,7 +158,7 @@ function Register() {
             name="password"
             value={input.password}
             onChange={handleChange}
-            type="password"
+            type="password"yyyy
             placeholder="Password"
           />
           {errors.password && (
@@ -161,13 +168,13 @@ function Register() {
 
         {/* Confirm Password */}
         <Form.Group className="mb-3" controlId="formBasicConfirmPassword">
-          {/* <Form.Control
+          <Form.Control
             name="confirmPassword"
             value={input.confirmPassword}
             onChange={handleChange}
             type="password"
             placeholder="Confirm Password"
-          /> */}
+          />
           {errors.confirmPassword && (
             <span className="text-danger">{errors.confirmPassword}</span>
           )}

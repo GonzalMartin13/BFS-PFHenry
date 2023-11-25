@@ -8,8 +8,7 @@ import { useSelector } from "react-redux";
 import { useEffect } from "react";
 
 const Home = () => {
-  const users = useSelector((state) => state.users);
-  console.log(users);
+  const isLogged = useSelector((state)=>state.user.isLoggedIn)
 
   return (
     
@@ -39,7 +38,8 @@ const Home = () => {
       <Cards />
 
       <br />
-      <Button href="/envios" variant="">
+
+      <Button  href={isLogged ? "/envios" : "/login"} variant="">
         <Card style={{ width: "18rem" }}>
           <Card.Body>
             <Card.Title>Ver mis envíos</Card.Title>

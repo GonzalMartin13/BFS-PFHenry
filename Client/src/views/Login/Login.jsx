@@ -1,11 +1,14 @@
+//funcionamiento PENDIENTE
 
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { validar } from "./validacionlogin";
-import { loginUser } from "../../redux/actions/userActions";
+// import { loginUser } from "../../redux/actions/userActions";
+import {login} from "../../redux/Slices/userSlice"
 import Swal from "sweetalert2";
+import axios from "axios"
 
 function Login() {
   const navigate = useNavigate();
@@ -45,25 +48,62 @@ function Login() {
     return errors.email || errors.password || !input.email || !input.password;
   }
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmitt = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await axios.get("http://localhost:3001/user");
+      const userCoincidende = response.data.some((usuario) => usuario.email === input.email);
+      
+      if (userCoincidende) {
+        setInput({
+          email: "",
+          password: "",
+        });
+  
+        Swal.fire({
+          title: "Sesión iniciada",
+          text: "Has iniciado sesión exitosamente",
+          icon: "success",
+        });
 
-    dispatch(loginUser(input));
-    setInput({
-      email: "",
-      password: "",
-    });
+        dispatch(login())
 
-    {
-      Swal.fire({
-        title: "Sesión iniciada",
-        text: "Has iniciado sesión exitosamente",
-        icon: "success",
-      });
+  
+        navigate("/");
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "El usuario no ha sido encontrado",
+          text: "Prueba registrarte",
+          footer: '<a href="#">Haz olvidado tu contraseña?</a>',
+        });
+        
+      }
+    } catch (error) {
+      console.error("Error al iniciar sesión:", error);
     }
-
-    navigate("/");
   };
+  
+
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+
+  //   dispatch(loginUser(input));
+  //   setInput({
+  //     email: "",
+  //     password: "",
+  //   });
+
+  //   {
+  //     Swal.fire({
+  //       title: "Sesión iniciada",
+  //       text: "Has iniciado sesión exitosamente",
+  //       icon: "success",
+  //     });
+  //   }
+
+  //   navigate("/");
+  // };
 
   const handleLoginClick = () => {
     setShowForm(true);
@@ -74,14 +114,23 @@ function Login() {
     navigate("/register");
   };
 
+  const { users } = useSelector((state) => state);
 
-
+  // const prueba = () => {
+  //   dispatch(
+  //     logUser({ email: "angellabruna@gmail.com ", password: "angel123  " })
+  //   );
+  //   setInput({
+  //     email: "",
+  //     password: "",
+  //   });
+  // };
 
   return (
     <Row className="justify-content-center align-items-center min-vh-100">
       <Col md={4}>
         {showForm && (
-          <Form onSubmit={handleSubmit}>
+          <Form onSubmit={handleSubmitt}>
             {isRegistering && <></>}
 
             {/* Email y Password */}

@@ -6,11 +6,14 @@ import ProgressBar from "react-bootstrap/ProgressBar";
 import Table from "react-bootstrap/Table";
 import Image from "react-bootstrap/Image";
 
+
 import "./MisEnvios.css";
 
 function MisEnvios() {
   const [showModal, setShowModal] = useState(false);
   const [trackingInfo, setTrackingInfo] = useState(null);
+
+
   
 
   const handleEstadoButtonClick = (info) => {
