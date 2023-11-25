@@ -15,7 +15,7 @@ export const handleUpload = async (file) => {
         },
       }
     );
-
+    console.log(response);
     const imageUrl = response.data.url;
     return imageUrl;
   } catch (error) {

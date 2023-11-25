@@ -1,6 +1,7 @@
-const axios = require("axios")
+const axios = require("axios");
 
 const contolerPrecio = async (origen, destino, volumen, peso, servicios) => {
+
     if (!origen || !destino) {
         return "Los parámetros origen y destino son obligatorios";
     }
@@ -44,7 +45,7 @@ const contolerPrecio = async (origen, destino, volumen, peso, servicios) => {
     } catch (error) {
         console.error("Error al calcular el precio:", error.message);
         return "Hubo un error al calcular el precio";
-    }
+}
 };
 
-module.exports = contolerPrecio
+module.exports = contolerPrecio;
