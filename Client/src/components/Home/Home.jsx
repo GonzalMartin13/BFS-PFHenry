@@ -27,10 +27,6 @@ const Home = () => {
         ¡Conoce <b>nuestros servicios</b> adaptados a nuestros clientes!
       </h3>
       <br />
-
-      <h3 className="title-carousel margin center-items">
-        ¡Conoce <b>nuestros servicios</b> adaptados a nuestros clientes!
-      </h3>
       <Cards />
 
       <br />
