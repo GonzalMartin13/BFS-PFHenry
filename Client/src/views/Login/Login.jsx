@@ -75,17 +75,8 @@ function Login() {
     navigate("/register");
   };
 
-  const { users } = useSelector((state) => state);
 
-  // const prueba = () => {
-  //   dispatch(
-  //     logUser({ email: "angellabruna@gmail.com ", password: "angel123  " })
-  //   );
-  //   setInput({
-  //     email: "",
-  //     password: "",
-  //   });
-  // };
+
 
   return (
     <Row className="justify-content-center align-items-center min-vh-100">
