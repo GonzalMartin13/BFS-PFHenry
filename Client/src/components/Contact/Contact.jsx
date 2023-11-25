@@ -7,7 +7,6 @@ import {
   validateMail,
   validateMessage,
 } from "./validationContact";
-import Compra from "../Compra/Compra";
 
 function FormContact() {
   const [formName, setFormName] = useState("");
@@ -140,7 +139,6 @@ function FormContact() {
       </div>
       <br />
       <br />
-      <Compra></Compra>
     </div>
   );
 }
