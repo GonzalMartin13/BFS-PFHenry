@@ -1,14 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
-
 
 import {
+  Spinner,
   Button,
   Form,
   Card,
   FloatingLabel,
-  Alert,
   Col,
   Row,
   Container,
@@ -18,21 +16,22 @@ import style from "./quoteForm.module.css";
 import axios from "axios";
 import { provincias } from "./utils/provincias";
 import { resetForm, handleCheck } from "./utils/formUtils";
-import { handleUpload } from "./utils/uploadUtils";
 import icoTiempo from "./utils/tiempo-rapido.png";
 import icoDiscreto from "./utils/confidencial.png/";
 import icoCaja from "./utils/caja.png";
 import icoCuidado from "./utils/alerta.png";
 import icoSobre from "./utils/correo-electronico.png";
-import icoCamara from "./utils/camara-reflex-digital.png";
-import { useDispatch, useSelector } from "react-redux";
-import { setState } from "../../redux/Slices/quoterslice";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { setState, setTotal, clearState } from "../../redux/Slices/quoterslice";
+import { PiMapPinThin } from "react-icons/pi";
+import Swal from "sweetalert2";
+
 export default function QuoteForm() {
   const dispatch = useDispatch();
-  const quoteState = useSelector((state) => state.quoter);
-  console.log(quoteState);
-  const fileInputRef = useRef(null);
-  const [total, setTotal] = useState();
+  const navigate = useNavigate();
+
+  const [loading, setLoading] = useState(false);
   const [servicios, setServicios] = useState({
     discreto: false,
     cuidado: false,
@@ -48,9 +47,9 @@ export default function QuoteForm() {
     alto: "",
     peso: "",
     servicios: [],
+    total: "",
   });
-  // history para ir a otra ubicacion despues de una accion
-  const navigate = useNavigate();
+
   //setea form(origen, destino, ancho, alto, largo,peso)
   function handleChange(event) {
     const { value, name } = event.target;
@@ -62,22 +61,51 @@ export default function QuoteForm() {
     const { name, checked } = e.target;
     handleCheck(name, checked, servicios, setServicios);
   };
-  //post a cloudinary y seteo form.imagen con url
-  const handleFileUpload = async (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      try {
-        const imageUrl = await handleUpload(file);
-      } catch (error) {
-        console.error(error);
-      }
+  //
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+
+    //estado para mostrar spiner
+    setLoading(true);
+
+    try {
+      const { data } = await axios.post("http://localhost:3001/envios/", form);
+
+      // Función de alerta
+
+      typeof data === "number" ? alertFloat(data.toFixed(2)) : noPrice(data);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
+  const noPrice = (mensaje) => {
+    return Swal.fire({
+      title: mensaje,
+    });
+  };
 
-  //borra  card imagen, limpia input de imagen y setea  (form.imagen="")
-  const onDelete = () => {
-    setForm({ ...form, imagen: "" });
-    fileInputRef.current.value = "";
+  const alertFloat = async (total) => {
+    setForm({ ...form, total: total });
+
+    return await Swal.fire({
+      title: `Total envio: $${total}`,
+      showCancelButton: true,
+      confirmButtonText: "Contratar ahora",
+      cancelButtonText: "En otro momento",
+    }).then((response) => {
+      if (response.isConfirmed) {
+        setForm({ ...form, total: total });
+        dispatch(setState(form));
+        dispatch(setTotal(total));
+        handleNavigation();
+      } else {
+        dispatch(clearState());
+        resetForm(setServicios, setForm);
+        dispatch(setTotal(0));
+      }
+    });
   };
   //actualiza form.servicios con valor de objeto pasado a array de estado "servicio" solo si si la propiedad tiene valor true
   useEffect(() => {
@@ -89,28 +117,13 @@ export default function QuoteForm() {
     });
   }, [servicios]);
   //post a servidor
-  const handleFormSubmit = async (event) => {
-    event.preventDefault();
 
-    try {
-      const response = await axios.post("http://localhost:3001/envios/", form);
-      setTotal(response.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  const handleContractClick = () => {
-      dispatch(setState(form));
-      navigate("/confirmacion");
-  };
-
-  //limpio todos los estados
-  const ClearStates = () => {
-    resetForm(setTotal, setServicios, setForm);
-  };
   //validacion provisoria
   const isFormValid = () => {
     return form.origen && form.destino;
+  };
+  const handleNavigation = () => {
+    return navigate("/confirmacion");
   };
   return (
     <div style={{ position: "relative" }}>
@@ -121,6 +134,7 @@ export default function QuoteForm() {
           style={{ width: "100%", height: "180px" }}
         />
       </div>
+
       <Container className={style.containerForm} fluid>
         <Form
           onSubmit={handleFormSubmit}
@@ -134,7 +148,12 @@ export default function QuoteForm() {
         >
           <div className="row">
             <div className="col-md-6 mb-3">
-              <h3>Origen </h3>
+              <h3>
+                Origen
+                <>
+                  <PiMapPinThin />
+                </>
+              </h3>
 
               <Form.Select
                 name="origen"
@@ -153,7 +172,12 @@ export default function QuoteForm() {
             </div>
 
             <div className="col-md-6 mb-3">
-              <h3>Destino</h3>
+              <h3>
+                Destino
+                <>
+                  <PiMapPinThin />
+                </>
+              </h3>
               <Form.Select
                 name="destino"
                 value={form.destino}
@@ -248,52 +272,7 @@ export default function QuoteForm() {
               checked={servicios.express}
             />
 
-            <Form.Group className={style.seccionPostCloud}>
-              {form.servicios.includes("cuidado") && (
-                <>
-                  <Form.Group style={{ marginTop: "10px" }}>
-                    <h4>
-                      Puedes dejar constancia del estado del producto que envias
-                      <span style={{ marginLeft: "4px" }}>
-                        <Image
-                          src={icoCamara}
-                          rounded
-                          width="23px"
-                          alt="Express"
-                        />
-                      </span>
-                    </h4>
-
-                    <Form.Control
-                      ref={fileInputRef}
-                      onChange={handleFileUpload}
-                      type="file"
-                    />
-                  </Form.Group>
-
-                  {form.imagen !== "" && (
-                    <div className={style.card}>
-                      <Card.Img src={form.imagen} className={style.imag} />
-
-                      <Button
-                        variant="danger"
-                        onClick={onDelete}
-                        style={{
-                          margin: 0,
-                          position: "absolute",
-                          top: -1,
-                          right: -2,
-                          fontSize: "0.7rem",
-                          zIndex: 1,
-                        }}
-                      >
-                        X
-                      </Button>
-                    </div>
-                  )}
-                </>
-              )}
-            </Form.Group>
+            {loading && <Spinner animation="border" role="status" />}
 
             <Form.Group className="mb-3" style={{ height: "230px" }}>
               {servicios.carteria ? null : (
@@ -367,62 +346,22 @@ export default function QuoteForm() {
               )}
             </Form.Group>
           </Form.Group>
-          <Button
-            style={{
-              padding: "5px 30px",
-              fontSize: "25px",
-              marginBottom: "40px",
-            }}
-            variant="primary"
-            type="submit"
-            disabled={!isFormValid()}
-          >
-            Cotizar
-          </Button>
-        </Form>
-        <>
-          {total ? (
-            <Alert
-              variant="primary"
+
+          <>
+            <Button
               style={{
-                position: "fixed",
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-                zIndex: 9999,
+                padding: "5px 30px",
+                fontSize: "25px",
+                marginBottom: "40px",
               }}
+              variant="primary"
+              type="submit"
+              disabled={!isFormValid()}
             >
-              {` Costo de envio 💲${total} `}
-              {
-                <Button
-                  style={{
-                    margin: "8px",
-                    width: "200px",
-                    padding: "10px",
-                    fontSize: "18px",
-                  }}
-                  variant="info"
-                  size="lg"
-                  onClick={handleContractClick}
-                >
-                  Contratar ahora
-                </Button>
-              }
-              {
-                <Button
-                  size="xs"
-                  style={{ marginLeft: "8px" }}
-                  variant="light"
-                  onClick={ClearStates}
-                >
-                  en otro momento
-                </Button>
-              }
-            </Alert>
-          ) : (
-            ""
-          )}
-        </>
+              Cotizar
+            </Button>
+          </>
+        </Form>
       </Container>
     </div>
   );

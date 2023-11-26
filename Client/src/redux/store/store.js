@@ -6,6 +6,8 @@ import userReducer from "../Slices/userSlice";
 // import packageReducer from "../Slices/packageSlice";
 import quoterReducer from "../Slices/quoterslice";
 
+import shippingReducer from "../Slices/shippingSlice";
+
 const persistConfig = {
   key: "root",
   storage,
@@ -16,6 +18,9 @@ const persistedReducer = persistReducer(
   combineReducers({
     user: userReducer,
     quoter: quoterReducer,
+
+    shipping: shippingReducer,
+
     // packages: packageReducer,
   })
 );

@@ -9,14 +9,24 @@ const initialState = {
   peso: "",
   servicios: [],
   total: "",
+  imagen: "",
 };
-const quoterSlice = createSlice({
-  name: "shippingInfo",
+const shippingSlice = createSlice({
+  name: "shippingData",
   initialState,
   reducers: {
-    setState: (state, action) => {
-      const { origen, destino, largo, ancho, alto, peso, servicios, total } =
-        action.payload;
+    setShippingState: (state, action) => {
+      const {
+        imagen,
+        origen,
+        destino,
+        largo,
+        ancho,
+        alto,
+        peso,
+        servicios,
+        total,
+      } = action.payload;
       state.origen = origen;
       state.destino = destino;
       state.largo = largo;
@@ -25,11 +35,13 @@ const quoterSlice = createSlice({
       state.peso = peso;
       state.servicios = servicios;
       state.total = total;
+      state.imagen = imagen;
     },
-    setTotal: (state, action) => {
-      state.total = action.payload;
+    setImagen: (state, action) => {
+      state.imagen = action.payload;
     },
-    clearState: (state, action) => {
+
+    clearShippingState: (state, action) => {
       state.origen = "";
       state.destino = "";
       state.largo = "";
@@ -38,8 +50,10 @@ const quoterSlice = createSlice({
       state.peso = "";
       state.servicios = [];
       state.total = "";
+      state.imagen = "";
     },
   },
 });
-export const { setState, clearState, setTotal } = quoterSlice.actions;
-export default quoterSlice.reducer;
+export const { setShippingState, clearShippingState, setImagen } =
+  shippingSlice.actions;
+export default shippingSlice.reducer;
