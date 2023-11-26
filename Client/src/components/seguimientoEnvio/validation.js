@@ -1,11 +1,11 @@
 export function validate(input) {
   let errors = {};
 
-  if (!input.numero.trim()) {
-    errors.numero = "El número es requerido.";
-  } else if (input.numero.length > 8) {
-    errors.numero = "Exceso de caracteres";
-  }
+  if (!/^\d+$/.test(input.numero)) {
+    errors.numero = "El número ingresado es incorrecto. Por favor, ingrese un valor correcto.";
+  } else if (input.numero.length < 5) {
+    errors.numero = "El número de envío es demasiado corto.";
+  } 
 
   return errors;
 }
