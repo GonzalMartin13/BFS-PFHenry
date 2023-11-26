@@ -1,5 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+
 
 import {
   Button,
@@ -47,8 +49,8 @@ export default function QuoteForm() {
     peso: "",
     servicios: [],
   });
-  //
-
+  // history para ir a otra ubicacion despues de una accion
+  const navigate = useNavigate();
   //setea form(origen, destino, ancho, alto, largo,peso)
   function handleChange(event) {
     const { value, name } = event.target;
@@ -98,7 +100,8 @@ export default function QuoteForm() {
     }
   };
   const handleContractClick = () => {
-    dispatch(setState(form));
+      dispatch(setState(form));
+      navigate("/confirmacion");
   };
 
   //limpio todos los estados
