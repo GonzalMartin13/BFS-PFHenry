@@ -2,12 +2,12 @@ import { Route, Routes, useLocation } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "../src/redux/store/store";
 import NavBar from "./components/NavBar/NavBar";
-import QuoteForm from "./components/QuoteForm/QuoteForm";
 import Home from "./components/Home/Home";
 import About from "./views/About/About";
 import Footer from "./components/Footer/Footer";
 import CardContainer from "./components/CardContainer/CardContainer";
 import Register from "./views/register/register";
+import QuoteForm from "./components/QuoteForm/QuoteForm";
 
 import Mapa from "./components/Mapa/Mapa";
 import Pdf from "./components/Pdf/Pdf";

@@ -1,5 +1,4 @@
-export const resetForm = (setTotal, setServicios, setForm) => {
-  setTotal(null);
+export const resetForm = (setServicios, setForm) => {
   setServicios({
     discreto: false,
     cuidado: false,
