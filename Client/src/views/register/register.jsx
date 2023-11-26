@@ -1,7 +1,6 @@
-
 import { Form, Button, Row, Col } from "react-bootstrap";
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { validarr } from "./validateRegister";
 import { registerUser } from "../../redux/actions/userActions";
@@ -15,6 +14,7 @@ function Register() {
     address: "",
     email: "",
     password: "",
+  
   });
 
   const [errors, setErrors] = useState({
@@ -24,30 +24,42 @@ function Register() {
     address: "",
     email: "",
     password: "",
+    confirmPassword: "",
   });
 
-  const handleChange = (event) => {
+  const [formValid, setFormValid] = useState(false);
 
-  if(event.target.name !== "confirmPassword"){
-    setInput({
-      ...input,
-      [event.target.name]: event.target.value,
-    });
-  }
-   
+  const handleChange = (event) => {
+    if (event.target.name !== "confirmPassword") {
+      setInput({
+        ...input,
+        [event.target.name]: event.target.value,
+      });
+    }
 
     const validationErrors = validarr({
       ...input,
       [event.target.name]: event.target.value,
     });
 
-    
-
     setErrors({
       ...errors,
       [event.target.name]: validationErrors[event.target.name],
     });
   };
+
+  const validateForm = () => {
+    // Verificar que todos los campos estén llenos y no haya errores
+    const isValid =
+      Object.values(input).every((value) => value !== "") &&
+      !Object.values(errors).some(Boolean);
+    setFormValid(isValid);
+  };
+
+  // Validar el formulario cada vez que cambian los campos o errores
+  useEffect(() => {
+    validateForm();
+  }, [input, errors]);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -65,6 +77,7 @@ function Register() {
         address: "",
         email: "",
         password: "",
+      
       });
 
       Swal.fire({
@@ -158,7 +171,7 @@ function Register() {
             name="password"
             value={input.password}
             onChange={handleChange}
-            type="password"yyyy
+            type="password"
             placeholder="Password"
           />
           {errors.password && (
@@ -180,14 +193,17 @@ function Register() {
           )}
         </Form.Group>
 
-        <Button
-          //   disabled={disableHandler()}
-          variant="primary"
-          type="submit"
-          className="mb-2"
-        >
-          Registrarse
-        </Button>
+        {/* Renderizar el botón solo si no hay errores */}
+        {!errors.phone && !errors.email && !errors.password && !errors.confirmPassword && (
+          <Button
+            disabled={!formValid}
+            variant="primary"
+            type="submit"
+            className="mb-2"
+          >
+            Registrarse
+          </Button>
+        )}
       </Form>
     </Row>
   );
