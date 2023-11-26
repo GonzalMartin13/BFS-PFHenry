@@ -1,6 +1,7 @@
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
+import Swal from "sweetalert2";
 
 // import NavDropdown from "react-bootstrap/NavDropdown";
 
@@ -8,8 +9,52 @@ import Offcanvas from "react-bootstrap/Offcanvas";
 import Button from "react-bootstrap/Button";
 import logo from "../../assets/logo.png";
 import { Image } from "react-bootstrap";
+import logoutIcon from "../../assets/logout.svg"
+import { useSelector,useDispatch } from "react-redux";
+import {logout} from "../../redux/Slices/userSlice"
 
 export default function NavBar() {
+
+const isLogged = useSelector((state)=>state.user.isLoggedIn)
+const dispatch = useDispatch()
+
+const Logout = (e) => {
+  e.preventDefault();
+
+  const swalWithBootstrapButtons = Swal.mixin({
+    customClass: {
+      confirmButton: "btn btn-success",
+      cancelButton: "btn btn-danger"
+    },
+    buttonsStyling: false
+  });
+
+  swalWithBootstrapButtons
+    .fire({
+      title: "Estas seguro?",
+      text: "Cerraras la sesión",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Si, cerrar sesión",
+      cancelButtonText: "No, Cancelar",
+      reverseButtons: true
+    })
+    .then((result) => {
+      if (result.isConfirmed) {
+        // Realiza el logout solo si el usuario confirma
+        dispatch(logout());
+        
+        // Muestra un mensaje de éxito después del logout
+        swalWithBootstrapButtons.fire({
+          title: "Sesión cerrada!",
+          text: "Haz cerrado sesíón",
+          icon: "success"
+        });
+      } 
+    });
+};
+
+
   return (
     <>
       {[false].map((expand) => (
@@ -27,12 +72,29 @@ export default function NavBar() {
           <Navbar.Brand href="/">
             <Image src={logo} alt="Logo BFS" style={{ height: "55px" }} />
           </Navbar.Brand>
-          <div className="ms-auto">
-            <Button href="/login" variant="outline-success">
-              Ingresar
+          {!isLogged ? (
+  <div className="ms-auto">
+    <Button href="/login" variant="outline-success">
+      Ingresar
+    </Button>
+  </div>
+) : (
+  <div className="ms-auto">
+    <Button onClick={Logout} variant="outline-success">
+      <img src={logoutIcon} alt="Logout Icon" />
+    </Button>
+  </div>
+)}
+         
+          {/* {isLogged &&  
+           <div className="ms-auto">
+            <Button onClick={Logout}   variant="outline-success">
+            <img src={logoutIcon} alt="Logout Icon" />
             </Button>
-          </div>
+          </div>} */}
+         
           <Navbar.Brand href="/"></Navbar.Brand>
+          
           <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
           <Navbar.Offcanvas
             id={`offcanvasNavbar-expand-${expand}`}
@@ -55,7 +117,8 @@ export default function NavBar() {
                 <Nav.Link href="/about">Sobre nosotros</Nav.Link>
                 <Nav.Link href="/contacto">Contacto</Nav.Link>
                 <Nav.Link href="/servicios">Servicios</Nav.Link>
-                <Nav.Link href="/envios">Mis envíos</Nav.Link>
+                {isLogged ?  <Nav.Link href="/envios">Mis envíos</Nav.Link> : null }
+               
                 {/* <NavDropdown
                     title="Servicios"
                     id={`offcanvasNavbarDropdown-expand-${expand}`}
