@@ -52,11 +52,10 @@ const Footer = () => {
               <img src="https://i.ibb.co/nCbxwm9/gmail-icono.png" alt="" />
               <a
                 className={style.link}
-                href="https://mail.google.com/mail/u/1/#inbox"
-                target="_blank"
+                href="/contacto"
                 rel="noopener noreferrer"
                 >
-                bfs01@gmail.com
+                enviosbfs01@gmail.com
               </a>
             </div>
             <div className={style.row2}>

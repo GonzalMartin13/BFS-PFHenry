@@ -12,7 +12,7 @@ import Register from "./views/register/register";
 import Mapa from "./components/Mapa/Mapa";
 import Pdf from "./components/Pdf/Pdf";
 
-import FormContact from "./components/Contact/Contact";
+import Email from "./components/Contact/Contact";
 import Login from "./views/Login/Login";
 import MisEnvios from "./components/misEnvios/misEnvios";
 
@@ -33,7 +33,7 @@ function App() {
           <Route path="/cotizacion" element={<QuoteForm />} />
           <Route path="/about" element={<About />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/contacto" element={<FormContact />} />
+          <Route path="/contacto" element={<Email />} />
           <Route path="/payment" element={<About />} />
           <Route path="/servicios" element={<CardContainer />} />
           <Route path="/sucursales" element={<Mapa />} />

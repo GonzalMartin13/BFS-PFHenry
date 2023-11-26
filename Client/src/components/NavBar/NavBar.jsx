@@ -56,20 +56,6 @@ export default function NavBar() {
                 <Nav.Link href="/contacto">Contacto</Nav.Link>
                 <Nav.Link href="/servicios">Servicios</Nav.Link>
                 <Nav.Link href="/envios">Mis envíos</Nav.Link>
-                {/* <NavDropdown
-                    title="Servicios"
-                    id={`offcanvasNavbarDropdown-expand-${expand}`}
-                  >
-                    <NavDropdown.Item href="#action3">
-                      Tipo de envío 1
-                    </NavDropdown.Item>
-                    <NavDropdown.Item href="#action4">
-                      Tipo de envio 2{" "}
-                    </NavDropdown.Item>
-                    <NavDropdown.Item href="#action5">
-                      Tipo de envio 3{" "}
-                    </NavDropdown.Item>
-                  </NavDropdown> */}
               </Nav>
             </Offcanvas.Body>
           </Navbar.Offcanvas>
