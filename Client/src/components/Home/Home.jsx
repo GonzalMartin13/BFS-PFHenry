@@ -25,21 +25,18 @@ const Home = () => {
       </h2>
       <Slider />
       <br />
-      <br />
-
-      <h3 className="title-carousel margin center-items">
-        ¡Conoce <b>nuestros servicios</b> adaptados a nuestros clientes!
-      </h3>
-      <br />
-
       <h3 className="title-carousel margin center-items">
         ¡Conoce <b>nuestros servicios</b> adaptados a nuestros clientes!
       </h3>
       <Cards />
 
+       <Button href="/envios" variant=""/>
+
+
       <br />
 
       <Button  href={isLogged ? "/envios" : "/login"} variant="">
+
         <Card style={{ width: "18rem" }}>
           <Card.Body>
             <Card.Title>Ver mis envíos</Card.Title>
