@@ -4,10 +4,14 @@ import Slider from "../Carrousel/Carrousel";
 import Image from "react-bootstrap/Image";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 const Home = () => {
-  return (
+  const isLogged = useSelector((state)=>state.user.isLoggedIn)
 
+  return (
+    
     <div style={{ position: 'relative' }}>
       <Image src="https://selfpackaging.es/blog/wp-content/uploads/2019/03/entrega-paquete-1.jpg" fluid style={{ width: '100%', height: '600px' }}/>
       <div style={{ position: 'absolute', top: 50, left: 0, width: '100%', height: '100%' }}>
@@ -25,7 +29,14 @@ const Home = () => {
         ¡Conoce <b>nuestros servicios</b> adaptados a nuestros clientes!
       </h3>
       <Cards />
-       <Button href="/envios" variant="">
+
+       <Button href="/envios" variant=""/>
+
+
+      <br />
+
+      <Button  href={isLogged ? "/envios" : "/login"} variant="">
+
         <Card style={{ width: "18rem" }}>
           <Card.Body>
             <Card.Title>Ver mis envíos</Card.Title>

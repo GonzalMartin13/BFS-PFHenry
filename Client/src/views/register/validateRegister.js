@@ -23,8 +23,8 @@ export function validarr(input) {
   }
 
   // Validación para el número de teléfono
-  if (!phoneRegex.test(input.telefono)) {
-    errors.telefono = "El teléfono solo puede contener números";
+  if (input.phone && !phoneRegex.test(input.phone)) {
+    errors.phone = "El teléfono solo puede contener números";
   }
 
   return errors;

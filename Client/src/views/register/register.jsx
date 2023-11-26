@@ -1,6 +1,6 @@
 import { Form, Button, Row, Col } from "react-bootstrap";
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { validarr } from "./validateRegister";
 import { registerUser } from "../../redux/actions/userActions";
@@ -14,6 +14,7 @@ function Register() {
     address: "",
     email: "",
     password: "",
+  
   });
 
   const [errors, setErrors] = useState({
@@ -23,13 +24,18 @@ function Register() {
     address: "",
     email: "",
     password: "",
+    confirmPassword: "",
   });
 
+  const [formValid, setFormValid] = useState(false);
+
   const handleChange = (event) => {
-    setInput({
-      ...input,
-      [event.target.name]: event.target.value,
-    });
+    if (event.target.name !== "confirmPassword") {
+      setInput({
+        ...input,
+        [event.target.name]: event.target.value,
+      });
+    }
 
     const validationErrors = validarr({
       ...input,
@@ -41,6 +47,19 @@ function Register() {
       [event.target.name]: validationErrors[event.target.name],
     });
   };
+
+  const validateForm = () => {
+    // Verificar que todos los campos estén llenos y no haya errores
+    const isValid =
+      Object.values(input).every((value) => value !== "") &&
+      !Object.values(errors).some(Boolean);
+    setFormValid(isValid);
+  };
+
+  // Validar el formulario cada vez que cambian los campos o errores
+  useEffect(() => {
+    validateForm();
+  }, [input, errors]);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -58,6 +77,7 @@ function Register() {
         address: "",
         email: "",
         password: "",
+      
       });
 
       Swal.fire({
@@ -84,8 +104,8 @@ function Register() {
               placeholder="Nombre"
               size="sm"
             />
-            {errors.nombre && (
-              <span className="text-danger">{errors.nombre}</span>
+            {errors.name && (
+              <span className="text-danger">{errors.name}</span>
             )}
           </Col>
           <Col>
@@ -97,8 +117,8 @@ function Register() {
               placeholder="Apellido"
               size="sm"
             />
-            {errors.apellido && (
-              <span className="text-danger">{errors.apellido}</span>
+            {errors.lastName && (
+              <span className="text-danger">{errors.lastName}</span>
             )}
           </Col>
         </Row>
@@ -114,8 +134,8 @@ function Register() {
               placeholder="Teléfono"
               size="sm"
             />
-            {errors.telefono && (
-              <span className="text-danger">{errors.telefono}</span>
+            {errors.phone && (
+              <span className="text-danger">{errors.phone}</span>
             )}
           </Col>
           <Col>
@@ -127,8 +147,8 @@ function Register() {
               placeholder="Dirección"
               size="sm"
             />
-            {errors.direccion && (
-              <span className="text-danger">{errors.direccion}</span>
+            {errors.address && (
+              <span className="text-danger">{errors.address}</span>
             )}
           </Col>
         </Row>
@@ -161,26 +181,29 @@ function Register() {
 
         {/* Confirm Password */}
         <Form.Group className="mb-3" controlId="formBasicConfirmPassword">
-          {/* <Form.Control
+          <Form.Control
             name="confirmPassword"
             value={input.confirmPassword}
             onChange={handleChange}
             type="password"
             placeholder="Confirm Password"
-          /> */}
+          />
           {errors.confirmPassword && (
             <span className="text-danger">{errors.confirmPassword}</span>
           )}
         </Form.Group>
 
-        <Button
-          //   disabled={disableHandler()}
-          variant="primary"
-          type="submit"
-          className="mb-2"
-        >
-          Registrarse
-        </Button>
+        {/* Renderizar el botón solo si no hay errores */}
+        {!errors.phone && !errors.email && !errors.password && !errors.confirmPassword && (
+          <Button
+            disabled={!formValid}
+            variant="primary"
+            type="submit"
+            className="mb-2"
+          >
+            Registrarse
+          </Button>
+        )}
       </Form>
     </Row>
   );

@@ -9,6 +9,6 @@ const formContacto = async(req, res) =>{
         res.status(500).json(error)
     }
 }
- // falta controler 
+
 
 module.exports = formContacto

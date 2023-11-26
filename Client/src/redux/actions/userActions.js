@@ -1,6 +1,6 @@
-// userActions.js
+// // userActions.js
 import axios from "axios";
-import { addUser, logUser } from "../Slices/userSlice"; // Asegúrate de importar addUser desde el archivo correcto
+import {  addUser,logUser } from "../Slices/userSlice"; // Asegúrate de importar addUser desde el archivo correcto
 
 export function registerUser(input) {
   return async function (dispatch) {
