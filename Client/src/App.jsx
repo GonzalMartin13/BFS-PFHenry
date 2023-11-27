@@ -1,6 +1,5 @@
 import { Route, Routes, useLocation } from "react-router-dom";
-import { Provider } from "react-redux";
-import { store } from "../src/redux/store/store";
+
 import NavBar from "./components/NavBar/NavBar";
 import Home from "./components/Home/Home";
 import About from "./views/About/About";
@@ -27,24 +26,22 @@ function App() {
       {location.pathname !== "/login" && location.pathname !== "/register" && (
         <NavBar />
       )}
-      <Provider store={store}>
-        <Routes>
-          <Route exact path="/" element={<Home />} />
-          <Route path="/cotizacion" element={<QuoteForm />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/contacto" element={<Email />} />
-          <Route path="/payment" element={<About />} />
-          <Route path="/servicios" element={<CardContainer />} />
-          <Route path="/sucursales" element={<Mapa />} />
-          <Route path="/envios" element={<MisEnvios />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/guia" element={<Pdf />} />
-          <Route path="/confirmacion" element={<Compra />} />
-          <Route path="/comprobante" element={<Comprobante />} />
-        </Routes>
-        <Footer />
-      </Provider>
+      <Routes>
+        <Route exact path="/" element={<Home />} />
+        <Route path="/cotizacion" element={<QuoteForm />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/contacto" element={<Email />} />
+        <Route path="/payment" element={<About />} />
+        <Route path="/servicios" element={<CardContainer />} />
+        <Route path="/sucursales" element={<Mapa />} />
+        <Route path="/envios" element={<MisEnvios />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/guia" element={<Pdf />} />
+        <Route path="/confirmacion" element={<Compra />} />
+        <Route path="/comprobante" element={<Comprobante />} />
+      </Routes>
+      <Footer />
     </>
   );
 }
