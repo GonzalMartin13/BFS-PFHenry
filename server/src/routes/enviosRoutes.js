@@ -6,11 +6,10 @@ const cotizarHandler = require("../handlers/enviospost")
 const envios = Router()
 
 envios.get("/:id", /* HANDLER DE BUSQUEDA DE ENVIO */ ) // req.params
-envios.post("/", cotizarHandler) //req.body
 envios.delete("/id", /* HANDLER PARA ELIMINAR EL PEDIDO*/) // req.param
 envios.get("/:id",handlerGetEnvio) // req.params
 envios.post("/", handlerPostEnvio) //req.body
 //envios.delete("/id", /* HANDLER PARA ELIMINAR EL PEDIDO*/) // req.params
-envios.get("/price", /* HANDLER PRECIO */) 
+envios.post("/price", cotizarHandler) 
 
 module.exports = envios;

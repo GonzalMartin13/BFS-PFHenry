@@ -12,52 +12,14 @@ const handlerGetEnvio = async (req, res) => {
 };
 
 
-const handlerPostEnvio = async (req, res) => {
-    const {
-        weight,                 // package
-        dimensions,             //package
-        service,                //package
-        deliveryInstructions,   //package
-        photoUrl,               //package
-        name,                       //chipment
-        email,                      //chipment
-        phone,                      //chipment
-        province,                   //chipment
-        city,                       //chipment
-        status,                  //chipment
-        estimatedDeliveryDate,    //chipment
-        nameReceive,            // receive
-        povinceReceive,         // receive
-        cityReceive,            // receive
-        phoneReceive,           // receive
-        emailReceive           // receive
-
-    } = req.body;
-
+const handlerPostEnvio = async(req, res) => {
+    const {origen,destino,largo,ancho,alto,peso,servicios,total,imagen,dni} = req.body;
+    const dimensiones = (largo * ancho * alto)
     try {
-        const response = await postEnvio(
-            weight,                 // package
-            dimensions,             //package
-            service,                //package
-            deliveryInstructions,   //package
-            photoUrl,               //package
-            name,                       //chipment
-            email,                      //chipment
-            phone,                      //chipment
-            province,                   //chipment
-            city,                       //chipment
-            status,                  //chipment
-            estimatedDeliveryDate,    //chipment
-            nameReceive,            // receive
-            povinceReceive,         // receive
-            cityReceive,            // receive
-            phoneReceive,           // receive
-            emailReceive           // receive
-
-        );
+        const response = await postEnvio(origen,destino,dimensiones,servicios,peso,total,imagen,dni);
 
         !response ? res.status(400).json({ error: 'Falta informacion' })
-            : res.status(201).json({message: 'Envio creado con exito'});
+            : res.status(201).json({message: 'Envio creado con exito', "id del envio":response});
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
