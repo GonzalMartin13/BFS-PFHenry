@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import ListGroup from "react-bootstrap/ListGroup";
 import Row from "react-bootstrap/Row";
@@ -14,8 +15,11 @@ import {
   setImagen,
   setShippingState,
   clearShippingState,
+  setNumeroDeEnvio,
 } from "../../redux/Slices/shippingSlice";
+import { clearState, setState } from "../../redux/Slices/quoterslice";
 const Compra = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [imagenLocal, setImagenLocal] = useState("");
   const { destino, origen, servicios, total } = useSelector(
@@ -47,6 +51,12 @@ const Compra = () => {
         dispatch(setImagen(imageUrl));
       } catch (error) {
         console.error(error);
+
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "No se pudo subir la imágen!",
+        });
       }
     }
   };
@@ -59,10 +69,34 @@ const Compra = () => {
     dispatch(setImagen(""));
     setImagenLocal("");
   };
+  const clearStateShipping = () => {
+    dispatch(clearShippingState());
+    dispatch(clearState());
+    setImagenLocal("");
+    navigate("/cotizacion");
+  };
+  function capitalizeFirstLetter(word) {
+    return word.charAt(0).toUpperCase() + word.slice(1);
+  }
+
+  //funcion que simula la interacccion con el servidor
+  const registroDeEnvio = () => {
+    const numeroAleatorio = Math.floor(Math.random() * 90000) + 10000;
+    dispatch(setNumeroDeEnvio(numeroAleatorio));
+    Swal.fire({
+      icon: "success",
+      title: "Your work has been saved",
+      showConfirmButton: false,
+      timer: 1500,
+    }).then(() => {
+      navigate("/comprobante");
+    });
+  };
+
   return (
     <Container
-      style={{ border: "1px solid" }}
-      className="vh-100 d-flex justify-content-center m4 "
+      style={{ backgroundColor: "#fafafa" }}
+      className="vh-100 d-flex justify-content-center  "
       fluid
     >
       <Row>
@@ -72,30 +106,42 @@ const Compra = () => {
             style={{ textAlign: "left", width: "800px" }}
           >
             <ListGroup.Item>
-              <h3>Usuario: </h3>
+              <h3 style={{ color: "#36a0ff" }}>Usuario: </h3>
             </ListGroup.Item>
             <ListGroup.Item>
-              <h3>Origen: {origen}</h3>
+              <h3 style={{ color: "#36a0ff" }}>
+                Provincia de origen:{" "}
+                <span style={{ color: "#000" }}>{origen}</span>
+              </h3>
             </ListGroup.Item>
             <ListGroup.Item>
-              <h3>Destino: {destino}</h3>
+              <h3 style={{ color: "#36a0ff" }}>
+                Provincia de destino:{" "}
+                <span style={{ color: "#000" }}>{destino}</span>
+              </h3>
             </ListGroup.Item>
 
             <ListGroup.Item>
-              <h3>
+              <h3 style={{ color: "#36a0ff" }}>
                 Categorías de Envío:{" "}
-                {servicios.length ? servicios.join(", ") : null}
+                <span style={{ color: "#000" }}>
+                  {servicios.length
+                    ? servicios
+                        .map((servicio) => capitalizeFirstLetter(servicio))
+                        .join(", ")
+                    : null}
+                </span>
               </h3>
             </ListGroup.Item>
             <ListGroup.Item>
               <Accordion>
                 <Accordion.Item>
                   <Accordion.Header>
-                    <h6>
+                    <h5>
                       {" "}
-                      ¿Deseas adjuntar imágenes o documentos relevantes para
-                      documentar el envío?
-                    </h6>
+                      ¿Deseas adjuntar una imágen del envio o de documentación
+                      relevante?
+                    </h5>
                   </Accordion.Header>
                   <Accordion.Body
                     style={{ maxWidth: "700px", overflow: "auto" }}
@@ -156,16 +202,30 @@ const Compra = () => {
               </Accordion>
             </ListGroup.Item>
             <ListGroup.Item>
-              <h3>
-                <Badge>Precio Final: </Badge> ${total}
+              <h3 style={{ display: "inline" }}>
+                <Badge bg="danger" className="mx-2 my-2">
+                  Precio Final:
+                </Badge>
+                <span style={{ borderBottom: "2px solid " }}> ${total}</span>
               </h3>
+              <Button
+                variant="primary"
+                size="lg"
+                className="mx-4 my-3"
+                onClick={registroDeEnvio}
+              >
+                {" "}
+                Confirmar Envio{" "}
+              </Button>{" "}
+              <Button
+                variant="secondary"
+                size="lg"
+                onClick={clearStateShipping}
+              >
+                Cancelar compra
+              </Button>
             </ListGroup.Item>
           </ListGroup>
-          <Button variant="primary" size="lg">
-            {" "}
-            Confirmar Envio{" "}
-          </Button>{" "}
-          <Button variant="secondary">Cancelar</Button>
         </Col>
       </Row>
     </Container>

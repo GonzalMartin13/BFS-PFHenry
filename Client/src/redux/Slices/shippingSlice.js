@@ -10,6 +10,7 @@ const initialState = {
   servicios: [],
   total: "",
   imagen: "",
+  numeroDeEnvio: "",
 };
 const shippingSlice = createSlice({
   name: "shippingData",
@@ -40,6 +41,9 @@ const shippingSlice = createSlice({
     setImagen: (state, action) => {
       state.imagen = action.payload;
     },
+    setNumeroDeEnvio: (state, action) => {
+      state.numeroDeEnvio = action.payload;
+    },
 
     clearShippingState: (state, action) => {
       state.origen = "";
@@ -54,6 +58,10 @@ const shippingSlice = createSlice({
     },
   },
 });
-export const { setShippingState, clearShippingState, setImagen } =
-  shippingSlice.actions;
+export const {
+  setShippingState,
+  clearShippingState,
+  setImagen,
+  setNumeroDeEnvio,
+} = shippingSlice.actions;
 export default shippingSlice.reducer;
