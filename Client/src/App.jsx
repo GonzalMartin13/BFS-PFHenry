@@ -18,6 +18,7 @@ import MisEnvios from "./components/misEnvios/misEnvios";
 
 import "./App.css";
 import Compra from "./components/Compra/Compra";
+import ComprobantePDF from "./components/Compra/ComprobantePDF";
 
 function App() {
   const location = useLocation();
@@ -41,7 +42,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/guia" element={<Pdf />} />
           <Route path="/confirmacion" element={<Compra />} />
-          <Route path="/comprobante" element={<Comprobante />} />
+          <Route path="/comprobante" element={<ComprobantePDF />} />
         </Routes>
         <Footer />
       </Provider>
