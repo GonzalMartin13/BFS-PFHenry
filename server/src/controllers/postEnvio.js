@@ -1,33 +1,20 @@
-const {Shipment, Receive, Package} = require ('../db');
+const {Package} = require ('../db');
 
-const postEnvio = async (
-        weight,                 // package
-        dimensions,             //package
-        service,                //package
-        deliveryInstructions,   //package
-        photoUrl,               //package
-        name,                       //chipment
-        email,                      //chipment
-        phone,                      //chipment
-        province,                   //chipment
-        city,                       //chipment
-        status,                  //chipment
-        estimatedDeliveryDate,    //chipment
-        nameReceive,            // receive
-        povinceReceive,         // receive
-        cityReceive,            // receive
-        phoneReceive,           // receive
-        emailReceive           // receive
-
-)=>{
-const newEnvio = await Package.create({
-    weight,                 
-    dimensions,             
-    service,                
-    deliveryInstructions,   
-    photoUrl  
+const postEnvio = async (origen,destino,dimensiones,servicios,peso,total,imagen,dni )=>{
+const crearEnvio = await Package.create({
+    origen,
+    destino,
+    dimensiones,
+    servicios,
+    peso,
+    total,
+    imagen,
+    dni,
 })
-return newEnvio;
+    if (!crearEnvio){
+        throw new Error({message:`no se creo`})
+    }
+return crearEnvio.id;
 };
 
 

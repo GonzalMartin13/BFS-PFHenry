@@ -1,37 +1,56 @@
-const { DataTypes } = require('sequelize');
+const { DataTypes} = require('sequelize');
 //Modelo de Paquete y documentos
 module.exports = (sequelize) => {
     sequelize.define('Package', {
       id: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         primaryKey: true,
-        autoIncrement: true,
-        allowNull: false
-
+        defaultValue: DataTypes.UUIDV4,
       },
-      description: {
+      origen: {
           type: DataTypes.STRING,
           allowNull: false,
       },
-      weight: {
-          type: DataTypes.FLOAT,
-          allowNull: false,
-      },
-      dimensions: {
-          type: DataTypes.JSON, // Puede contener datos como altura, anchura, longitud, etc.
-          allowNull: false,
-      },
-      service: {
+      destino: {
           type: DataTypes.STRING,
           allowNull: false,
       },
-      photoUrl: { // atributo para que el usuario pueda subir una imagen
+      peso: {
+          type: DataTypes.INTEGER,
+          allowNull: true,
+      },
+      dimensiones: {
+          type: DataTypes.INTEGER,
+          allowNull: true,
+      },
+      servicios: {
+          type: DataTypes.STRING,
+          allowNull: true,
+      },
+      imagen: { // atributo para que el usuario pueda subir una imagen
          type: DataTypes.STRING,
          allowNull: true,
       },
-      deliveryInstructions: {
-          type: DataTypes.TEXT, // Instrucciones especiales para la entrega.
+      total: {
+          type: DataTypes.INTEGER,
+          allowNull: false, // Instrucciones especiales para la entrega.
       },
+      total: {
+          type: DataTypes.STRING,
+          allowNull: false,
+          defaultValue: "En espera",
+      },
+      fechaInicial: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: DataTypes.NOW,
+      },
+      dni: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      }
+
+
         }, { freezeTableName: true
     });
 }

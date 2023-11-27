@@ -1,6 +1,5 @@
 import { Route, Routes, useLocation } from "react-router-dom";
-import { Provider } from "react-redux";
-import { store } from "../src/redux/store/store";
+
 import NavBar from "./components/NavBar/NavBar";
 import Home from "./components/Home/Home";
 import About from "./views/About/About";
@@ -28,6 +27,7 @@ function App() {
       {location.pathname !== "/login" && location.pathname !== "/register" && (
         <NavBar />
       )}
+
       <Provider store={store}>
         <Routes>
           <Route exact path="/" element={<Home />} />
@@ -46,6 +46,7 @@ function App() {
         </Routes>
         <Footer />
       </Provider>
+
     </>
   );
 }
