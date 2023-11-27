@@ -134,6 +134,12 @@ const Compra = () => {
               </h3>
             </ListGroup.Item>
             <ListGroup.Item>
+              <h3 style={{ color: "#36a0ff" }}>
+                Agrega el resto de datos necesarios para tu envio:
+              </h3>
+            </ListGroup.Item>
+
+            <ListGroup.Item>
               <Accordion>
                 <Accordion.Item>
                   <Accordion.Header>

@@ -5,7 +5,7 @@ const controlerContacto = async (name, phone, mail, message) => {
         correo:mail,
         mensaje:message
     }
-    return nuevoCliente
+    return {nuevoCliente}
 }
 
 module.exports = controlerContacto
