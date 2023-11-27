@@ -34,7 +34,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/login" element={<Login />} />
           <Route path="/contacto" element={<Email />} />
-          <Route path="/payment" element={<About />} />
+          {/* <Route path="/payment" element={<Payment />} /> */}
           <Route path="/servicios" element={<CardContainer />} />
           <Route path="/sucursales" element={<Mapa />} />
           <Route path="/envios" element={<MisEnvios />} />

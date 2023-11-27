@@ -81,7 +81,7 @@ const Logout = (e) => {
 ) : (
   <div className="ms-auto">
     <Button onClick={Logout} variant="outline-success">
-      <img src={logoutIcon} alt="Logout Icon" />
+      <img src={logoutIcon} alt="Logout Icon"/>
     </Button>
   </div>
 )}
