@@ -1,15 +1,21 @@
 const { postEnvio } = require('../controllers/postEnvio')
+const {getEnvioID} = require("../controllers/envioIDControler")
 
-const handlerGetEnvio = async (req, res) => {
+const handlerGetEnvioXID = async (req, res) => {
     const { id } = req.params
     try {
-        const response = await getEnvio(id);
+        const response = await getEnvioID(id);
         !response ? res.status(400).json({ error: `No se encontro el Id: ${id}` })
             : res.status(200).json(response)
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 };
+
+/*  endpoint: http://localhost:3001/envios/:id
+ tipo: post
+ devuelve: envio completo
+ */
 
 
 const handlerPostEnvio = async(req, res) => {
@@ -25,8 +31,13 @@ const handlerPostEnvio = async(req, res) => {
     }
 };
 
+/*  endpoint: http://localhost:3001/envios/
+ tipo: post
+ devuelve: numero de id de envio
+ */
+
 
 module.exports = {
-    handlerGetEnvio,
+    handlerGetEnvioXID,
     handlerPostEnvio
 };
