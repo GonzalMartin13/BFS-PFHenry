@@ -73,7 +73,7 @@ export default function QuoteForm() {
 
       // Función de alerta
 
-      typeof data === "number" ? alertFloat(data.toFixed(2)) : noPrice(data);
+      typeof data === "number" ? alertFloat(data) : noPrice(data);
     } catch (error) {
       console.error(error);
     } finally {
@@ -194,7 +194,7 @@ export default function QuoteForm() {
             </div>
           </div>
 
-          <h4 style={{ marginBottom: "6px" }}>
+          <h4 style={{ marginBottom: "20px" }}>
             ¿Qué tipo de envio queres hacer?{" "}
           </h4>
 
@@ -272,9 +272,14 @@ export default function QuoteForm() {
               checked={servicios.express}
             />
 
-            {loading && <Spinner animation="border" role="status" />}
+            <div style={{ display: "block", height: "40px" }}>
+              {loading && <Spinner animation="border" role="status" />}
+            </div>
 
-            <Form.Group className="mb-3" style={{ height: "230px" }}>
+            <Form.Group
+              className="mb-3"
+              style={{ height: "230px", marginTop: "60px" }}
+            >
               {servicios.carteria ? null : (
                 <>
                   <Form.Group className="mb-3">
