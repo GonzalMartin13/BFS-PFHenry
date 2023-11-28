@@ -20,7 +20,9 @@ const contolerPrecio = async (origen, destino, volumen, peso, servicios) => {
             precioXkm = 275;
         } else if (!provinciaEncontrada) {
             return "No se pudo calcular la distancia entre destinos";
-        } else {
+        }else if (provinciaEncontrada.distancia <= 250) {
+            precioXkm = 300;
+        }else {
             precioXkm = provinciaEncontrada.distancia;
         }
 
@@ -31,7 +33,7 @@ const contolerPrecio = async (origen, destino, volumen, peso, servicios) => {
 
         precioFinal = servicios.reduce((acumulador, servicio) => {
             switch (servicio.toLowerCase()) {
-                case "discreto":
+                case "embalaje":
                     return acumulador * 1.2;
                 case "express":
                     return acumulador * 1.3;
