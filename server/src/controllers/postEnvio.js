@@ -1,6 +1,6 @@
 const {Package} = require ('../db');
 
-const postEnvio = async (origen,destino,dimensiones,servicios,peso,total,imagen,dni )=>{
+const postEnvio = async (origen,destino,dimensiones,servicios,peso,total,imagen,dni,destinatario )=>{
 const crearEnvio = await Package.create({
     origen,
     destino,
@@ -9,6 +9,7 @@ const crearEnvio = await Package.create({
     peso,
     total,
     imagen,
+    destinatario,
     dni,
 })
     if (!crearEnvio){

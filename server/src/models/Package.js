@@ -48,8 +48,16 @@ module.exports = (sequelize) => {
       dni: {
         type: DataTypes.INTEGER,
         allowNull: false,
-      }
-
+      },
+      status: {
+        type: DataTypes.ENUM('En tránsito', 'Entregado', 'Pendiente'),
+        defaultValue: 'Pendiente',
+        allowNull: false,
+    },
+      destinatario: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
 
         }, { freezeTableName: true
     });
