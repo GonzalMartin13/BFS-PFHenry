@@ -10,49 +10,47 @@ import Button from "react-bootstrap/Button";
 import logo from "../../assets/logo.png";
 import { Image } from "react-bootstrap";
 import logoutIcon from "../../assets/logout.svg"
-import { useSelector,useDispatch } from "react-redux";
-import {logout} from "../../redux/Slices/userSlice"
+import {useAuth0} from "@auth0/auth0-react";
 
 export default function NavBar() {
 
-const isLogged = useSelector((state)=>state.user.isLoggedIn)
-const dispatch = useDispatch()
+  const {loginWithRedirect, isAuthenticated, logout} = useAuth0();
 
-const Logout = (e) => {
-  e.preventDefault();
+  const Logout = (e) => {
+    e.preventDefault();
 
-  const swalWithBootstrapButtons = Swal.mixin({
-    customClass: {
-      confirmButton: "btn btn-success",
-      cancelButton: "btn btn-danger"
-    },
-    buttonsStyling: false
-  });
-
-  swalWithBootstrapButtons
-    .fire({
-      title: "Estas seguro?",
-      text: "Cerraras la sesión",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonText: "Si, cerrar sesión",
-      cancelButtonText: "No, Cancelar",
-      reverseButtons: true
-    })
-    .then((result) => {
-      if (result.isConfirmed) {
-        // Realiza el logout solo si el usuario confirma
-        dispatch(logout());
-        
-        // Muestra un mensaje de éxito después del logout
-        swalWithBootstrapButtons.fire({
-          title: "Sesión cerrada!",
-          text: "Haz cerrado sesíón",
-          icon: "success"
-        });
-      } 
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: "btn btn-success",
+        cancelButton: "btn btn-danger"
+      },
+      buttonsStyling: false
     });
-};
+
+    swalWithBootstrapButtons
+      .fire({
+        title: "Estas seguro?",
+        text: "Cerraras la sesión",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Si, cerrar sesión",
+        cancelButtonText: "No, Cancelar",
+        reverseButtons: true
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          // Realiza el logout solo si el usuario confirma
+          logout()
+          
+          // Muestra un mensaje de éxito después del logout
+          swalWithBootstrapButtons.fire({
+            title: "Sesión cerrada!",
+            text: "Haz cerrado sesíón",
+            icon: "success"
+          });
+        } 
+      });
+  };
 
 
   return (
@@ -72,9 +70,9 @@ const Logout = (e) => {
           <Navbar.Brand href="/">
             <Image src={logo} alt="Logo BFS" style={{ height: "55px" }} />
           </Navbar.Brand>
-          {!isLogged ? (
+          {!isAuthenticated ? (
   <div className="ms-auto">
-    <Button href="/login" variant="outline-success">
+    <Button onClick={() => loginWithRedirect()}>
       Ingresar
     </Button>
   </div>
@@ -117,7 +115,7 @@ const Logout = (e) => {
                 <Nav.Link href="/about">Sobre nosotros</Nav.Link>
                 <Nav.Link href="/contacto">Contacto</Nav.Link>
                 <Nav.Link href="/servicios">Servicios</Nav.Link>
-                {isLogged ?  <Nav.Link href="/envios">Mis envíos</Nav.Link> : null }
+                {isAuthenticated ?  <Nav.Link href="/envios">Mis envíos</Nav.Link> : null }
                
                 {/* <NavDropdown
                     title="Servicios"

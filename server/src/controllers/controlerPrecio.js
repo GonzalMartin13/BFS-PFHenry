@@ -33,7 +33,7 @@ const contolerPrecio = async (origen, destino, volumen, peso, servicios) => {
 
         precioFinal = servicios.reduce((acumulador, servicio) => {
             switch (servicio.toLowerCase()) {
-                case "discreto":
+                case "embalaje":
                     return acumulador * 1.2;
                 case "express":
                     return acumulador * 1.3;
