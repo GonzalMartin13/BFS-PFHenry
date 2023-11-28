@@ -42,39 +42,12 @@ let capsEntries = entries.map((entry) => [
 ]);
 sequelize.models = Object.fromEntries(capsEntries);
 
-const {User, Shipment, Receive, Package, Branch, Service} = sequelize.models;
-// ----> Relación de uno a uno <---- 
-Shipment.hasOne(Receive, {foreignKey: "shipmentId"}); // Un envio a un recibido
-Receive.belongsTo(Shipment, {foreignKey: "receiveId"}); // Un recibido "recibe" un envio
+const {User, Package} = sequelize.models;
 
 // ----> Relacion de uno a muchos <---- 
-User.hasMany(Shipment, {foreignKey: "userId"}); // un usuario hace muchos envios
-Shipment.belongsTo(User, {foreignKey: "shipmentId"}); // Muchis envios pertenecen a un usuario
-
-Shipment.hasMany(Package, {foreignKey: "shipmentId"}); // En un envio puede tener muchos paquetes
-Package.belongsTo(Shipment, {foreignKey: "packageId"}); // Muchos paquetes pertenecen a un envio
-
-Branch.hasMany(Shipment, {foreignKey: "branchId"}); // Una sucursal recibe muchos envios
-Shipment.belongsTo(Branch, {foreignKey: "shipmentId"}); // Muchos envios llegaran a una sucursal
-
-Service.hasMany(Shipment, {foreignKey: "serviceId"}); //Un servicio puede pertenecer a muchos envios
-Shipment.belongsTo(Service, {foreignKey: "shipmentId"}); // muchos envios pueden tener un servicio
-
-Service.hasMany(User, {foreignKey: "serviceId"}); //Un servicio pertenece a muchos usuarios
-User.belongsTo(Service, {foreignKey: "userId"}); // Muchos usuarios solicitan un servicio
-
-Service.hasMany(Package, {foreignKey: "serviceId"}); // Un servicio puede pertenecer a muchos paquetes
-Package.belongsTo(Service, {foreignKey: "packageId"}); // Muchos ´paquetes pueden contener un servicio
-
-Service.hasMany(Receive, {foreignKey: "serviceId"}); // Un servicio lo pueden recibir muchos usuarios
-Receive.belongsTo(Service, {foreignKey: "receiveId"}); // Muchos usuarios pueden recivir un servicio
-
-// ----> Relación de muchos a muchos <---- 
-User.belongsToMany(Branch, { through: 'User_Branch' }); // Muchos usuarios pueden enviar paquetes a muchas sucursales
-Branch.belongsToMany(User, { through: 'User_Branch' }); // Muchas sucursales reciben envios de muchos usuarios
-
-Service.belongsToMany(Branch, { through: 'Service_Branch' }); // Muchos servicios pueden llegar muchas sucursales
-Branch.belongsToMany(Service, { through: 'Service_Branch' }); // Muchas sucursales reciben muchos servicios
+User.hasMany(Package, {foreignKey: "userId"}); // un usuario hace muchos envios
+Package.belongsTo(User, {foreignKey: "packageId"}); // Muchis envios pertenecen a un usuario
+// ESTA ES LA QUE SIRVE /
 
 module.exports = {
 	...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
