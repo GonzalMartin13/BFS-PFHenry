@@ -13,6 +13,13 @@ function MisEnvios() {
   const [showModal, setShowModal] = useState(false);
   const [trackingInfo, setTrackingInfo] = useState(null);
 
+  //Me suscribo a un estado que trae todos los envios, los renderizo en unas cards
+  //numero de sguimiento
+  //estado : renderiza tabla con dibujo que indica donde se encuentra el pedido
+  //detalle : renderiza un modal con mas detalles del envio 
+  
+  
+
 
   
 

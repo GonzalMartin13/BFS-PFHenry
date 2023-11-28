@@ -28,7 +28,7 @@ function App() {
         <NavBar />
       )}
 
-      <Provider store={store}>
+
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route path="/cotizacion" element={<QuoteForm />} />
@@ -45,7 +45,7 @@ function App() {
           <Route path="/comprobante" element={<ComprobantePDF />} />
         </Routes>
         <Footer />
-      </Provider>
+    
 
     </>
   );
