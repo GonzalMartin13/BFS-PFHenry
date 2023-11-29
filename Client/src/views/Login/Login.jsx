@@ -1,197 +1,92 @@
-//funcionamiento PENDIENTE
-
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Form, Button, Row, Col } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
-import { validar } from "./validacionlogin";
-// import { loginUser } from "../../redux/actions/userActions";
-import {login} from "../../redux/Slices/userSlice"
+import {useEffect} from "react";
+import {useDispatch} from "react-redux";
+import {registerUser} from "../../redux/actions/userActions";
+import {login, logouted} from "../../redux/Slices/userSlice";
+import Button from "react-bootstrap/Button";
 import Swal from "sweetalert2";
-import axios from "axios"
+import {useAuth0} from "@auth0/auth0-react";
+import logoutIcon from "../../assets/logout.svg";
 
-function Login() {
-  const navigate = useNavigate();
+const Login = () => {
   const dispatch = useDispatch();
 
-  const [input, setInput] = useState({
-    email: "",
-    password: "",
-  });
+  const {loginWithRedirect, isAuthenticated, logout, user} = useAuth0();
 
-  const [errors, setErrors] = useState({
-    email: "",
-    password: "",
-  });
+  useEffect(() => {
+    if (isAuthenticated && user.email_verified) {
+      Swal.fire({
+        title: "Sesión iniciada",
+        text: `${user.nickname} has iniciado sesión exitosamente`,
+        icon: "success",
+      });
 
-  const [showForm, setShowForm] = useState(false);
-  const [isRegistering, setIsRegistering] = useState(false);
+      dispatch(login());
 
-  const handleChange = (event) => {
-    setInput({
-      ...input,
-      [event.target.name]: event.target.value,
+      const postUser = {
+        email: user.email,
+        nickname: user.nickname,
+        picture: user.picture
+      };
+
+      dispatch(registerUser(postUser)); 
+
+    } else if (isAuthenticated && !user.email_verified) {
+      Swal.fire({
+        title: "Sesión iniciada",
+        text: `${user.nickname} verifica tu Email para acceder a nuestros servicios`,
+        icon: "success",
+      });
+    };
+  }, [isAuthenticated, user]);
+
+  const handleLogin = () => {
+    loginWithRedirect();
+  };
+
+  const handleLogout = () => {
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: "btn btn-success",
+        cancelButton: "btn btn-danger"
+      },
+      buttonsStyling: false
     });
 
-    const validationErrors = validar({
-      ...input,
-      [event.target.name]: event.target.value,
-    });
+    swalWithBootstrapButtons
+      .fire({
+        title: "Estas seguro?",
+        text: "Cerraras la sesión",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Si, cerrar sesión",
+        cancelButtonText: "No, Cancelar",
+        reverseButtons: true
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          // Realiza el logout solo si el usuario confirma
+          dispatch(logouted());
+          logout();
 
-    setErrors({
-      ...errors,
-      [event.target.name]: validationErrors[event.target.name],
-    });
+          // Muestra un mensaje de éxito después del logout
+          swalWithBootstrapButtons.fire({
+            title: "Sesión cerrada!",
+            text: "Haz cerrado sesíón",
+            icon: "success"
+          });
+        } 
+      });
   };
-
-  function disableHandler() {
-    return errors.email || errors.password || !input.email || !input.password;
-  }
-
-  const handleSubmitt = async (event) => {
-    event.preventDefault();
-    try {
-      const response = await axios.get("http://localhost:3001/user");
-      const userCoincidende = response.data.some((usuario) => usuario.email === input.email);
-      
-      if (userCoincidende) {
-        setInput({
-          email: "",
-          password: "",
-        });
-  
-        Swal.fire({
-          title: "Sesión iniciada",
-          text: "Has iniciado sesión exitosamente",
-          icon: "success",
-        });
-
-        dispatch(login())
-
-  
-        navigate("/");
-      } else {
-        Swal.fire({
-          icon: "error",
-          title: "El usuario no ha sido encontrado",
-          text: "Prueba registrarte",
-          footer: '<a href="#">Haz olvidado tu contraseña?</a>',
-        });
-        
-      }
-    } catch (error) {
-      console.error("Error al iniciar sesión:", error);
-    }
-  };
-  
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-
-  //   dispatch(loginUser(input));
-  //   setInput({
-  //     email: "",
-  //     password: "",
-  //   });
-
-  //   {
-  //     Swal.fire({
-  //       title: "Sesión iniciada",
-  //       text: "Has iniciado sesión exitosamente",
-  //       icon: "success",
-  //     });
-  //   }
-
-  //   navigate("/");
-  // };
-
-  const handleLoginClick = () => {
-    setShowForm(true);
-    setIsRegistering(false);
-  };
-
-  const handleRegisterClick = () => {
-    navigate("/register");
-  };
-
-  const { users } = useSelector((state) => state);
-
-  // const prueba = () => {
-  //   dispatch(
-  //     logUser({ email: "angellabruna@gmail.com ", password: "angel123  " })
-  //   );
-  //   setInput({
-  //     email: "",
-  //     password: "",
-  //   });
-  // };
 
   return (
-    <Row className="justify-content-center align-items-center min-vh-100">
-      <Col md={4}>
-        {showForm && (
-          <Form onSubmit={handleSubmitt}>
-            {isRegistering && <></>}
-
-            {/* Email y Password */}
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Control
-                name="email"
-                value={input.email}
-                onChange={handleChange}
-                type="email"
-                placeholder="Enter email"
-                autoComplete="off"
-              />
-              {errors.email && (
-                <div className="text-danger">{errors.email}</div>
-              )}
-            </Form.Group>
-
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Control
-                name="password"
-                value={input.password}
-                onChange={handleChange}
-                type="password"
-                placeholder="Password"
-              />
-              {errors.password && (
-                <span className="text-danger">{errors.password}</span>
-              )}
-            </Form.Group>
-
-            <Button
-              disabled={disableHandler()}
-              variant="primary"
-              type="submit"
-              className="mb-2"
-            >
-              {isRegistering ? "Registrarse" : "Iniciar Sesión"}
-            </Button>
-          </Form>
-        )}
-        {!showForm && (
-          <div className="d-grid gap-2">
-            <Button
-              onClick={handleLoginClick}
-              variant="outline-success"
-              className="mb-2"
-            >
-              Iniciar Sesión
-            </Button>
-            <Button
-              onClick={handleRegisterClick}
-              variant="outline-secondary"
-              className="mb-2"
-            >
-              Registrarse
-            </Button>
-          </div>
-        )}
-      </Col>
-    </Row>
+    <div>
+      {!isAuthenticated ? (
+        <Button onClick={handleLogin}>Ingresar</Button>
+      ) : (
+        <Button onClick={handleLogout} variant="outline-success"><img src={logoutIcon} alt="Logout Icon"/></Button>
+      )}
+    </div>
   );
-}
+};
 
 export default Login;

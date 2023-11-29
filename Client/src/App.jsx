@@ -12,7 +12,6 @@ import Mapa from "./components/Mapa/Mapa";
 import Pdf from "./components/Pdf/Pdf";
 
 import Email from "./components/Contact/Contact";
-import Login from "./views/Login/Login";
 import MisEnvios from "./components/misEnvios/misEnvios";
 
 import "./App.css";
@@ -24,16 +23,14 @@ function App() {
 
   return (
     <>
-      {location.pathname !== "/login" && location.pathname !== "/register" && (
+      {location.pathname !== "/register" && (
         <NavBar />
       )}
 
-      <Provider store={store}>
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route path="/cotizacion" element={<QuoteForm />} />
           <Route path="/about" element={<About />} />
-          <Route path="/login" element={<Login />} />
           <Route path="/contacto" element={<Email />} />
           <Route path="/payment" element={<About />} />
           <Route path="/servicios" element={<CardContainer />} />
@@ -45,7 +42,6 @@ function App() {
           <Route path="/comprobante" element={<ComprobantePDF />} />
         </Routes>
         <Footer />
-      </Provider>
 
     </>
   );
