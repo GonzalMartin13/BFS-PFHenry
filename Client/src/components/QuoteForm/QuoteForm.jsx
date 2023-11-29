@@ -1,11 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 
 import {
   Spinner,
   Button,
   Form,
-  Card,
   FloatingLabel,
   Col,
   Row,
@@ -30,7 +29,6 @@ import Swal from "sweetalert2";
 export default function QuoteForm() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const [loading, setLoading] = useState(false);
   const [servicios, setServicios] = useState({
     discreto: false,
@@ -127,19 +125,11 @@ export default function QuoteForm() {
   };
   return (
     <div style={{ position: "relative" }}>
-      <div>
-        <Image
-          src="https://www.speedboy.cl/Images/index3xx_02.png"
-          fluid
-          style={{ width: "100%", height: "180px" }}
-        />
-      </div>
-
       <Container className={style.containerForm} fluid>
         <Form
           onSubmit={handleFormSubmit}
           style={{
-            margin: "15px auto 45px ",
+            margin: "0px auto 45px ",
             maxWidth: "800px",
             padding: "30px 20px",
             borderRadius: "4px",
