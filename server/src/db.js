@@ -49,6 +49,10 @@ User.hasMany(Package); // un usuario hace muchos envios
 Package.belongsTo(User); // Muchis envios pertenecen a un usuario
 // ESTA ES LA QUE SIRVE /
 
+User.hasMany(Package); //'Realcion de uno a muchos con la prioridad para User'
+Package.belongsTo(User); // la foreing Key estaria en el modelo Package
+
+
 module.exports = {
 	...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
 	conn: sequelize, // para importart la conexión { pool } = require('./db.js');
