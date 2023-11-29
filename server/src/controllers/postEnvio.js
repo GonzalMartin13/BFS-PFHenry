@@ -1,6 +1,6 @@
-const {Package} = require ('../db');
+const {Package, User} = require ('../db');
 
-const postEnvio = async (origen,destino,dimensiones,servicios,peso,total,imagen,dni )=>{
+const postEnvio = async (origen,destino,dimensiones,servicios,peso,total,imagen,dni, userID )=>{
 const crearEnvio = await Package.create({
     origen,
     destino,
@@ -11,10 +11,15 @@ const crearEnvio = await Package.create({
     imagen,
     dni,
 })
-    if (!crearEnvio){
-        throw new Error({message:`no se creo`})
-    }
-return crearEnvio.id;
+if (userID){
+    console.log('EL USER: ',userID)
+const addUser = await User.findByPk(userID);  
+console.log('PARA RELACIONAR: ',addUser);
+
+    await crearEnvio.setUser(addUser);
+}
+
+return `Su envio a sido creado con la guia: ${crearEnvio.id}`;
 };
 
 

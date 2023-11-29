@@ -76,6 +76,10 @@ Branch.belongsToMany(User, { through: 'User_Branch' }); // Muchas sucursales rec
 Service.belongsToMany(Branch, { through: 'Service_Branch' }); // Muchos servicios pueden llegar muchas sucursales
 Branch.belongsToMany(Service, { through: 'Service_Branch' }); // Muchas sucursales reciben muchos servicios
 
+User.hasMany(Package); //'Realcion de uno a muchos con la prioridad para User'
+Package.belongsTo(User); // la foreing Key estaria en el modelo Package
+
+
 module.exports = {
 	...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
 	conn: sequelize, // para importart la conexión { pool } = require('./db.js');
