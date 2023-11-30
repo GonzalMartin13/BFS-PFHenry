@@ -18,4 +18,7 @@ router.use("/direcciones", direccionesRoutes)
 // Ubicaciones
 router.use("/clientes", clientesRoutes)
 
+// Dashboard
+router.use("/dashboard", userRoutes)
+
 module.exports = router;

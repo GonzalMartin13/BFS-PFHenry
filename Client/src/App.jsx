@@ -7,7 +7,7 @@ import Footer from "./components/Footer/Footer";
 import CardContainer from "./components/CardContainer/CardContainer";
 import Register from "./views/register/register";
 import QuoteForm from "./components/QuoteForm/QuoteForm";
-import Comprobante from "./components/Compra/Comprobante";
+//import Comprobante from "./components/Compra/Comprobante";
 import Mapa from "./components/Mapa/Mapa";
 import Pdf from "./components/Pdf/Pdf";
 
