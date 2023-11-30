@@ -36,11 +36,11 @@ const handlerGetEnvio = async (req, res) => {
 
 
 const handlerPostEnvio = async(req, res) => {
-    const {origen,destino,destinatario,largo,ancho,alto,peso,servicios,total,imagen,dni} = req.body;
+    const {origen,destino,largo,ancho,alto,peso,servicios,total,imagen,dni,userID} = req.body;
     const dimensiones = (largo * ancho * alto)
     const userId = "4e1a0d2e-4d46-4afa-a366-7eaba29fc599";
     try {
-        const response = await postEnvio(origen,destino,destinatario,dimensiones,peso,servicios,total,imagen,dni, userId);
+        const response = await postEnvio(origen,destino,dimensiones,servicios,peso,total,imagen,dni,userID);
 
         !response ? res.status(400).json({ error: 'Falta informacion' })
             : res.status(201).json({message: 'Envio creado con exito', "id del envio":response});
@@ -57,6 +57,5 @@ const handlerPostEnvio = async(req, res) => {
 
 module.exports = {
     handlerGetEnvioXID,
-    handlerPostEnvio,
-    handlerGetEnvio
+    handlerPostEnvio
 };

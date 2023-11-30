@@ -30,8 +30,12 @@ module.exports = (sequelize) => {
         },
         nickname: {
           type: DataTypes.STRING,
-          allowNull: true,
+          allowNull: false, 
           unique: true,
+        },
+        picture: {
+          type: DataTypes.STRING,
+          allowNull: false,
         },
         picture: {
           type: DataTypes.STRING,
@@ -41,6 +45,6 @@ module.exports = (sequelize) => {
           type: DataTypes.BOOLEAN,
           allowNull: false,
         }
-      }, { freezeTableName: true
-    });
+      }, { freezeTableName: true
+    });
 };

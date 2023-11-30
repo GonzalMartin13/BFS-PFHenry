@@ -1,20 +1,21 @@
-const { Package } = require('../db');
+const {Package, User} = require ('../db');
 
-const postEnvio = async (origen, destino, destinatario, dimensiones, peso, servicios, total, imagen, dni, userId) => {
-    const crearEnvio = await Package.create({
-        origen,
-        destino,
-        dimensiones,
-        servicios,
-        peso,
-        total,
-        imagen,
-        destinatario,
-        dni,
-        userId, // Asigna el userId al crear el paquete
-    });
-
-    return crearEnvio.id;
+const postEnvio = async (origen,destino,dimensiones,servicios,peso,total,imagen,dni,destinatario )=>{
+const crearEnvio = await Package.create({
+    origen,
+    destino,
+    dimensiones,
+    servicios,
+    peso,
+    total,
+    imagen,
+    destinatario,
+    dni,
+})
+    if (!crearEnvio){
+        throw new Error({message:`no se creo`})
+    }
+return crearEnvio.id;
 };
 
-module.exports = { postEnvio };
+module.exports = {postEnvio};
