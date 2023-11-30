@@ -7,11 +7,10 @@ import Navbar from "react-bootstrap/Navbar";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import logo from "../../assets/logo.png";
 import { Image } from "react-bootstrap";
-import {useSelector} from "react-redux";
+import { useSelector } from "react-redux";
 import Login from "../../views/Login/Login";
 
 export default function NavBar() {
-
   const isLogged = useSelector((state) => state.user.isLoggedIn);
 
   return (
@@ -23,7 +22,7 @@ export default function NavBar() {
           className="bg-body-tertiary py-1"
           style={{
             height: "auto",
-
+            boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
             width: "100%",
           }}
         >
@@ -31,13 +30,10 @@ export default function NavBar() {
           <Navbar.Brand href="/">
             <Image src={logo} alt="Logo BFS" style={{ height: "55px" }} />
           </Navbar.Brand>
-
           <div className="ms-auto">
             <Login></Login>
           </div>
-         
           <Navbar.Brand href="/"></Navbar.Brand>
-          
           <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
           <Navbar.Offcanvas
             id={`offcanvasNavbar-expand-${expand}`}
@@ -60,8 +56,10 @@ export default function NavBar() {
                 <Nav.Link href="/about">Sobre nosotros</Nav.Link>
                 <Nav.Link href="/contacto">Contacto</Nav.Link>
                 <Nav.Link href="/servicios">Servicios</Nav.Link>
-                {isLogged ?  <Nav.Link href="/envios">Mis envíos</Nav.Link> : null }
-               
+                {isLogged ? (
+                  <Nav.Link href="/envios">Mis envíos</Nav.Link>
+                ) : null}
+
                 {/* <NavDropdown
                     title="Servicios"
                     id={`offcanvasNavbarDropdown-expand-${expand}`}
@@ -83,4 +81,4 @@ export default function NavBar() {
       ))}
     </>
   );
-};
+}
