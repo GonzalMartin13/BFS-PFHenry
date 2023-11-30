@@ -1,8 +1,10 @@
+require("dotenv").config();
+const {KEY_MP_TEST, KEY_MP_REAL} = process.env
 const {MercadoPagoConfig, Preference} = require("mercadopago")
 
 
 const pagosControler = async (servicios, total) => {
-    const client = new MercadoPagoConfig({accessToken:"TEST-1057688479891287-112823-61c0a8cfc464708fa63f6e86454a4a72-1569211085"})
+    const client = new MercadoPagoConfig({accessToken:KEY_MP_TEST})
     const preference = new Preference(client)
     console.log(client, preference, typeof(total), total)
     const orden = await preference.create({ body: {
@@ -14,6 +16,11 @@ const pagosControler = async (servicios, total) => {
                 quantity: 1,
             }
         ],
+        back_urls:{
+            success:"http://localhost:5173/" ,
+            failure:"http://localhost:5173/"
+        },
+        auto_return: "approved",
     } }).then(console.log("then")).catch(console.log("catch"));
     return orden
 }
