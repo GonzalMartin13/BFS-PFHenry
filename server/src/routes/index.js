@@ -3,6 +3,7 @@ const userRoutes = require("./userRoutes")
 const enviosRoutes = require("./enviosRoutes")
 const direccionesRoutes = require("./direccionRoutes")
 const clientesRoutes = require("./ubicacionesRoutes");
+const pagosRoutes =require("./pagosRoutes")
 const router = Router();
 
 
@@ -15,7 +16,10 @@ router.use("/envios", enviosRoutes)
 // Direcciones y locaciones
 router.use("/direcciones", direccionesRoutes)
 
-// Ubicaciones
+// clientes
 router.use("/clientes", clientesRoutes)
+
+// Pasarela De Pagos
+router.use("/pagos", pagosRoutes)
 
 module.exports = router;

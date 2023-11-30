@@ -16,11 +16,11 @@ module.exports = (sequelize) => {
           allowNull: false,
       },
       peso: {
-          type: DataTypes.INTEGER,
+          type: DataTypes.STRING,
           allowNull: true,
       },
       dimensiones: {
-          type: DataTypes.INTEGER,
+          type: DataTypes.STRING,
           allowNull: true,
       },
       servicios: {
@@ -32,13 +32,8 @@ module.exports = (sequelize) => {
          allowNull: true,
       },
       total: {
-          type: DataTypes.INTEGER,
-          allowNull: false, // Instrucciones especiales para la entrega.
-      },
-      total: {
           type: DataTypes.STRING,
-          allowNull: false,
-          defaultValue: "En espera",
+          allowNull: false, // Instrucciones especiales para la entrega.
       },
       fechaInicial: {
         type: DataTypes.DATE,
@@ -46,7 +41,7 @@ module.exports = (sequelize) => {
         defaultValue: DataTypes.NOW,
       },
       dni: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false,
       },
       status: {
