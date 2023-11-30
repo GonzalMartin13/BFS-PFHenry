@@ -180,7 +180,7 @@ export default function QuoteForm() {
   };
   ///
   const handleNavigation = () => {
-    if (!isLogged) return navigate("/confirmacion");
+    if (isLogged) return navigate("/confirmacion");
     return loginWithRedirect();
   };
 
