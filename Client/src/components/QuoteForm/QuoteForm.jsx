@@ -11,6 +11,8 @@ import {
   Container,
   Image,
 } from "react-bootstrap";
+import { useAuth0 } from "@auth0/auth0-react";
+
 import style from "./quoteForm.module.css";
 import axios from "axios";
 import { provincias } from "./utils/provincias";
@@ -21,13 +23,16 @@ import icoDiscreto from "./utils/confidencial.png/";
 import icoCaja from "./utils/caja.png";
 import icoCuidado from "./utils/alerta.png";
 import icoSobre from "./utils/correo-electronico.png";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setState, setTotal, clearState } from "../../redux/Slices/quoterslice";
 import { SiGooglemaps } from "react-icons/si";
 import Swal from "sweetalert2";
 
 export default function QuoteForm() {
+  const { loginWithRedirect } = useAuth0();
+  const isLogged = useSelector((state) => state.user.isLoggedIn);
+  console.log(isLogged);
   const [errors, setErrors] = useState({});
 
   const dispatch = useDispatch();
@@ -73,7 +78,7 @@ export default function QuoteForm() {
   const handleCheckboxChange = (e) => {
     const { name, checked } = e.target;
     handleCheck(name, checked, servicios, setServicios);
-    console.log("dentro de handle", name);
+
     setErrors(validateForm(form, name));
     if (name == "paqueteria" && checked) {
       setForm(() => {
@@ -108,7 +113,7 @@ export default function QuoteForm() {
   //
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    console.log("dentro del submit", form);
+
     //estado para mostrar spiner
     setLoading(true);
 
@@ -175,10 +180,10 @@ export default function QuoteForm() {
   };
   ///
   const handleNavigation = () => {
-    return navigate("/confirmacion");
+    if (!isLogged) return navigate("/confirmacion");
+    return loginWithRedirect();
   };
-  console.log("los", errors);
-  console.log("el form", form);
+
   //
   return (
     <Container className={style.containerForm} fluid>
