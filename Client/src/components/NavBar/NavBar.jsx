@@ -1,57 +1,18 @@
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import Swal from "sweetalert2";
 
 // import NavDropdown from "react-bootstrap/NavDropdown";
 
 import Offcanvas from "react-bootstrap/Offcanvas";
-import Button from "react-bootstrap/Button";
 import logo from "../../assets/logo.png";
 import { Image } from "react-bootstrap";
-import logoutIcon from "../../assets/logout.svg"
-import {useAuth0} from "@auth0/auth0-react";
+import {useSelector} from "react-redux";
+import Login from "../../views/Login/Login";
 
 export default function NavBar() {
 
-  const {loginWithRedirect, isAuthenticated, logout} = useAuth0();
-
-  const Logout = (e) => {
-    e.preventDefault();
-
-    const swalWithBootstrapButtons = Swal.mixin({
-      customClass: {
-        confirmButton: "btn btn-success",
-        cancelButton: "btn btn-danger"
-      },
-      buttonsStyling: false
-    });
-
-    swalWithBootstrapButtons
-      .fire({
-        title: "Estas seguro?",
-        text: "Cerraras la sesión",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonText: "Si, cerrar sesión",
-        cancelButtonText: "No, Cancelar",
-        reverseButtons: true
-      })
-      .then((result) => {
-        if (result.isConfirmed) {
-          // Realiza el logout solo si el usuario confirma
-          logout()
-          
-          // Muestra un mensaje de éxito después del logout
-          swalWithBootstrapButtons.fire({
-            title: "Sesión cerrada!",
-            text: "Haz cerrado sesíón",
-            icon: "success"
-          });
-        } 
-      });
-  };
-
+  const isLogged = useSelector((state) => state.user.isLoggedIn);
 
   return (
     <>
@@ -70,26 +31,10 @@ export default function NavBar() {
           <Navbar.Brand href="/">
             <Image src={logo} alt="Logo BFS" style={{ height: "55px" }} />
           </Navbar.Brand>
-          {!isAuthenticated ? (
-  <div className="ms-auto">
-    <Button onClick={() => loginWithRedirect()}>
-      Ingresar
-    </Button>
-  </div>
-) : (
-  <div className="ms-auto">
-    <Button onClick={Logout} variant="outline-success">
-      <img src={logoutIcon} alt="Logout Icon" />
-    </Button>
-  </div>
-)}
-         
-          {/* {isLogged &&  
-           <div className="ms-auto">
-            <Button onClick={Logout}   variant="outline-success">
-            <img src={logoutIcon} alt="Logout Icon" />
-            </Button>
-          </div>} */}
+
+          <div className="ms-auto">
+            <Login></Login>
+          </div>
          
           <Navbar.Brand href="/"></Navbar.Brand>
           
@@ -115,7 +60,7 @@ export default function NavBar() {
                 <Nav.Link href="/about">Sobre nosotros</Nav.Link>
                 <Nav.Link href="/contacto">Contacto</Nav.Link>
                 <Nav.Link href="/servicios">Servicios</Nav.Link>
-                {isAuthenticated ?  <Nav.Link href="/envios">Mis envíos</Nav.Link> : null }
+                {isLogged ?  <Nav.Link href="/envios">Mis envíos</Nav.Link> : null }
                
                 {/* <NavDropdown
                     title="Servicios"
@@ -138,4 +83,4 @@ export default function NavBar() {
       ))}
     </>
   );
-}
+};
