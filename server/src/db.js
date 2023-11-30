@@ -42,7 +42,8 @@ let capsEntries = entries.map((entry) => [
 ]);
 sequelize.models = Object.fromEntries(capsEntries);
 
-const {User, Shipment, Receive, Package, Branch, Service} = sequelize.models;
+
+const {User, Shipment, Receive, Package, Branch, Service, Admin} = sequelize.models;
 // ----> Relación de uno a uno <---- 
 Shipment.hasOne(Receive, {foreignKey: "shipmentId"}); // Un envio a un recibido
 Receive.belongsTo(Shipment, {foreignKey: "receiveId"}); // Un recibido "recibe" un envio
@@ -78,6 +79,10 @@ Branch.belongsToMany(Service, { through: 'Service_Branch' }); // Muchas sucursal
 
 User.hasMany(Package); //'Realcion de uno a muchos con la prioridad para User'
 Package.belongsTo(User); // la foreing Key estaria en el modelo Package
+
+User.belongsToMany(Admin, { through: 'User_Admin' }); // Muchos usuarios pueden enviar paquetes a muchas sucursales
+Admin.belongsToMany(User, { through: 'User_Admin' }); // Muchas sucursales reciben envios de muchos usuarios
+
 
 
 module.exports = {
