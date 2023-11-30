@@ -22,7 +22,7 @@ export default function NavBar() {
           className="bg-body-tertiary py-1"
           style={{
             height: "auto",
-            boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
+
             width: "100%",
           }}
         >

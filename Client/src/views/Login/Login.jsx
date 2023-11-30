@@ -1,16 +1,16 @@
-import {useEffect} from "react";
-import {useDispatch} from "react-redux";
-import {registerUser} from "../../redux/actions/userActions";
-import {login, logouted} from "../../redux/Slices/userSlice";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { registerUser } from "../../redux/actions/userActions";
+import { login, logouted } from "../../redux/Slices/userSlice";
 import Button from "react-bootstrap/Button";
 import Swal from "sweetalert2";
-import {useAuth0} from "@auth0/auth0-react";
+import { useAuth0 } from "@auth0/auth0-react";
 import logoutIcon from "../../assets/logout.svg";
 
 const Login = () => {
   const dispatch = useDispatch();
 
-  const {loginWithRedirect, isAuthenticated, logout, user} = useAuth0();
+  const { loginWithRedirect, isAuthenticated, logout, user } = useAuth0();
 
   useEffect(() => {
     if (isAuthenticated && user.email_verified) {
@@ -25,19 +25,18 @@ const Login = () => {
       const postUser = {
         email: user.email,
         nickname: user.nickname,
-        picture: user.picture
+        picture: user.picture,
       };
 
-      dispatch(registerUser(postUser)); 
-
+      dispatch(registerUser(postUser));
     } else if (isAuthenticated && !user.email_verified) {
       Swal.fire({
         title: "Sesión iniciada",
         text: `${user.nickname} verifica tu Email para acceder a nuestros servicios`,
         icon: "success",
       });
-    };
-  }, [isAuthenticated, user]);
+    }
+  }, [user]);
 
   const handleLogin = () => {
     loginWithRedirect();
@@ -47,9 +46,9 @@ const Login = () => {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: "btn btn-success",
-        cancelButton: "btn btn-danger"
+        cancelButton: "btn btn-danger",
       },
-      buttonsStyling: false
+      buttonsStyling: false,
     });
 
     swalWithBootstrapButtons
@@ -60,7 +59,7 @@ const Login = () => {
         showCancelButton: true,
         confirmButtonText: "Si, cerrar sesión",
         cancelButtonText: "No, Cancelar",
-        reverseButtons: true
+        reverseButtons: true,
       })
       .then((result) => {
         if (result.isConfirmed) {
@@ -72,9 +71,9 @@ const Login = () => {
           swalWithBootstrapButtons.fire({
             title: "Sesión cerrada!",
             text: "Haz cerrado sesíón",
-            icon: "success"
+            icon: "success",
           });
-        } 
+        }
       });
   };
 
@@ -83,7 +82,9 @@ const Login = () => {
       {!isAuthenticated ? (
         <Button onClick={handleLogin}>Ingresar</Button>
       ) : (
-        <Button onClick={handleLogout} variant="outline-success"><img src={logoutIcon} alt="Logout Icon"/></Button>
+        <Button onClick={handleLogout} variant="outline-success">
+          <img src={logoutIcon} alt="Logout Icon" />
+        </Button>
       )}
     </div>
   );
