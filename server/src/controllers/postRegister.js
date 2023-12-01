@@ -23,6 +23,3 @@ const postRegister = async(email, nickname, picture) => {
 module.exports = {
   postRegister
 };
-
-
-

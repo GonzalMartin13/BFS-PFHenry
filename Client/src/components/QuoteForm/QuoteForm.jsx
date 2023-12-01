@@ -1,43 +1,49 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useState, useEffect, useRef } from "react";
-
+import { useState, useEffect } from "react";
+import { omit } from "lodash";
 import {
   Spinner,
   Button,
   Form,
-  Card,
   FloatingLabel,
   Col,
   Row,
   Container,
   Image,
 } from "react-bootstrap";
+import { useAuth0 } from "@auth0/auth0-react";
+
 import style from "./quoteForm.module.css";
 import axios from "axios";
 import { provincias } from "./utils/provincias";
 import { resetForm, handleCheck } from "./utils/formUtils";
+import { validateForm, objeto } from "./utils/validate";
 import icoTiempo from "./utils/tiempo-rapido.png";
 import icoDiscreto from "./utils/confidencial.png/";
 import icoCaja from "./utils/caja.png";
 import icoCuidado from "./utils/alerta.png";
 import icoSobre from "./utils/correo-electronico.png";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setState, setTotal, clearState } from "../../redux/Slices/quoterslice";
-import { PiMapPinThin } from "react-icons/pi";
+import { SiGooglemaps } from "react-icons/si";
 import Swal from "sweetalert2";
 
 export default function QuoteForm() {
+  const { loginWithRedirect } = useAuth0();
+  const isLogged = useSelector((state) => state.user.isLoggedIn);
+  console.log(isLogged);
+  const [errors, setErrors] = useState({});
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const [loading, setLoading] = useState(false);
   const [servicios, setServicios] = useState({
-    discreto: false,
-    cuidado: false,
+    discreto: null,
+    cuidado: null,
     paqueteria: true,
-    carteria: false,
-    express: false,
+    carteria: null,
+    express: null,
   });
   const [form, setForm] = useState({
     origen: "",
@@ -53,13 +59,56 @@ export default function QuoteForm() {
   //setea form(origen, destino, ancho, alto, largo,peso)
   function handleChange(event) {
     const { value, name } = event.target;
-
-    setForm({ ...form, [name]: value });
+    if (
+      name == "ancho" ||
+      name == "peso" ||
+      name == "largo" ||
+      name == "alto"
+    ) {
+      if (/^\d*$/.test(value) || value === "") {
+        setForm({ ...form, [name]: value });
+      }
+    }
+    if (name == "origen" || name == "destino") {
+      setForm({ ...form, [name]: value });
+    }
+    setErrors(validateForm({ ...form, [name]: value }, name));
   }
   //setea estado servicio, si paqueteria es checked carteria no , y viceversa.
   const handleCheckboxChange = (e) => {
     const { name, checked } = e.target;
     handleCheck(name, checked, servicios, setServicios);
+
+    setErrors(validateForm(form, name));
+    if (name == "paqueteria" && checked) {
+      setForm(() => {
+        return { ...form, largo: "", ancho: "", alto: "", peso: "" };
+      });
+      setErrors(() => {
+        return {
+          ...errors,
+          ...objeto,
+        };
+      });
+    }
+    if (name == "paqueteria" && !checked) {
+      setErrors((prevErrors) =>
+        omit(prevErrors, ["largo", "ancho", "alto", "peso"])
+      );
+      setForm((prev) => {
+        return { ...prev, largo: "", ancho: "", alto: "", peso: "" };
+      });
+    } else if (name == "carteria") {
+      setErrors(() => {
+        return {
+          ...errors,
+          ...objeto,
+        };
+      });
+      setForm((prev) => {
+        return { ...prev, largo: "", ancho: "", alto: "", peso: "" };
+      });
+    }
   };
   //
   const handleFormSubmit = async (event) => {
@@ -69,7 +118,10 @@ export default function QuoteForm() {
     setLoading(true);
 
     try {
-      const { data } = await axios.post("http://localhost:3001/envios/", form);
+      const { data } = await axios.post(
+        "http://localhost:3001/envios/price",
+        form
+      );
 
       // Función de alerta
 
@@ -118,256 +170,271 @@ export default function QuoteForm() {
   }, [servicios]);
   //post a servidor
 
-  //validacion provisoria
+  //anula el submit si no estan completos los campos requeridos
   const isFormValid = () => {
-    return form.origen && form.destino;
+    let booleanoLugares = form.origen && form.destino;
+    if (servicios.paqueteria == true) {
+      return booleanoLugares && Object.keys(errors).length == 0;
+    }
+    return booleanoLugares;
   };
+  ///
   const handleNavigation = () => {
-    return navigate("/confirmacion");
+    if (isLogged) return navigate("/confirmacion");
+    return loginWithRedirect();
   };
+
+  //
   return (
-    <div style={{ position: "relative" }}>
-      <div>
-        <Image
-          src="https://www.speedboy.cl/Images/index3xx_02.png"
-          fluid
-          style={{ width: "100%", height: "180px" }}
-        />
-      </div>
+    <Container className={style.containerForm} fluid>
+      <Form
+        onSubmit={handleFormSubmit}
+        style={{
+          margin: "auto auto 20px ",
+          maxWidth: "800px",
+          minHeight: "800px",
+          padding: "20px 20px",
+          borderRadius: "4px",
+          backgroundColor: "#e4e1e1bd",
+        }}
+      >
+        <div className="row" style={{ marginBottom: "25px" }}>
+          <div className="col-md-6 mb-3">
+            <h3>
+              Origen
+              <>
+                <SiGooglemaps style={{ color: "#888a8d" }} />
+              </>
+            </h3>
 
-      <Container className={style.containerForm} fluid>
-        <Form
-          onSubmit={handleFormSubmit}
-          style={{
-            margin: "15px auto 45px ",
-            maxWidth: "800px",
-            padding: "30px 20px",
-            borderRadius: "4px",
-            backgroundColor: "#e4e1e1bd",
-          }}
-        >
-          <div className="row">
-            <div className="col-md-6 mb-3">
-              <h3>
-                Origen
-                <>
-                  <PiMapPinThin />
-                </>
-              </h3>
-
-              <Form.Select
-                name="origen"
-                value={form.origen}
-                onChange={handleChange}
-                aria-label="Default select example"
-                style={{ marginBottom: "10px" }}
-              >
-                <option value="" disabled hidden>
-                  Selecciona una provincia
-                </option>
-                {provincias.map((p, i) => (
-                  <option key={i}>{p}</option>
-                ))}
-              </Form.Select>
-            </div>
-
-            <div className="col-md-6 mb-3">
-              <h3>
-                Destino
-                <>
-                  <PiMapPinThin />
-                </>
-              </h3>
-              <Form.Select
-                name="destino"
-                value={form.destino}
-                onChange={handleChange}
-                style={{ marginBottom: "10px" }}
-              >
-                <option value="" disabled hidden>
-                  Selecciona una provincia
-                </option>
-                {provincias.map((p, i) => (
-                  <option key={i}>{p}</option>
-                ))}
-              </Form.Select>
-            </div>
+            <Form.Select
+              name="origen"
+              value={form.origen}
+              onChange={handleChange}
+              aria-label="Default select example"
+              className={errors.origen ? style.dangercontent : ""}
+            >
+              <option value="" disabled hidden>
+                Selecciona una provincia
+              </option>
+              {provincias.map((p, i) => (
+                <option key={i}>{p}</option>
+              ))}
+            </Form.Select>
+            {errors.origen && (
+              <span className={style.danger}>{errors.origen}</span>
+            )}
           </div>
 
-          <h4 style={{ marginBottom: "20px" }}>
-            ¿Qué tipo de envio queres hacer?{" "}
-          </h4>
-
-          <Form.Group className="mb-3">
-            <Form.Check
-              inline
-              label={
-                <div>
-                  <span style={{ marginRight: "2px" }}>Discreto</span>
-                  <Image
-                    src={icoDiscreto}
-                    rounded
-                    width="23px"
-                    alt="discreto"
-                  />
-                </div>
-              }
-              name="discreto"
-              type="checkbox"
-              onChange={handleCheckboxChange}
-              checked={servicios.discreto}
-            />
-
-            <Form.Check
-              inline
-              label={
-                <div>
-                  <span style={{ marginRight: "1px" }}>Cuidado</span>
-                  <Image src={icoCuidado} rounded width="23px" alt="cuidado" />
-                </div>
-              }
-              name="cuidado"
-              type="checkbox"
-              onChange={handleCheckboxChange}
-              checked={servicios.cuidado}
-            />
-
-            <Form.Check
-              inline
-              label={
-                <div>
-                  <span style={{ marginRight: "2px" }}>Carteria</span>
-                  <Image src={icoSobre} rounded width="23px" alt="sobre" />
-                </div>
-              }
-              name="carteria"
-              type="checkbox"
-              onChange={handleCheckboxChange}
-              checked={servicios.carteria}
-            />
-            <Form.Check
-              inline
-              label={
-                <div>
-                  <span style={{ marginRight: "2px" }}>Paqueteria</span>
-                  <Image src={icoCaja} rounded width="23px" alt="paqueteria" />
-                </div>
-              }
-              name="paqueteria"
-              type="checkbox"
-              onChange={handleCheckboxChange}
-              checked={servicios.paqueteria}
-            />
-            <Form.Check
-              inline
-              label={
-                <div>
-                  <span style={{ marginRight: "1px" }}>Express</span>
-                  <Image src={icoTiempo} rounded width="23px" alt="Express" />
-                </div>
-              }
-              name="express"
-              type="checkbox"
-              onChange={handleCheckboxChange}
-              checked={servicios.express}
-            />
-
-            <div style={{ display: "block", height: "40px" }}>
-              {loading && <Spinner animation="border" role="status" />}
-            </div>
-
-            <Form.Group
-              className="mb-3"
-              style={{ height: "230px", marginTop: "60px" }}
+          <div className="col-md-6 mb-3">
+            <h3>
+              Destino
+              <>
+                <SiGooglemaps style={{ color: "#888a8d" }} />
+              </>
+            </h3>
+            <Form.Select
+              name="destino"
+              value={form.destino}
+              onChange={handleChange}
+              className={errors.destino ? style.dangercontent : ""}
             >
-              {servicios.carteria ? null : (
-                <>
-                  <Form.Group className="mb-3">
-                    <Row>
-                      <Col xs={6}>
-                        <Form.Group className="mb-1">
-                          <FloatingLabel label="Largo (cms)" className="mb-3">
-                            <Form.Control
-                              onChange={handleChange}
-                              value={form.largo}
-                              type="number"
-                              name="largo"
-                              placeholder="Largo (cms)"
-                              style={{ marginBottom: "10px" }}
-                              min="0"
-                            />
-                          </FloatingLabel>
-                        </Form.Group>
-                        <Form.Group className="mb-3">
-                          <FloatingLabel label="Alto (cms)" className="mb-3">
-                            <Form.Control
-                              onChange={handleChange}
-                              value={form.alto}
-                              type="number"
-                              placeholder="Alto (cms)"
-                              name="alto"
-                              style={{ marginBottom: "10px" }}
-                              min="0"
-                            />
-                          </FloatingLabel>
-                        </Form.Group>
-                      </Col>
-                      <Col xs={6}>
-                        <Form.Group className="mb-3">
-                          <FloatingLabel label="Ancho (cms)" className="mb-3">
-                            <Form.Control
-                              onChange={handleChange}
-                              value={form.ancho}
-                              type="number"
-                              placeholder="Ancho (cms)"
-                              name="ancho"
-                              style={{ marginBottom: "10px" }}
-                              min="0"
-                            />
-                          </FloatingLabel>
-                        </Form.Group>
-                        <Form.Group className="mb-3">
-                          <FloatingLabel
-                            controlId="floatingPeso"
-                            label="Peso (Kgs)"
-                            className="mb-3"
-                          >
-                            <Form.Control
-                              onChange={handleChange}
-                              value={form.peso}
-                              type="number"
-                              placeholder="Peso (Kgs)"
-                              name="peso"
-                              className={style.select}
-                              min="0"
-                              step="0.1"
-                            />
-                          </FloatingLabel>
-                        </Form.Group>
-                      </Col>
-                    </Row>
-                  </Form.Group>
-                </>
-              )}
-            </Form.Group>
+              <option value="" disabled hidden>
+                Selecciona una provincia
+              </option>
+              {provincias.map((p, i) => (
+                <option key={i}>{p}</option>
+              ))}
+            </Form.Select>
+            {errors.destino && (
+              <span className={style.danger}>{errors.destino}</span>
+            )}
+          </div>
+        </div>
+
+        <h4 style={{ marginBottom: "20px" }}>
+          ¿Qué tipo de envio queres hacer?{" "}
+        </h4>
+
+        <Form.Group className="mb-3">
+          <Form.Check
+            inline
+            label={
+              <div>
+                <span style={{ marginRight: "2px" }}>Discreto</span>
+                <Image src={icoDiscreto} rounded width="23px" alt="discreto" />
+              </div>
+            }
+            name="discreto"
+            type="checkbox"
+            onChange={handleCheckboxChange}
+            checked={servicios.discreto}
+          />
+
+          <Form.Check
+            inline
+            label={
+              <div>
+                <span style={{ marginRight: "1px" }}>Cuidado</span>
+                <Image src={icoCuidado} rounded width="23px" alt="cuidado" />
+              </div>
+            }
+            name="cuidado"
+            type="checkbox"
+            onChange={handleCheckboxChange}
+            checked={servicios.cuidado}
+          />
+
+          <Form.Check
+            inline
+            label={
+              <div>
+                <span style={{ marginRight: "2px" }}>Carteria</span>
+                <Image src={icoSobre} rounded width="23px" alt="sobre" />
+              </div>
+            }
+            name="carteria"
+            type="checkbox"
+            onChange={handleCheckboxChange}
+            checked={servicios.carteria}
+          />
+          <Form.Check
+            inline
+            label={
+              <div>
+                <span style={{ marginRight: "2px" }}>Paqueteria</span>
+                <Image src={icoCaja} rounded width="23px" alt="paqueteria" />
+              </div>
+            }
+            name="paqueteria"
+            type="checkbox"
+            onChange={handleCheckboxChange}
+            checked={servicios.paqueteria}
+          />
+          <Form.Check
+            inline
+            label={
+              <div>
+                <span style={{ marginRight: "1px" }}>Express</span>
+                <Image src={icoTiempo} rounded width="23px" alt="Express" />
+              </div>
+            }
+            name="express"
+            type="checkbox"
+            onChange={handleCheckboxChange}
+            checked={servicios.express}
+          />
+
+          <div style={{ display: "block", height: "40px" }}>
+            {loading && (
+              <Spinner animation="border" role="status" variant="primary" />
+            )}
+          </div>
+
+          <Form.Group
+            className="mb-3"
+            style={{ height: "230px", marginTop: "60px" }}
+          >
+            {servicios.carteria ? null : (
+              <>
+                <Form.Group className="mb-3">
+                  <Row>
+                    <Col xs={6}>
+                      <Form.Group className="mb-1">
+                        <FloatingLabel label="Largo (cms)" className="mb-3">
+                          <Form.Control
+                            onChange={handleChange}
+                            value={form.largo}
+                            type="text"
+                            name="largo"
+                            placeholder="Largo (cms)"
+                            style={{ marginTop: "30px" }}
+                            min="0"
+                            className={errors.largo ? style.dangercontent : ""}
+                          />
+                        </FloatingLabel>
+                      </Form.Group>
+                      {errors.largo && (
+                        <span className={style.danger}>{errors.largo}</span>
+                      )}
+                      <Form.Group className="mb-3">
+                        <FloatingLabel label="Alto (cms)" className="mb-3">
+                          <Form.Control
+                            onChange={handleChange}
+                            value={form.alto}
+                            type="text"
+                            placeholder="Alto (cms)"
+                            name="alto"
+                            style={{ marginTop: "30px" }}
+                            min="0"
+                            className={errors.alto ? style.dangercontent : ""}
+                          />
+                        </FloatingLabel>
+                      </Form.Group>
+                      {errors.alto && (
+                        <span className={style.danger}>{errors.alto}</span>
+                      )}
+                    </Col>
+                    <Col xs={6}>
+                      <Form.Group className="mb-3">
+                        <FloatingLabel label="Ancho (cms)" className="mb-3">
+                          <Form.Control
+                            onChange={handleChange}
+                            value={form.ancho}
+                            type="text"
+                            placeholder="Ancho (cms)"
+                            name="ancho"
+                            style={{ marginTop: "30px" }}
+                            min="0"
+                            className={errors.ancho ? style.dangercontent : ""}
+                          />
+                        </FloatingLabel>
+                      </Form.Group>
+                      {errors.ancho && (
+                        <span className={style.danger}>{errors.ancho}</span>
+                      )}
+                      <Form.Group className="mb-3">
+                        <FloatingLabel label="Peso (Kgs)" className="mb-3">
+                          <Form.Control
+                            onChange={handleChange}
+                            value={form.peso}
+                            type="text"
+                            placeholder="Peso (Kgs)"
+                            name="peso"
+                            min="0"
+                            step="0.1"
+                            style={{ marginTop: "30px" }}
+                            className={errors.peso ? style.dangercontent : ""}
+                          />
+                        </FloatingLabel>
+                      </Form.Group>
+                      {errors.peso && (
+                        <span className={style.danger}>{errors.peso}</span>
+                      )}
+                    </Col>
+                  </Row>
+                </Form.Group>
+              </>
+            )}
           </Form.Group>
+        </Form.Group>
 
-          <>
-            <Button
-              style={{
-                padding: "5px 30px",
-                fontSize: "25px",
-                marginBottom: "40px",
-              }}
-              variant="primary"
-              type="submit"
-              disabled={!isFormValid()}
-            >
-              Cotizar
-            </Button>
-          </>
-        </Form>
-      </Container>
-    </div>
+        <>
+          <Button
+            style={{
+              padding: "5px 30px",
+              fontSize: "25px",
+              marginBottom: "5px",
+              marginTop: "30px",
+            }}
+            variant="primary"
+            type="submit"
+            disabled={!isFormValid()}
+          >
+            Cotizar
+          </Button>
+        </>
+      </Form>
+    </Container>
   );
 }
