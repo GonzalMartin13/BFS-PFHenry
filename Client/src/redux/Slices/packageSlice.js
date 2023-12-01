@@ -14,7 +14,7 @@ export const PackageSlice = createSlice({
       state.allPackages = action.payload;
     },
     addUserPackage: (state, action) => {
-      state.userPackages = action.payload;
+      state.userPackages = (action.payload);
     },
     addUserPackageById: (state, action) => {
       state.userPackagesDetail = action.payload;
