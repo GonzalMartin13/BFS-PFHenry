@@ -46,4 +46,6 @@ export function getUserPackages(UserEmail) {
     dispatch(cleanDetail())
     }
   }
+
+  
   
