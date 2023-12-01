@@ -9,5 +9,4 @@ const getAllAdminsHandler = async (req, res) => {
      res.status(400).send({ error: error.message });
   }
 };
-
 module.exports = { getAllAdminsHandler };
