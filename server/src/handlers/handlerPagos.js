@@ -5,7 +5,7 @@ const getPagosHandler = async (req, res) =>{
     console.log(typeof(total, total))
     try{
         const response = await pagosControler(servicios, total)
-        res.status(200).json(response.init_point)
+         res.status(200).json(response.init_point) 
     } catch (error){
         res.status(404).json(error.message)
     }
@@ -14,12 +14,10 @@ const getPagosHandler = async (req, res) =>{
 // Tipo : POST // Pide: total y  tipo de servico
 // Devuelve: link de pago para redirecionar al cliente
 
-const getSuccesHandler = (req, res) => {
-    const {collection_status} = req.query
-    console.log(req.query)
+const getSuccesHandler = async (req, res) => {
     try{
-       // const response = await succesControler()
-        res.status(200).json({collection_status})
+        const response = await succesControler(req.query)
+        res.status(200).json(response)
     } catch (error){
         res.status(404).json(error.message)
     }
@@ -42,7 +40,7 @@ const getPendienteHandler = async (req, res) =>{
 
 const fallidaHandler = async(req, res) => {
     try{
-        const responde = await fallidaControler()
+        const responde = await fallidaControler(req.query)
         res.status(200).json(responde)
     } 
     catch (error){

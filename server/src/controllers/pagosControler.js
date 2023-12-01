@@ -22,22 +22,25 @@ const pagosControler = async (servicios, total) => {
             failure:"http://localhost:3001/pagos/fallida"
         },
         auto_return: "approved",
-/*         notification_url:"http://localhost:3001/pagos/webhook", */
         
     } }).then(console.log("then")).catch(console.log("catch"));
     return orden
 }
 
-const succesControler = async () => {
-    return 2
+const succesControler = async (query) => {
+    
+    return await query.status
 }
 
 const pendienteControler = async () => {
     return 3
 }
 
-const fallidaControler = async() => {
-    return 4
+const fallidaControler = async( query ) => {
+    if (query.status === "null"){    
+        return await "desaproved"
+    }
+    
 }
 
 const webHookControler = async() => {
