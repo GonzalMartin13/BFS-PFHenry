@@ -6,9 +6,14 @@ import Button from "react-bootstrap/Button";
 import Swal from "sweetalert2";
 import {useAuth0} from "@auth0/auth0-react";
 import logoutIcon from "../../assets/logout.svg";
+import { useNavigate } from 'react-router-dom';
+
+
 
 const Login = () => {
   const {contador, isLoggedIn} = useSelector((state) => state.user);
+
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
@@ -17,6 +22,9 @@ const Login = () => {
 
   useEffect(() => {
     if (isAuthenticated && user.email_verified && contador === 2) {
+      const previousRoute = localStorage.getItem('previousRoute');
+      localStorage.removeItem('previousRoute');
+      navigate(previousRoute || '/');
       Swal.fire({
         title: "Sesión iniciada",
         text: `${user.nickname} has iniciado sesión exitosamente`,
@@ -44,6 +52,7 @@ const Login = () => {
   }, [isAuthenticated, user]);
 
   const handleLogin = () => {
+    localStorage.setItem('previousRoute', window.location.pathname);
     loginWithRedirect();
     dispatch(contar());
   };
