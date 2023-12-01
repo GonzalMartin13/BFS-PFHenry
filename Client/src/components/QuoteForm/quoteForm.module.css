@@ -2,6 +2,8 @@
   background-color: #fafafa;
   min-height: 100%;
   color: #36a0ff;
+  padding-top: 60px;
+  margin: 0 auto;
 }
 
 .select {
@@ -23,11 +25,7 @@
   object-fit: cover;
   vertical-align: middle;
 }
-.seccionPostCloud {
-  height: 250px;
 
-  padding: 7px 20px;
-}
 .buttonDeleteimg {
   margin: 0;
   position: "absolute";
@@ -35,4 +33,10 @@
   right: 0;
   font-size: "0.7rem";
   z-index: 1;
+}
+.danger {
+  color: rgba(255, 0, 0, 0.747);
+}
+.dangercontent {
+  border: 1px solid rgba(255, 0, 0, 0.753);
 }

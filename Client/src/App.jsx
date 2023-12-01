@@ -23,26 +23,23 @@ function App() {
 
   return (
     <>
-      {location.pathname !== "/register" && (
-        <NavBar />
-      )}
+      {location.pathname !== "/register" && <NavBar />}
 
-        <Routes>
-          <Route exact path="/" element={<Home />} />
-          <Route path="/cotizacion" element={<QuoteForm />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contacto" element={<Email />} />
-          <Route path="/payment" element={<About />} />
-          <Route path="/servicios" element={<CardContainer />} />
-          <Route path="/sucursales" element={<Mapa />} />
-          <Route path="/envios" element={<MisEnvios />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/guia" element={<Pdf />} />
-          <Route path="/confirmacion" element={<Compra />} />
-          <Route path="/comprobante" element={<ComprobantePDF />} />
-        </Routes>
-        <Footer />
-
+      <Routes>
+        <Route exact path="/" element={<Home />} />
+        <Route path="/cotizacion" element={<QuoteForm />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contacto" element={<Email />} />
+        <Route path="/payment" element={<About />} />
+        <Route path="/servicios" element={<CardContainer />} />
+        <Route path="/sucursales" element={<Mapa />} />
+        <Route path="/envios" element={<MisEnvios />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/guia" element={<Pdf />} />
+        <Route path="/confirmacion" element={<Compra />} />
+        <Route path="/comprobante" element={<ComprobantePDF />} />
+      </Routes>
+      <Footer />
     </>
   );
 }
