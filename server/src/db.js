@@ -44,13 +44,18 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 const {User, Package, Admin} = sequelize.models;
 
-// ----> Relacion de uno a muchos <---- 
+//----------------Relacion de Uno A Muchos --------------------------------
 User.hasMany(Package); // un usuario hace muchos envios
 Package.belongsTo(User); // Muchis envios pertenecen a un usuario
 // ESTA ES LA QUE SIRVE /
 
+User.belongsToMany(Admin, { through: 'User_Admin' }); // Muchos usuarios pertenecen a muchos admin
+Admin.belongsToMany(User, { through: 'User_Admin' }); // Muchois admin administran a muchos usuarios
+
+//console.log(sequelize.models);
 
 module.exports = {
 	...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
 	conn: sequelize, // para importart la conexión { pool } = require('./db.js');
   };
+

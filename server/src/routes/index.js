@@ -4,6 +4,9 @@ const enviosRoutes = require("./enviosRoutes")
 const direccionesRoutes = require("./direccionRoutes")
 const clientesRoutes = require("./ubicacionesRoutes");
 const adminRoutes = require("./adminRoutes");
+
+const pagosRoutes =require("./pagosRoutes")
+
 const router = Router();
 
 
@@ -16,13 +19,17 @@ router.use("/envios", enviosRoutes)
 // Direcciones y locaciones
 router.use("/direcciones", direccionesRoutes)
 
-// Ubicaciones
+// clientes
 router.use("/clientes", clientesRoutes)
 
-// Dashboard
-/* router.use("/dashboard", userRoutes) */ // Para traerme todos los usuarios al Dashboard
+// Pasarela De Pagos
+router.use("/pagos", pagosRoutes)
 
-// para traer a los Administradores al Dashboard
-/* router.use("/admin", adminRoutes) */
+// Dashboard user
+router.use("/dashboard", userRoutes) 
+
+// Dashboard post y get
+router.use("/admin", adminRoutes) 
+
 
 module.exports = router;

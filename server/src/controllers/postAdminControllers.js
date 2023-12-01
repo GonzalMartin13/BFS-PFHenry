@@ -1,14 +1,14 @@
-/* const { Admin } = require("../db"); 
+const { Admin } = require("../db"); 
 
 const createAdmin = async (req, res) => {
     try {
-      const { name, email } = req.body;
+      const { nameAdmin, emailAdmin } = req.body;
   
-      const admin = await Admin.create({
-        name,
-        email,
+      const newAdmin = await Admin.create({
+        nameAdmin,
+        emailAdmin,
       });
-      res.status(201).json(admin);
+      res.status(201).json(newAdmin);
 
     } catch (error) {
       console.error(error);
@@ -16,6 +16,5 @@ const createAdmin = async (req, res) => {
     }
   };
   
-  module.exports = {
-    createAdmin,
-  }; */
+  module.exports = { createAdmin };
+  

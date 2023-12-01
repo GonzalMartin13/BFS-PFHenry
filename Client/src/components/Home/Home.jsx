@@ -4,11 +4,28 @@ import Slider from "../Carrousel/Carrousel";
 import Image from "react-bootstrap/Image";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
-import { useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect , useState} from "react";
+import {getUserPackages} from "../../redux/actions/packageActions"
 
 const Home = () => {
+  const dispatch = useDispatch();
+  const userPackages = useSelector((state) => state.packages.userPackages);
+  const UserEmail = useSelector((state) => state.user.user.email);
   const isLogged = useSelector((state)=>state.user.isLoggedIn)
+ 
+  console.log(UserEmail)
+  console.log(userPackages)
+
+ 
+useEffect(() => {
+  if (UserEmail) {
+    dispatch(getUserPackages(UserEmail));
+  }
+}, [dispatch, UserEmail]);
+
+
+
 
   return (
     
@@ -55,6 +72,7 @@ const Home = () => {
           </Card.Body>
         </Card>
       </Button>
+      
     </div>
   );
 };

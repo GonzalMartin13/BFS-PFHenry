@@ -4,7 +4,6 @@ module.exports = (sequelize) => {
     sequelize.define('User', {
         ID: {
           type: DataTypes.UUID,
-          primaryKey: true,
           defaultValue: DataTypes.UUIDV4,
         },
         name: {
@@ -27,6 +26,7 @@ module.exports = (sequelize) => {
           type: DataTypes.STRING,
           allowNull: false,
           unique: true,
+          primaryKey: true, 
         },
         nickname: {
           type: DataTypes.STRING,
@@ -36,6 +36,10 @@ module.exports = (sequelize) => {
         picture: {
           type: DataTypes.STRING,
           allowNull: false,
+        },
+        picture: {
+          type: DataTypes.STRING,
+          allowNull: true,
         },
         connect: {
           type: DataTypes.BOOLEAN,
