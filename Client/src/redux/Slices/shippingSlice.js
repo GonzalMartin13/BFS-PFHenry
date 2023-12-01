@@ -15,10 +15,12 @@ const initialState = {
   razonSocialRemitente: "",
   telefonoRemitente: "",
   emailRemitente: "",
+  dniRemitente:"",
   nombreDestinatario: "",
   razonSocialDestinatario: "",
   telefonoDestinatario: "",
   emailDestinatario: "",
+  dniDestinatario:"",
   coordenadasOrigen: "",
   coordenadasDestino: [],
   direccionOrigen: [],
@@ -44,10 +46,12 @@ const shippingSlice = createSlice({
         razonSocialRemitente,
         telefonoRemitente,
         emailRemitente,
+        dniRemitente,
         nombreDestinatario,
         razonSocialDestinatario,
         telefonoDestinatario,
         emailDestinatario,
+        dniDestinatario,
         coordenadasOrigen,
         coordenadasDestino,
         direccionOrigen,
@@ -67,10 +71,12 @@ const shippingSlice = createSlice({
       state.razonSocialRemitente = razonSocialRemitente;
       state.telefonoRemitente = telefonoRemitente;
       state.emailRemitente = emailRemitente;
+      state.dniRemitente = dniRemitente
       state.nombreDestinatario = nombreDestinatario;
       state.razonSocialDestinatario = razonSocialDestinatario;
       state.telefonoDestinatario = telefonoDestinatario;
       state.emailDestinatario = emailDestinatario;
+      state.dniDestinatario = dniDestinatario
       state.coordenadasOrigen = coordenadasOrigen
       state.coordenadasDestino = coordenadasDestino
       state.direccionOrigen = direccionOrigen
@@ -99,10 +105,12 @@ const shippingSlice = createSlice({
       state.razonSocialRemitente= "";
       state.telefonoRemitente= "";
       state.emailRemitente= "";
+      state.dniRemitente= "";
       state.nombreDestinatario= "";
       state.razonSocialDestinatario= "";
       state.telefonoDestinatario= "";
       state.emailDestinatario= "";
+      state.dniDestinatario= "";
       state.coordenadasOrigen= "";
       state.coordenadasDestino= [];
       state.direccionOrigen= [];
