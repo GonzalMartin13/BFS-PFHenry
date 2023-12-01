@@ -30,6 +30,8 @@ import { SiGooglemaps } from "react-icons/si";
 import Swal from "sweetalert2";
 
 export default function QuoteForm() {
+  const state = useSelector((state) => state.shipping);
+  console.log("legfff", state);
   const { loginWithRedirect } = useAuth0();
   const isLogged = useSelector((state) => state.user.isLoggedIn);
   console.log(isLogged);
