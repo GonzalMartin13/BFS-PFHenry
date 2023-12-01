@@ -55,6 +55,7 @@ const shippingSlice = createSlice({
       state.servicios = [];
       state.total = "";
       state.imagen = "";
+      state.numeroDeEnvio = "";
     },
   },
 });
