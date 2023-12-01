@@ -5,7 +5,7 @@ import storage from "redux-persist/lib/storage"; // defaults to localStorage for
 import userReducer from "../Slices/userSlice";
 import packageReducer from "../Slices/packageSlice";
 import quoterReducer from "../Slices/quoterslice";
-
+import invoiceUserReducer from "../Slices/invoiceUserSlice";
 import shippingReducer from "../Slices/shippingSlice";
 
 const persistConfig = {
@@ -18,7 +18,7 @@ const persistedReducer = persistReducer(
   combineReducers({
     user: userReducer,
     quoter: quoterReducer,
-
+    invoice: invoiceUserReducer,
     shipping: shippingReducer,
 
     packages: packageReducer,
