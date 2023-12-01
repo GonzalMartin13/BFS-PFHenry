@@ -18,8 +18,7 @@ import MisEnvios from "./components/misEnvios/misEnvios";
 import "./App.css";
 import Compra from "./components/Compra/Compra";
 import ComprobantePDF from "./components/Compra/ComprobantePDF";
-
-// import ProtectedRoute from "./utils/ProtectedRoute"
+import FormEnvio from "./components/FormEnvio/FormEnvio";
 
 function App() {
   const location = useLocation();
@@ -31,26 +30,21 @@ function App() {
       )}
 
 
-        <Routes>
-          <Route exact path="/" element={<Home />} />
-          <Route path="/cotizacion" element={<QuoteForm />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contacto" element={<Email />} />
-          <Route path="/payment" element={<About />} />
-          <Route path="/servicios" element={<CardContainer />} />
-          <Route path="/sucursales" element={<Mapa />} />
-          {/* <Route element={<ProtectedRoute canActivate={false}/>}> */}
-            <Route path="/envios" element={<MisEnvios />} />  
-          {/* </Route> */}
-          <Route path="/register" element={<Register />} />
-          <Route path="/guia" element={<Pdf />} />
-          <Route path="/confirmacion" element={<Compra />} />
-          <Route path="/comprobante" element={<ComprobantePDF />} />
-        
-        </Routes>
-        <Footer />
-    
-
+      <Routes>
+        <Route exact path="/" element={<Home />} />
+        <Route path="/cotizacion" element={<QuoteForm />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contacto" element={<Email />} />
+        <Route path="/payment" element={<About />} />
+        <Route path="/servicios" element={<CardContainer />} />
+        <Route path="/sucursales" element={<Mapa />} />
+        <Route path="/envios" element={<MisEnvios />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/guia" element={<Pdf />} />
+        <Route path="/confirmacion" element={<FormEnvio />} />
+        <Route path="/comprobante" element={<ComprobantePDF />} />
+      </Routes>
+      <Footer />
     </>
   );
 }
