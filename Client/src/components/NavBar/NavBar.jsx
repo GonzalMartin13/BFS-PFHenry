@@ -1,6 +1,7 @@
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
+import Button from "react-bootstrap/Button";
 
 // import NavDropdown from "react-bootstrap/NavDropdown";
 
@@ -30,6 +31,7 @@ export default function NavBar() {
           <Navbar.Brand href="/">
             <Image src={logo} alt="Logo BFS" style={{ height: "55px" }} />
           </Navbar.Brand>
+
           <div className="ms-auto">
             <Login></Login>
           </div>

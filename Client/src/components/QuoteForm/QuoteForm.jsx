@@ -118,10 +118,12 @@ export default function QuoteForm() {
     setLoading(true);
 
     try {
+
       const { data } = await axios.post(
         "http://localhost:3001/envios/price",
         form
       );
+
 
       // Función de alerta
 
