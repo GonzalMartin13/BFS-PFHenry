@@ -4,15 +4,12 @@ footer {
   width: 100%;
   background-color: rgb(0, 0, 0);
   color: white;
-  
 }
 .Footer {
   width: 100%;
- 
 }
 .container_foot {
   display: flex;
-  
 }
 
 .colum1 {
@@ -27,7 +24,6 @@ footer {
   margin-top: -10px;
   display: flex;
   flex-direction: row;
-  
 }
 .row {
   margin-top: 10px;
