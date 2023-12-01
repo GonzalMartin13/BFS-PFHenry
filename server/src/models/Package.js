@@ -13,7 +13,7 @@ module.exports = (sequelize) => {
       },
       destino: {
           type: DataTypes.STRING,
-          allowNull: false,
+          allowNull: true,
       },
       peso: {
           type: DataTypes.INTEGER,
