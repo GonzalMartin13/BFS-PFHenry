@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
@@ -19,10 +19,12 @@ import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import { handleUpload } from "../FormEnvio/utils/cloudinary";
 import { Link } from "react-router-dom";
-import { enviarEnvio } from "../FormEnvio/axios";
+import { enviarAPago } from "../FormEnvio/axios";
+import axios from "axios";
 
 const FormEnvio = () => {
   const [imagenLocal, setImagenLocal] = useState("");
+  const [linkPago, setLinkPago] = useState(null);
 
   const dispatch = useDispatch();
   const position = [-35.4132981, -65.0205861];
@@ -88,6 +90,28 @@ const FormEnvio = () => {
   function capitalizeFirstLetter(word) {
     return word.charAt(0).toUpperCase() + word.slice(1);
   }
+
+
+  
+
+  useEffect(() => {
+    const mercadoPago = async () => {
+      try {
+        const { data } = await axios.post("http://localhost:3001/pagos/crear", {
+          total,
+          servicios,
+        });
+        setLinkPago(data);
+        console.log(data);
+      } catch (error) {
+        console.error("Error al realizar la solicitud a MercadoPago", error);
+
+      }
+    };
+
+
+    mercadoPago();
+  }, []);
 
   const coordenadasOrigen = sucursalOrigen ? sucursalOrigen.coordenadas : "";
   const coordenadasDestino = sucursalDestino ? sucursalDestino.coordenadas : "";
@@ -221,7 +245,7 @@ const FormEnvio = () => {
       }}
       onSubmit={async (valores, { resetForm }) => {
 
-        try {
+       
           console.log("Valores del formulario:", valores);
           console.log("enviando...");
 
@@ -268,43 +292,12 @@ const FormEnvio = () => {
           console.log("Después de la actualización:", valores);
           console.log("Estado global después del submit:", shippingInfo);
 
-          // datos para enviar al servidor
-          const envioData = {
-            ...quoteState,
-            dni: valores.dniRemitente,
-            userID: valores.userID,
-          };
-
-          const result = await enviarEnvio(envioData);
-
-          if (result.success) {
-            Swal.fire({
-              icon: "success",
-              title: "Tu envío ha sido registrado exitosamente",
-              showConfirmButton: false,
-              timer: 1500,
-            }).then(() => {
-              navigate("/comprobante");
-            });
-          } else {
-            console.error(result.error);
-            Swal.fire({
-              icon: "error",
-              title: "Oops...",
-              text: result.error,
-            });
-          }
+          window.location.href = linkPago;
+          
 
 
           resetForm();
-        } catch (error) {
-          console.error("Error en el envío:", error);
-          Swal.fire({
-            icon: "error",
-            title: "Oops...",
-            text: "Hubo un error",
-          });
-        }
+       
       }}
     >
       {({
