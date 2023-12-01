@@ -18,6 +18,7 @@ import {
   setNumeroDeEnvio,
 } from "../../redux/Slices/shippingSlice";
 import { clearState, setState } from "../../redux/Slices/quoterslice";
+
 const Compra = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -95,8 +96,8 @@ const Compra = () => {
 
   return (
     <Container
-      style={{ backgroundColor: "#fafafa" }}
-      className="vh-100 d-flex justify-content-center  "
+      style={{ backgroundColor: "#fafafa", marginTop: "20px" }}
+      className="vh-400 d-flex justify-content-center  "
       fluid
     >
       <Row>
@@ -137,6 +138,8 @@ const Compra = () => {
               <h3 style={{ color: "#36a0ff" }}>
                 Agrega el resto de datos necesarios para tu envio:
               </h3>
+              <div>
+              </div>
             </ListGroup.Item>
 
             <ListGroup.Item>
