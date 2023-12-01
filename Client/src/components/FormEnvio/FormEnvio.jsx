@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { Icon } from "leaflet";
@@ -7,13 +7,19 @@ import sucursales from "../FormEnvio/sucursales";
 import { Formik } from "formik";
 import * as styles from "../FormEnvio/FormEnvio.module.css";
 import { useSelector, useDispatch } from "react-redux";
-import { setShippingState, setImagen } from "../../redux/Slices/shippingSlice";
+import {
+  setShippingState,
+  setImagen,
+  clearShippingState,
+} from "../../redux/Slices/shippingSlice";
+import { clearState, setState } from "../../redux/Slices/quoterslice";
 import Swal from "sweetalert2";
 import { Button } from "react-bootstrap";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
-import Row from "react-bootstrap/Row";
 import { handleUpload } from "../FormEnvio/utils/cloudinary";
+import { Link } from "react-router-dom";
+import { enviarEnvio } from "../FormEnvio/axios";
 
 const FormEnvio = () => {
   const [imagenLocal, setImagenLocal] = useState("");
@@ -87,7 +93,7 @@ const FormEnvio = () => {
   const coordenadasDestino = sucursalDestino ? sucursalDestino.coordenadas : "";
   const direccionOrigen = sucursalOrigen ? sucursalOrigen.direccion : "";
   const direccionDestino = sucursalDestino ? sucursalDestino.direccion : "";
-  const userID = useSelector((state)=>state.user.user.ID)
+  const userID = useSelector((state) => state.user.user.ID);
 
   const quoteState = useSelector((state) => state.quoter);
 
@@ -98,10 +104,12 @@ const FormEnvio = () => {
         razonSocialRemitente: "",
         telefonoRemitente: "",
         emailRemitente: "",
+        dniRemitente: "",
         nombreDestinatario: "",
         razonSocialDestinatario: "",
         telefonoDestinatario: "",
         emailDestinatario: "",
+        dniDestinatario: "",
         coordenadasOrigen: coordenadasOrigen,
         coordenadasDestino: coordenadasDestino,
         direccionOrigen: direccionOrigen,
@@ -152,6 +160,13 @@ const FormEnvio = () => {
         ) {
           errores.emailRemitente = "Debe ser un correo valido";
         }
+        //DNI Remitente
+        if (!valores.dniRemitente) {
+          errores.dniRemitente = "Debes ingresar tu numero de DNI";
+        } else if (!/^[0-9]{8}$/.test(valores.dniRemitente)) {
+          errores.dniRemitente =
+            "Debe ser un numero de DNI valido de 8 digitos";
+        }
 
         //Validaciones para Destinatario
         if (!valores.nombreDestinatario) {
@@ -194,52 +209,102 @@ const FormEnvio = () => {
         ) {
           errores.emailDestinatario = "Debe ser un correo valido";
         }
+        //DNI Destinatario
+        if (!valores.dniDestinatario) {
+          errores.dniDestinatario = "Debes ingresar tu numero de DNI";
+        } else if (!/^[0-9]{8}$/.test(valores.dniDestinatario)) {
+          errores.dniDestinatario =
+            "Debe ser un numero de DNI valido de 8 digitos";
+        }
 
         return errores;
       }}
-      onSubmit={(valores, { resetForm }) => {
-        console.log("Valores del formulario:", valores);
-        console.log("enviando...");
-        console.log("Coordenadas Origen:", valores.coordenadasOrigen);
-        console.log(valores);
-        const {
-          nombreRemitente,
-          razonSocialRemitente,
-          telefonoRemitente,
-          emailRemitente,
-          nombreDestinatario,
-          razonSocialDestinatario,
-          telefonoDestinatario,
-          emailDestinatario,
-          coordenadasOrigen,
-          coordenadasDestino,
-          direccionOrigen,
-          direccionDestino,
-          userID,
-        } = valores;
+      onSubmit={async (valores, { resetForm }) => {
 
-        const shippingInfo = {
-          ...quoteState,
-          nombreRemitente,
-          razonSocialRemitente,
-          telefonoRemitente,
-          emailRemitente,
-          nombreDestinatario,
-          razonSocialDestinatario,
-          telefonoDestinatario,
-          emailDestinatario,
-          coordenadasOrigen,
-          coordenadasDestino,
-          direccionOrigen,
-          direccionDestino,
-          userID,
-        };
+        try {
+          console.log("Valores del formulario:", valores);
+          console.log("enviando...");
 
-        console.log("Antes de la actualización:", valores);
-        dispatch(setShippingState(shippingInfo));
-        console.log("Después de la actualización:", valores);
-        console.log("Estado global después del submit:", shippingInfo);
-        // resetForm();
+          const {
+            nombreRemitente,
+            razonSocialRemitente,
+            telefonoRemitente,
+            emailRemitente,
+            dniRemitente,
+            nombreDestinatario,
+            razonSocialDestinatario,
+            telefonoDestinatario,
+            emailDestinatario,
+            dniDestinatario,
+            coordenadasOrigen,
+            coordenadasDestino,
+            direccionOrigen,
+            direccionDestino,
+            userID,
+          } = valores;
+
+          const shippingInfo = {
+            ...quoteState,
+            nombreRemitente,
+            razonSocialRemitente,
+            telefonoRemitente,
+            emailRemitente,
+            dniRemitente,
+            nombreDestinatario,
+            razonSocialDestinatario,
+            telefonoDestinatario,
+            emailDestinatario,
+            dniDestinatario,
+            coordenadasOrigen,
+            coordenadasDestino,
+            direccionOrigen,
+            direccionDestino,
+            userID,
+          };
+
+          // Envía la información del envío al estado global
+          console.log("Antes de la actualización:", valores);
+          dispatch(setShippingState(shippingInfo));
+          console.log("Después de la actualización:", valores);
+          console.log("Estado global después del submit:", shippingInfo);
+
+          // datos para enviar al servidor
+          const envioData = {
+            ...quoteState,
+            dni: valores.dniRemitente,
+            userID: valores.userID,
+          };
+
+          const result = await enviarEnvio(envioData);
+
+          if (result.success) {
+            Swal.fire({
+              icon: "success",
+              title: "Tu envío ha sido registrado exitosamente",
+              showConfirmButton: false,
+              timer: 1500,
+            }).then(() => {
+              navigate("/comprobante");
+            });
+          } else {
+            console.error(result.error);
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: result.error,
+            });
+          }
+
+
+          resetForm();
+        } catch (error) {
+          console.error("Error en el envío:", error);
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Hubo un error",
+          });
+        }
       }}
     >
       {({
@@ -343,6 +408,22 @@ const FormEnvio = () => {
                 )}
               </div>
               <div>
+                <label className={styles.label}>DNI</label>
+                <input
+                  type="text"
+                  id="dniRemitente"
+                  name="dniRemitente"
+                  placeholder="12345678"
+                  value={values.dniRemitente}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  className={styles.input}
+                ></input>
+                {touched.dniRemitente && errors.dniRemitente && (
+                  <p className={styles.error}>{errors.dniRemitente}</p>
+                )}
+              </div>
+              <div>
                 <br></br>
                 <label>Sucursal de Origen {origen}</label>
                 <br></br>
@@ -438,6 +519,24 @@ const FormEnvio = () => {
                   <p className={styles.error}>{errors.emailDestinatario}</p>
                 )}
               </div>
+
+              <div>
+                <label className={styles.label}>DNI</label>
+                <input
+                  type="text"
+                  id="dniDestinatario"
+                  name="dniDestinatario"
+                  placeholder="12345678"
+                  value={values.dniDestinatario}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  className={styles.input}
+                ></input>
+                {touched.dniDestinatario && errors.dniDestinatario && (
+                  <p className={styles.error}>{errors.dniDestinatario}</p>
+                )}
+              </div>
+
               <div>
                 <br></br>
                 <label>Sucursal de Destino {destino}</label>
@@ -532,6 +631,20 @@ const FormEnvio = () => {
               <button type="submit" className={styles.button}>
                 Poceder al pago
               </button>
+              <br></br>
+            </div>
+
+            <div>
+              <br></br>
+              <Link to="/cotizacion">
+                <button
+                  type="submit"
+                  className={styles.buttonCancel}
+                  onClick={clearStateShipping}
+                >
+                  Cancelar y regresar
+                </button>
+              </Link>
               <br></br>
             </div>
 
