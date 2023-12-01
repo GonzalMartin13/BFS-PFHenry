@@ -1,11 +1,13 @@
 export function validateName(name) {
-    if (name.trim() === "") {
-        return "El nombre es requerido";
-    } else if (name.length < 3) {
-        return "Parece que el nombre es demasiado corto";
-    }
-    return "";
+  if (name.trim() === "") {
+    return "El nombre es requerido";
+  } else if (name.length < 3) {
+    return "Parece que el nombre es demasiado corto";
+  } else if (!/^[a-zA-Z]+$/.test(name)) {
+    return "El nombre debe contener solo letras";
   }
+  return "";
+}
   
   export function validatePhone(phone) {
     const phonePattern = /^[0-9]{8}$/;

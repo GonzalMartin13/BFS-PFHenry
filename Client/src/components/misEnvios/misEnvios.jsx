@@ -1,35 +1,45 @@
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import ProgressBar from "react-bootstrap/ProgressBar";
+// import ProgressBar from "react-bootstrap/ProgressBar";
 import Table from "react-bootstrap/Table";
 import Image from "react-bootstrap/Image";
-
-
+import { getUserPackagesById, cleanDetail, getUserPackages } from "../../redux/actions/packageActions";
+import flechaIcon from "../../assets/sign.svg";
 import "./MisEnvios.css";
 
 function MisEnvios() {
+  const dispatch = useDispatch();
+  const userPackages = useSelector((state) => state.packages.userPackages);
+  const userID = useSelector((state) => state.user.user.ID);
+
   const [showModal, setShowModal] = useState(false);
-  const [trackingInfo, setTrackingInfo] = useState(null);
+  // const [trackingInfo, setTrackingInfo] = useState(null);
+  console.log(userPackages)
 
+  useEffect(() => {
+    if (userID) {
+      dispatch(getUserPackages(userID));
+    }
+  }, [dispatch]);
 
-  
-
-  const handleEstadoButtonClick = (info) => {
-    setTrackingInfo(info);
-    setShowModal(true);
-  };
+  // const handleEstadoButtonClick = (info) => {
+  //    setTrackingInfo(info);
+  //   setShowModal(true);
+  // };
 
   const handleCloseModal = () => {
     setShowModal(false);
   };
 
-  const enviosData = [
-    { id: "#25634", location: "Capital Federal, Buenos Aires", progress: 40 },
-    { id: "#54236", location: "Rosario, Santa Fe", progress: 62 },
-    { id: "#87521", location: "Cordoba Capital", progress: 100 },
-  ];
+  const [selectedPackage, setSelectedPackage] = useState(null);
+
+  const handleDetalleButtonClick = (envio) => {
+    setSelectedPackage(envio);
+    setShowModal(true);
+  };
 
   return (
     <div style={{ position: "relative" }}>
@@ -42,49 +52,54 @@ function MisEnvios() {
   <br />
   <br />
   <div className="mis-envios-container">
-    {enviosData.map((envio, idx) => (
-      <Card key={idx} style={{ width: "18rem" }}>
+    {userPackages.map((envio, idx) => (
+      <Card key={idx}style={{ width: "18rem", height: "100%" }}>
         <Card.Body>
-          <Card.Title>{envio.id}</Card.Title>
+          <Card.Title>{envio.servicios}</Card.Title>
           <Card.Subtitle className="mb-2 text-muted">
-            {envio.location}
-          </Card.Subtitle>
+  <span style={{ marginRight: '5px' }}>
+    
+  </span>
+  {envio.origen} <img src={flechaIcon} alt="Logout Icon" style={{ width: '20px', height: '20px' }} /> {envio.destino}
+</Card.Subtitle>
+
           <Card.Text></Card.Text>
-          <Card.Link href="#" onClick={() => handleEstadoButtonClick(envio)}>
+          {/* <Card.Link>
             Estado
-          </Card.Link>
-          <Card.Link href={`/envios/${envio.id}`}>Detalle</Card.Link>
+          </Card.Link> */}
+          <Button variant="primary" onClick={() => handleDetalleButtonClick(envio)}>
+            Detalle
+          </Button>
         </Card.Body>
       </Card>
     ))}
   </div>
-  <Modal show={showModal} onHide={handleCloseModal}>
-    <Modal.Header closeButton>
-      <Modal.Title>Estado del envío</Modal.Title>
+  {selectedPackage && (
+    <Modal
+    size="sm"
+    show={showModal}
+    onHide={handleCloseModal}
+    aria-labelledby="example-modal-sizes-title-sm"
+    style={{ borderRadius: '10px' }} // Estilo para bordes redondeados
+  >
+    <Modal.Header closeButton style={{ background: '#007BFF', color: 'white' }}> {/* Estilo para el encabezado */}
+      <Modal.Title id="example-modal-sizes-title-sm">
+        Detalles del paquete
+      </Modal.Title>
     </Modal.Header>
-    <Modal.Body>
-      {trackingInfo && (
-        <>
-          <ProgressBar
-            className="mt-3"
-            style={{ height: "10px", maxWidth: "480px" }}
-            animated
-            now={trackingInfo.progress}
-          />
-          <Table striped bordered hover responsive className="mt-3">
-            <thead>
-              <tr>
-                <th style={trackingInfo.progress >= 0 && trackingInfo.progress < 20 ? { background: 'blue', color: 'white' } : {}}>Ingreso a sucursal</th>
-                <th style={trackingInfo.progress >= 20 && trackingInfo.progress < 50 ? { background: 'blue', color: 'white' } : {}}>Despachado</th>
-                <th style={trackingInfo.progress >= 50 && trackingInfo.progress < 80 ? { background: 'blue', color: 'white' } : {}}>En camino</th>
-                <th style={trackingInfo.progress >= 80 ? { background: 'blue', color: 'white' } : {}}>Entregado</th>
-              </tr>
-            </thead>
-          </Table>
-        </>
-      )}
+    <Modal.Body style={{ padding: '20px', textAlign: 'center' }}> {/* Estilo para el cuerpo */}
+      <p>Numero seguimiento: {selectedPackage.id}</p>
+      <p>Fecha: {selectedPackage.fechaInicial}</p>
+      <p>Estatus: {selectedPackage.status} </p>
+      <p>Destinatario: {selectedPackage.destinatario} </p>
+      <p>Peso: {selectedPackage.peso} kg</p>
+      <p>Dimensiones:{selectedPackage.dimensiones} </p>
+      <p>Total: {selectedPackage.total} </p>
+      <img src={selectedPackage.imagen} alt="Imagen del paquete" style={{ maxWidth: '100%', maxHeight: '200px', margin: '10px auto' }} /> {/* Estilo para la imagen */}
     </Modal.Body>
   </Modal>
+  
+  )}
   <br />
   <br />
   <br />

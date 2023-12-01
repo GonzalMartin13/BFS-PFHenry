@@ -19,12 +19,14 @@ export const resetForm = (setServicios, setForm) => {
 };
 export const handleCheck = (name, checked, servicios, setServicios) => {
   if (name === "carteria" && checked) {
-    setServicios({ ...servicios, carteria: true, paqueteria: false });
+    return setServicios({ ...servicios, carteria: true, paqueteria: false });
   } else if (name === "paqueteria" && checked) {
-    setServicios({ ...servicios, paqueteria: true, carteria: false });
+    return setServicios({ ...servicios, paqueteria: true, carteria: false });
   } else if (name === "carteria" && !checked) {
-    setServicios({ ...servicios, carteria: false, paqueteria: true });
+    return setServicios({ ...servicios, carteria: false, paqueteria: true });
+  } else if (name === "paqueteria" && !checked) {
+    return setServicios({ ...servicios, paqueteria: false, carteria: true });
   } else {
-    setServicios({ ...servicios, [name]: checked });
+    return setServicios({ ...servicios, [name]: checked });
   }
 };

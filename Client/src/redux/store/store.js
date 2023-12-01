@@ -3,7 +3,7 @@ import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
 
 import userReducer from "../Slices/userSlice";
-// import packageReducer from "../Slices/packageSlice";
+import packageReducer from "../Slices/packageSlice";
 import quoterReducer from "../Slices/quoterslice";
 
 import shippingReducer from "../Slices/shippingSlice";
@@ -21,7 +21,7 @@ const persistedReducer = persistReducer(
 
     shipping: shippingReducer,
 
-    // packages: packageReducer,
+    packages: packageReducer,
   })
 );
 
