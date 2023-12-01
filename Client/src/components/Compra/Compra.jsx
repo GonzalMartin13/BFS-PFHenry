@@ -18,7 +18,7 @@ import {
   setNumeroDeEnvio,
 } from "../../redux/Slices/shippingSlice";
 import { clearState, setState } from "../../redux/Slices/quoterslice";
-import FormEnvio from "../FormEnvio/FormEnvio";
+
 const Compra = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -139,7 +139,6 @@ const Compra = () => {
                 Agrega el resto de datos necesarios para tu envio:
               </h3>
               <div>
-              <FormEnvio/>
               </div>
             </ListGroup.Item>
 

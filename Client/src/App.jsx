@@ -37,7 +37,7 @@ function App() {
         <Route path="/envios" element={<MisEnvios />} />
         <Route path="/register" element={<Register />} />
         <Route path="/guia" element={<Pdf />} />
-        <Route path="/confirmacion" element={<Compra />} />
+        <Route path="/confirmacion" element={<FormEnvio />} />
         <Route path="/comprobante" element={<ComprobantePDF />} />
       </Routes>
       <Footer />

@@ -23,6 +23,7 @@ const initialState = {
   coordenadasDestino: [],
   direccionOrigen: [],
   direccionDestino: [],
+  userID: "",
 };
 const shippingSlice = createSlice({
   name: "shippingData",
@@ -51,6 +52,7 @@ const shippingSlice = createSlice({
         coordenadasDestino,
         direccionOrigen,
         direccionDestino,
+        userID,
       } = action.payload;
       state.origen = origen;
       state.destino = destino;
@@ -73,6 +75,7 @@ const shippingSlice = createSlice({
       state.coordenadasDestino = coordenadasDestino
       state.direccionOrigen = direccionOrigen
       state.direccionDestino = direccionDestino
+      state.userID = userID
     },
     setImagen: (state, action) => {
       state.imagen = action.payload;
@@ -104,6 +107,7 @@ const shippingSlice = createSlice({
       state.coordenadasDestino= [];
       state.direccionOrigen= [];
       state.direccionDestino= [];
+      state.userID= "";
     },
   },
 });

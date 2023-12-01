@@ -87,7 +87,7 @@ const FormEnvio = () => {
   const coordenadasDestino = sucursalDestino ? sucursalDestino.coordenadas : "";
   const direccionOrigen = sucursalOrigen ? sucursalOrigen.direccion : "";
   const direccionDestino = sucursalDestino ? sucursalDestino.direccion : "";
-  // const userID = useSelector((state)=>state.user.user.ID)
+  const userID = useSelector((state)=>state.user.user.ID)
 
   const quoteState = useSelector((state) => state.quoter);
 
@@ -106,6 +106,7 @@ const FormEnvio = () => {
         coordenadasDestino: coordenadasDestino,
         direccionOrigen: direccionOrigen,
         direccionDestino: direccionDestino,
+        userID: userID,
       }}
       validate={(valores) => {
         let errores = {};
@@ -214,6 +215,7 @@ const FormEnvio = () => {
           coordenadasDestino,
           direccionOrigen,
           direccionDestino,
+          userID,
         } = valores;
 
         const shippingInfo = {
@@ -230,6 +232,7 @@ const FormEnvio = () => {
           coordenadasDestino,
           direccionOrigen,
           direccionDestino,
+          userID,
         };
 
         console.log("Antes de la actualización:", valores);
