@@ -17,7 +17,7 @@ import {
   clearShippingState,
   setNumeroDeEnvio,
 } from "../../redux/Slices/shippingSlice";
-import { clearState, setState } from "../../redux/Slices/quoterslice";
+import { clearState } from "../../redux/Slices/quoterslice";
 
 const Compra = () => {
   const navigate = useNavigate();
