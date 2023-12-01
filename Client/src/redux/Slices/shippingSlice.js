@@ -11,6 +11,18 @@ const initialState = {
   total: "",
   imagen: "",
   numeroDeEnvio: "",
+  nombreRemitente: "",
+  razonSocialRemitente: "",
+  telefonoRemitente: "",
+  emailRemitente: "",
+  nombreDestinatario: "",
+  razonSocialDestinatario: "",
+  telefonoDestinatario: "",
+  emailDestinatario: "",
+  coordenadasOrigen: "",
+  coordenadasDestino: [],
+  direccionOrigen: [],
+  direccionDestino: [],
 };
 const shippingSlice = createSlice({
   name: "shippingData",
@@ -27,6 +39,18 @@ const shippingSlice = createSlice({
         peso,
         servicios,
         total,
+        nombreRemitente,
+        razonSocialRemitente,
+        telefonoRemitente,
+        emailRemitente,
+        nombreDestinatario,
+        razonSocialDestinatario,
+        telefonoDestinatario,
+        emailDestinatario,
+        coordenadasOrigen,
+        coordenadasDestino,
+        direccionOrigen,
+        direccionDestino,
       } = action.payload;
       state.origen = origen;
       state.destino = destino;
@@ -37,6 +61,18 @@ const shippingSlice = createSlice({
       state.servicios = servicios;
       state.total = total;
       state.imagen = imagen;
+      state.nombreRemitente = nombreRemitente;
+      state.razonSocialRemitente = razonSocialRemitente;
+      state.telefonoRemitente = telefonoRemitente;
+      state.emailRemitente = emailRemitente;
+      state.nombreDestinatario = nombreDestinatario;
+      state.razonSocialDestinatario = razonSocialDestinatario;
+      state.telefonoDestinatario = telefonoDestinatario;
+      state.emailDestinatario = emailDestinatario;
+      state.coordenadasOrigen = coordenadasOrigen
+      state.coordenadasDestino = coordenadasDestino
+      state.direccionOrigen = direccionOrigen
+      state.direccionDestino = direccionDestino
     },
     setImagen: (state, action) => {
       state.imagen = action.payload;
@@ -55,6 +91,19 @@ const shippingSlice = createSlice({
       state.servicios = [];
       state.total = "";
       state.imagen = "";
+      state.numeroDeEnvio= "";
+      state.nombreRemitente= "";
+      state.razonSocialRemitente= "";
+      state.telefonoRemitente= "";
+      state.emailRemitente= "";
+      state.nombreDestinatario= "";
+      state.razonSocialDestinatario= "";
+      state.telefonoDestinatario= "";
+      state.emailDestinatario= "";
+      state.coordenadasOrigen= "";
+      state.coordenadasDestino= [];
+      state.direccionOrigen= [];
+      state.direccionDestino= [];
     },
   },
 });

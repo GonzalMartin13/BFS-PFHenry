@@ -18,6 +18,7 @@ import MisEnvios from "./components/misEnvios/misEnvios";
 import "./App.css";
 import Compra from "./components/Compra/Compra";
 import ComprobantePDF from "./components/Compra/ComprobantePDF";
+import FormEnvio from "./components/FormEnvio/FormEnvio";
 
 function App() {
   const location = useLocation();
@@ -40,7 +41,7 @@ function App() {
           <Route path="/envios" element={<MisEnvios />} />
           <Route path="/register" element={<Register />} />
           <Route path="/guia" element={<Pdf />} />
-          <Route path="/confirmacion" element={<Compra />} />
+          <Route path="/confirmacion" element={<FormEnvio />} />
           <Route path="/comprobante" element={<ComprobantePDF />} />
         </Routes>
         <Footer />

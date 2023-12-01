@@ -116,6 +116,7 @@ const Email = () => {
           <hr />
           <button>Send</button>
         </form>
+   
       </div>
     </div>
   );
