@@ -14,18 +14,18 @@ export function getPackages() {
   };
 };
 
-export function getUserPackages(userID) {
-    return async function (dispatch) {
-      try {
-        const response = await axios.get(
-          `http://localhost:3001/envios/user/${userID}`
-        );
-        dispatch(addUserPackage(response.data));
-      } catch (error) {
-        throw Error("Error al registrar el usuario", error);
-      };
-    };
+export function getUserPackages(UserEmail) {
+  return async function (dispatch) {
+    try {
+
+      const response = await axios.get(`http://localhost:3001/envios/user/${UserEmail}`);
+  
+      dispatch(addUserPackage(response.data));
+    } catch (error) {
+      console.error("Error al obtener envíos del usuario", error);
+    }
   };
+}
   
 
   export function getUserPackagesById(id) {
