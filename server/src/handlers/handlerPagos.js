@@ -1,4 +1,4 @@
-const { pagosControler, succesControler, pendienteControler } = require("../controllers/pagosControler")
+const { pagosControler, succesControler, pendienteControler, fallidaControler, webHookControler } = require("../controllers/pagosControler")
 
 const getPagosHandler = async (req, res) =>{
     const {servicios, total} = req.body
@@ -14,10 +14,12 @@ const getPagosHandler = async (req, res) =>{
 // Tipo : POST // Pide: total y  tipo de servico
 // Devuelve: link de pago para redirecionar al cliente
 
-const getSuccesHandler = async (req, res) =>{
+const getSuccesHandler = (req, res) => {
+    const {collection_status} = req.query
+    console.log(req.query)
     try{
-        const response = await succesControler()
-        res.status(200).json(response)
+       // const response = await succesControler()
+        res.status(200).json({collection_status})
     } catch (error){
         res.status(404).json(error.message)
     }
@@ -36,11 +38,40 @@ const getPendienteHandler = async (req, res) =>{
 }
 // endpoint: http://localhost:3001/pagos/pendiente
 // Tipo : GET // 
-// Devuelve: 
+// Devuelve:
 
+const fallidaHandler = async(req, res) => {
+    try{
+        const responde = await fallidaControler()
+        res.status(200).json(responde)
+    } 
+    catch (error){
+        console.log('Error en la peticion webhook', error);
+        res.status(404).send(error.message)
+    }
+}
+// endpoint: http://localhost:3001/pagos/fallida
+// Tipo : GET // 
+// Devuelve:
+
+const getWebHook = async(req, res) => {
+    try{
+        const responde = await webHookControler()
+        res.status(200).json(responde)
+    } 
+    catch (error){
+        console.log('Error en la peticion webhook', error);
+        res.status(404).send(error.message)
+    }
+}
+// endpoint: http://localhost:3001/pagos/webhook
+// Tipo : POST // 
+// Devuelve:
 
 module.exports = {
     getPagosHandler,
     getSuccesHandler,
-    getPendienteHandler
+    getPendienteHandler,
+    getWebHook,
+    fallidaHandler
 }
