@@ -1,9 +1,10 @@
 // userSlice.js
-import { createSlice } from "@reduxjs/toolkit";
+import {createSlice} from "@reduxjs/toolkit";
 
 const initialState = {
   user: {},
-  isLoggedIn:false
+  isLoggedIn:false,
+  contador: 1
 };
 
 export const userSlice = createSlice({
@@ -15,14 +16,20 @@ export const userSlice = createSlice({
     },
     login: (state) => {
       state.isLoggedIn = true;
+      state.contador = 3;
     },
     logouted : (state) => {
       state.user = {};
       state.isLoggedIn = false;
-    },  
+      state.contador = 1;
+    }, 
+    contar: (state) => {
+      state.contador = (state.contador + 1);
+    }, 
   },
 });
 
-export const {logouted, login, addUser} = userSlice.actions;
+export const {logouted, login, addUser, contar} = userSlice.actions;
 
 export default userSlice.reducer;
+
