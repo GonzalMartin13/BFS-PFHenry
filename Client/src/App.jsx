@@ -11,6 +11,7 @@ import Comprobante from "./components/Compra/Comprobante";
 import Mapa from "./components/Mapa/Mapa";
 import Pdf from "./components/Pdf/Pdf";
 
+
 import Email from "./components/Contact/Contact";
 import MisEnvios from "./components/misEnvios/misEnvios";
 
@@ -45,6 +46,7 @@ function App() {
           <Route path="/guia" element={<Pdf />} />
           <Route path="/confirmacion" element={<Compra />} />
           <Route path="/comprobante" element={<ComprobantePDF />} />
+        
         </Routes>
         <Footer />
     

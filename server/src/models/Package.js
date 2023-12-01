@@ -56,7 +56,7 @@ module.exports = (sequelize) => {
     },
       destinatario: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
     },
 
         }, { freezeTableName: true
