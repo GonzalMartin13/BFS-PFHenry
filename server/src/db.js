@@ -42,13 +42,21 @@ let capsEntries = entries.map((entry) => [
 ]);
 sequelize.models = Object.fromEntries(capsEntries);
 
-const {User, Package} = sequelize.models;
+const {User, Package, Admin} = sequelize.models;
 
-// ----> Relacion de uno a muchos <---- 
-User.hasMany(Package); //'Realcion de uno a muchos con la prioridad para User'
-Package.belongsTo(User); // la foreing Key estaria en el modelo Package
+//----------------Relacion de Uno A Muchos --------------------------------
+User.hasMany(Package); // un usuario hace muchos envios
+Package.belongsTo(User); // Muchis envios pertenecen a un usuario
+
+//  ---------------->  Relacion de muchos A Muchos <-----------------------
+
+User.belongsToMany(Admin, { through: 'User_Admin' }); // Muchos usuarios pueden enviar paquetes a muchas sucursales
+Admin.belongsToMany(User, { through: 'User_Admin' }); // Muchas sucursales reciben envios de muchos usuarios
+
+//console.log(sequelize.models);
 
 module.exports = {
 	...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
 	conn: sequelize, // para importart la conexión { pool } = require('./db.js');
   };
+
