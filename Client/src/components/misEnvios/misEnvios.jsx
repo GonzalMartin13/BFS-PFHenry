@@ -13,15 +13,18 @@ import "./MisEnvios.css";
 function MisEnvios() {
   const dispatch = useDispatch();
   const userPackages = useSelector((state) => state.packages.userPackages);
-  const userID = useSelector((state) => state.user.user.ID);
+  const UserEmail = useSelector((state) => state.user.user.email);
+ 
 
   const [showModal, setShowModal] = useState(false);
   // const [trackingInfo, setTrackingInfo] = useState(null);
+  
+  console.log(UserEmail)
   console.log(userPackages)
 
   useEffect(() => {
-    if (userID) {
-      dispatch(getUserPackages(userID));
+    if (UserEmail) {
+      dispatch(getUserPackages(UserEmail));
     }
   }, [dispatch]);
 

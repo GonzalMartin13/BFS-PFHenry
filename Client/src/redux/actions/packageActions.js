@@ -14,11 +14,11 @@ export function getPackages() {
   };
 };
 
-export function getUserPackages(userID) {
+export function getUserPackages(UserEmail) {
     return async function (dispatch) {
       try {
         const response = await axios.get(
-          `http://localhost:3001/envios/user/${userID}`
+          `http://localhost:3001/envios/user/${UserEmail}`
         );
         dispatch(addUserPackage(response.data));
       } catch (error) {
