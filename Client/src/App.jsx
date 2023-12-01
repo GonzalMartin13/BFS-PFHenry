@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Route, Routes, useLocation } from "react-router-dom";
 
 import NavBar from "./components/NavBar/NavBar";
@@ -7,10 +8,9 @@ import Footer from "./components/Footer/Footer";
 import CardContainer from "./components/CardContainer/CardContainer";
 import Register from "./views/register/register";
 import QuoteForm from "./components/QuoteForm/QuoteForm";
-//import Comprobante from "./components/Compra/Comprobante";
+import Comprobante from "./components/Compra/Comprobante";
 import Mapa from "./components/Mapa/Mapa";
 import Pdf from "./components/Pdf/Pdf";
-
 
 import Email from "./components/Contact/Contact";
 import MisEnvios from "./components/misEnvios/misEnvios";
@@ -25,10 +25,7 @@ function App() {
 
   return (
     <>
-      {location.pathname !== "/register" && (
-        <NavBar />
-      )}
-
+      {location.pathname !== "/register" && <NavBar />}
 
       <Routes>
         <Route exact path="/" element={<Home />} />
@@ -42,7 +39,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/guia" element={<Pdf />} />
         <Route path="/confirmacion" element={<FormEnvio />} />
-        <Route path="/comprobante" element={<ComprobantePDF />} />
+        <Route path="/factura" element={<Comprobante />} />
       </Routes>
       <Footer />
     </>
@@ -50,3 +47,4 @@ function App() {
 }
 
 export default App;
+
