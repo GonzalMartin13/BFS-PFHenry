@@ -9,29 +9,33 @@ module.exports = (sequelize) => {
         },
         name: {
           type: DataTypes.STRING,
-          allowNull: false,          
+          allowNull: true,          
         },
         lastName: {
           type: DataTypes.STRING,
-          allowNull: false,         
+          allowNull: true,         
         },
         phone: {
           type: DataTypes.STRING,
-          allowNull: false,
+          allowNull: true,
         },
         address: {
           type: DataTypes.STRING,
-          allowNull: false,
+          allowNull: true,
         },
         email: {
           type: DataTypes.STRING,
           allowNull: false,
           unique: true,
         },
-        password: {
+        nickname: {
+          type: DataTypes.STRING,
+          allowNull: false, 
+          unique: true,
+        },
+        picture: {
           type: DataTypes.STRING,
           allowNull: false,
-          unique: true,
         },
         connect: {
           type: DataTypes.BOOLEAN,
@@ -39,4 +43,4 @@ module.exports = (sequelize) => {
         }
       }, { freezeTableName: true
     });
-}
+};
