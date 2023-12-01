@@ -17,22 +17,43 @@ const pagosControler = async (servicios, total) => {
             }
         ],
         back_urls:{
-            success:"http://localhost:5173/" ,
-            failure:"http://localhost:5173/"
+            success:"http://localhost:3001/pagos/exitosa" ,
+            pending:"http://localhost:3001/pagos/pendiente",
+            failure:"http://localhost:3001/pagos/fallida"
         },
         auto_return: "approved",
+        
     } }).then(console.log("then")).catch(console.log("catch"));
     return orden
 }
-const succesControler = async (req, res) => {
-    return 2
+
+const succesControler = async (query) => {
+    
+    return await query.status
 }
-const pendienteControler = async (req, res) => {
+
+const pendienteControler = async () => {
     return 3
 }
+
+const fallidaControler = async( query ) => {
+    if (query.status === "null"){    
+        return await "desaproved"
+    }
+    
+}
+
+const webHookControler = async() => {
+    return 5
+}
+
+
+
 
 module.exports = {
     pagosControler,
     succesControler,
-    pendienteControler
+    pendienteControler,
+    webHookControler,
+    fallidaControler
 }
