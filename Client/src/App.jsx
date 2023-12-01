@@ -11,7 +11,6 @@ import Comprobante from "./components/Compra/Comprobante";
 import Mapa from "./components/Mapa/Mapa";
 import Pdf from "./components/Pdf/Pdf";
 
-
 import Email from "./components/Contact/Contact";
 import MisEnvios from "./components/misEnvios/misEnvios";
 
@@ -25,10 +24,7 @@ function App() {
 
   return (
     <>
-      {location.pathname !== "/register" && (
-        <NavBar />
-      )}
-
+      {location.pathname !== "/register" && <NavBar />}
 
       <Routes>
         <Route exact path="/" element={<Home />} />
@@ -42,7 +38,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/guia" element={<Pdf />} />
         <Route path="/confirmacion" element={<FormEnvio />} />
-        <Route path="/comprobante" element={<ComprobantePDF />} />
+        <Route path="/factura" element={<Comprobante />} />
       </Routes>
       <Footer />
     </>
