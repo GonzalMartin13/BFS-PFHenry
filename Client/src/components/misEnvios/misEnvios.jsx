@@ -19,14 +19,9 @@ function MisEnvios() {
   const [showModal, setShowModal] = useState(false);
   // const [trackingInfo, setTrackingInfo] = useState(null);
   
-  console.log(UserEmail)
-  console.log(userPackages)
 
-  useEffect(() => {
-    if (UserEmail) {
-      dispatch(getUserPackages(UserEmail));
-    }
-  }, [dispatch]);
+
+  
 
   // const handleEstadoButtonClick = (info) => {
   //    setTrackingInfo(info);

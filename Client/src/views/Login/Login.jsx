@@ -14,7 +14,6 @@ const Login = () => {
 
   const {loginWithRedirect, isAuthenticated, logout, user} = useAuth0();
 
-  console.log(contador, user)
 
   useEffect(() => {
     if (isAuthenticated && user.email_verified && contador === 2) {
