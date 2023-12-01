@@ -6,8 +6,7 @@ import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { Auth0Provider } from "@auth0/auth0-react";
-import { store, persistor } from "./redux/store/store";
-import { PersistGate } from "redux-persist/integration/react";
+import { store } from "./redux/store/store";
 
 const domain = import.meta.env.VITE_REACT_APP_AUTH0_DOMAIN;
 const clientId = import.meta.env.VITE_REACT_APP_AUTH0_CLIENT_ID;
@@ -21,9 +20,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           clientId={clientId}
           redirectUri={window.location.origin}
         >
-          <PersistGate loading={null} persistor={persistor}>
-            <App />
-          </PersistGate>
+          <App />
         </Auth0Provider>
       </BrowserRouter>
     </Provider>
