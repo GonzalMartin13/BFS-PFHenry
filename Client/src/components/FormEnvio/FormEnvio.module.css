@@ -1,0 +1,68 @@
+.formRemitente {
+    display: inline-block;
+    margin-right: 20px;
+    text-align: left;
+  }
+.formDestinatario {
+    display: inline-block;
+    margin-right: 20px;
+    text-align: left;
+  }
+
+.formRemitente input,
+.formDestinatario input {
+  width: 100%;
+}
+
+
+.input {
+	font-family: 'Open Sans', sans-serif;
+	width: 100%;
+	border-radius: 5px;
+	border: 2px solid #e2e2e2;
+	font-size: 14px;
+	padding: 5px;
+	margin-bottom: 5px;
+	color: #1f1f1f;
+}
+
+.input:focus {
+	outline: none;
+	border: 2px solid #0085FF;
+}
+
+.error {
+	color: #e92b2d;
+	font-weight: 600;
+	font-size: 12px;
+}
+
+.button[type="submit"] {
+	display: block;
+	background: #0085FF;
+	font-weight: 600;
+	font-family: 'Open Sans', sans-serif;
+	border: none;
+	cursor: pointer;
+	width: 60%;
+	padding: 10px;
+	border-radius: 5px;
+	color: #fff;
+	font-size: 16px;
+	transition: .3s ease all;
+  margin-right: 20%;
+  margin-left: 20%;
+}
+
+.button[type="submit"]:hover {
+	background: #0051ff;
+}
+
+.label {
+	display: block;
+	font-weight: 600;
+	font-size: 13px;
+	margin-bottom: 10px;
+	color: #1f1f1f;
+  width: 300px;
+}
