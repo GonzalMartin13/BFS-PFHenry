@@ -7,14 +7,12 @@ import Card from "react-bootstrap/Card";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect , useState} from "react";
 import {getUserPackages} from "../../redux/actions/packageActions"
-import axios from "axios";
 
 const Home = () => {
   const dispatch = useDispatch();
   const userPackages = useSelector((state) => state.packages.userPackages);
   const UserEmail = useSelector((state) => state.user.user.email);
   const isLogged = useSelector((state)=>state.user.isLoggedIn)
-  const [linkpago, setLinkpago] = useState("")
  
   console.log(UserEmail)
   console.log(userPackages)
@@ -22,26 +20,16 @@ const Home = () => {
  
 useEffect(() => {
   if (UserEmail) {
-    dispatch(getUserPackages(UserEmail))
+    dispatch(getUserPackages(UserEmail));
   }
-  let total = 2500
-  let servicios = "discreto"
-  const {data} = axios.post("http://localhost:3001/pagos/crear", ({total, servicios}))
-  setLinkpago(data)
-}, []);
+}, [dispatch, UserEmail]);
 
 
 
 
   return (
-    <div style={{ position: 'relative' }}>
-
-
-    <div>
-       <button> Holaaa</button>
-    </div>
-    <a href={linkpago}>12346</a>
     
+    <div style={{ position: 'relative' }}>
       <Image src="https://selfpackaging.es/blog/wp-content/uploads/2019/03/entrega-paquete-1.jpg" fluid style={{ width: '100%', height: '600px' }}/>
       <div style={{ position: 'absolute', top: 50, left: 0, width: '100%', height: '100%' }}>
 

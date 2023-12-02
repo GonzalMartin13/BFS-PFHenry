@@ -6,7 +6,7 @@ const {MercadoPagoConfig, Preference} = require("mercadopago")
 const pagosControler = async (servicios, total) => {
     const client = new MercadoPagoConfig({accessToken:KEY_MP_TEST})
     const preference = new Preference(client)
-    console.log(client, preference, typeof(total), total)
+try{
     const orden = await preference.create({ body: {
         items: [
             {
@@ -16,20 +16,26 @@ const pagosControler = async (servicios, total) => {
                 quantity: 1,
             }
         ],
-        back_urls:{
-            success:"http://localhost:3001/pagos/exitosa" ,
+
+        back_urls:{ 
+            success:"http://localhost:3001/pagos/exitosa" , // cambiar por pag del front
             pending:"http://localhost:3001/pagos/pendiente",
             failure:"http://localhost:3001/pagos/fallida"
         },
         auto_return: "approved",
+        notification_url:""
         
-    } }).then(console.log("then")).catch(console.log("catch"));
+    } });
     return orden
+} catch (error){
+    console.log(error.message)
+    return error
+}
 }
 
 const succesControler = async (query) => {
     
-    return await query.status
+    return await query
 }
 
 const pendienteControler = async () => {

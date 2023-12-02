@@ -15,8 +15,8 @@ import Email from "./components/Contact/Contact";
 import MisEnvios from "./components/misEnvios/misEnvios";
 
 import "./App.css";
-import Compra from "./components/Compra/Compra";
-import ComprobantePDF from "./components/Compra/ComprobantePDF";
+/* import Compra from "./components/Compra/Compra";
+import ComprobantePDF from "./components/Compra/ComprobantePDF"; */
 import FormEnvio from "./components/FormEnvio/FormEnvio";
 
 function App() {
