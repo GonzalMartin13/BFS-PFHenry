@@ -18,6 +18,7 @@ import "./App.css";
 /* import Compra from "./components/Compra/Compra";
 import ComprobantePDF from "./components/Compra/ComprobantePDF"; */
 import FormEnvio from "./components/FormEnvio/FormEnvio";
+import ThankU from "./views/ThankU/thankU";
 
 function App() {
   const location = useLocation();
@@ -39,6 +40,7 @@ function App() {
         <Route path="/guia" element={<Pdf />} />
         <Route path="/confirmacion" element={<FormEnvio />} />
         <Route path="/factura" element={<Comprobante />} />
+        <Route path="/gracias" element={<ThankU />} />
       </Routes>
       <Footer />
     </>

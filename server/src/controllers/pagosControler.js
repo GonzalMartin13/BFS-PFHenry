@@ -18,7 +18,7 @@ try{
         ],
 
         back_urls:{ 
-            success:"http://localhost:3001/pagos/exitosa" , // cambiar por pag del front
+            success:"http://localhost:5173/gracias" , // cambiar por pag del front
             pending:"http://localhost:3001/pagos/pendiente",
             failure:"http://localhost:3001/pagos/fallida"
         },
