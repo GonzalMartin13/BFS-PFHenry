@@ -35,14 +35,8 @@ import {login, contar} from "../../redux/Slices/userSlice";
 export default function QuoteForm() {
   const state = useSelector((state) => state.shipping);
   console.log("legfff", state);
-
-  const { loginWithRedirect } = useAuth0();
-  const isLogged = useSelector((state) => state.user.isLoggedIn);
-  console.log(isLogged);
-
   const {loginWithRedirect, isAuthenticated, user} = useAuth0();
-  const {contador, isLogged} = useSelector((state) => state.user);
-
+  const {contador, isLoggedIn} = useSelector((state) => state.user);
   const [errors, setErrors] = useState({});
 
   const dispatch = useDispatch();
@@ -187,248 +181,8 @@ export default function QuoteForm() {
   };
   ///
   const handleNavigation = () => {
-
-    if (isLogged) return navigate("/confirmacion");
-    return loginWithRedirect();
-  };
-
-  //
-  return (
-    <Container className={style.containerForm} fluid>
-      <Form
-        onSubmit={handleFormSubmit}
-        style={{
-          margin: "auto auto 20px ",
-          maxWidth: "800px",
-          minHeight: "800px",
-          padding: "20px 20px",
-          borderRadius: "4px",
-          backgroundColor: "#e4e1e1bd",
-        }}
-      >
-        <div className="row" style={{ marginBottom: "25px" }}>
-          <div className="col-md-6 mb-3">
-            <h3>
-              Origen
-              <>
-                <SiGooglemaps style={{ color: "#888a8d" }} />
-              </>
-            </h3>
-
-            <Form.Select
-              name="origen"
-              value={form.origen}
-              onChange={handleChange}
-              aria-label="Default select example"
-              className={errors.origen ? style.dangercontent : ""}
-            >
-              <option value="" disabled hidden>
-                Selecciona una provincia
-              </option>
-              {provincias.map((p, i) => (
-                <option key={i}>{p}</option>
-              ))}
-            </Form.Select>
-            {errors.origen && (
-              <span className={style.danger}>{errors.origen}</span>
-            )}
-          </div>
-
-          <div className="col-md-6 mb-3">
-            <h3>
-              Destino
-              <>
-                <SiGooglemaps style={{ color: "#888a8d" }} />
-              </>
-            </h3>
-            <Form.Select
-              name="destino"
-              value={form.destino}
-              onChange={handleChange}
-              className={errors.destino ? style.dangercontent : ""}
-            >
-              <option value="" disabled hidden>
-                Selecciona una provincia
-              </option>
-              {provincias.map((p, i) => (
-                <option key={i}>{p}</option>
-              ))}
-            </Form.Select>
-            {errors.destino && (
-              <span className={style.danger}>{errors.destino}</span>
-            )}
-          </div>
-        </div>
-
-        <h4 style={{ marginBottom: "20px" }}>
-          ¿Qué tipo de envio queres hacer?{" "}
-        </h4>
-
-        <Form.Group className="mb-3">
-          <Form.Check
-            inline
-            label={
-              <div>
-                <span style={{ marginRight: "2px" }}>Discreto</span>
-                <Image src={icoDiscreto} rounded width="23px" alt="discreto" />
-              </div>
-            }
-            name="discreto"
-            type="checkbox"
-            onChange={handleCheckboxChange}
-            checked={servicios.discreto}
-          />
-
-          <Form.Check
-            inline
-            label={
-              <div>
-                <span style={{ marginRight: "1px" }}>Cuidado</span>
-                <Image src={icoCuidado} rounded width="23px" alt="cuidado" />
-              </div>
-            }
-            name="cuidado"
-            type="checkbox"
-            onChange={handleCheckboxChange}
-            checked={servicios.cuidado}
-          />
-
-          <Form.Check
-            inline
-            label={
-              <div>
-                <span style={{ marginRight: "2px" }}>Carteria</span>
-                <Image src={icoSobre} rounded width="23px" alt="sobre" />
-              </div>
-            }
-            name="carteria"
-            type="checkbox"
-            onChange={handleCheckboxChange}
-            checked={servicios.carteria}
-          />
-          <Form.Check
-            inline
-            label={
-              <div>
-                <span style={{ marginRight: "2px" }}>Paqueteria</span>
-                <Image src={icoCaja} rounded width="23px" alt="paqueteria" />
-              </div>
-            }
-            name="paqueteria"
-            type="checkbox"
-            onChange={handleCheckboxChange}
-            checked={servicios.paqueteria}
-          />
-          <Form.Check
-            inline
-            label={
-              <div>
-                <span style={{ marginRight: "1px" }}>Express</span>
-                <Image src={icoTiempo} rounded width="23px" alt="Express" />
-              </div>
-            }
-            name="express"
-            type="checkbox"
-            onChange={handleCheckboxChange}
-            checked={servicios.express}
-          />
-
-          <div style={{ display: "block", height: "40px" }}>
-            {loading && (
-              <Spinner animation="border" role="status" variant="primary" />
-            )}
-          </div>
-
-          <Form.Group
-            className="mb-3"
-            style={{ height: "230px", marginTop: "60px" }}
-          >
-            {servicios.carteria ? null : (
-              <>
-                <Form.Group className="mb-3">
-                  <Row>
-                    <Col xs={6}>
-                      <Form.Group className="mb-1">
-                        <FloatingLabel label="Largo (cms)" className="mb-3">
-                          <Form.Control
-                            onChange={handleChange}
-                            value={form.largo}
-                            type="text"
-                            name="largo"
-                            placeholder="Largo (cms)"
-                            style={{ marginTop: "30px" }}
-                            min="0"
-                            className={errors.largo ? style.dangercontent : ""}
-                          />
-                        </FloatingLabel>
-                      </Form.Group>
-                      {errors.largo && (
-                        <span className={style.danger}>{errors.largo}</span>
-                      )}
-                      <Form.Group className="mb-3">
-                        <FloatingLabel label="Alto (cms)" className="mb-3">
-                          <Form.Control
-                            onChange={handleChange}
-                            value={form.alto}
-                            type="text"
-                            placeholder="Alto (cms)"
-                            name="alto"
-                            style={{ marginTop: "30px" }}
-                            min="0"
-                            className={errors.alto ? style.dangercontent : ""}
-                          />
-                        </FloatingLabel>
-                      </Form.Group>
-                      {errors.alto && (
-                        <span className={style.danger}>{errors.alto}</span>
-                      )}
-                    </Col>
-                    <Col xs={6}>
-                      <Form.Group className="mb-3">
-                        <FloatingLabel label="Ancho (cms)" className="mb-3">
-                          <Form.Control
-                            onChange={handleChange}
-                            value={form.ancho}
-                            type="text"
-                            placeholder="Ancho (cms)"
-                            name="ancho"
-                            style={{ marginTop: "30px" }}
-                            min="0"
-                            className={errors.ancho ? style.dangercontent : ""}
-                          />
-                        </FloatingLabel>
-                      </Form.Group>
-                      {errors.ancho && (
-                        <span className={style.danger}>{errors.ancho}</span>
-                      )}
-                      <Form.Group className="mb-3">
-                        <FloatingLabel label="Peso (Kgs)" className="mb-3">
-                          <Form.Control
-                            onChange={handleChange}
-                            value={form.peso}
-                            type="text"
-                            placeholder="Peso (Kgs)"
-                            name="peso"
-                            min="0"
-                            step="0.1"
-                            style={{ marginTop: "30px" }}
-                            className={errors.peso ? style.dangercontent : ""}
-                          />
-                        </FloatingLabel>
-                      </Form.Group>
-                      {errors.peso && (
-                        <span className={style.danger}>{errors.peso}</span>
-                      )}
-                    </Col>
-                  </Row>
-                </Form.Group>
-              </>
-            )}
-          </Form.Group>
-        </Form.Group>
-
-=======
-    localStorage.setItem('previousRoute', window.location.pathname);
+    if (isLoggedIn) return navigate("/confirmacion");
+    localStorage.setItem('previousRoute', "/confirmacion");
     loginWithRedirect();
     dispatch(contar());
   };
@@ -452,9 +206,6 @@ export default function QuoteForm() {
     };
 
     dispatch(registerUser(postUser));
-
-    if (isLogged) navigate("/confirmacion");
-
   } else if (isAuthenticated && !user.email_verified && contador === 2) {
     Swal.fire({
       title: "Sesión iniciada",
@@ -699,6 +450,7 @@ export default function QuoteForm() {
             )}
           </Form.Group>
         </Form.Group>
+
         <>
           <Button
             style={{
