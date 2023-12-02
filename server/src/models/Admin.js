@@ -7,12 +7,11 @@ module.exports = (sequelize) => {
             primaryKey: true,
             defaultValue: DataTypes.UUIDV4,
         },
-        name: {
+        nameAdmin: {
             type: DataTypes.STRING,
             allowNull: false,
         },
-
-        email: {
+        emailAdmin: {
             type: DataTypes.STRING,
             allowNull: false,
             unique: true,

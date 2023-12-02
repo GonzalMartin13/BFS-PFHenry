@@ -1,5 +1,7 @@
 const {Router} = require("express")
+
 const {getPagosHandler, getSuccesHandler, getPendienteHandler, fallidaHandler, getWebHook} = require("../handlers/handlerPagos")
+
 const pagos = Router()
 
 pagos.post("/crear", getPagosHandler) 
