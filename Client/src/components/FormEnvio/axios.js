@@ -1,6 +1,4 @@
-/* eslint-disable no-unused-vars */
 import axios from "axios";
-
 
 const enviarAPago = async (total, servicios) => {
   try {
@@ -76,5 +74,4 @@ export { enviarAPago };
   //     console.error("Error al enviar", error);
   //     return { success: false, error: "Hubo un error al enviar" };
   //   }
-  // };
 
