@@ -20,7 +20,6 @@ const putLogin = async (email, password) => {
     return "Error al intentar setear usuario";
   }
 };
-
 module.exports = {
   putLogin,
 };

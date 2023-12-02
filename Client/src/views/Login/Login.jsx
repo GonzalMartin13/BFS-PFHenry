@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-extra-semi */
 import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {registerUser} from "../../redux/actions/userActions";
