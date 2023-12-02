@@ -36,11 +36,11 @@ const handlerGetEnvio = async (req, res) => {
 
 
  const handlerPostEnvio = async (req, res) => {
-    const { origen, destino, largo, ancho, alto, peso, servicios, total, imagen, dni, userEmail } = req.body;
+    const { origen, destino, largo, ancho, alto, peso, servicios, total, imagen, dni, UserEmail } = req.body;
     const dimensiones = largo * ancho * alto;
   
     try {
-      const response = await postEnvio(origen, destino, dimensiones, servicios, peso, total, imagen, dni, userEmail);
+      const response = await postEnvio(origen, destino, dimensiones, servicios, peso, total, imagen, dni, UserEmail);
   
       !response
         ? res.status(400).json({ error: 'Falta información' })
