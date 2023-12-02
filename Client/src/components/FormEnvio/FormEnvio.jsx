@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
@@ -12,22 +12,28 @@ import {
   setImagen,
   clearShippingState,
 } from "../../redux/Slices/shippingSlice";
-import { clearState, setState } from "../../redux/Slices/quoterslice";
+import { clearState } from "../../redux/Slices/quoterslice";
 import Swal from "sweetalert2";
 import { Button } from "react-bootstrap";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import { handleUpload } from "../FormEnvio/utils/cloudinary";
-import { Link } from "react-router-dom";
+
+import { Link, useNavigate } from "react-router-dom";
 import { enviarAPago } from "../FormEnvio/axios";
+
+import { Link } from "react-router-dom";
+import { enviarBD } from "../FormEnvio/rutaDB";
+
 import axios from "axios";
 
 const FormEnvio = () => {
   const [imagenLocal, setImagenLocal] = useState("");
-  const [linkPago, setLinkPago] = useState(null);
-
+  const [linkPago, setLinkPago] = useState("");
+  const navigate = useNavigate()
   const dispatch = useDispatch();
   const position = [-35.4132981, -65.0205861];
+  console.log(enviarAPago)
   const myIcon = new Icon({
     iconUrl: "https://i.imgur.com/3q59VGo.png",
     iconSize: [38, 38],
@@ -43,6 +49,15 @@ const FormEnvio = () => {
   const sucursalDestino = sucursales.find(
     (sucursal) => sucursal.Popup === destino
   );
+
+
+  const handleEnvioBD = async (valores) => {
+    try {
+      valores.imagen = imagenLocal;
+      await enviarBD(valores);
+    } catch (error) {
+    }
+  };
 
   const handleFileUpload = async () => {
     const { value: file } = await Swal.fire({
@@ -117,7 +132,7 @@ const FormEnvio = () => {
   const coordenadasDestino = sucursalDestino ? sucursalDestino.coordenadas : "";
   const direccionOrigen = sucursalOrigen ? sucursalOrigen.direccion : "";
   const direccionDestino = sucursalDestino ? sucursalDestino.direccion : "";
-  const userID = useSelector((state) => state.user.user.ID);
+  const userID = useSelector((state) => state.user.user.email);
 
   const quoteState = useSelector((state) => state.quoter);
 
@@ -152,7 +167,7 @@ const FormEnvio = () => {
           )
         ) {
           errores.nombreRemitente =
-            "Ingresa tu nombre completo sin contener simbolos";
+            "Ingresa tu nombre completo sin contener simbolos"
         } else if (valores.nombreRemitente.length < 3)
           errores.nombreRemitente =
             "El nombre es demaciado corto, pon tu nombre completo";
@@ -292,11 +307,14 @@ const FormEnvio = () => {
           console.log("Después de la actualización:", valores);
           console.log("Estado global después del submit:", shippingInfo);
 
-          window.location.href = linkPago;
+          await  handleEnvioBD(shippingInfo)
           
-
-
           resetForm();
+          
+          window.location.href = linkPago;
+
+
+
        
       }}
     >
@@ -622,14 +640,16 @@ const FormEnvio = () => {
             <div>
               <br></br>
               <button type="submit" className={styles.button}>
-                Poceder al pago
+                <a href={linkPago} target="_blank" rel="noopener noreferrer">
+                  Proceder al pago
+                </a>
               </button>
               <br></br>
             </div>
 
             <div>
               <br></br>
-              <Link to="/cotizacion">
+              <Link to="/home">
                 <button
                   type="submit"
                   className={styles.buttonCancel}
