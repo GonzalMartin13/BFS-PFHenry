@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import SeguimientoEnvio from "../../components/seguimientoEnvio/seguimiento";
 import Cards from "../Card/Cards";
 import Slider from "../Carrousel/Carrousel";

@@ -28,13 +28,15 @@ import { useNavigate } from "react-router-dom";
 import { setState, setTotal, clearState } from "../../redux/Slices/quoterslice";
 import { SiGooglemaps } from "react-icons/si";
 import Swal from "sweetalert2";
+import {registerUser} from "../../redux/actions/userActions";
+import {login, contar} from "../../redux/Slices/userSlice";
+
 
 export default function QuoteForm() {
   const state = useSelector((state) => state.shipping);
   console.log("legfff", state);
-  const { loginWithRedirect } = useAuth0();
-  const isLogged = useSelector((state) => state.user.isLoggedIn);
-  console.log(isLogged);
+  const {loginWithRedirect, isAuthenticated, user} = useAuth0();
+  const {contador, isLoggedIn} = useSelector((state) => state.user);
   const [errors, setErrors] = useState({});
 
   const dispatch = useDispatch();
@@ -179,8 +181,39 @@ export default function QuoteForm() {
   };
   ///
   const handleNavigation = () => {
-    if (isLogged) return navigate("/confirmacion");
-    return loginWithRedirect();
+    if (isLoggedIn) return navigate("/confirmacion");
+    localStorage.setItem('previousRoute', "/confirmacion");
+    loginWithRedirect();
+    dispatch(contar());
+  };
+
+  if (isAuthenticated && user.email_verified && contador === 2) {
+    const previousRoute = localStorage.getItem('previousRoute');
+    localStorage.removeItem('previousRoute');
+    navigate(previousRoute || '/');
+    Swal.fire({
+      title: "Sesión iniciada",
+      text: `${user.nickname} has iniciado sesión exitosamente`,
+      icon: "success",
+    });
+
+    dispatch(login());
+
+    const postUser = {
+      email: user.email,
+      nickname: user.nickname,
+      picture: user.picture,
+    };
+
+    dispatch(registerUser(postUser));
+  } else if (isAuthenticated && !user.email_verified && contador === 2) {
+    Swal.fire({
+      title: "Sesión iniciada",
+      text: `${user.nickname} verifica tu Email para acceder a nuestros servicios`,
+      icon: "success",
+    });
+
+    dispatch(contar());
   };
 
   //
