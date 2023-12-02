@@ -36,7 +36,7 @@ export default function QuoteForm() {
   const state = useSelector((state) => state.shipping);
   console.log("legfff", state);
   const {loginWithRedirect, isAuthenticated, user} = useAuth0();
-  const {contador, isLogged} = useSelector((state) => state.user);
+  const {contador, isLoggedIn} = useSelector((state) => state.user);
   const [errors, setErrors] = useState({});
 
   const dispatch = useDispatch();
@@ -181,7 +181,8 @@ export default function QuoteForm() {
   };
   ///
   const handleNavigation = () => {
-    localStorage.setItem('previousRoute', window.location.pathname);
+    if (isLoggedIn) return navigate("/confirmacion");
+    localStorage.setItem('previousRoute', "/confirmacion");
     loginWithRedirect();
     dispatch(contar());
   };
@@ -205,9 +206,6 @@ export default function QuoteForm() {
     };
 
     dispatch(registerUser(postUser));
-
-    if (isLogged) navigate("/confirmacion");
-
   } else if (isAuthenticated && !user.email_verified && contador === 2) {
     Swal.fire({
       title: "Sesión iniciada",
