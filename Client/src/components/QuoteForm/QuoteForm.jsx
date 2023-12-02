@@ -1,6 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from "react";
 import { omit } from "lodash";
+import React from "react";
+
 import {
   Spinner,
   Button,
@@ -11,8 +13,8 @@ import {
   Container,
   Image,
 } from "react-bootstrap";
-import { useAuth0 } from "@auth0/auth0-react";
 
+import Login from "../../views/Login/Login";
 import style from "./quoteForm.module.css";
 import axios from "axios";
 import { provincias } from "./utils/provincias";
@@ -32,7 +34,7 @@ import Swal from "sweetalert2";
 export default function QuoteForm() {
   const state = useSelector((state) => state.shipping);
   console.log("legfff", state);
-  const { loginWithRedirect } = useAuth0();
+
   const isLogged = useSelector((state) => state.user.isLoggedIn);
   console.log(isLogged);
   const [errors, setErrors] = useState({});
@@ -120,7 +122,10 @@ export default function QuoteForm() {
     setLoading(true);
 
     try {
-      const { data } = await axios.post("http://localhost:3001/envios/price", form);
+      const { data } = await axios.post(
+        "http://localhost:3001/envios/price",
+        form
+      );
 
       // Función de alerta
 
@@ -179,8 +184,7 @@ export default function QuoteForm() {
   };
   ///
   const handleNavigation = () => {
-    if (isLogged) return navigate("/confirmacion");
-    return loginWithRedirect();
+    navigate("/confirmacion");
   };
 
   //
