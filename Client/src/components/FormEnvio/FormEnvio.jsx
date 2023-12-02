@@ -301,14 +301,14 @@ const FormEnvio = () => {
           console.log("Después de la actualización:", valores);
           console.log("Estado global después del submit:", shippingInfo);
 
-          // window.location.href = linkPago;
-
           await  handleEnvioBD(shippingInfo)
           
-
-
-
           resetForm();
+          
+          window.location.href = linkPago;
+
+
+
        
       }}
     >

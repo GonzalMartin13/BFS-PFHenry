@@ -10,51 +10,40 @@ const enviarBD = async (valores) => {
     peso,
     servicios,
     total,
-    imagen,
+    imagen: imagenLocal,
     dniRemitente,
     userID,
+    nombreDestinatario
   } = valores;
 
 
+  const numeroLargo = parseInt(largo, 10);
+  const numeroAncho = parseInt(ancho, 10);
+  const numeroAlto = parseInt(alto, 10);
+  
   const datosEnvio = {
+    
     origen,
     destino,
-    largo,
-    ancho,
-    alto,
+    largo: numeroLargo,
+    ancho: numeroAncho,
+    alto: numeroAlto,
     peso,
-    servicios,
+    servicios: servicios.join(', '),
     total,
-    imagen,
+    imagen: imagenLocal,
     dni: dniRemitente,
-    userEmail:userID,
+    UserEmail:userID,
+    destinatario: nombreDestinatario
   };
   console.log("Datos ", datosEnvio)
 
   try {
-    const response = await fetch("http://localhost:3001/envios/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        origen,
-        destino,
-        largo,
-        ancho,
-        alto,
-        peso,
-        servicios,
-        total,
-        imagen,
-        dniRemitente,
-        userEmail: userID,
-      }),
-    });
+    const response = await axios.post("http://localhost:3001/envios/", datosEnvio);
 
-    if (response.ok) {
+    if (response.status === 201) {
+      console.log("exito ", datosEnvio)
       console.log("Envío a BD exitoso");
-     
     } else {
       console.error("Error al enviar");
       throw new Error("Error al enviar throw");
@@ -64,5 +53,6 @@ const enviarBD = async (valores) => {
     throw new Error("Error en la solicitud throw");
   }
 };
+  
 
 export { enviarBD };
