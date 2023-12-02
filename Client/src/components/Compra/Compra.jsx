@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -17,7 +18,7 @@ import {
   clearShippingState,
   setNumeroDeEnvio,
 } from "../../redux/Slices/shippingSlice";
-import { clearState, setState } from "../../redux/Slices/quoterslice";
+import { clearState } from "../../redux/Slices/quoterslice";
 
 const Compra = () => {
   const navigate = useNavigate();

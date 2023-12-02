@@ -10,9 +10,10 @@ export function getPackages() {
       dispatch(addPackage(response.data));
     } catch (error) {
       throw Error("Error al registrar el usuario", error);
-    };
-  };
-};
+
+    }
+  }
+}
 
 export function getUserPackages(UserEmail) {
   return async function (dispatch) {
@@ -24,7 +25,7 @@ export function getUserPackages(UserEmail) {
     } catch (error) {
       console.error("Error al obtener envíos del usuario", error);
     }
-  };
+  }
 }
   
 
@@ -37,13 +38,14 @@ export function getUserPackages(UserEmail) {
         dispatch(addUserPackageById(response.data));
       } catch (error) {
         throw Error("Error al registrar el usuario", error);
-      };
-    };
-  };
+
+      }
+    }
+  }
 
   export function cleanDetail(){
     return async function (dispatch){
     dispatch(cleanDetail())
     }
   }
-  
+

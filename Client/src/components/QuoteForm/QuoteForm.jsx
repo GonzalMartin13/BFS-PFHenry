@@ -14,7 +14,6 @@ import {
   Image,
 } from "react-bootstrap";
 
-import Login from "../../views/Login/Login";
 import style from "./quoteForm.module.css";
 import axios from "axios";
 import { provincias } from "./utils/provincias";
