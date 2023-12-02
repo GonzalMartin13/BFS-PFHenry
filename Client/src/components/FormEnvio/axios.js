@@ -1,6 +1,5 @@
 import axios from "axios";
 
-
 const enviarAPago = async (total, servicios) => {
   try {
     const response = await fetch("http://localhost:3001/pagos/crear", {
@@ -75,4 +74,4 @@ export { enviarAPago };
   //     console.error("Error al enviar", error);
   //     return { success: false, error: "Hubo un error al enviar" };
   //   }
-  // };
+
