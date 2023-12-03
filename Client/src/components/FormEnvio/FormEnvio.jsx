@@ -12,12 +12,8 @@ import {
   setImagen,
   clearShippingState,
 } from "../../redux/Slices/shippingSlice";
-<<<<<<< HEAD
 import { clearState, setState } from "../../redux/Slices/quoterslice";
 import { postInvoiceAsync } from "../../redux/Slices/invoiceUserSlice";
-=======
-import { clearState } from "../../redux/Slices/quoterslice";
->>>>>>> ba13cdf24a6b8c57d5af7166222c2e4a8a403116
 import Swal from "sweetalert2";
 import { Button } from "react-bootstrap";
 import Col from "react-bootstrap/Col";
@@ -125,10 +121,6 @@ const FormEnvio = () => {
   const direccionOrigen = sucursalOrigen ? sucursalOrigen.direccion : "";
   const direccionDestino = sucursalDestino ? sucursalDestino.direccion : "";
   const userID = useSelector((state) => state.user.user.email);
-<<<<<<< HEAD
-=======
-
->>>>>>> ba13cdf24a6b8c57d5af7166222c2e4a8a403116
   const quoteState = useSelector((state) => state.quoter);
 
   return (
@@ -293,7 +285,6 @@ const FormEnvio = () => {
           direccionDestino,
           userID,
         };
-<<<<<<< HEAD
         const jsonInvoise = {
           //  currency: "USD",
           tax: 21,
@@ -333,24 +324,9 @@ const FormEnvio = () => {
         console.log("Después de la actualización:", valores);
         console.log("Estado global después del submit:", shippingInfo);
         dispatch(postInvoiceAsync(jsonInvoise)); //no descomentar esto
-        //window.location.href = linkPago;
-
-        //resetForm();
-=======
-
-        // Envía la información del envío al estado global
-        console.log("Antes de la actualización:", valores);
-        dispatch(setShippingState(shippingInfo));
-        console.log("Después de la actualización:", valores);
-        console.log("Estado global después del submit:", shippingInfo);
-
-        await handleEnvioBD(shippingInfo);
+        window.location.href = linkPago;
 
         resetForm();
-
-        window.open(linkPago, "_blank");
-
->>>>>>> ba13cdf24a6b8c57d5af7166222c2e4a8a403116
       }}
     >
       {({
