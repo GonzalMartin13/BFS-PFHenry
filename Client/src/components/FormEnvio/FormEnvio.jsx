@@ -91,9 +91,6 @@ const FormEnvio = () => {
     return word.charAt(0).toUpperCase() + word.slice(1);
   }
 
-
-  
-
   useEffect(() => {
     const mercadoPago = async () => {
       try {
@@ -105,10 +102,8 @@ const FormEnvio = () => {
         console.log(data);
       } catch (error) {
         console.error("Error al realizar la solicitud a MercadoPago", error);
-
       }
     };
-
 
     mercadoPago();
   }, []);
@@ -244,60 +239,86 @@ const FormEnvio = () => {
         return errores;
       }}
       onSubmit={async (valores, { resetForm }) => {
+        console.log("Valores del formulario:", valores);
+        console.log("enviando...");
 
-       
-          console.log("Valores del formulario:", valores);
-          console.log("enviando...");
+        const {
+          nombreRemitente,
+          razonSocialRemitente,
+          telefonoRemitente,
+          emailRemitente,
+          dniRemitente,
+          nombreDestinatario,
+          razonSocialDestinatario,
+          telefonoDestinatario,
+          emailDestinatario,
+          dniDestinatario,
+          coordenadasOrigen,
+          coordenadasDestino,
+          direccionOrigen,
+          direccionDestino,
+          userID,
+        } = valores;
 
-          const {
-            nombreRemitente,
-            razonSocialRemitente,
-            telefonoRemitente,
-            emailRemitente,
-            dniRemitente,
-            nombreDestinatario,
-            razonSocialDestinatario,
-            telefonoDestinatario,
-            emailDestinatario,
-            dniDestinatario,
-            coordenadasOrigen,
-            coordenadasDestino,
-            direccionOrigen,
-            direccionDestino,
-            userID,
-          } = valores;
+        const shippingInfo = {
+          ...quoteState,
+          nombreRemitente,
+          razonSocialRemitente,
+          telefonoRemitente,
+          emailRemitente,
+          dniRemitente,
+          nombreDestinatario,
+          razonSocialDestinatario,
+          telefonoDestinatario,
+          emailDestinatario,
+          dniDestinatario,
+          coordenadasOrigen,
+          coordenadasDestino,
+          direccionOrigen,
+          direccionDestino,
+          userID,
+        };
+        const jsonInvoise = {
+          //  currency: "USD",
+          tax: 21,
+          company_name: "B.F.S. Logistica",
+          email: "contacto@fbs.com.ar",
+          tel: "011-4312-4567",
+          client: "Consumidor final",
+          items: [
+            {
+              quantity: 1,
+              unit_price: shippingInfo.total / 1.21,
+              totalSinIva: shippingInfo.total / 1.21,
+            },
+          ],
 
-          const shippingInfo = {
-            ...quoteState,
-            nombreRemitente,
-            razonSocialRemitente,
-            telefonoRemitente,
-            emailRemitente,
-            dniRemitente,
-            nombreDestinatario,
-            razonSocialDestinatario,
-            telefonoDestinatario,
-            emailDestinatario,
-            dniDestinatario,
-            coordenadasOrigen,
-            coordenadasDestino,
-            direccionOrigen,
-            direccionDestino,
-            userID,
-          };
+          qr: {
+            origen: shippingInfo.origen,
+            destino: shippingInfo.destino,
+            peso: shippingInfo.peso,
+            servicios: shippingInfo.servicio,
+            date: new Date().toLocaleDateString("es-AR"),
+            total: shippingInfo.total,
+            nombreRemitente: "Arnaldo Andre",
+            dniRemitente: "23546987",
+            nombreDestinatario: "Monica Lopez",
+            dniDestinatario: "58654123",
+            numeroDeEnvio: "01234567",
+            telRemitente: "1139456712",
+            telDestinatario: "1139456712",
+          },
+        };
+        console.log("la info", shippingInfo);
+        // Envía la información del envío al estado global
+        console.log("Antes de la actualización:", valores);
+        dispatch(setShippingState(shippingInfo));
+        console.log("Después de la actualización:", valores);
+        console.log("Estado global después del submit:", shippingInfo);
 
-          // Envía la información del envío al estado global
-          console.log("Antes de la actualización:", valores);
-          dispatch(setShippingState(shippingInfo));
-          console.log("Después de la actualización:", valores);
-          console.log("Estado global después del submit:", shippingInfo);
+        //window.location.href = linkPago;
 
-          window.location.href = linkPago;
-          
-
-
-          resetForm();
-       
+        //resetForm();
       }}
     >
       {({
