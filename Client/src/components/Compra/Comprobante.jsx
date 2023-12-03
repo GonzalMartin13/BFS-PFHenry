@@ -32,16 +32,22 @@ const json = {
     telDestinatario: "1139456712",
   },
 };
-import React from "react";
+
 import { useDispatch, useSelector } from "react-redux";
 import { Container, Button } from "react-bootstrap";
 import {
   postInvoiceAsync,
   postInvoice,
 } from "../../redux/Slices/invoiceUserSlice";
+import { useEffect } from "react";
+import axios from "axios"
+
+
 export default function Comprobante() {
   const dispatch = useDispatch();
   const { invoice } = useSelector((state) => state.invoice);
+  const  shipping = useSelector((state) => state.shipping);
+  console.log(shipping)
   console.log("desde factura", invoice);
   let url = invoice;
   const handleClick = () => {
@@ -50,10 +56,17 @@ export default function Comprobante() {
   const limpiar = () => {
     dispatch(postInvoice(" "));
   };
+
+  useEffect(() => {
+    console.log(shipping)
+    axios.post("http://localhost:3001/envios/", shipping)
+  }, []);
+
   return (
     <Container className="mt-5" fluid style={{ height: "1000px" }}>
       <Button onClick={limpiar}>limpiar estado</Button>
       <Button onClick={handleClick}>generar pdf</Button>
+      <p>gracias</p>
       <p>
         El link es de un pdf que cree con la api, si se escanea el qr se puede
         ver en texto algunos datos que puse del envio... los botones estan
