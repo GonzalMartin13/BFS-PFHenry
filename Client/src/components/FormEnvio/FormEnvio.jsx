@@ -25,7 +25,7 @@ import axios from "axios";
 const FormEnvio = () => {
   const [imagenLocal, setImagenLocal] = useState("");
   const [linkPago, setLinkPago] = useState("");
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const position = [-35.4132981, -65.0205861];
   const myIcon = new Icon({
@@ -44,13 +44,11 @@ const FormEnvio = () => {
     (sucursal) => sucursal.Popup === destino
   );
 
-
   const handleEnvioBD = async (valores) => {
     try {
       valores.imagen = imagenLocal;
       await enviarBD(valores);
-    } catch (error) {
-    }
+    } catch (error) {}
   };
 
   const handleFileUpload = async () => {
@@ -100,9 +98,6 @@ const FormEnvio = () => {
     return word.charAt(0).toUpperCase() + word.slice(1);
   }
 
-
-  
-
   useEffect(() => {
     const mercadoPago = async () => {
       try {
@@ -114,10 +109,8 @@ const FormEnvio = () => {
         console.log(data);
       } catch (error) {
         console.error("Error al realizar la solicitud a MercadoPago", error);
-
       }
     };
-
 
     mercadoPago();
   }, []);
@@ -161,7 +154,7 @@ const FormEnvio = () => {
           )
         ) {
           errores.nombreRemitente =
-            "Ingresa tu nombre completo sin contener simbolos"
+            "Ingresa tu nombre completo sin contener simbolos";
         } else if (valores.nombreRemitente.length < 3)
           errores.nombreRemitente =
             "El nombre es demaciado corto, pon tu nombre completo";
@@ -253,63 +246,58 @@ const FormEnvio = () => {
         return errores;
       }}
       onSubmit={async (valores, { resetForm }) => {
+        console.log("Valores del formulario:", valores);
+        console.log("enviando...");
 
-       
-          console.log("Valores del formulario:", valores);
-          console.log("enviando...");
+        const {
+          nombreRemitente,
+          razonSocialRemitente,
+          telefonoRemitente,
+          emailRemitente,
+          dniRemitente,
+          nombreDestinatario,
+          razonSocialDestinatario,
+          telefonoDestinatario,
+          emailDestinatario,
+          dniDestinatario,
+          coordenadasOrigen,
+          coordenadasDestino,
+          direccionOrigen,
+          direccionDestino,
+          userID,
+        } = valores;
 
-          const {
-            nombreRemitente,
-            razonSocialRemitente,
-            telefonoRemitente,
-            emailRemitente,
-            dniRemitente,
-            nombreDestinatario,
-            razonSocialDestinatario,
-            telefonoDestinatario,
-            emailDestinatario,
-            dniDestinatario,
-            coordenadasOrigen,
-            coordenadasDestino,
-            direccionOrigen,
-            direccionDestino,
-            userID,
-          } = valores;
+        const shippingInfo = {
+          ...quoteState,
+          nombreRemitente,
+          razonSocialRemitente,
+          telefonoRemitente,
+          emailRemitente,
+          dniRemitente,
+          nombreDestinatario,
+          razonSocialDestinatario,
+          telefonoDestinatario,
+          emailDestinatario,
+          dniDestinatario,
+          coordenadasOrigen,
+          coordenadasDestino,
+          direccionOrigen,
+          direccionDestino,
+          userID,
+        };
 
-          const shippingInfo = {
-            ...quoteState,
-            nombreRemitente,
-            razonSocialRemitente,
-            telefonoRemitente,
-            emailRemitente,
-            dniRemitente,
-            nombreDestinatario,
-            razonSocialDestinatario,
-            telefonoDestinatario,
-            emailDestinatario,
-            dniDestinatario,
-            coordenadasOrigen,
-            coordenadasDestino,
-            direccionOrigen,
-            direccionDestino,
-            userID,
-          };
+        // Envía la información del envío al estado global
+        console.log("Antes de la actualización:", valores);
+        dispatch(setShippingState(shippingInfo));
+        console.log("Después de la actualización:", valores);
+        console.log("Estado global después del submit:", shippingInfo);
 
-          // Envía la información del envío al estado global
-          console.log("Antes de la actualización:", valores);
-          dispatch(setShippingState(shippingInfo));
-          console.log("Después de la actualización:", valores);
-          console.log("Estado global después del submit:", shippingInfo);
+        await handleEnvioBD(shippingInfo);
 
-          await  handleEnvioBD(shippingInfo)
-          
-          resetForm();
-          
-          window.location.href = linkPago;
+        resetForm();
 
+        window.open(linkPago, "_blank");
 
-
-       
       }}
     >
       {({
@@ -634,21 +622,18 @@ const FormEnvio = () => {
             <div>
               <br></br>
               <button type="submit" className={styles.button}>
-                <a href={linkPago} target="_blank" rel="noopener noreferrer"style={{ textDecoration: 'none', color: 'white' }}>
-                  Proceder al pago
-                </a>
+                Proceder al pago
               </button>
               <br></br>
             </div>
 
             <div>
               <br></br>
-              <Link to="/home" style={{ textDecoration: 'none' }} >
+              <Link to="/home" style={{ textDecoration: "none" }}>
                 <button
                   type="submit"
                   className={styles.buttonCancel}
                   onClick={clearStateShipping}
-                  
                 >
                   Cancelar y regresar
                 </button>
