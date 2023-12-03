@@ -19,7 +19,7 @@ import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import { handleUpload } from "../FormEnvio/utils/cloudinary";
 import { Link } from "react-router-dom";
-import { enviarAPago } from "../FormEnvio/axios";
+import { enviarBD } from "../FormEnvio/rutaDB";
 import axios from "axios";
 
 const FormEnvio = () => {
@@ -43,6 +43,15 @@ const FormEnvio = () => {
   const sucursalDestino = sucursales.find(
     (sucursal) => sucursal.Popup === destino
   );
+
+
+  const handleEnvioBD = async (valores) => {
+    try {
+      valores.imagen = imagenLocal;
+      await enviarBD(valores);
+    } catch (error) {
+    }
+  };
 
   const handleFileUpload = async () => {
     const { value: file } = await Swal.fire({
@@ -117,7 +126,7 @@ const FormEnvio = () => {
   const coordenadasDestino = sucursalDestino ? sucursalDestino.coordenadas : "";
   const direccionOrigen = sucursalOrigen ? sucursalOrigen.direccion : "";
   const direccionDestino = sucursalDestino ? sucursalDestino.direccion : "";
-  const userID = useSelector((state) => state.user.user.ID);
+  const userID = useSelector((state) => state.user.user.email);
 
   const quoteState = useSelector((state) => state.quoter);
 
@@ -292,11 +301,14 @@ const FormEnvio = () => {
           console.log("Después de la actualización:", valores);
           console.log("Estado global después del submit:", shippingInfo);
 
-          window.location.href = linkPago;
+          await  handleEnvioBD(shippingInfo)
           
-
-
           resetForm();
+          
+          window.location.href = linkPago;
+
+
+
        
       }}
     >
