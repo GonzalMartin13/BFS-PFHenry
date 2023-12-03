@@ -6,39 +6,49 @@ import Image from "react-bootstrap/Image";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect , useState} from "react";
-import {getUserPackages} from "../../redux/actions/packageActions"
+import { useEffect, useState } from "react";
+import { getUserPackages } from "../../redux/actions/packageActions";
 
 const Home = () => {
   const dispatch = useDispatch();
   const userPackages = useSelector((state) => state.packages.userPackages);
   const UserEmail = useSelector((state) => state.user.user.email);
-  const isLogged = useSelector((state)=>state.user.isLoggedIn)
- 
-  console.log(UserEmail)
-  console.log(userPackages)
+  const isLogged = useSelector((state) => state.user.isLoggedIn);
 
- 
+  console.log(UserEmail);
+  console.log(userPackages);
 
-useEffect(() => {
-  if (UserEmail) {
-    dispatch(getUserPackages(UserEmail));
-  }
-}, [dispatch, UserEmail]);
+  useEffect(() => {
+    if (UserEmail) {
+      dispatch(getUserPackages(UserEmail));
+    }
+  }, [dispatch, UserEmail]);
 
+  console.log(UserEmail);
+  console.log(userPackages);
 
-
+  useEffect(() => {
+    if (UserEmail) {
+      dispatch(getUserPackages(UserEmail));
+    }
+  }, [dispatch, UserEmail]);
 
   return (
-
-
-
-
-    
-    <div style={{ position: 'relative' }}>
-      <Image src="https://selfpackaging.es/blog/wp-content/uploads/2019/03/entrega-paquete-1.jpg" fluid style={{ width: '100%', height: '600px' }}/>
-      <div style={{ position: 'absolute', top: 50, left: 0, width: '100%', height: '100%' }}>
-
+    <div style={{ position: "relative" }}>
+      <Image
+        src="https://selfpackaging.es/blog/wp-content/uploads/2019/03/entrega-paquete-1.jpg"
+        fluid
+        style={{ width: "100%", height: "600px" }}
+      />
+      <div
+        style={{
+          position: "absolute",
+          top: 50,
+          left: 0,
+          width: "100%",
+          height: "100%",
+        }}
+      >
         <SeguimientoEnvio />
       </div>
       <br />
@@ -53,13 +63,11 @@ useEffect(() => {
       </h3>
       <Cards />
 
-       <Button href="/envios" variant=""/>
-
+      <Button href="/envios" variant="" />
 
       <br />
 
-      <Button  href={isLogged ? "/envios" : "/login"} variant="">
-
+      <Button href={isLogged ? "/envios" : "/login"} variant="">
         <Card style={{ width: "18rem" }}>
           <Card.Body>
             <Card.Title>Ver mis envíos</Card.Title>
@@ -78,7 +86,6 @@ useEffect(() => {
           </Card.Body>
         </Card>
       </Button>
-      
     </div>
   );
 };

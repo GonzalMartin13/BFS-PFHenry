@@ -28,15 +28,14 @@ import { useNavigate } from "react-router-dom";
 import { setState, setTotal, clearState } from "../../redux/Slices/quoterslice";
 import { SiGooglemaps } from "react-icons/si";
 import Swal from "sweetalert2";
-import {registerUser} from "../../redux/actions/userActions";
-import {login, contar} from "../../redux/Slices/userSlice";
-
+import { registerUser } from "../../redux/actions/userActions";
+import { login, contar } from "../../redux/Slices/userSlice";
 
 export default function QuoteForm() {
   const state = useSelector((state) => state.shipping);
   console.log("legfff", state);
-  const {loginWithRedirect, isAuthenticated, user} = useAuth0();
-  const {contador, isLoggedIn} = useSelector((state) => state.user);
+  const { loginWithRedirect, isAuthenticated, user } = useAuth0();
+  const { contador, isLoggedIn } = useSelector((state) => state.user);
   const [errors, setErrors] = useState({});
 
   const dispatch = useDispatch();
@@ -122,7 +121,10 @@ export default function QuoteForm() {
     setLoading(true);
 
     try {
-      const { data } = await axios.post("http://localhost:3001/envios/price", form);
+      const { data } = await axios.post(
+        "http://localhost:3001/envios/price",
+        form
+      );
 
       // Función de alerta
 
@@ -183,15 +185,15 @@ export default function QuoteForm() {
   ///
   const handleNavigation = () => {
     if (isLoggedIn) return navigate("/confirmacion");
-    localStorage.setItem('previousRoute', "/confirmacion");
+    localStorage.setItem("previousRoute", "/confirmacion");
     loginWithRedirect();
     dispatch(contar());
   };
 
   if (isAuthenticated && user.email_verified && contador === 2) {
-    const previousRoute = localStorage.getItem('previousRoute');
-    localStorage.removeItem('previousRoute');
-    navigate(previousRoute || '/');
+    const previousRoute = localStorage.getItem("previousRoute");
+    localStorage.removeItem("previousRoute");
+    navigate(previousRoute || "/");
     Swal.fire({
       title: "Sesión iniciada",
       text: `${user.nickname} has iniciado sesión exitosamente`,
@@ -215,7 +217,7 @@ export default function QuoteForm() {
     });
 
     dispatch(contar());
-  };
+  }
 
   //
   return (
