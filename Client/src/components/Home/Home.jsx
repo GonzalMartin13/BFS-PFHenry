@@ -19,6 +19,7 @@ const Home = () => {
   console.log(userPackages)
 
  
+
 useEffect(() => {
   if (UserEmail) {
     dispatch(getUserPackages(UserEmail));
@@ -29,6 +30,10 @@ useEffect(() => {
 
 
   return (
+
+
+
+
     
     <div style={{ position: 'relative' }}>
       <Image src="https://selfpackaging.es/blog/wp-content/uploads/2019/03/entrega-paquete-1.jpg" fluid style={{ width: '100%', height: '600px' }}/>

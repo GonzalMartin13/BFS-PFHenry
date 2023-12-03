@@ -29,6 +29,7 @@ module.exports = (sequelize) => {
       },
       imagen: { // atributo para que el usuario pueda subir una imagen
          type: DataTypes.STRING,
+         defaultValue: 'Sin Imagen',
          allowNull: true,
       },
       total: {
