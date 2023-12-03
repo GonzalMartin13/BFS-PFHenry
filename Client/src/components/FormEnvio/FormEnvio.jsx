@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
@@ -12,20 +12,20 @@ import {
   setImagen,
   clearShippingState,
 } from "../../redux/Slices/shippingSlice";
-import { clearState, setState } from "../../redux/Slices/quoterslice";
+import { clearState } from "../../redux/Slices/quoterslice";
 import Swal from "sweetalert2";
 import { Button } from "react-bootstrap";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import { handleUpload } from "../FormEnvio/utils/cloudinary";
-import { Link } from "react-router-dom";
-import { enviarAPago } from "../FormEnvio/axios";
+import { Link, useNavigate } from "react-router-dom";
+import { enviarBD } from "../FormEnvio/rutaDB";
 import axios from "axios";
 
 const FormEnvio = () => {
   const [imagenLocal, setImagenLocal] = useState("");
-  const [linkPago, setLinkPago] = useState(null);
-
+  const [linkPago, setLinkPago] = useState("");
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const position = [-35.4132981, -65.0205861];
   const myIcon = new Icon({
@@ -43,6 +43,13 @@ const FormEnvio = () => {
   const sucursalDestino = sucursales.find(
     (sucursal) => sucursal.Popup === destino
   );
+
+  const handleEnvioBD = async (valores) => {
+    try {
+      valores.imagen = imagenLocal;
+      await enviarBD(valores);
+    } catch (error) {}
+  };
 
   const handleFileUpload = async () => {
     const { value: file } = await Swal.fire({
@@ -91,9 +98,6 @@ const FormEnvio = () => {
     return word.charAt(0).toUpperCase() + word.slice(1);
   }
 
-
-  
-
   useEffect(() => {
     const mercadoPago = async () => {
       try {
@@ -105,10 +109,8 @@ const FormEnvio = () => {
         console.log(data);
       } catch (error) {
         console.error("Error al realizar la solicitud a MercadoPago", error);
-
       }
     };
-
 
     mercadoPago();
   }, []);
@@ -117,7 +119,7 @@ const FormEnvio = () => {
   const coordenadasDestino = sucursalDestino ? sucursalDestino.coordenadas : "";
   const direccionOrigen = sucursalOrigen ? sucursalOrigen.direccion : "";
   const direccionDestino = sucursalDestino ? sucursalDestino.direccion : "";
-  const userID = useSelector((state) => state.user.user.ID);
+  const userID = useSelector((state) => state.user.user.email);
 
   const quoteState = useSelector((state) => state.quoter);
 
@@ -244,60 +246,58 @@ const FormEnvio = () => {
         return errores;
       }}
       onSubmit={async (valores, { resetForm }) => {
+        console.log("Valores del formulario:", valores);
+        console.log("enviando...");
 
-       
-          console.log("Valores del formulario:", valores);
-          console.log("enviando...");
+        const {
+          nombreRemitente,
+          razonSocialRemitente,
+          telefonoRemitente,
+          emailRemitente,
+          dniRemitente,
+          nombreDestinatario,
+          razonSocialDestinatario,
+          telefonoDestinatario,
+          emailDestinatario,
+          dniDestinatario,
+          coordenadasOrigen,
+          coordenadasDestino,
+          direccionOrigen,
+          direccionDestino,
+          userID,
+        } = valores;
 
-          const {
-            nombreRemitente,
-            razonSocialRemitente,
-            telefonoRemitente,
-            emailRemitente,
-            dniRemitente,
-            nombreDestinatario,
-            razonSocialDestinatario,
-            telefonoDestinatario,
-            emailDestinatario,
-            dniDestinatario,
-            coordenadasOrigen,
-            coordenadasDestino,
-            direccionOrigen,
-            direccionDestino,
-            userID,
-          } = valores;
+        const shippingInfo = {
+          ...quoteState,
+          nombreRemitente,
+          razonSocialRemitente,
+          telefonoRemitente,
+          emailRemitente,
+          dniRemitente,
+          nombreDestinatario,
+          razonSocialDestinatario,
+          telefonoDestinatario,
+          emailDestinatario,
+          dniDestinatario,
+          coordenadasOrigen,
+          coordenadasDestino,
+          direccionOrigen,
+          direccionDestino,
+          userID,
+        };
 
-          const shippingInfo = {
-            ...quoteState,
-            nombreRemitente,
-            razonSocialRemitente,
-            telefonoRemitente,
-            emailRemitente,
-            dniRemitente,
-            nombreDestinatario,
-            razonSocialDestinatario,
-            telefonoDestinatario,
-            emailDestinatario,
-            dniDestinatario,
-            coordenadasOrigen,
-            coordenadasDestino,
-            direccionOrigen,
-            direccionDestino,
-            userID,
-          };
+        // Envía la información del envío al estado global
+        console.log("Antes de la actualización:", valores);
+        dispatch(setShippingState(shippingInfo));
+        console.log("Después de la actualización:", valores);
+        console.log("Estado global después del submit:", shippingInfo);
 
-          // Envía la información del envío al estado global
-          console.log("Antes de la actualización:", valores);
-          dispatch(setShippingState(shippingInfo));
-          console.log("Después de la actualización:", valores);
-          console.log("Estado global después del submit:", shippingInfo);
+        await handleEnvioBD(shippingInfo);
 
-          window.location.href = linkPago;
-          
+        resetForm();
 
+        window.open(linkPago, "_blank");
 
-          resetForm();
-       
       }}
     >
       {({
@@ -622,14 +622,14 @@ const FormEnvio = () => {
             <div>
               <br></br>
               <button type="submit" className={styles.button}>
-                Poceder al pago
+                Proceder al pago
               </button>
               <br></br>
             </div>
 
             <div>
               <br></br>
-              <Link to="/cotizacion">
+              <Link to="/home" style={{ textDecoration: "none" }}>
                 <button
                   type="submit"
                   className={styles.buttonCancel}

@@ -37,10 +37,6 @@ module.exports = (sequelize) => {
           type: DataTypes.STRING,
           allowNull: false,
         },
-        picture: {
-          type: DataTypes.STRING,
-          allowNull: true,
-        },
         connect: {
           type: DataTypes.BOOLEAN,
           allowNull: false,

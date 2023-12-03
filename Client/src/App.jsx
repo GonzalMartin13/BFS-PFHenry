@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { Route, Routes, useLocation } from "react-router-dom";
 
 import NavBar from "./components/NavBar/NavBar";
@@ -16,8 +15,8 @@ import Email from "./components/Contact/Contact";
 import MisEnvios from "./components/misEnvios/misEnvios";
 
 import "./App.css";
-import Compra from "./components/Compra/Compra";
-import ComprobantePDF from "./components/Compra/ComprobantePDF";
+/* import Compra from "./components/Compra/Compra";
+import ComprobantePDF from "./components/Compra/ComprobantePDF"; */
 import FormEnvio from "./components/FormEnvio/FormEnvio";
 
 function App() {
@@ -47,4 +46,3 @@ function App() {
 }
 
 export default App;
-
