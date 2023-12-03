@@ -18,13 +18,8 @@ import { Button } from "react-bootstrap";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import { handleUpload } from "../FormEnvio/utils/cloudinary";
-
 import { Link, useNavigate } from "react-router-dom";
-import { enviarAPago } from "../FormEnvio/axios";
-
-import { Link } from "react-router-dom";
 import { enviarBD } from "../FormEnvio/rutaDB";
-
 import axios from "axios";
 
 const FormEnvio = () => {
@@ -33,7 +28,6 @@ const FormEnvio = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch();
   const position = [-35.4132981, -65.0205861];
-  console.log(enviarAPago)
   const myIcon = new Icon({
     iconUrl: "https://i.imgur.com/3q59VGo.png",
     iconSize: [38, 38],
@@ -640,7 +634,7 @@ const FormEnvio = () => {
             <div>
               <br></br>
               <button type="submit" className={styles.button}>
-                <a href={linkPago} target="_blank" rel="noopener noreferrer">
+                <a href={linkPago} target="_blank" rel="noopener noreferrer"style={{ textDecoration: 'none', color: 'white' }}>
                   Proceder al pago
                 </a>
               </button>
