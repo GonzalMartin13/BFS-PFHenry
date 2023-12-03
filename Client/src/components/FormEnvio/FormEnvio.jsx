@@ -643,11 +643,12 @@ const FormEnvio = () => {
 
             <div>
               <br></br>
-              <Link to="/home">
+              <Link to="/home" style={{ textDecoration: 'none' }} >
                 <button
                   type="submit"
                   className={styles.buttonCancel}
                   onClick={clearStateShipping}
+                  
                 >
                   Cancelar y regresar
                 </button>
