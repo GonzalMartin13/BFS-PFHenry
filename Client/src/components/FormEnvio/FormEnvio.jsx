@@ -295,7 +295,7 @@ const FormEnvio = () => {
         await handleEnvioBD(shippingInfo);
 
         resetForm();
-
+console.log(linkPago)
         window.open(linkPago, "_blank");
 
       }}
