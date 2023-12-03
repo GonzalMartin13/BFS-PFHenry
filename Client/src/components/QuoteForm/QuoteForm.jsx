@@ -172,6 +172,7 @@ export default function QuoteForm() {
     });
   }, [servicios]);
   //post a servidor
+  console.log(form)
 
   //anula el submit si no estan completos los campos requeridos
   const isFormValid = () => {

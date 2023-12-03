@@ -24,6 +24,15 @@ const Home = () => {
     }
   }, [dispatch, UserEmail]);
 
+  console.log(UserEmail);
+  console.log(userPackages);
+
+  useEffect(() => {
+    if (UserEmail) {
+      dispatch(getUserPackages(UserEmail));
+    }
+  }, [dispatch, UserEmail]);
+
   return (
     <div style={{ position: "relative" }}>
       <Image

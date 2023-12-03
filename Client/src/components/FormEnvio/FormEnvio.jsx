@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
@@ -12,21 +12,25 @@ import {
   setImagen,
   clearShippingState,
 } from "../../redux/Slices/shippingSlice";
+<<<<<<< HEAD
 import { clearState, setState } from "../../redux/Slices/quoterslice";
 import { postInvoiceAsync } from "../../redux/Slices/invoiceUserSlice";
+=======
+import { clearState } from "../../redux/Slices/quoterslice";
+>>>>>>> ba13cdf24a6b8c57d5af7166222c2e4a8a403116
 import Swal from "sweetalert2";
 import { Button } from "react-bootstrap";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import { handleUpload } from "../FormEnvio/utils/cloudinary";
-import { Link } from "react-router-dom";
-import { enviarAPago } from "../FormEnvio/axios";
+import { Link, useNavigate } from "react-router-dom";
+import { enviarBD } from "../FormEnvio/rutaDB";
 import axios from "axios";
 
 const FormEnvio = () => {
   const [imagenLocal, setImagenLocal] = useState("");
-  const [linkPago, setLinkPago] = useState(null);
-
+  const [linkPago, setLinkPago] = useState("");
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const position = [-35.4132981, -65.0205861];
   const myIcon = new Icon({
@@ -44,6 +48,13 @@ const FormEnvio = () => {
   const sucursalDestino = sucursales.find(
     (sucursal) => sucursal.Popup === destino
   );
+
+  const handleEnvioBD = async (valores) => {
+    try {
+      valores.imagen = imagenLocal;
+      await enviarBD(valores);
+    } catch (error) {}
+  };
 
   const handleFileUpload = async () => {
     const { value: file } = await Swal.fire({
@@ -114,6 +125,10 @@ const FormEnvio = () => {
   const direccionOrigen = sucursalOrigen ? sucursalOrigen.direccion : "";
   const direccionDestino = sucursalDestino ? sucursalDestino.direccion : "";
   const userID = useSelector((state) => state.user.user.email);
+<<<<<<< HEAD
+=======
+
+>>>>>>> ba13cdf24a6b8c57d5af7166222c2e4a8a403116
   const quoteState = useSelector((state) => state.quoter);
 
   return (
@@ -278,6 +293,7 @@ const FormEnvio = () => {
           direccionDestino,
           userID,
         };
+<<<<<<< HEAD
         const jsonInvoise = {
           //  currency: "USD",
           tax: 21,
@@ -320,6 +336,21 @@ const FormEnvio = () => {
         //window.location.href = linkPago;
 
         //resetForm();
+=======
+
+        // Envía la información del envío al estado global
+        console.log("Antes de la actualización:", valores);
+        dispatch(setShippingState(shippingInfo));
+        console.log("Después de la actualización:", valores);
+        console.log("Estado global después del submit:", shippingInfo);
+
+        await handleEnvioBD(shippingInfo);
+
+        resetForm();
+
+        window.open(linkPago, "_blank");
+
+>>>>>>> ba13cdf24a6b8c57d5af7166222c2e4a8a403116
       }}
     >
       {({
@@ -644,14 +675,14 @@ const FormEnvio = () => {
             <div>
               <br></br>
               <button type="submit" className={styles.button}>
-                Poceder al pago
+                Proceder al pago
               </button>
               <br></br>
             </div>
 
             <div>
               <br></br>
-              <Link to="/cotizacion">
+              <Link to="/home" style={{ textDecoration: "none" }}>
                 <button
                   type="submit"
                   className={styles.buttonCancel}
