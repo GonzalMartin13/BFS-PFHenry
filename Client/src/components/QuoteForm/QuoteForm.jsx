@@ -1,8 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from "react";
 import { omit } from "lodash";
-import React from "react";
-
 import {
   Spinner,
   Button,
@@ -13,8 +11,8 @@ import {
   Container,
   Image,
 } from "react-bootstrap";
+import { useAuth0 } from "@auth0/auth0-react";
 
-import Login from "../../views/Login/Login";
 import style from "./quoteForm.module.css";
 import axios from "axios";
 import { provincias } from "./utils/provincias";
@@ -30,17 +28,14 @@ import { useNavigate } from "react-router-dom";
 import { setState, setTotal, clearState } from "../../redux/Slices/quoterslice";
 import { SiGooglemaps } from "react-icons/si";
 import Swal from "sweetalert2";
+import { registerUser } from "../../redux/actions/userActions";
+import { login, contar } from "../../redux/Slices/userSlice";
 
 export default function QuoteForm() {
   const state = useSelector((state) => state.shipping);
   console.log("legfff", state);
-
-  const isLogged = useSelector((state) => state.user.isLoggedIn);
-  console.log(isLogged);
-
   const { loginWithRedirect, isAuthenticated, user } = useAuth0();
   const { contador, isLoggedIn } = useSelector((state) => state.user);
-
   const [errors, setErrors] = useState({});
 
   const dispatch = useDispatch();
@@ -188,8 +183,6 @@ export default function QuoteForm() {
   };
   ///
   const handleNavigation = () => {
-    navigate("/confirmacion");
-
     if (isLoggedIn) return navigate("/confirmacion");
     localStorage.setItem("previousRoute", "/confirmacion");
     loginWithRedirect();

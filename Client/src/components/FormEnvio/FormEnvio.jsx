@@ -13,6 +13,7 @@ import {
   clearShippingState,
 } from "../../redux/Slices/shippingSlice";
 import { clearState, setState } from "../../redux/Slices/quoterslice";
+import { postInvoiceAsync } from "../../redux/Slices/invoiceUserSlice";
 import Swal from "sweetalert2";
 import { Button } from "react-bootstrap";
 import Col from "react-bootstrap/Col";
@@ -112,8 +113,7 @@ const FormEnvio = () => {
   const coordenadasDestino = sucursalDestino ? sucursalDestino.coordenadas : "";
   const direccionOrigen = sucursalOrigen ? sucursalOrigen.direccion : "";
   const direccionDestino = sucursalDestino ? sucursalDestino.direccion : "";
-  const userID = useSelector((state) => state.user.user.ID);
-
+  const userID = useSelector((state) => state.user.user.email);
   const quoteState = useSelector((state) => state.quoter);
 
   return (
@@ -282,14 +282,14 @@ const FormEnvio = () => {
           //  currency: "USD",
           tax: 21,
           company_name: "B.F.S. Logistica",
-          email: "contacto@fbs.com.ar",
+          email: "contacto@bfs.com.ar",
           tel: "011-4312-4567",
           client: "Consumidor final",
           items: [
             {
               quantity: 1,
-              unit_price: shippingInfo.total / 1.21,
-              totalSinIva: shippingInfo.total / 1.21,
+              unit_price: shippingInfo.total / (1.21).toFixed(2),
+              totalSinIva: shippingInfo.total / (1.21).toFixed(2),
             },
           ],
 
@@ -297,25 +297,26 @@ const FormEnvio = () => {
             origen: shippingInfo.origen,
             destino: shippingInfo.destino,
             peso: shippingInfo.peso,
-            servicios: shippingInfo.servicio,
+            servicios: shippingInfo.servicios,
             date: new Date().toLocaleDateString("es-AR"),
             total: shippingInfo.total,
-            nombreRemitente: "Arnaldo Andre",
-            dniRemitente: "23546987",
-            nombreDestinatario: "Monica Lopez",
-            dniDestinatario: "58654123",
-            numeroDeEnvio: "01234567",
-            telRemitente: "1139456712",
-            telDestinatario: "1139456712",
+            nombreRemitente: shippingInfo.nombreDestinatario,
+            dniRemitente: shippingInfo.dniRemitente,
+            nombreDestinatario: shippingInfo.nombreDestinatario,
+            dniDestinatario: shippingInfo.dniDestinatario,
+            numeroDeEnvio: "239752450",
+            telRemitente: shippingInfo.telefonoRemitente,
+            telDestinatario: shippingInfo.telefonoDestinatario,
           },
         };
-        console.log("la info", shippingInfo);
+
+        console.log("la info", jsonInvoise);
         // Envía la información del envío al estado global
         console.log("Antes de la actualización:", valores);
         dispatch(setShippingState(shippingInfo));
         console.log("Después de la actualización:", valores);
         console.log("Estado global después del submit:", shippingInfo);
-
+        dispatch(postInvoiceAsync(jsonInvoise)); //no descomentar esto
         //window.location.href = linkPago;
 
         //resetForm();
