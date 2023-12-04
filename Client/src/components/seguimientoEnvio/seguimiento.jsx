@@ -6,6 +6,7 @@ import Modal from "react-bootstrap/Modal";
 import Table from "react-bootstrap/Table";
 import { validate } from "./validation";
 import Swal from "sweetalert2";
+import {searcher, error, lupa} from "./style";
 
 function SeguimientoEnvio() {
   const [errors, setErrors] = useState({
@@ -96,9 +97,10 @@ function SeguimientoEnvio() {
         name="numero"
         aria-label="Número de Seguimiento"
         type="search"
+        style={searcher}
       />
       {errors.numero && (
-        <div className="text-danger" style={{ marginTop: '5px' }}>
+        <div className="text-danger" style={error}>
           {errors.numero}
         </div>
       )}
@@ -108,7 +110,7 @@ function SeguimientoEnvio() {
       variant="outline-success"
       type="submit"
       size="lg"
-      style={{ height: errors.numero ? '51px' : 'auto', marginLeft: '10px' }}
+      style={lupa}
     >
       🔎
     </Button>
