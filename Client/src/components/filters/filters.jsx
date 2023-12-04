@@ -30,9 +30,9 @@ function VerticalExample() {
   return (
  
     <div  className='flex-container ' style={{ marginBottom: '10px' }}>
-      <Button className='m-2' onClick={resetHandler} >Reset</Button>
+      <Button className='m-1' onClick={resetHandler} >Reset</Button>
   
-      <ButtonGroup className='m-2' vertical >
+      <ButtonGroup className='m-1' vertical >
         <DropdownButton
           as={ButtonGroup}
           title="Fecha"
@@ -44,7 +44,7 @@ function VerticalExample() {
         </DropdownButton>
       </ButtonGroup>
   
-      <ButtonGroup className='m-2' vertical >
+      <ButtonGroup className='m-1' vertical >
         <DropdownButton
           as={ButtonGroup}
           title="Servicio"

@@ -88,7 +88,7 @@ function MisEnvios() {
               <p>Destinatario: {selectedPackage.destinatario} </p>
               <p>Peso: {selectedPackage.peso} kg</p>
               <p>Dimensiones:{selectedPackage.dimensiones} </p>
-              <p>Total: {selectedPackage.total} </p>
+              <p>Total: {selectedPackage.total} $ </p>
               <img src={selectedPackage.imagen} alt="Imagen del paquete" style={{ maxWidth: '100%', maxHeight: '200px', margin: '10px auto' }} />
             </Modal.Body>
           </Modal>
