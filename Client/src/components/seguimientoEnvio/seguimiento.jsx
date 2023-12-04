@@ -6,6 +6,7 @@ import Modal from "react-bootstrap/Modal";
 import Table from "react-bootstrap/Table";
 import { validate } from "./validation";
 import Swal from "sweetalert2";
+import {searcher, error, lupa} from "./style";
 
 function SeguimientoEnvio() {
   const [errors, setErrors] = useState({
@@ -38,7 +39,7 @@ function SeguimientoEnvio() {
   const handleButtonClick = (e) => {
     e.preventDefault();
     
-    const validTrackingNumbers = ["25634", "54236", "87521"];
+    const validTrackingNumbers = ["2c872505-e2e2-47f2-b24c-46167c8b9c58", "54236", "87521"];
     const enteredNumber = input.numero.trim();
 
     if (validTrackingNumbers.includes(enteredNumber)) {
@@ -47,7 +48,7 @@ function SeguimientoEnvio() {
 
       // Simular estados del envío con diferentes posiciones de la barra de progreso
       switch (enteredNumber) {
-        case "25634":
+        case "2c872505-e2e2-47f2-b24c-46167c8b9c58":
           setProgress(40);
           break;
         case "54236":
@@ -96,9 +97,10 @@ function SeguimientoEnvio() {
         name="numero"
         aria-label="Número de Seguimiento"
         type="search"
+        style={searcher}
       />
       {errors.numero && (
-        <div className="text-danger" style={{ marginTop: '5px' }}>
+        <div className="text-danger" style={error}>
           {errors.numero}
         </div>
       )}
@@ -108,7 +110,7 @@ function SeguimientoEnvio() {
       variant="outline-success"
       type="submit"
       size="lg"
-      style={{ height: errors.numero ? '51px' : 'auto', marginLeft: '10px' }}
+      style={lupa}
     >
       🔎
     </Button>

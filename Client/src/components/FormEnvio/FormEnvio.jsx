@@ -13,7 +13,10 @@ import {
   clearShippingState,
 } from "../../redux/Slices/shippingSlice";
 import { clearState, setState } from "../../redux/Slices/quoterslice";
-import { postInvoiceAsync } from "../../redux/Slices/invoiceUserSlice";
+import {
+  postInvoiceAsync,
+  setidShipping,
+} from "../../redux/Slices/invoiceUserSlice";
 import Swal from "sweetalert2";
 import { Button } from "react-bootstrap";
 import Col from "react-bootstrap/Col";
@@ -48,7 +51,8 @@ const FormEnvio = () => {
   const handleEnvioBD = async (valores) => {
     try {
       valores.imagen = imagenLocal;
-      await enviarBD(valores);
+      const porstEnviar = await enviarBD(valores);
+      dispatch(setidShipping(porstEnviar.idDelEnvio.numeroEnvio));
     } catch (error) {}
   };
 
@@ -122,6 +126,7 @@ const FormEnvio = () => {
   const direccionDestino = sucursalDestino ? sucursalDestino.direccion : "";
   const userID = useSelector((state) => state.user.user.email);
   const quoteState = useSelector((state) => state.quoter);
+  const idEnvio = useSelector((state) => state.invoice.idShipping);
 
   return (
     <Formik
@@ -303,7 +308,7 @@ const FormEnvio = () => {
           qr: {
             origen: shippingInfo.origen,
             destino: shippingInfo.destino,
-            peso: shippingInfo.peso,
+            peso: shippingInfo.peso || 0.1,
             servicios: shippingInfo.servicios,
             date: new Date().toLocaleDateString("es-AR"),
             total: shippingInfo.total,
@@ -311,19 +316,21 @@ const FormEnvio = () => {
             dniRemitente: shippingInfo.dniRemitente,
             nombreDestinatario: shippingInfo.nombreDestinatario,
             dniDestinatario: shippingInfo.dniDestinatario,
-            numeroDeEnvio: "239752450",
+            numeroDeEnvio: "11223344",
             telRemitente: shippingInfo.telefonoRemitente,
             telDestinatario: shippingInfo.telefonoDestinatario,
           },
         };
 
-        console.log("la info", jsonInvoise);
         // Envía la información del envío al estado global
         console.log("Antes de la actualización:", valores);
         dispatch(setShippingState(shippingInfo));
         console.log("Después de la actualización:", valores);
         console.log("Estado global después del submit:", shippingInfo);
-        dispatch(postInvoiceAsync(jsonInvoise)); //no descomentar esto
+
+        // dispatch(postInvoiceAsync(jsonInvoise)); //descomentar para demo
+        await handleEnvioBD(shippingInfo);
+
         window.location.href = linkPago;
 
         resetForm();

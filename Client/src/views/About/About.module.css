@@ -138,6 +138,16 @@
 .contactanos h1{
      margin-top: 3rem;
 }
+.title {
+     color: blue;
+     width: 70%;
+     font-size: 25px;
+}
+.text {
+     color: black;
+     width: 70%;
+     font-size: 20px;
+}
 
 
 @media screen and (max-width: 768px) {
