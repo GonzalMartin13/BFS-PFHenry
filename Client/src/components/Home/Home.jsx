@@ -5,12 +5,11 @@ import Slider from "../Carrousel/Carrousel";
 import Image from "react-bootstrap/Image";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
-import { /* useDispatch, */ useSelector } from "react-redux";
-//import { useEffect, useState } from "react";
-//import { getUserPackages } from "../../redux/actions/packageActions";
+import { useDispatch, useSelector } from "react-redux";
+
 
 const Home = () => {
-  //const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const userPackages = useSelector((state) => state.packages.userPackages);
   const UserEmail = useSelector((state) => state.user.user.email);
   const isLogged = useSelector((state) => state.user.isLoggedIn);
@@ -18,7 +17,7 @@ const Home = () => {
   console.log(UserEmail);
   console.log(userPackages);
 
-/*   useEffect(() => {
+  useEffect(() => {
     if (UserEmail) {
       dispatch(getUserPackages(UserEmail));
     }
@@ -32,7 +31,7 @@ const Home = () => {
       dispatch(getUserPackages(UserEmail));
     }
   }, [dispatch, UserEmail]);
- */
+
   return (
     <div style={{ position: "relative" }}>
       <Image
@@ -78,14 +77,7 @@ const Home = () => {
         </Card>
       </Button>
 
-      <Button href="/sucursales" variant="">
-        <Card style={{ width: "18rem" }}>
-          <Card.Body>
-            <Card.Title>Buscar sucursal</Card.Title>
-            <Card.Text>Encontrá la sucursal BFS más cercana.</Card.Text>
-          </Card.Body>
-        </Card>
-      </Button>
+   
     </div>
   );
 };
