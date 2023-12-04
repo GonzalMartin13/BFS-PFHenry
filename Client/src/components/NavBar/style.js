@@ -23,15 +23,14 @@ const logoin = {
 };
 
 const menuin = {
-  background: "linear-gradient(to right, cornflowerblue, white)",
   borderLeft: "10px solid darkblue",
   padding: "10px 20px"
 };
 
 const menuletter = {
-  color: "darkblue",
+  color: "black",
   borderBottom: "5px solid darkblue",
-  margin: "20px 80px 20px 0px",
+  margin: "20px 180px 20px 0px",
 };
 
 

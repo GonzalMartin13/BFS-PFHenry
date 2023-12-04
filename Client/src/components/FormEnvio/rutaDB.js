@@ -46,6 +46,7 @@ const enviarBD = async (valores) => {
       console.log("exito ", datosEnvio);
       console.log("Envío a BD exitoso");
       console.log("la respuesta", response.data);
+      return response.data;
     } else {
       console.error("Error al enviar");
       throw new Error("Error al enviar throw");

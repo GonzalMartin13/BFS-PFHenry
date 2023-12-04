@@ -33,7 +33,7 @@ import { login, contar } from "../../redux/Slices/userSlice";
 
 export default function QuoteForm() {
   const state = useSelector((state) => state.shipping);
-  console.log("legfff", state);
+
   const { loginWithRedirect, isAuthenticated, user } = useAuth0();
   const { contador, isLoggedIn } = useSelector((state) => state.user);
   const [errors, setErrors] = useState({});
@@ -172,7 +172,6 @@ export default function QuoteForm() {
     });
   }, [servicios]);
   //post a servidor
-  console.log(form)
 
   //anula el submit si no estan completos los campos requeridos
   const isFormValid = () => {

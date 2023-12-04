@@ -7,6 +7,10 @@ import Table from "react-bootstrap/Table";
 import { validate } from "./validation";
 import Swal from "sweetalert2";
 import {searcher, error, lupa} from "./style";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons'; // Importa el ícono que necesitas
+
+
 
 function SeguimientoEnvio() {
   const [errors, setErrors] = useState({
@@ -39,7 +43,7 @@ function SeguimientoEnvio() {
   const handleButtonClick = (e) => {
     e.preventDefault();
     
-    const validTrackingNumbers = ["25634", "54236", "87521"];
+    const validTrackingNumbers = ["2c872505-e2e2-47f2-b24c-46167c8b9c58", "54236", "87521"];
     const enteredNumber = input.numero.trim();
 
     if (validTrackingNumbers.includes(enteredNumber)) {
@@ -48,7 +52,7 @@ function SeguimientoEnvio() {
 
       // Simular estados del envío con diferentes posiciones de la barra de progreso
       switch (enteredNumber) {
-        case "25634":
+        case "2c872505-e2e2-47f2-b24c-46167c8b9c58":
           setProgress(40);
           break;
         case "54236":
@@ -112,7 +116,7 @@ function SeguimientoEnvio() {
       size="lg"
       style={lupa}
     >
-      🔎
+      <FontAwesomeIcon icon={faSearch} />
     </Button>
   </Form>
 
