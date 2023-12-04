@@ -96,6 +96,7 @@ function SeguimientoEnvio() {
         name="numero"
         aria-label="Número de Seguimiento"
         type="search"
+        style={{  width: '347px' }}
       />
       {errors.numero && (
         <div className="text-danger" style={{ marginTop: '5px' }}>
