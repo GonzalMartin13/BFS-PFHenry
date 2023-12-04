@@ -7,6 +7,10 @@ import Table from "react-bootstrap/Table";
 import { validate } from "./validation";
 import Swal from "sweetalert2";
 import {searcher, error, lupa} from "./style";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons'; // Importa el ícono que necesitas
+
+
 
 function SeguimientoEnvio() {
   const [errors, setErrors] = useState({
@@ -112,7 +116,7 @@ function SeguimientoEnvio() {
       size="lg"
       style={lupa}
     >
-      🔎
+      <FontAwesomeIcon icon={faSearch} />
     </Button>
   </Form>
 

@@ -21,7 +21,8 @@ const lupa = {
   border: "none",
   backgroundColor: "transparent",
   margin: "0px 5px",
-  padding: "8px 0px"
+  padding: "8px 0px",
+  color: "black"
 };
 
 export {
