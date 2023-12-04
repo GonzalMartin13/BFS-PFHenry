@@ -10,6 +10,7 @@ import logo from "../../assets/logo.png";
 import { Image } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import Login from "../../views/Login/Login";
+import {nav, logobfs, menuout, logoin, menuin, menuletter} from "./style";
 
 export default function NavBar() {
   const isLogged = useSelector((state) => state.user.isLoggedIn);
@@ -21,26 +22,23 @@ export default function NavBar() {
           key={expand}
           expand={expand}
           className="bg-body-tertiary py-1"
-          style={{
-            height: "auto",
-
-            width: "100%",
-          }}
+          style={nav}
         >
           {" "}
           <Navbar.Brand href="/">
-            <Image src={logo} alt="Logo BFS" style={{ height: "55px" }} />
+            <Image src={logo} alt="Logo BFS" style={logobfs} />
           </Navbar.Brand>
 
           <div className="ms-auto">
             <Login></Login>
           </div>
           <Navbar.Brand href="/"></Navbar.Brand>
-          <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
+          <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} style={menuout}/>
           <Navbar.Offcanvas
             id={`offcanvasNavbar-expand-${expand}`}
             aria-labelledby={`offcanvasNavbarLabel-expand-${expand}`}
             placement="end"
+            style={menuin}
           >
             <Offcanvas.Header closeButton>
               <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${expand}`}>
@@ -48,18 +46,18 @@ export default function NavBar() {
                   src={logo}
                   alt="Logo BFS"
                   fluid
-                  style={{ width: "100px", height: "100px" }} // Adjust the size as needed
+                  style={logoin} // Adjust the size as needed
                 />
               </Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body>
               <Nav className="justify-content-end flex-grow-1 pe-3">
-                <Nav.Link href="/cotizacion">Cotizador</Nav.Link>
-                <Nav.Link href="/about">Sobre nosotros</Nav.Link>
-                <Nav.Link href="/contacto">Contacto</Nav.Link>
-                <Nav.Link href="/servicios">Servicios</Nav.Link>
+                <Nav.Link href="/cotizacion" style={menuletter}>Cotizador</Nav.Link>
+                <Nav.Link href="/about" style={menuletter}>Sobre nosotros</Nav.Link>
+                <Nav.Link href="/contacto" style={menuletter}>Contacto</Nav.Link>
+                <Nav.Link href="/" style={menuletter}>Servicios</Nav.Link>
                 {isLogged ? (
-                  <Nav.Link href="/envios">Mis envíos</Nav.Link>
+                  <Nav.Link href="/envios" style={menuletter}>Mis envíos</Nav.Link>
                 ) : null}
 
                 {/* <NavDropdown
