@@ -6,12 +6,23 @@ import Modal from "react-bootstrap/Modal";
 import Image from "react-bootstrap/Image";
 import flechaIcon from "../../assets/sign.svg";
 import VerticalExample from "../filters/filters";
+import { getUserPackages } from "../../redux/actions/packageActions";
 import "./MisEnvios.css";
 
 function MisEnvios() {
   const dispatch = useDispatch();
   const userPackages = useSelector((state) => state.packages.userPackages);
   const UserEmail = useSelector((state) => state.user.user.email);
+
+
+ 
+ 
+  useEffect(() => {
+    if (UserEmail) {
+      dispatch(getUserPackages(UserEmail));
+    }
+  }, [dispatch, UserEmail]);
+
 
   const [showModal, setShowModal] = useState(false);
   const handleCloseModal = () => {
@@ -77,7 +88,7 @@ function MisEnvios() {
               <p>Destinatario: {selectedPackage.destinatario} </p>
               <p>Peso: {selectedPackage.peso} kg</p>
               <p>Dimensiones:{selectedPackage.dimensiones} </p>
-              <p>Total: {selectedPackage.total} </p>
+              <p>Total: {selectedPackage.total} $ </p>
               <img src={selectedPackage.imagen} alt="Imagen del paquete" style={{ maxWidth: '100%', maxHeight: '200px', margin: '10px auto' }} />
             </Modal.Body>
           </Modal>
