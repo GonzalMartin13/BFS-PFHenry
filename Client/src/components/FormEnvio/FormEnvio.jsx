@@ -272,7 +272,7 @@ const FormEnvio = () => {
           userID,
         } = valores;
 
-        const shippingInfo = {
+         const shippingInfo = {
           ...quoteState,
           nombreRemitente,
           razonSocialRemitente,
@@ -290,45 +290,15 @@ const FormEnvio = () => {
           direccionDestino,
           userID,
         };
-        const jsonInvoise = {
-          //  currency: "USD",
-          tax: 21,
-          company_name: "B.F.S. Logistica",
-          email: "contacto@bfs.com.ar",
-          tel: "011-4312-4567",
-          client: "Consumidor final",
-          items: [
-            {
-              quantity: 1,
-              unit_price: shippingInfo.total / (1.21).toFixed(2),
-              totalSinIva: shippingInfo.total / (1.21).toFixed(2),
-            },
-          ],
 
-          qr: {
-            origen: shippingInfo.origen,
-            destino: shippingInfo.destino,
-            peso: shippingInfo.peso || 0.1,
-            servicios: shippingInfo.servicios,
-            date: new Date().toLocaleDateString("es-AR"),
-            total: shippingInfo.total,
-            nombreRemitente: shippingInfo.nombreDestinatario,
-            dniRemitente: shippingInfo.dniRemitente,
-            nombreDestinatario: shippingInfo.nombreDestinatario,
-            dniDestinatario: shippingInfo.dniDestinatario,
-            numeroDeEnvio: "11223344",
-            telRemitente: shippingInfo.telefonoRemitente,
-            telDestinatario: shippingInfo.telefonoDestinatario,
-          },
-        };
 
         // Envía la información del envío al estado global
         console.log("Antes de la actualización:", valores);
         dispatch(setShippingState(shippingInfo));
         console.log("Después de la actualización:", valores);
         console.log("Estado global después del submit:", shippingInfo);
-
-        // dispatch(postInvoiceAsync(jsonInvoise)); //descomentar para demo
+       
+         /* dispatch(postInvoiceAsync(jsonInvoise)) */; //descomentar para demo
         await handleEnvioBD(shippingInfo);
 
         window.location.href = linkPago;
