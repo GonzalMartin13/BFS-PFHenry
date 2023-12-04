@@ -2,7 +2,7 @@ footer {
   padding: 20px 20px 0px 20px;
   bottom: 0;
   width: 100%;
-  background-color: rgb(0, 0, 0);
+  background-color: darkblue;
   color: white;
 }
 .Footer {
@@ -93,9 +93,11 @@ footer {
 
 .img__logo {
   margin-top: 20px;
-  height: 180px;
-  margin-left: 10px;
+  height: 110px;
 }
 .ordenador {
   display: flex;
+}
+.path {
+  color: white;
 }
