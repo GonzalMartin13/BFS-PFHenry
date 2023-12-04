@@ -1,85 +1,92 @@
-const json = {
-  invoice_number: "12345678",
-  currency: "USD",
-  tax: 21,
-  company_name: "B.F.S. Logistica",
-  email: "contacto@fbs.com.ar",
-  tel: "011-4312-4567",
-  client: "Consumidor final",
-  items: [
-    {
-      description:
-        "Envio desde Buenos Aires hasta Tucuman, Peso: 1.00kg, incluye servicios: Paquetería, Fragil, Express",
-      quantity: 1,
-      unit_price: 2500,
-      totalSinIva: 2500,
-    },
-  ],
-  gross_total: 2500,
-  qr: {
-    origen: "Mendoza",
-    destino: "Corrientes",
-    peso: "5 kg",
-    servicios: ["paqueteria", "express", "fragil"],
-    date: "29-12-2023",
-    total: "3025,00",
-    nombreRemitente: "Arnaldo Andre",
-    dniRemitente: "23546987",
-    nombreDestinatario: "Monica Lopez",
-    dniDestinatario: "58654123",
-    numeroDeEnvio: "01234567",
-    telRemitente: "1139456712",
-    telDestinatario: "1139456712",
-  },
+const setStateQu = {
+  origen: "",
+  destino: "",
+  largo: "",
+  ancho: "",
+  alto: "",
+  peso: "",
+  servicios: [],
+  total: "",
 };
-
 import { useDispatch, useSelector } from "react-redux";
-import { Container, Button } from "react-bootstrap";
-import {
-  postInvoiceAsync,
-  postInvoice,
-} from "../../redux/Slices/invoiceUserSlice";
-import { useEffect } from "react";
-import axios from "axios"
+import { Container, Button, ListGroup } from "react-bootstrap";
+import { setStateInvoice } from "../../redux/Slices/invoiceUserSlice";
 
+import { Link, useNavigate } from "react-router-dom";
+import { setState } from "../../redux/Slices/quoterslice";
+import { clearShippingState } from "../../redux/Slices/shippingSlice";
 
 export default function Comprobante() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const envio = useSelector((state) => state.shipping);
+  const { idShipping } = useSelector((state) => state.invoice);
   const { invoice } = useSelector((state) => state.invoice);
-  const  shipping = useSelector((state) => state.shipping);
-  console.log(shipping)
-  console.log("desde factura", invoice);
-  let url = invoice;
-  const handleClick = () => {
-    // dispatch(postInvoiceAsync(json));//no descomentar esto
-  };
-  const limpiar = () => {
-    dispatch(postInvoice(" "));
-  };
+  const shipping = useSelector((state) => state.shipping);
 
-  useEffect(() => {
-    console.log(shipping)
-    axios.post("http://localhost:3001/envios/", shipping)
-  }, []);
+  let url = invoice;
+
+  const resetStates = () => {
+    dispatch(setState(setStateQu));
+    dispatch(setStateInvoice());
+    dispatch(clearShippingState());
+    navigate("/");
+  };
 
   return (
     <Container className="mt-5" fluid style={{ height: "1000px" }}>
-      <Button onClick={limpiar}>limpiar estado</Button>
-      <Button onClick={handleClick}>generar pdf</Button>
-      <p>gracias</p>
-      <p>
-        El link es de un pdf que cree con la api, si se escanea el qr se puede
-        ver en texto algunos datos que puse del envio... los botones estan
-        desactivados para que no se consuman las solicitudes que quedan menos de
-        30
-      </p>
-      <a
-        href="https://craftmypdf-gen-au.s3.ap-southeast-2.amazonaws.com/1d29ede9-f166-4f39-92c1-cf403b42adde/output.pdf?AWSAccessKeyId=AKIA6ENCBKJYLWJUD36X&Expires=1702027019&Signature=F4%2Bv2aB8TgMChb%2Bk%2BjTyFV9%2FQ9w%3D&X-Amzn-Trace-Id=Root%3D1-6569a487-428ff00f3bb6237066b8f387%3BParent%3Db60f2a2ecc09bf74%3BSampled%3D1%3BLineage%3D22552a75%3A0"
-        target="_blank"
-        className="btn btn-primary m-3"
-      >
-        ver pdf
+      <h1>Gracias por confiar en nosotros!</h1>
+      <h4>
+        Tu solicitud de envío ha sido procesada con éxito. Aquí tienes los
+        detalles:
+      </h4>
+      <ListGroup className="fs-4">
+        <ListGroup.Item variant="info">Origen: {envio.origen}</ListGroup.Item>
+        <ListGroup.Item variant="info">Destino: {envio.destino}</ListGroup.Item>
+        <ListGroup.Item variant="info">
+          Dimensiones de la caja:{" "}
+          {`Largo: ${envio.largo || "no especificado"} x  Ancho: ${
+            envio.ancho || "no especificado"
+          } x  Alto: ${envio.alto || "no especificado"}`}
+        </ListGroup.Item>
+        <ListGroup.Item variant="info">
+          Peso: {`${envio.largo || "no especificado"} `}
+        </ListGroup.Item>
+        <ListGroup.Item variant="info">
+          Total pagado: $ {envio.total}
+        </ListGroup.Item>
+        <ListGroup.Item variant="info">
+          Código de seguimiento: {idShipping}
+        </ListGroup.Item>
+      </ListGroup>
+      <a href={url} target="_blank" className="btn btn-primary m-3 p-2">
+        Descargar factura
       </a>
+      <Button
+        onClick={resetStates}
+        variant="outline-success"
+        style={{ margin: "auto 10px" }}
+      >
+        Volver a inicio
+      </Button>
+      <p className="fs-5 m-4">
+        Para concluir el proceso, te invitamos a dirigirte a la{" "}
+        <Link to="/sucursales" target="_blank">
+          sucursal
+        </Link>{" "}
+        correspondiente a la ciudad de origen, llevando contigo tu paquete y la
+        factura asociada. Nuestro equipo estará encantado de asistirte con el
+        despacho.
+      </p>
+
+      <p className="fs-5">
+        Recuerda que puedes realizar un seguimiento en tiempo real del estado de
+        tu envío utilizando el Código de seguimiento proporcionado. Apreciamos
+        tu confianza en nuestro servicio y estamos aquí para ayudarte en cada
+        paso del camino. Si tienes alguna pregunta o necesitas asistencia
+        adicional, no dudes en ponerte en contacto con nuestro equipo de
+        soporte.
+      </p>
     </Container>
   );
 }

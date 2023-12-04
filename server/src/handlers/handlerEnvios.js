@@ -65,12 +65,10 @@ const handlerPostEnvio = async (req, res) => {
 
     !response
       ? res.status(400).json({ error: "Falta información" })
-      : res
-          .status(201)
-          .json({
-            message: "Envío creado con éxito",
-            "id del envío": response,
-          });
+      : res.status(201).json({
+          message: "Envío creado con éxito",
+          idDelEnvio: response,
+        });
   } catch (error) {
     res.status(404).json({ error: error.message });
   }
