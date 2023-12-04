@@ -37,22 +37,7 @@ const Cards = () => {
           </Card.Body>
         </Card>
       </div>
-      <div>
-        <Card style={{ width: "18rem", height: "25rem", margin: "10px" }}>
-          <Card.Img
-            variant="top"
-            src="https://libertyexpress.com/wp-content/themes/kutis/assets/svg/icons/servicioCompraAsistida.svg"
-            style={{ width: '100px', height: '100px' }}
-          />
-          <Card.Body>
-            <Card.Title>COMPRA POR INTERNET </Card.Title>
-            <Card.Text>
-            Compra por internet y nosotros te llevamos tu artículo hasta la comodidad de tu hogar.
-            </Card.Text>
-            <Button variant="primary" href="/cotizacion">Cotizar</Button>
-          </Card.Body>
-        </Card>
-      </div>
+ 
       <div>
         <Card style={{ width: "18rem", height: "25rem", margin: "10px" }}>
           <Card.Img
@@ -65,7 +50,7 @@ const Cards = () => {
             <Card.Text>
             Retira tus paquetes en la sucursal que este más cercana a tu domicilio
             </Card.Text>
-            <Button variant="primary" href="/envios">Consulta</Button>
+            <Button variant="primary" href="/sucursales">Consulta</Button>
           </Card.Body>
         </Card>
       </div>

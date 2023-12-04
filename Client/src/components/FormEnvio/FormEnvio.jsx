@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
@@ -13,19 +13,23 @@ import {
   clearShippingState,
 } from "../../redux/Slices/shippingSlice";
 import { clearState, setState } from "../../redux/Slices/quoterslice";
+import {
+  postInvoiceAsync,
+  setidShipping,
+} from "../../redux/Slices/invoiceUserSlice";
 import Swal from "sweetalert2";
 import { Button } from "react-bootstrap";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import { handleUpload } from "../FormEnvio/utils/cloudinary";
-import { Link } from "react-router-dom";
-import { enviarAPago } from "../FormEnvio/axios";
+import { Link, useNavigate } from "react-router-dom";
+import { enviarBD } from "../FormEnvio/rutaDB";
 import axios from "axios";
 
 const FormEnvio = () => {
   const [imagenLocal, setImagenLocal] = useState("");
-  const [linkPago, setLinkPago] = useState(null);
-
+  const [linkPago, setLinkPago] = useState("");
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const position = [-35.4132981, -65.0205861];
   const myIcon = new Icon({
@@ -43,6 +47,14 @@ const FormEnvio = () => {
   const sucursalDestino = sucursales.find(
     (sucursal) => sucursal.Popup === destino
   );
+
+  const handleEnvioBD = async (valores) => {
+    try {
+      valores.imagen = imagenLocal;
+      const porstEnviar = await enviarBD(valores);
+      dispatch(setidShipping(porstEnviar.idDelEnvio.numeroEnvio));
+    } catch (error) {}
+  };
 
   const handleFileUpload = async () => {
     const { value: file } = await Swal.fire({
@@ -91,9 +103,6 @@ const FormEnvio = () => {
     return word.charAt(0).toUpperCase() + word.slice(1);
   }
 
-
-  
-
   useEffect(() => {
     const mercadoPago = async () => {
       try {
@@ -105,10 +114,8 @@ const FormEnvio = () => {
         console.log(data);
       } catch (error) {
         console.error("Error al realizar la solicitud a MercadoPago", error);
-
       }
     };
-
 
     mercadoPago();
   }, []);
@@ -117,9 +124,9 @@ const FormEnvio = () => {
   const coordenadasDestino = sucursalDestino ? sucursalDestino.coordenadas : "";
   const direccionOrigen = sucursalOrigen ? sucursalOrigen.direccion : "";
   const direccionDestino = sucursalDestino ? sucursalDestino.direccion : "";
-  const userID = useSelector((state) => state.user.user.ID);
-
+  const userID = useSelector((state) => state.user.user.email);
   const quoteState = useSelector((state) => state.quoter);
+  const idEnvio = useSelector((state) => state.invoice.idShipping);
 
   return (
     <Formik
@@ -244,60 +251,89 @@ const FormEnvio = () => {
         return errores;
       }}
       onSubmit={async (valores, { resetForm }) => {
+        console.log("Valores del formulario:", valores);
+        console.log("enviando...");
 
-       
-          console.log("Valores del formulario:", valores);
-          console.log("enviando...");
+        const {
+          nombreRemitente,
+          razonSocialRemitente,
+          telefonoRemitente,
+          emailRemitente,
+          dniRemitente,
+          nombreDestinatario,
+          razonSocialDestinatario,
+          telefonoDestinatario,
+          emailDestinatario,
+          dniDestinatario,
+          coordenadasOrigen,
+          coordenadasDestino,
+          direccionOrigen,
+          direccionDestino,
+          userID,
+        } = valores;
 
-          const {
-            nombreRemitente,
-            razonSocialRemitente,
-            telefonoRemitente,
-            emailRemitente,
-            dniRemitente,
-            nombreDestinatario,
-            razonSocialDestinatario,
-            telefonoDestinatario,
-            emailDestinatario,
-            dniDestinatario,
-            coordenadasOrigen,
-            coordenadasDestino,
-            direccionOrigen,
-            direccionDestino,
-            userID,
-          } = valores;
+        const shippingInfo = {
+          ...quoteState,
+          nombreRemitente,
+          razonSocialRemitente,
+          telefonoRemitente,
+          emailRemitente,
+          dniRemitente,
+          nombreDestinatario,
+          razonSocialDestinatario,
+          telefonoDestinatario,
+          emailDestinatario,
+          dniDestinatario,
+          coordenadasOrigen,
+          coordenadasDestino,
+          direccionOrigen,
+          direccionDestino,
+          userID,
+        };
+        const jsonInvoise = {
+          //  currency: "USD",
+          tax: 21,
+          company_name: "B.F.S. Logistica",
+          email: "contacto@bfs.com.ar",
+          tel: "011-4312-4567",
+          client: "Consumidor final",
+          items: [
+            {
+              quantity: 1,
+              unit_price: shippingInfo.total / (1.21).toFixed(2),
+              totalSinIva: shippingInfo.total / (1.21).toFixed(2),
+            },
+          ],
 
-          const shippingInfo = {
-            ...quoteState,
-            nombreRemitente,
-            razonSocialRemitente,
-            telefonoRemitente,
-            emailRemitente,
-            dniRemitente,
-            nombreDestinatario,
-            razonSocialDestinatario,
-            telefonoDestinatario,
-            emailDestinatario,
-            dniDestinatario,
-            coordenadasOrigen,
-            coordenadasDestino,
-            direccionOrigen,
-            direccionDestino,
-            userID,
-          };
+          qr: {
+            origen: shippingInfo.origen,
+            destino: shippingInfo.destino,
+            peso: shippingInfo.peso || 0.1,
+            servicios: shippingInfo.servicios,
+            date: new Date().toLocaleDateString("es-AR"),
+            total: shippingInfo.total,
+            nombreRemitente: shippingInfo.nombreDestinatario,
+            dniRemitente: shippingInfo.dniRemitente,
+            nombreDestinatario: shippingInfo.nombreDestinatario,
+            dniDestinatario: shippingInfo.dniDestinatario,
+            numeroDeEnvio: "11223344",
+            telRemitente: shippingInfo.telefonoRemitente,
+            telDestinatario: shippingInfo.telefonoDestinatario,
+          },
+        };
 
-          // Envía la información del envío al estado global
-          console.log("Antes de la actualización:", valores);
-          dispatch(setShippingState(shippingInfo));
-          console.log("Después de la actualización:", valores);
-          console.log("Estado global después del submit:", shippingInfo);
+        // Envía la información del envío al estado global
+        console.log("Antes de la actualización:", valores);
+        dispatch(setShippingState(shippingInfo));
+        console.log("Después de la actualización:", valores);
+        console.log("Estado global después del submit:", shippingInfo);
 
-          window.location.href = linkPago;
-          
+        // dispatch(postInvoiceAsync(jsonInvoise)); //descomentar para demo
+        await handleEnvioBD(shippingInfo);
 
+        window.location.href = linkPago;
 
-          resetForm();
-       
+        resetForm();
       }}
     >
       {({
@@ -622,14 +658,14 @@ const FormEnvio = () => {
             <div>
               <br></br>
               <button type="submit" className={styles.button}>
-                Poceder al pago
+                Proceder al pago
               </button>
               <br></br>
             </div>
 
             <div>
               <br></br>
-              <Link to="/cotizacion">
+              <Link to="/home" style={{ textDecoration: "none" }}>
                 <button
                   type="submit"
                   className={styles.buttonCancel}
