@@ -28,21 +28,23 @@ function VerticalExample() {
   }
 
   return (
-    <>
-    <Button onClick={resetHandler}>Reset</Button>
-      <ButtonGroup vertical>
+ 
+    <div  className='flex-container ' style={{ marginBottom: '10px' }}>
+      <Button className='m-2' onClick={resetHandler} >Reset</Button>
+  
+      <ButtonGroup className='m-2' vertical >
         <DropdownButton
           as={ButtonGroup}
           title="Fecha"
           id="bg-vertical-dropdown-1"
-          onSelect={sortHandler}  
+          onSelect={sortHandler}
         >
           <Dropdown.Item value="fechaAsc" eventKey="fechaAsc">arriba</Dropdown.Item>
           <Dropdown.Item value="fechaDesc" eventKey="fechaDesc">abajo</Dropdown.Item>
         </DropdownButton>
       </ButtonGroup>
-
-      <ButtonGroup vertical>
+  
+      <ButtonGroup className='m-2' vertical >
         <DropdownButton
           as={ButtonGroup}
           title="Servicio"
@@ -56,10 +58,9 @@ function VerticalExample() {
           <Dropdown.Item eventKey="Express">Express</Dropdown.Item>
         </DropdownButton>
       </ButtonGroup>
-
-     
-    </>
+      </div>
   );
+  
 }
 
 export default VerticalExample;
