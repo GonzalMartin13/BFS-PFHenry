@@ -12,13 +12,22 @@ export const invoiceUserSlice = createSlice({
   name: "invoiceUserState",
   initialState,
   reducers: {
+    setStateInvoice: (state, action) => {
+      state.invoice = "";
+      state.user = "";
+      state.idShipping = "";
+    },
     postInvoice: (state, action) => {
       state.invoice = action.payload;
+    },
+    setidShipping: (state, action) => {
+      state.idShipping = action.payload;
     },
   },
 });
 
-export const { postInvoice } = invoiceUserSlice.actions;
+export const { postInvoice, setidShipping, setStateInvoice } =
+  invoiceUserSlice.actions;
 
 // Acción asíncrona utilizando Axios
 export const postInvoiceAsync = (jsonn) => async (dispatch) => {
@@ -28,7 +37,7 @@ export const postInvoiceAsync = (jsonn) => async (dispatch) => {
       {
         data: jsonn,
         load_data_from: null,
-        // template_id: "21677b238cfc6326", //no descomentar este numero
+        //  template_id: "21677b238cfc6326", //descomentar para demo
         version: 8,
         export_type: "json",
         expiration: 10080,
