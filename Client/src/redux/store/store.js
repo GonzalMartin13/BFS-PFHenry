@@ -14,6 +14,7 @@ import quoterReducer from "../Slices/quoterslice";
 import invoiceUserReducer from "../Slices/invoiceUserSlice";
 
 import shippingReducer from "../Slices/shippingSlice";
+import seguimientoReducer from "../Slices/seguimientoSlice"
 
 const persistConfig = {
   key: "root",
@@ -30,6 +31,7 @@ const persistedReducer = persistReducer(
 
     shipping: shippingReducer,
     packages: packageReducer,
+    seguimiento:seguimientoReducer
   })
 );
 

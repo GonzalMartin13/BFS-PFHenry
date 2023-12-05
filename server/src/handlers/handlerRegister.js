@@ -2,9 +2,6 @@ const { postRegister } = require("../controllers/postRegister");
 
 const handlerRegister = async (req, res) => {
   const {
-    name, 
-    lastName, 
-    phone,
     email,
     nickname,
     picture
@@ -13,9 +10,6 @@ const handlerRegister = async (req, res) => {
 
   try {
     const response = await postRegister(
-      name, 
-      lastName, 
-      phone,
       email,
       nickname,
       picture

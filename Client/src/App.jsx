@@ -13,6 +13,7 @@ import Comprobante from "./components/Compra/Comprobante";
 import Mapa from "./components/Mapa/Mapa";
 import Pdf from "./components/Pdf/Pdf";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 import Email from "./components/Contact/Contact";
 import MisEnvios from "./components/misEnvios/misEnvios";
@@ -24,6 +25,7 @@ import FormEnvio from "./components/FormEnvio/FormEnvio";
 
 function App() {
   const location = useLocation();
+  const {admin} = useSelector((state) => state.user)
   const [user, setUser] = useState({
 		email: "",
 		password: "",
@@ -51,7 +53,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/guia" element={<Pdf />} />
         <Route path="/confirmacion" element={<FormEnvio />} />
-        <Route path="/dashboard" element={<Dashboard updateContextUser={updateContextUser} />} />
+        <Route path="/dashboard" element={admin.emailAdmin && <Dashboard updateContextUser={updateContextUser} />} />
         <Route path="/factura" element={<Comprobante />} />
       </Routes>
       <Footer />
