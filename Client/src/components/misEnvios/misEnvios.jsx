@@ -33,6 +33,8 @@ function MisEnvios() {
     setShowModal(true);
   };
 
+  const fecha = selectedPackage.fechaInicial.split("T")[0];
+
   return (
     <>
       <div style={{ position: "relative" }}>
@@ -53,11 +55,13 @@ function MisEnvios() {
             <Card key={idx} style={{ width: "18rem", height: "100%", margin: "0 10px 20px" }} className="mb-3">
               <Card.Body>
                 <Card.Title>{envio.servicios}</Card.Title>
+                <br></br>
                 <Card.Subtitle className="mb-2 text-muted">
                   <span style={{ marginRight: '5px' }}></span>
                   {envio.origen} <img src={flechaIcon} alt="Logout Icon" style={{ width: '20px', height: '20px' }} /> {envio.destino}
                 </Card.Subtitle>
                 <Card.Text></Card.Text>
+                <br></br>
                 <Button variant="primary" onClick={() => handleDetalleButtonClick(envio)}>
                   Detalle
                 </Button>
@@ -66,34 +70,35 @@ function MisEnvios() {
           ))}
         </div>
         {selectedPackage && (
-          <Modal
-            size="sm"
-            show={showModal}
-            onHide={handleCloseModal}
-            aria-labelledby="example-modal-sizes-title-sm"
-            style={{ borderRadius: '10px' }}
-          >
-            <Modal.Header closeButton style={{ background: '#007BFF', color: 'white' }}>
-              <Modal.Title id="example-modal-sizes-title-sm">
-                Detalles del paquete
-              </Modal.Title>
-            </Modal.Header>
-            <Modal.Body style={{ padding: '20px', textAlign: 'center' }}>
-              <p>Numero seguimiento: {selectedPackage.id}</p>
-              <p>Fecha: {selectedPackage.fechaInicial}</p>
-              <p>Estatus: {selectedPackage.status} </p>
-              <p>Peso: {selectedPackage.peso} kg</p>
-              <p>Dimensiones:{selectedPackage.dimensiones} </p>
-              <p>Total: {selectedPackage.total} $ </p>
-              {selectedPackage.imagen && (
-        <img
-          src={selectedPackage.imagen}
-          alt="Imagen del paquete"
-          style={{ maxWidth: '100%', maxHeight: '200px', margin: '10px auto' }}
-        />
-      )}
-            </Modal.Body>
-          </Modal>
+         <Modal
+         size="sm"
+         show={showModal}
+         onHide={handleCloseModal}
+         aria-labelledby="example-modal-sizes-title-sm"
+         style={{ borderRadius: '10px' }}
+       >
+         <Modal.Header closeButton style={{ background: '#007BFF', color: 'white', borderBottom: 'none' }}>
+           <Modal.Title id="example-modal-sizes-title-sm" style={{ fontSize: '1.5rem' }}>
+             Detalles del paquete
+           </Modal.Title>
+         </Modal.Header>
+         <Modal.Body style={{ padding: '20px', textAlign: 'left' }}>
+           <p style={{ marginBottom: '10px', fontSize: '1.2rem', fontWeight: 'bold' }}>Numero de seguimiento: {selectedPackage.id}</p>
+           <p style={{ marginBottom: '10px' }}>Fecha: {fecha}</p>
+           <p style={{ marginBottom: '10px' }}>Estatus: {selectedPackage.status}</p>
+           <p style={{ marginBottom: '10px' }}>Peso: {selectedPackage.peso} kg</p>
+           <p style={{ marginBottom: '10px' }}>Dimensiones: {selectedPackage.dimensiones}</p>
+           <p style={{ marginBottom: '10px' }}>Total: {selectedPackage.total} $</p>
+           {selectedPackage.imagen && (
+             <img
+               src={selectedPackage.imagen}
+               alt="Imagen del paquete"
+               style={{ maxWidth: '100%', maxHeight: '200px', margin: '10px 0', borderRadius: '5px' }}
+             />
+           )}
+         </Modal.Body>
+       </Modal>
+       
         )}
         <br />
         <br />

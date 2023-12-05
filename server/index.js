@@ -11,7 +11,7 @@ const actualizarEstado = require("./src/utils/actualizadorDeEstado.js")
 
 conn.sync({ force: false }).then(() => {
   server.listen(3001, () => {
-    
+
     console.log(`server conectado a base de datos, puerto ojete ${port}`);
   });
 });

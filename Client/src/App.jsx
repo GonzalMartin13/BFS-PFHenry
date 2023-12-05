@@ -20,6 +20,7 @@ import "./App.css";
 /* import Compra from "./components/Compra/Compra";
 import ComprobantePDF from "./components/Compra/ComprobantePDF"; */
 import FormEnvio from "./components/FormEnvio/FormEnvio";
+import ErrorPage from "./views/ErrorPage/errorpage";
 
 function App() {
   const location = useLocation();
@@ -36,8 +37,10 @@ function App() {
 
   return (
     <>
-      {location.pathname !== "/register" && <NavBar />}
 
+      {location.pathname !== "*" && (
+        <NavBar/>)}
+        
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route path="/cotizacion" element={<QuoteForm />} />
@@ -52,6 +55,7 @@ function App() {
         <Route path="/confirmacion" element={<FormEnvio />} />
         <Route path="/dashboard" element={<Dashboard updateContextUser={updateContextUser} />} />
         <Route path="/factura" element={<Comprobante />} />
+        <Route path={"*"} element={<ErrorPage />} />
       </Routes>
       <Footer />
     </>
