@@ -13,8 +13,8 @@ const logobfs = {
 const menuout = {
   border: "3px solid black",
   color: "black",
-  marginRight: "60px",
-  padding: "5px 15px",
+  marginRight: "30px",
+  padding: "5px 10px",
 };
 
 const logoin = {
@@ -24,13 +24,13 @@ const logoin = {
 
 const menuin = {
   borderLeft: "10px solid darkblue",
-  padding: "10px 20px"
+  padding: "10px 10px"
 };
 
 const menuletter = {
   color: "black",
   borderBottom: "5px solid darkblue",
-  margin: "20px 180px 20px 0px",
+  margin: "15px 100px 15px 0px",
 };
 
 

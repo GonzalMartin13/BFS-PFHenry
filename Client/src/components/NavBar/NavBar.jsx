@@ -14,7 +14,7 @@ import {nav, logobfs, menuout, logoin, menuin, menuletter} from "./style";
 import SeguimientoEnvio from "../seguimientoEnvio/seguimiento";
 
 export default function NavBar() {
-  const isLogged = useSelector((state) => state.user.isLoggedIn);
+  const {isLoggedIn, admin} = useSelector((state) => state.user);
 
   return (
     <>
@@ -62,8 +62,11 @@ export default function NavBar() {
                 <Nav.Link href="/about" style={menuletter}>Sobre nosotros</Nav.Link>
                 <Nav.Link href="/contacto" style={menuletter}>Contacto</Nav.Link>
                 <Nav.Link href="/" style={menuletter}>Servicios</Nav.Link>
-                {isLogged ? (
+                {isLoggedIn ? (
                   <Nav.Link href="/envios" style={menuletter}>Mis envíos</Nav.Link>
+                ) : null}
+                {admin.emailAdmin ? (
+                  <Nav.Link href="/dashboard" style={menuletter}>Dashboard</Nav.Link>
                 ) : null}
 
                 {/* <NavDropdown
