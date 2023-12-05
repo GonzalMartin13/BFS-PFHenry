@@ -12,6 +12,8 @@ import { setPaquetesSeguimientos } from "../../redux/Slices/seguimientoSlice";
 import { useDispatch, useSelector } from "react-redux";
 import deliverytruck from "../../assets/delivery.svg";
 import { Image } from "react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 function SeguimientoEnvio() {
   const [errors, setErrors] = useState({
@@ -118,7 +120,7 @@ function SeguimientoEnvio() {
           size="lg"
           style={lupa}
         >
-          🔎
+          <FontAwesomeIcon icon={faSearch} />
         </Button>
       </Form>
 

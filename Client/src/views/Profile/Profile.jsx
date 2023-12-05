@@ -2,11 +2,11 @@ import { Form, Button, Row, Col } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { validarr } from "./validateRegister";
+import { validarr } from "./validateProfile";
 import { registerUser } from "../../redux/actions/userActions";
 import Swal from "sweetalert2";
 
-function Register() {
+function Profile() {
   const [input, setInput] = useState({
     name: "",
     lastName: "",
@@ -209,4 +209,4 @@ function Register() {
   );
 }
 
-export default Register;
+export default Profile;
