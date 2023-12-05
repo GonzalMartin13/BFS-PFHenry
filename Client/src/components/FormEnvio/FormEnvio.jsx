@@ -328,7 +328,7 @@ const FormEnvio = () => {
         console.log("Después de la actualización:", valores);
         console.log("Estado global después del submit:", shippingInfo);
 
-        // dispatch(postInvoiceAsync(jsonInvoise)); //descomentar para demo
+        //  dispatch(postInvoiceAsync(jsonInvoise)); //descomentar para demo
         await handleEnvioBD(shippingInfo);
 
         window.location.href = linkPago;
