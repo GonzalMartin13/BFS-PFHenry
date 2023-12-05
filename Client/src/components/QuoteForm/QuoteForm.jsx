@@ -295,7 +295,7 @@ export default function QuoteForm() {
             inline
             label={
               <div>
-                <span style={{ marginRight: "2px" }}>Discreto</span>
+                <span style={{ marginRight: "2px" }}>Embalaje</span>
                 <Image src={icoDiscreto} rounded width="23px" alt="discreto" />
               </div>
             }

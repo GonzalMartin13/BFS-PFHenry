@@ -4,11 +4,11 @@ import Slider from "../Carrousel/Carrousel";
 import Image from "react-bootstrap/Image";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
-import { useDispatch, useSelector } from "react-redux";
+import {useSelector } from "react-redux";
+
 
 
 const Home = () => {
-  
   const isLogged = useSelector((state) => state.user.isLoggedIn);
 
   return (
@@ -39,7 +39,6 @@ const Home = () => {
           </Card.Body>
         </Card>
       </Button>
-
    
     </div>
   );
