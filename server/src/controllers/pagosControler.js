@@ -22,8 +22,13 @@ try{
             pending:"http://localhost:3001/pagos/pendiente",
             failure:"http://localhost:5173/"
         },
-        auto_return: "approved",
-        notification_url:""
+        auto_return: "all",
+        payment_methods:{
+            installments: null,
+        },
+        statement_descriptor:"BFS by SoyHenry",
+
+
         
     } });
     return orden
