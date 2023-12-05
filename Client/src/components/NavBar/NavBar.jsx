@@ -1,4 +1,4 @@
-import Container from "react-bootstrap/Container";
+// import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Button from "react-bootstrap/Button";
@@ -11,6 +11,7 @@ import { Image } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import Login from "../../views/Login/Login";
 import {nav, logobfs, menuout, logoin, menuin, menuletter} from "./style";
+import SeguimientoEnvio from "../seguimientoEnvio/seguimiento";
 
 export default function NavBar() {
   const isLogged = useSelector((state) => state.user.isLoggedIn);
@@ -30,8 +31,13 @@ export default function NavBar() {
           </Navbar.Brand>
 
           <div className="ms-auto">
+            <SeguimientoEnvio />
+          </div>
+
+          <div className="ms-auto">
             <Login></Login>
           </div>
+
           <Navbar.Brand href="/"></Navbar.Brand>
           <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} style={menuout}/>
           <Navbar.Offcanvas
