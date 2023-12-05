@@ -10,7 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@apollo/client": "^3.8.8",
+
     "@auth0/auth0-react": "^2.2.3",
     "@emailjs/browser": "^3.11.0",
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
@@ -19,7 +19,7 @@
     "@react-pdf-viewer/core": "^3.12.0",
     "@react-pdf/renderer": "^3.1.14",
     "@reduxjs/toolkit": "^1.9.7",
-    "@tanstack/react-query": "^5.12.2",
+
     "axios": "^1.6.2",
     "bootstrap": "^5.3.2",
     "formik": "^2.4.5",

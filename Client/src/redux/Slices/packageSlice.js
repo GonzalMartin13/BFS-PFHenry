@@ -3,10 +3,11 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   allPackages: {},
   userPackages: [],
-  userPackagesCopy:[],
+  userPackagesCopy: [],
   userPackagesDetail: {},
   userOrder: null,
-  currentFilter: null
+  currentFilter: null,
+  originalUserPackages: [], // Nuevo estado para almacenar la lista original sin filtros
 };
 
 export const PackageSlice = createSlice({
@@ -18,7 +19,7 @@ export const PackageSlice = createSlice({
     },
     addUserPackage: (state, action) => {
       state.userPackages = action.payload;
-      state.userPackagesCopy = action.payload
+      state.originalUserPackages = action.payload; // Inicializa la lista original
     },
     addUserPackageById: (state, action) => {
       state.userPackagesDetail = action.payload;
@@ -27,28 +28,43 @@ export const PackageSlice = createSlice({
       state.userPackagesDetail = {};
     },
     sort: (state, action) => {
-      const order = action.payload; // 'Ascendente' o 'Descendente'
+      const order = action.payload;
+      state.userPackages = [...state.originalUserPackages]; 
       state.userPackages.sort((a, b) => {
         const dateA = new Date(a.fechaInicial).getTime();
         const dateB = new Date(b.fechaInicial).getTime();
-        return order === 'Ascendente' ? dateA - dateB : dateB - dateA;
+        return order === "Ascendente" ? dateA - dateB : dateB - dateA;
       });
-      state.userOrder = order; // Almacena el orden actual
+      state.userOrder = order;
     },
     serviceFilter: (state, action) => {
       const selectedService = action.payload;
       state.currentFilter = selectedService;
 
-      // Si se selecciona un filtro, aplícalo; de lo contrario, muestra todos los paquetes
+      state.userPackages = [...state.originalUserPackages]; 
       state.userPackages = selectedService
-        ? state.userPackages.filter((paquete) => paquete.servicios === selectedService)
+        ? state.userPackages.filter((paquete) => {
+            const serviciosArray = paquete.servicios
+              .split(",")
+              .map((s) => s.trim().toLowerCase());
+            return serviciosArray.includes(selectedService.toLowerCase());
+          })
         : state.userPackages;
     },
-    reset:(state)=>{
-      state.userPackages=state.userPackagesCopy
-    }
+
+    reset: (state) => {
+      state.userPackages = state.originalUserPackages;
+    },
   },
 });
 
-export const { addPackage, addUserPackage, addUserPackageById, cleanDetail, sort,serviceFilter,reset} = PackageSlice.actions;
+export const {
+  addPackage,
+  addUserPackage,
+  addUserPackageById,
+  cleanDetail,
+  sort,
+  serviceFilter,
+  reset,
+} = PackageSlice.actions;
 export default PackageSlice.reducer;
