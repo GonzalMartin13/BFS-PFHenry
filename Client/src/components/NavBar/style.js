@@ -30,7 +30,7 @@ const menuin = {
 const menuletter = {
   color: "black",
   borderBottom: "5px solid darkblue",
-  margin: "20px 180px 20px 0px",
+  margin: "15px 100px 15px 0px",
 };
 
 
