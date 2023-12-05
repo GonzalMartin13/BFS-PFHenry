@@ -10,11 +10,12 @@ const setStateQu = {
 };
 import { useDispatch, useSelector } from "react-redux";
 import { Container, Button, ListGroup } from "react-bootstrap";
-import { setStateInvoice } from "../../redux/Slices/invoiceUserSlice";
+import { postInvoiceAsync, setStateInvoice } from "../../redux/Slices/invoiceUserSlice";
 
 import { Link, useNavigate } from "react-router-dom";
 import { setState } from "../../redux/Slices/quoterslice";
 import { clearShippingState } from "../../redux/Slices/shippingSlice";
+import { useEffect } from "react";
 
 export default function Comprobante() {
   const navigate = useNavigate();
@@ -22,10 +23,44 @@ export default function Comprobante() {
   const envio = useSelector((state) => state.shipping);
   const { idShipping } = useSelector((state) => state.invoice);
   const { invoice } = useSelector((state) => state.invoice);
-  const shipping = useSelector((state) => state.shipping);
+
 
   let url = invoice;
 
+  const jsonInvoise = {
+    //  currency: "USD",
+    tax: 21,
+    company_name: "B.F.S. Logistica",
+    email: "contacto@bfs.com.ar",
+    tel: "011-4312-4567",
+    client: "Consumidor final",
+    items: [
+      {
+        quantity: 1,
+        unit_price: envio.total / (1.21).toFixed(2),
+        totalSinIva: envio.total / (1.21).toFixed(2),
+      },
+    ],
+
+    qr: {
+      origen: envio.origen,
+      destino: envio.destino,
+      peso: envio.peso || 0.1,
+      servicios: envio.servicios,
+      date: new Date().toLocaleDateString("es-AR"),
+      total: envio.total,
+      nombreRemitente: envio.nombreDestinatario,
+      dniRemitente: envio.dniRemitente,
+      nombreDestinatario: envio.nombreDestinatario,
+      dniDestinatario: envio.dniDestinatario,
+      numeroDeEnvio: "11223344",
+      telRemitente: envio.telefonoRemitente,
+      telDestinatario: envio.telefonoDestinatario,
+    },
+  };
+ useEffect(()=>{
+ // dispatch(postInvoiceAsync(jsonInvoise))
+ },[dispatch])
   const resetStates = () => {
     dispatch(setState(setStateQu));
     dispatch(setStateInvoice());
@@ -59,7 +94,7 @@ export default function Comprobante() {
           Código de seguimiento: {idShipping}
         </ListGroup.Item>
       </ListGroup>
-      <a href={url} target="_blank" className="btn btn-primary m-3 p-2">
+      <a href={url} target="_blank" rel="noreferrer" className="btn btn-primary m-3 p-2">
         Descargar factura
       </a>
       <Button
