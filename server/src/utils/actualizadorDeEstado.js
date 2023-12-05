@@ -3,7 +3,6 @@ const { Package } = require("../db");
 const actualizarEstado = async() =>{
     console.log("(*)(*)")
     const envios = await Package.findAll()
-    console.log(envios)
     if (envios.length === 0){
         throw new Error ("No existen envios cargados")
     }
@@ -23,8 +22,7 @@ const actualizarEstado = async() =>{
     });
     
     console.log("estados actualizados")
-    console.log(envios)
-    
+
     return envios
 }
 
