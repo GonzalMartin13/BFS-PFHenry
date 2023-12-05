@@ -8,15 +8,15 @@ module.exports = (sequelize) => {
         },
         name: {
           type: DataTypes.STRING,
-          allowNull: false,   // cambiado       
+          allowNull: true,   // cambiado       
         },
         lastName: {
           type: DataTypes.STRING,
-          allowNull: false,     // cambiado          
+          allowNull: true,     // cambiado          
         },
         phone: {
           type: DataTypes.INTEGER,
-          allowNull: false, // cambiado      
+          allowNull: true, // cambiado      
         },
         address: {
           type: DataTypes.STRING,
@@ -35,10 +35,6 @@ module.exports = (sequelize) => {
         },
         picture: {
           type: DataTypes.STRING,
-          allowNull: false,
-        },
-        connect: {
-          type: DataTypes.BOOLEAN,
           allowNull: false,
         }
       }, { freezeTableName: true
