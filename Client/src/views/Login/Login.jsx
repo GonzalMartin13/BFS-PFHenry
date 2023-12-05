@@ -1,18 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-extra-semi */
-import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {registerUser, registerAdmin} from "../../redux/actions/userActions";
 import {login, logouted, contar} from "../../redux/Slices/userSlice";
 import Button from "react-bootstrap/Button";
 import Swal from "sweetalert2";
 import {useAuth0} from "@auth0/auth0-react";
-import logoutIcon from "../../assets/logout.svg";
-import { useNavigate } from 'react-router-dom';
-import {log, out, iconout} from "./style";
+import { useNavigate, Link} from 'react-router-dom';
+import {log, out, profile} from "./style";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser, faRightToBracket } from '@fortawesome/free-solid-svg-icons';
  
-
-
 const Login = () => {
   const {contador, isLoggedIn} = useSelector((state) => state.user);
 
@@ -127,9 +125,16 @@ const Login = () => {
       {!isLoggedIn && contador === 1 ? (
         <Button onClick={handleLogin} style={log}>Ingresar</Button>
       ) : (
+      <div>
+        <Link to={"/profile/"}>
+          <Button style={profile}>
+            <FontAwesomeIcon icon={faUser} />
+          </Button>
+        </Link>
         <Button onClick={handleLogout} variant="outline-success" style={out}>
-          <img src={logoutIcon} alt="Logout Icon" style={iconout} />
+          <FontAwesomeIcon icon={faRightToBracket} />
         </Button>
+      </div>
       )}
     </div>
   );

@@ -6,7 +6,7 @@ import About from "./views/About/About";
 import Dashboard from "./views/Dashboard/Dashboard"
 import Footer from "./components/Footer/Footer";
 import CardContainer from "./components/CardContainer/CardContainer";
-import Register from "./views/register/register";
+import Profile from "./views/Profile/Profile";
 import QuoteForm from "./components/QuoteForm/QuoteForm";
 import Comprobante from "./components/Compra/Comprobante";
 import Mapa from "./components/Mapa/Mapa";
@@ -52,7 +52,7 @@ function App() {
         <Route path="/servicios" element={<CardContainer />} />
         <Route path="/sucursales" element={<Mapa />} />
         <Route path="/envios" element={<MisEnvios />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/profile" element={<Profile />} />
         <Route path="/guia" element={<Pdf />} />
         <Route path="/confirmacion" element={<FormEnvio />} />
         <Route path="/dashboard" element={admin.emailAdmin && <Dashboard updateContextUser={updateContextUser} />} />
