@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable react/prop-types */
 import style from "./Dashboard.module.css";
 import { useEffect, useState } from "react";
 import Sidebar  from "./Sidebar";
@@ -12,11 +14,13 @@ import updateEnvio from "../../utils/updateEnvio";
 
 
 
+
 const Dashboard = ({ updateContextUser }) => {
+  const [adminGraphs, setAdminGraphs] = useState([]);
   const [users, setUsers] = useState([]);
   const [envio, setEnvio] = useState([]);
   const [payments, setPayments] = useState([]);
-	const [admin, setAdmin] = useState([]);
+  const [admin, setAdmin] = useState([]);
   const [selectedButton, setSelectedButton] = useState("");
 
 	useEffect(() => {
@@ -31,9 +35,12 @@ const Dashboard = ({ updateContextUser }) => {
 	}, []);
 
 	const handleButtonClick = (button) => {
-		if (button === "Usuarios") {
-			handleUsers();
+		if (button === "adminGraphs") {
+			setSelectedButton(button);	
+			setAdminGraphs(true);
+		} else if (button === "Usuarios") {
 			setSelectedButton(button);
+			handleAdmin();
 		} else if (button === "Envios") {
 			setSelectedButton(button);
 			handleEnvio();
@@ -292,9 +299,12 @@ const Dashboard = ({ updateContextUser }) => {
 				payments={payments}
 				handleBlockUser={handleBlockUser}
 				handleBlockEnvio={handleBlockEnvio}
-				handleBlockAdmin={handleBlockAdmin}
+				handleBlockAdmin={handleBlockAdmin}	
 			/>
+			{adminGraphs} 
 		</div>
+
+		
 	);
 };
 

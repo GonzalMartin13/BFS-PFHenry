@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import style from "./Dashboard.module.css";
 import Button from "../../Components/Button/Button";
 
@@ -5,7 +6,9 @@ const Sidebar = ({ onButtonClick }) => {
 	return (
 		<div className={style.menuContext}>
 			<h1 className={style.panelAdminTitle}>
-				Panel de Administracion
+			<Button text={"Panel de Administracion"} onClick={() => onButtonClick("adminGraphs")}>
+			Panel de Administracion
+				</Button>
 			</h1>
 			<ul className={style.menu}>
 				<Button text={"Usuarios"} onClick={() => onButtonClick("Usuarios")}>
