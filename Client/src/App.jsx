@@ -55,7 +55,7 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/guia" element={<Pdf />} />
         <Route path="/confirmacion" element={<FormEnvio />} />
-        <Route path="/dashboard" element={admin.emailAdmin && <Dashboard updateContextUser={updateContextUser} />} />
+        {/* <Route path="/dashboard" element={admin.emailAdmin && <Dashboard updateContextUser={updateContextUser} />} /> */}
         <Route path="/factura" element={<Comprobante />} />
         <Route path={"*"} element={<ErrorPage />} />
       </Routes>
