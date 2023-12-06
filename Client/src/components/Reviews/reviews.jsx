@@ -3,6 +3,8 @@ import { FaStar } from "react-icons/fa";
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 import Button from "react-bootstrap/Button";
+import { useSelector } from "react-redux";
+import Swal from "sweetalert2";
 
 
 
@@ -13,6 +15,9 @@ const Reviews = () => {
   const [input, setInput] = useState({
     comment: ""
   });
+
+  const {isLoggedIn, admin} = useSelector((state) => state.user);
+  console.log(isLoggedIn)
 
   const handleRatingChange = (currentRating) => {
     setRating(currentRating);
@@ -27,6 +32,12 @@ const Reviews = () => {
 
   const submitHandler = (event) => {
     event.preventDefault();
+    if(!isLoggedIn) {
+      Swal.fire({
+        icon: "info",
+        title: "Debes iniciar sesión primero",
+      });
+    }
     //dispatch
     console.log("Rating:", rating);
     console.log("Comment:", input.comment);
