@@ -40,9 +40,19 @@ return response;
 
 };
 
+//  --------------------------------------------------------------------------------------
+
+const putReview = async(id)=>{
+    const review = await Review.findByPk(id);
+   
+        return review;
+    
+};
+//  --------------------------------------------------------------------------------------
 
 module.exports = {
     postReview,
     getAllReviews,
-    getReviewsByUser
+    getReviewsByUser,
+    putReview
 };
