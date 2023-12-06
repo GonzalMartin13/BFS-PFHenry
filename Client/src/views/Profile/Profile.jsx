@@ -14,7 +14,6 @@ function Profile() {
     address: "",
     email: "",
     password: "",
-  
   });
 
   const [errors, setErrors] = useState({
@@ -77,7 +76,6 @@ function Profile() {
         address: "",
         email: "",
         password: "",
-      
       });
 
       Swal.fire({
@@ -104,9 +102,7 @@ function Profile() {
               placeholder="Nombre"
               size="sm"
             />
-            {errors.name && (
-              <span className="text-danger">{errors.name}</span>
-            )}
+            {errors.name && <span className="text-danger">{errors.name}</span>}
           </Col>
           <Col>
             <Form.Control
@@ -194,16 +190,19 @@ function Profile() {
         </Form.Group>
 
         {/* Renderizar el botón solo si no hay errores */}
-        {!errors.phone && !errors.email && !errors.password && !errors.confirmPassword && (
-          <Button
-            disabled={!formValid}
-            variant="primary"
-            type="submit"
-            className="mb-2"
-          >
-            Registrarse
-          </Button>
-        )}
+        {!errors.phone &&
+          !errors.email &&
+          !errors.password &&
+          !errors.confirmPassword && (
+            <Button
+              disabled={!formValid}
+              variant="primary"
+              type="submit"
+              className="mb-2"
+            >
+              Registrarse
+            </Button>
+          )}
       </Form>
     </Row>
   );

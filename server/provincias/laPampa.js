@@ -1,0 +1,28 @@
+const laPampa = {
+  nombre: "La Pampa",
+  distanciaEntreProvincias: [
+    { provincia: "Buenos Aires", distancia: 620 },
+    { provincia: "Catamarca", distancia: 1055 },
+    { provincia: "Chaco", distancia: 1147 },
+    { provincia: "Chubut", distancia: 1312 },
+    { provincia: "Córdoba", distancia: 342 },
+    { provincia: "Corrientes", distancia: 1066 },
+    { provincia: "Entre Ríos", distancia: 826 },
+    { provincia: "Formosa", distancia: 1495 },
+    { provincia: "Jujuy", distancia: 1533 },
+    { provincia: "La Rioja", distancia: 790 },
+    { provincia: "Mendoza", distancia: 428 },
+    { provincia: "Misiones", distancia: 1376 },
+    { provincia: "Neuquén", distancia: 884 },
+    { provincia: "Río Negro", distancia: 939 },
+    { provincia: "Salta", distancia: 1622 },
+    { provincia: "San Juan", distancia: 594 },
+    { provincia: "San Luis", distancia: 449 },
+    { provincia: "Santa Cruz", distancia: 2040 },
+    { provincia: "Santa Fe", distancia: 614 },
+    { provincia: "Santiago del Estero", distancia: 1016 },
+    { provincia: "Tierra del Fuego", distancia: 2500 },
+    { provincia: "Tucumán", distancia: 1360 },
+  ],
+};
+module.exports = laPampa;

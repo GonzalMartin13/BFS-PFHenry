@@ -1,54 +1,87 @@
-const axios = require("axios");
-
+const provincias = require("../../provincias/indexProvincias");
 const contolerPrecio = async (origen, destino, volumen, peso, servicios) => {
+  try {
+    const data = provincias[origen];
+    const provinciaEncontrada = data.distanciaEntreProvincias.find(
+      (provincia) => provincia.provincia.toLowerCase() === destino.toLowerCase()
+    );
+    //
+    let precioFinal = 0;
+    //
+    //en caso que sea la misma provincia de origen y destino
 
-/*     if (!origen || !destino) {
-        return "Los parámetros origen y destino son obligatorios";
+    const precioBase = !servicios.includes("carteria") ? 1900 : 1400;
+
+    if (origen === destino) {
+      precioFinal += precioBase;
     }
+    //si destino y origen son provincias distintas
+    if (destino !== origen) {
+      //
+      //precio x km para distancias menores a 500km
+      let precioXKilometro = servicios.includes("carteria") ? 6.8 : 8;
+      //
+      //distancias mayores a 500
+      if (
+        provinciaEncontrada.distancia > 500 &&
+        provinciaEncontrada.distancia < 1000
+      ) {
+        precioXKilometro = servicios.includes("carteria") ? 5 : 6.5;
+      }
+      //distancias mayores a 1000km
+      if (
+        provinciaEncontrada.distancia > 1000 &&
+        provinciaEncontrada.distancia < 2000
+      ) {
+        precioXKilometro = servicios.includes("carteria") ? 3.5 : 5.5;
+      }
+      //distancias mayores a 2000km
+      if (
+        provinciaEncontrada.distancia > 2000 &&
+        provinciaEncontrada.distancia < 3000
+      ) {
+        precioXKilometro = servicios.includes("carteria") ? 2.5 : 4;
+      }
 
-    if (!peso || peso === 0 || !volumen || volumen === 0) {
-        return "Los parámetros peso y volumen son obligatorios y deben ser mayores que 0";
-    } */
-    try {
-        const { data } = await axios(`https://provincias.onrender.com/provincias/${origen}`);
-        const provinciaEncontrada = data.distanciaEntreProvincias.find(
-            provincia => provincia.provincia.toLowerCase() === destino.toLowerCase()
-        );
-        let precioXkm = 0;
+      //distancias mayores a 3000km
+      if (provinciaEncontrada.distancia > 3000) {
+        precioXKilometro = servicios.includes("carteria") ? 1.8 : 2.5;
+      }
+      precioFinal += provinciaEncontrada.distancia * precioXKilometro;
+    }
+    //sumo % de servicio segun corresponda
+    //express +40%
+    if (servicios.includes("express")) {
+      precioFinal = precioFinal + precioFinal * 0.4;
+    }
+    //fragilBox +30%
+    if (servicios.includes("fragilBox")) {
+      precioFinal = precioFinal + precioFinal * 0.4;
+    }
+    //certificada +30%
+    if (servicios.includes("certificada")) {
+      precioFinal = precioFinal + precioFinal * 0.4;
+    }
+    //descuento si incluye express, certificada y fragil
+    if (
+      servicios.includes("express") &&
+      servicios.includes("certificada") &&
+      servicios.includes("fragilBox")
+    ) {
+      precioFinal = precioFinal - precioFinal * 0.2;
+    }
+    //sumo % por peso segun corresponda
+    precioFinal = precioFinal + precioFinal * (peso / 70);
+    //sumo % de dimensiones
+    let dimensiones = volumen / 2000;
 
-        if (origen === destino) {
-            precioXkm = 275;
-        } else if (!provinciaEncontrada) {
-            return "No se pudo calcular la distancia entre destinos";
-        }else if (provinciaEncontrada.distancia <= 250) {
-            precioXkm = 300;
-        }else {
-            precioXkm = provinciaEncontrada.distancia;
-        }
-
-        console.log(precioXkm, volumen, peso)
-        let pesoVolumetrico = (volumen / 500)
-        let precioFinal =((precioXkm + pesoVolumetrico )* 1.1);
-        console.log(pesoVolumetrico)
-
-        precioFinal = servicios.reduce((acumulador, servicio) => {
-            switch (servicio.toLowerCase()) {
-                case "embalaje":
-                    return acumulador * 1.2;
-                case "express":
-                    return acumulador * 1.3;
-                case "fragil":
-                    return acumulador * 1.1;
-                default:
-                    return acumulador;
-            }
-        }, precioFinal);
-
-        return Math.floor(precioFinal);
-    } catch (error) {
-        console.error("Error al calcular el precio:", error.message);
-        return "Hubo un error al calcular el precio";
-}
+    if (precioFinal < precioBase + 100) precioFinal = precioBase + 100;
+    if (volumen) precioFinal = precioFinal + precioFinal * dimensiones;
+    return Math.floor(precioFinal);
+  } catch (error) {
+    console.error("Error al calcular el precio:", error.message);
+    return "Hubo un error al calcular el precio";
+  }
 };
 
 module.exports = contolerPrecio;
