@@ -25,7 +25,7 @@ function MisEnvios() {
   const [showModal, setShowModal] = useState(false);
   const handleCloseModal = () => {
     setShowModal(false);
-  };
+  }; 
 
   const [selectedPackage, setSelectedPackage] = useState(null);
 

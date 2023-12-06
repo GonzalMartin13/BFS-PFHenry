@@ -22,6 +22,7 @@ import "./App.css";
 import ComprobantePDF from "./components/Compra/ComprobantePDF"; */
 import FormEnvio from "./components/FormEnvio/FormEnvio";
 import ErrorPage from "./views/ErrorPage/errorpage";
+import Reviews from "./components/Reviews/reviews"
 
 function App() {
   const location = useLocation();
@@ -58,6 +59,7 @@ function App() {
         {/* <Route path="/dashboard" element={admin.emailAdmin && <Dashboard updateContextUser={updateContextUser} />} /> */}
         <Route path="/factura" element={<Comprobante />} />
         <Route path={"*"} element={<ErrorPage />} />
+        <Route path="/reviews" element={<Reviews />} />
       </Routes>
       <Footer />
     </>
