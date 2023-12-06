@@ -5,6 +5,7 @@ const direccionesRoutes = require("./direccionRoutes")
 const clientesRoutes = require("./ubicacionesRoutes");
 const pagosRoutes =require("./pagosRoutes")
 const adminRoutes = require("./adminRoutes");
+const reviewsRoutes = require ("./reviewsRoutes");
 
 const router = Router();
 
@@ -29,5 +30,8 @@ router.use("/dashboard", userRoutes)
 
 // Dashboard post y get
 router.use("/admin", adminRoutes) 
+
+// Reviews post y get
+router.use("/reviews", reviewsRoutes); 
 
 module.exports = router;
