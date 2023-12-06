@@ -5,6 +5,8 @@ import Carousel from 'react-bootstrap/Carousel';
 import { FaStar } from "react-icons/fa";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import Button from "react-bootstrap/Button";
+import chitaizq from "../../assets/chitaizq.svg"
+import chitader from "../../assets/chitader.svg"
 
 const ShowReviews = () => {
   const dispatch = useDispatch();
@@ -17,8 +19,8 @@ const ShowReviews = () => {
   return (
     <div className="review-carousel-container">
     <Carousel fade className="border rounded" style={{ maxWidth: "500px", margin: "auto" }}
-     prevIcon={<Button variant="secondary"></Button>}
-     nextIcon={<Button variant="secondary"></Button>}
+  prevIcon={<Button variant="secondary"><img src={chitaizq} style={{ width: '20px' }} alt="izquierda" /></Button>}
+  nextIcon={<Button variant="secondary"><img src={chitader} style={{ width: '20px' }} alt="derecha" /></Button>}
     >
       {reviews.map((review) => (
         <Carousel.Item key={review.id} className="review-item">
