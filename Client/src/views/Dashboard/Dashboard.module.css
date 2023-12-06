@@ -3,25 +3,26 @@
   height: 90%;
   display: grid;
   grid-template-columns: 15% 85%;
-  align-items: center;
+  align-items: stretch;
   justify-content: center;
   padding: 1.5rem;
+  
   
 }
 
 .charts {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  margin-top: 60px;
-  height: 300px;
+  display: flex;
+  flex-wrap: wrap; /* Permite que los elementos se envuelvan en una nueva línea si no hay suficiente espacio */
+  gap: 20px; /* Espaciado entre los gráficos */
+  margin-right: 30px;
+  margin-bottom: 20px;
 }
 
-@media screen and (max-width: 768px) {
-   .charts {
-    grid-template-columns: 1fr;
-    margin-top: 30px;
-  }
+.chart-container {
+  width: 500px; /* Ancho de cada gráfico */
+  height: 300px; /* Altura de cada gráfico */
+  padding: 20px; /* Espaciado interno de cada gráfico */
+  box-sizing: border-box; /* Incluye el padding en el tamaño total */
 }
 
 .menuContext{
@@ -30,47 +31,50 @@
   min-height: 100%;
   align-items: center;
   flex-direction: column;
-  border-top:1px solid #887adf5e;
-  border-left:1px solid #887adf5e;
-  border-bottom:1px solid #887adf5e;
-  border-top-left-radius: var(--radius);
-  border-bottom-left-radius: var(--radius);
-  padding: 15px;
-  background-color: #8e7cff5e;
+  border-top:1px solid #5d45f7;
+  border-left:1px solid #5d45f7;
+  border-bottom:1px solid #5d45f7;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  background-color: #8c7df0;
 }
 
 .containerContext{
   display: flex;
   width: 100%;
   min-height: 100%;
-  border-top:1px solid #887adf5e;
-  border-right:1px solid #887adf5e;
-  border-bottom:1px solid #887adf5e;
-  border-top-right-radius: var(--radius);
-  border-bottom-right-radius: var(--radius);
+  border-top:1px solid #5d45f7;
+  border-right:1px solid #5d45f7;
+  border-bottom:1px solid #5d45f7;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  background-color: #a89ded45;
+  padding-top: 30px;
 }
-
 .menu {
     display: flex;
+    font-size: 15px;
     gap: 20px;
     flex-direction: column;
+    margin-right: 30px;
+    align-items: flex-start;
 }
 
 .panelAdminTitle{
     font-size: 19px;
     text-align: center;
-    margin-bottom: 150px;
+    margin-bottom: 100px;
     margin-top: 100px;
     border-radius: 25px;
-    padding: 5px;
+    padding: 10px;
     color: var(--color-primary);
 }
 
 .envios_table_container {
-  margin: 20px;
+  margin: 10px;
 }
 
 .envios_table {

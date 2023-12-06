@@ -16,7 +16,8 @@ const Content = ({
 	return (
 		
 		<div className={styles.containerContext}>
-			<h2>Registros de {selectedButton || "Administracion"} del sistema</h2>
+			<h2>Registros de Administración del sistema</h2>
+			<br />
 			{selectedButton === "adminGraphs" && (<Grafico />)}
 			{selectedButton === "Usuarios" && (
 				<div className={styles.envios_table_container}>
