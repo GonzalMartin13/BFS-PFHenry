@@ -1,4 +1,4 @@
-import {useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
@@ -6,13 +6,12 @@ import Modal from "react-bootstrap/Modal";
 import Image from "react-bootstrap/Image";
 import flechaIcon from "../../assets/sign.svg";
 import VerticalExample from "../filters/filters";
-import { getUserPackages } from "../../redux/actions/packageActions";
-import "./MisEnvios.css";
+import { getUserPackages, cleanDetailAction } from "../../redux/Slices/packageSlice"; // Actualizado
+
 function MisEnvios() {
   const dispatch = useDispatch();
   const userPackages = useSelector((state) => state.packages.userPackages);
   const UserEmail = useSelector((state) => state.user.user.email);
- 
 
   useEffect(() => {
     if (UserEmail) {
@@ -20,12 +19,10 @@ function MisEnvios() {
     }
   }, [dispatch, UserEmail]);
 
-
-
   const [showModal, setShowModal] = useState(false);
   const handleCloseModal = () => {
     setShowModal(false);
-  }; 
+  };
 
   const [selectedPackage, setSelectedPackage] = useState(null);
 
@@ -35,8 +32,6 @@ function MisEnvios() {
   };
 
   const fecha = selectedPackage ? selectedPackage.fechaInicial.split("T")[0] : null;
-
-
 
   return (
     <>
@@ -73,36 +68,36 @@ function MisEnvios() {
           ))}
         </div>
         {selectedPackage && (
-        <Modal
-  size="sm"
-  show={showModal}
-  onHide={handleCloseModal}
-  aria-labelledby="example-modal-sizes-title-sm"
-  style={{ borderRadius: '10px' }}
->
-  <Modal.Header closeButton style={{ background: '#007BFF', color: 'white', borderBottom: 'none' }}>
-    <Modal.Title id="example-modal-sizes-title-sm" style={{ fontSize: '1.5rem' }}>
-      Detalles del paquete
-    </Modal.Title>
-  </Modal.Header>
-  <Modal.Body style={{ padding: '20px', textAlign: 'left' }}>
-    <p style={{ marginBottom: '10px', fontSize: '1.2rem', fontWeight: 'bold' }}>Numero de seguimiento: {selectedPackage.id}</p>
-    <p style={{ marginBottom: '10px' }}>Fecha: {fecha ? fecha : 'Fecha no disponible'}</p>
-    <p style={{ marginBottom: '10px' }}>Estatus: {selectedPackage.status}</p>
-    <p style={{ marginBottom: '10px' }}>Peso: {selectedPackage.peso} kg</p>
-    <p style={{ marginBottom: '10px' }}>Dimensiones: {selectedPackage.dimensiones}</p>
-    <p style={{ marginBottom: '10px' }}>Total: {selectedPackage.total} $</p>
-    {selectedPackage.imagen && (
-      <img
-        src={selectedPackage.imagen}
-        alt="Imagen del paquete"
-        style={{ maxWidth: '100%', maxHeight: '200px', margin: '10px 0', borderRadius: '5px' }}
-      />
-    )}
-  </Modal.Body>
-</Modal>
+          <Modal
+            size="sm"
+            show={showModal}
+            onHide={handleCloseModal}
+            aria-labelledby="example-modal-sizes-title-sm"
+            style={{ borderRadius: '10px' }}
+          >
+            <Modal.Header closeButton style={{ background: '#007BFF', color: 'white', borderBottom: 'none' }}>
+              <Modal.Title id="example-modal-sizes-title-sm" style={{ fontSize: '1.5rem' }}>
+                Detalles del paquete
+              </Modal.Title>
+            </Modal.Header>
+           
 
-       
+<Modal.Body style={{ padding: '20px', textAlign: 'left' }}>
+<p style={{ marginBottom: '10px', fontSize: '1.2rem', fontWeight: 'bold' }}>Numero de seguimiento: {selectedPackage.id}</p>
+<p style={{ marginBottom: '10px' }}>Fecha: {fecha ? fecha : 'Fecha no disponible'}</p>
+<p style={{ marginBottom: '10px' }}>Estatus: {selectedPackage.status}</p>
+<p style={{ marginBottom: '10px' }}>Peso: {selectedPackage.peso} kg</p>
+<p style={{ marginBottom: '10px' }}>Dimensiones: {selectedPackage.dimensiones}</p>
+<p style={{ marginBottom: '10px' }}>Total: {selectedPackage.total} $</p>
+{selectedPackage.imagen && (
+  <img
+    src={selectedPackage.imagen}
+    alt="Imagen del paquete"
+    style={{ maxWidth: '100%', maxHeight: '200px', margin: '10px 0', borderRadius: '5px' }}
+  />
+)}
+</Modal.Body>
+          </Modal>
         )}
         <br />
         <br />
@@ -113,3 +108,7 @@ function MisEnvios() {
 }
 
 export default MisEnvios;
+
+
+
+

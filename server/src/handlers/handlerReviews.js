@@ -30,7 +30,7 @@ try {
 //  ---------------------------------------------------------------------------------------------
 
 const handlergetReviewsByUser = async (req,res) => {
-const {UserEmail} = req.query;
+const {UserEmail} = req.params;
 
 try {
     const response = await getReviewsByUser(UserEmail);

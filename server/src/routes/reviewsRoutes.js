@@ -3,7 +3,7 @@ const { handlerPostReview, handlerGetAllReviews, handlergetReviewsByUser } = req
 
 const review = Router();
 
-review.get("/:userEmail", handlergetReviewsByUser);
+review.get("/:UserEmail", handlergetReviewsByUser);
 review.post("/", handlerPostReview);
 review.get("/", handlerGetAllReviews);
 

@@ -7,6 +7,7 @@ import Card from "react-bootstrap/Card";
 import {useSelector } from "react-redux";
 import iconoEnvio from "../../assets/envio.svg"
 import Reviews from "../Reviews/reviews";
+import ShowReviews from "../../views/showReviews/showreviews"
 
 
 const Home = () => {
@@ -48,7 +49,10 @@ const Home = () => {
 
       <Reviews/>
 <br/>
-
+ 
+<ShowReviews/>
+<br/>
+<br/>
    
     </div>
   );

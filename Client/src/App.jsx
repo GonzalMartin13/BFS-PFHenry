@@ -1,5 +1,5 @@
+import React from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
-
 import NavBar from "./components/NavBar/NavBar";
 import Home from "./components/Home/Home";
 import About from "./views/About/About";
@@ -18,11 +18,10 @@ import Email from "./components/Contact/Contact";
 import MisEnvios from "./components/misEnvios/misEnvios";
 
 import "./App.css";
-/* import Compra from "./components/Compra/Compra";
-import ComprobantePDF from "./components/Compra/ComprobantePDF"; */
 import FormEnvio from "./components/FormEnvio/FormEnvio";
 import ErrorPage from "./views/ErrorPage/errorpage";
-import Reviews from "./components/Reviews/reviews"
+import Reviews from "./components/Reviews/reviews";
+import ShowReviews from "./views/showReviews/showreviews"
 
 function App() {
   const location = useLocation();
@@ -38,12 +37,32 @@ function App() {
     setUser(newUser);
   };
 
+
+  const validRoutes = [
+    "/",
+    "/cotizacion",
+    "/about",
+    "/contacto",
+    "/payment",
+    "/servicios",
+    "/sucursales",
+    "/envios",
+    "/profile",
+    "/guia",
+    "/confirmacion",
+    "/dashboard",
+    "/factura",
+    "/reviews",
+  ];
+
+
+  const showNavBar = validRoutes.includes(location.pathname);
+
   return (
     <>
+      {showNavBar && <NavBar />}
+    
 
-      {location.pathname !== "*" && (
-        <NavBar/>)}
-        
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route path="/cotizacion" element={<QuoteForm />} />
@@ -65,10 +84,12 @@ function App() {
           }
         />
         <Route path="/factura" element={<Comprobante />} />
-        <Route path={"*"} element={<ErrorPage />} />
         <Route path="/reviews" element={<Reviews />} />
+        <Route path="*" element={<ErrorPage />} />
+        <Route path="/show" element={<ShowReviews />} />
       </Routes>
-      <Footer />
+<Footer/>
+     
     </>
   );
 }
