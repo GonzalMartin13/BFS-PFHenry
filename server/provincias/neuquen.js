@@ -1,0 +1,28 @@
+const neuquen = {
+  nombre: "Neuquén",
+  distanciaEntreProvincias: [
+    { provincia: "Buenos Aires", distancia: 1157 },
+    { provincia: "Catamarca", distancia: 1412 },
+    { provincia: "Chaco", distancia: 1463 },
+    { provincia: "Chubut", distancia: 898 },
+    { provincia: "Córdoba", distancia: 887 },
+    { provincia: "Corrientes", distancia: 1382 },
+    { provincia: "Entre Ríos", distancia: 1437 },
+    { provincia: "Formosa", distancia: 1811 },
+    { provincia: "Jujuy", distancia: 1840 },
+    { provincia: "La Pampa", distancia: 884 },
+    { provincia: "La Rioja", distancia: 1147 },
+    { provincia: "Mendoza", distancia: 851 },
+    { provincia: "Misiones", distancia: 2260 },
+    { provincia: "Río Negro", distancia: 255 },
+    { provincia: "Salta", distancia: 1741 },
+    { provincia: "San Juan", distancia: 710 },
+    { provincia: "San Luis", distancia: 789 },
+    { provincia: "Santa Cruz", distancia: 1622 },
+    { provincia: "Santa Fe", distancia: 1498 },
+    { provincia: "Santiago del Estero", distancia: 1404 },
+    { provincia: "Tierra del Fuego", distancia: 2668 },
+    { provincia: "Tucumán", distancia: 1516 },
+  ],
+};
+module.exports = neuquen;

@@ -1,0 +1,28 @@
+const sanLuis = {
+  nombre: "San Luis",
+  distanciaEntreProvincias: [
+    { provincia: "Buenos Aires", distancia: 790 },
+    { provincia: "Catamarca", distancia: 623 },
+    { provincia: "Chaco", distancia: 974 },
+    { provincia: "Chubut", distancia: 1687 },
+    { provincia: "Córdoba", distancia: 291 },
+    { provincia: "Corrientes", distancia: 893 },
+    { provincia: "Entre Ríos", distancia: 783 },
+    { provincia: "Formosa", distancia: 1322 },
+    { provincia: "Jujuy", distancia: 1207 },
+    { provincia: "La Pampa", distancia: 449 },
+    { provincia: "La Rioja", distancia: 339 },
+    { provincia: "Mendoza", distancia: 261 },
+    { provincia: "Misiones", distancia: 1525 },
+    { provincia: "Neuquén", distancia: 789 },
+    { provincia: "Río Negro", distancia: 844 },
+    { provincia: "Salta", distancia: 1108 },
+    { provincia: "San Juan", distancia: 400 },
+    { provincia: "Santa Cruz", distancia: 2411 },
+    { provincia: "Santa Fe", distancia: 865 },
+    { provincia: "Santiago del Estero", distancia: 620 },
+    { provincia: "Tierra del Fuego", distancia: 3133 },
+    { provincia: "Tucumán", distancia: 964 },
+  ],
+};
+module.exports = sanLuis;

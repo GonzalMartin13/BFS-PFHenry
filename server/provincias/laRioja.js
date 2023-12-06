@@ -1,0 +1,28 @@
+const laRioja = {
+  nombre: "La Rioja",
+  distanciaEntreProvincias: [
+    { provincia: "Buenos Aires", distancia: 1158 },
+    { provincia: "Catamarca", distancia: 204 },
+    { provincia: "Chaco", distancia: 647 },
+    { provincia: "Chubut", distancia: 1848 },
+    { provincia: "Córdoba", distancia: 448 },
+    { provincia: "Corrientes", distancia: 366 },
+    { provincia: "Entre Ríos", distancia: 885 },
+    { provincia: "Formosa", distancia: 795 },
+    { provincia: "Jujuy", distancia: 743 },
+    { provincia: "La Pampa", distancia: 790 },
+    { provincia: "Mendoza", distancia: 641 },
+    { provincia: "Misiones", distancia: 1500 },
+    { provincia: "Neuquén", distancia: 1147 },
+    { provincia: "Río Negro", distancia: 1202 },
+    { provincia: "Salta", distancia: 644 },
+    { provincia: "San Juan", distancia: 407 },
+    { provincia: "San Luis", distancia: 339 },
+    { provincia: "Santa Cruz", distancia: 2303 },
+    { provincia: "Santa Fe", distancia: 611 },
+    { provincia: "Santiago del Estero", distancia: 362 },
+    { provincia: "Tierra del Fuego", distancia: 3349 },
+    { provincia: "Tucumán", distancia: 358 },
+  ],
+};
+module.exports = laRioja;

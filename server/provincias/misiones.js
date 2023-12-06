@@ -1,0 +1,28 @@
+let misiones = {
+  nombre: "Misiones",
+  distanciaEntreProvincias: [
+    { provincia: "Buenos Aires", distancia: 1060 },
+    { provincia: "Catamarca", distancia: 855 },
+    { provincia: "Chaco", distancia: 229 },
+    { provincia: "Chubut", distancia: 2372 },
+    { provincia: "Córdoba", distancia: 1034 },
+    { provincia: "Corrientes", distancia: 208 },
+    { provincia: "Entre Ríos", distancia: 756 },
+    { provincia: "Formosa", distancia: 535 },
+    { provincia: "Jujuy", distancia: 1050 },
+    { provincia: "La Pampa", distancia: 1376 },
+    { provincia: "La Rioja", distancia: 1500 },
+    { provincia: "Mendoza", distancia: 1622 },
+    { provincia: "Neuquén", distancia: 2260 },
+    { provincia: "Río Negro", distancia: 1800 },
+    { provincia: "Salta", distancia: 1100 },
+    { provincia: "San Juan", distancia: 1970 },
+    { provincia: "San Luis", distancia: 1525 },
+    { provincia: "Santa Cruz", distancia: 3040 },
+    { provincia: "Santa Fe", distancia: 742 },
+    { provincia: "Santiago del Estero", distancia: 1100 },
+    { provincia: "Tierra del Fuego", distancia: 3568 },
+    { provincia: "Tucumán", distancia: 1345 },
+  ],
+};
+module.exports = misiones;
