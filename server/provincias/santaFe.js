@@ -1,0 +1,28 @@
+const santaFe = {
+  nombre: "Santa Fe",
+  distanciaEntreProvincias: [
+    { provincia: "Buenos Aires", distancia: 478 },
+    { provincia: "Catamarca", distancia: 876 },
+    { provincia: "Chaco", distancia: 533 },
+    { provincia: "Chubut", distancia: 1683 },
+    { provincia: "Córdoba", distancia: 401 },
+    { provincia: "Corrientes", distancia: 452 },
+    { provincia: "Entre Ríos", distancia: 316 },
+    { provincia: "Formosa", distancia: 881 },
+    { provincia: "Jujuy", distancia: 1354 },
+    { provincia: "La Pampa", distancia: 614 },
+    { provincia: "La Rioja", distancia: 611 },
+    { provincia: "Mendoza", distancia: 1042 },
+    { provincia: "Misiones", distancia: 742 },
+    { provincia: "Neuquén", distancia: 1498 },
+    { provincia: "Río Negro", distancia: 1553 },
+    { provincia: "Salta", distancia: 1255 },
+    { provincia: "San Juan", distancia: 1088 },
+    { provincia: "San Luis", distancia: 865 },
+    { provincia: "Santa Cruz", distancia: 2411 },
+    { provincia: "Santiago del Estero", distancia: 736 },
+    { provincia: "Tierra del Fuego", distancia: 3457 },
+    { provincia: "Tucumán", distancia: 1080 },
+  ],
+};
+module.exports = santaFe;

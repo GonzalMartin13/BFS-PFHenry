@@ -2,11 +2,11 @@ import { Form, Button, Row, Col } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { validarr } from "./validateRegister";
+import { validarr } from "./validateProfile";
 import { registerUser } from "../../redux/actions/userActions";
 import Swal from "sweetalert2";
 
-function Register() {
+function Profile() {
   const [input, setInput] = useState({
     name: "",
     lastName: "",
@@ -14,7 +14,6 @@ function Register() {
     address: "",
     email: "",
     password: "",
-  
   });
 
   const [errors, setErrors] = useState({
@@ -77,7 +76,6 @@ function Register() {
         address: "",
         email: "",
         password: "",
-      
       });
 
       Swal.fire({
@@ -104,9 +102,7 @@ function Register() {
               placeholder="Nombre"
               size="sm"
             />
-            {errors.name && (
-              <span className="text-danger">{errors.name}</span>
-            )}
+            {errors.name && <span className="text-danger">{errors.name}</span>}
           </Col>
           <Col>
             <Form.Control
@@ -194,19 +190,22 @@ function Register() {
         </Form.Group>
 
         {/* Renderizar el botón solo si no hay errores */}
-        {!errors.phone && !errors.email && !errors.password && !errors.confirmPassword && (
-          <Button
-            disabled={!formValid}
-            variant="primary"
-            type="submit"
-            className="mb-2"
-          >
-            Registrarse
-          </Button>
-        )}
+        {!errors.phone &&
+          !errors.email &&
+          !errors.password &&
+          !errors.confirmPassword && (
+            <Button
+              disabled={!formValid}
+              variant="primary"
+              type="submit"
+              className="mb-2"
+            >
+              Registrarse
+            </Button>
+          )}
       </Form>
     </Row>
   );
 }
 
-export default Register;
+export default Profile;

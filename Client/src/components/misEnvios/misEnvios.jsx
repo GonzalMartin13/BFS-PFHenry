@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import {useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
@@ -6,12 +6,20 @@ import Modal from "react-bootstrap/Modal";
 import Image from "react-bootstrap/Image";
 import flechaIcon from "../../assets/sign.svg";
 import VerticalExample from "../filters/filters";
+import { getUserPackages } from "../../redux/actions/packageActions";
 import "./MisEnvios.css";
-
 function MisEnvios() {
   const dispatch = useDispatch();
   const userPackages = useSelector((state) => state.packages.userPackages);
   const UserEmail = useSelector((state) => state.user.user.email);
+
+  useEffect(() => {
+    if (UserEmail) {
+      dispatch(getUserPackages(UserEmail));
+    }
+  }, [dispatch, UserEmail]);
+
+
 
   const [showModal, setShowModal] = useState(false);
   const handleCloseModal = () => {
@@ -74,11 +82,16 @@ function MisEnvios() {
               <p>Numero seguimiento: {selectedPackage.id}</p>
               <p>Fecha: {selectedPackage.fechaInicial}</p>
               <p>Estatus: {selectedPackage.status} </p>
-              <p>Destinatario: {selectedPackage.destinatario} </p>
               <p>Peso: {selectedPackage.peso} kg</p>
               <p>Dimensiones:{selectedPackage.dimensiones} </p>
-              <p>Total: {selectedPackage.total} </p>
-              <img src={selectedPackage.imagen} alt="Imagen del paquete" style={{ maxWidth: '100%', maxHeight: '200px', margin: '10px auto' }} />
+              <p>Total: {selectedPackage.total} $ </p>
+              {selectedPackage.imagen && (
+        <img
+          src={selectedPackage.imagen}
+          alt="Imagen del paquete"
+          style={{ maxWidth: '100%', maxHeight: '200px', margin: '10px auto' }}
+        />
+      )}
             </Modal.Body>
           </Modal>
         )}

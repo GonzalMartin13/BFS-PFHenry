@@ -1,0 +1,28 @@
+const salta = {
+  nombre: "Salta",
+  distanciaEntreProvincias: [
+    { provincia: "Buenos Aires", distancia: 1491 },
+    { provincia: "Catamarca", distancia: 379 },
+    { provincia: "Chaco", distancia: 722 },
+    { provincia: "Chubut", distancia: 2640 },
+    { provincia: "Córdoba", distancia: 854 },
+    { provincia: "Corrientes", distancia: 641 },
+    { provincia: "Entre Ríos", distancia: 924 },
+    { provincia: "Formosa", distancia: 1070 },
+    { provincia: "Jujuy", distancia: 200 },
+    { provincia: "La Pampa", distancia: 1622 },
+    { provincia: "La Rioja", distancia: 644 },
+    { provincia: "Mendoza", distancia: 1097 },
+    { provincia: "Misiones", distancia: 1100 },
+    { provincia: "Neuquén", distancia: 1741 },
+    { provincia: "Río Negro", distancia: 1796 },
+    { provincia: "San Juan", distancia: 1028 },
+    { provincia: "San Luis", distancia: 1108 },
+    { provincia: "Santa Cruz", distancia: 3368 },
+    { provincia: "Santa Fe", distancia: 1255 },
+    { provincia: "Santiago del Estero", distancia: 637 },
+    { provincia: "Tierra del Fuego", distancia: 3900 },
+    { provincia: "Tucumán", distancia: 275 },
+  ],
+};
+module.exports = salta;

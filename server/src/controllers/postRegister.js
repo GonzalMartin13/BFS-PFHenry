@@ -10,7 +10,7 @@ const postRegister = async(email, nickname, picture) => {
       if(userFound) {
         return userFound;
       } else {
-        const userCreated = await User.create({email, nickname, picture, connect: false});
+        const userCreated = await User.create({email, nickname, picture});
         return userCreated;
       };
     };
@@ -23,3 +23,4 @@ const postRegister = async(email, nickname, picture) => {
 module.exports = {
   postRegister
 };
+

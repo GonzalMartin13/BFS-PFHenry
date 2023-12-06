@@ -1,18 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-extra-semi */
-import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {registerUser} from "../../redux/actions/userActions";
+import {registerUser, registerAdmin} from "../../redux/actions/userActions";
 import {login, logouted, contar} from "../../redux/Slices/userSlice";
 import Button from "react-bootstrap/Button";
 import Swal from "sweetalert2";
 import {useAuth0} from "@auth0/auth0-react";
-import logoutIcon from "../../assets/logout.svg";
-import { useNavigate } from 'react-router-dom';
-import {log, out, iconout} from "./style";
+import { useNavigate, Link} from 'react-router-dom';
+import {log, out, profile} from "./style";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser, faRightToBracket } from '@fortawesome/free-solid-svg-icons';
  
-
-
 const Login = () => {
   const {contador, isLoggedIn} = useSelector((state) => state.user);
 
@@ -22,37 +20,62 @@ const Login = () => {
 
   const {loginWithRedirect, isAuthenticated, logout, user} = useAuth0();
 
+  const emails = ["dixongonzalezm2304@gmail.com", "bfspfhenry@gmail.com"]
 
-  useEffect(() => {
-    if (isAuthenticated && user.email_verified && contador === 2) {
-      const previousRoute = localStorage.getItem('previousRoute');
-      localStorage.removeItem('previousRoute');
-      navigate(previousRoute || '/');
-      Swal.fire({
-        title: "Sesión iniciada",
-        text: `${user.nickname} has iniciado sesión exitosamente`,
-        icon: "success",
-      });
+  if (emails.includes(user?.email) && isAuthenticated && user.email_verified && contador === 2) {
+    const previousRoute = localStorage.getItem('previousRoute');
+    localStorage.removeItem('previousRoute');
+    navigate(previousRoute || '/');
+    Swal.fire({
+      title: "Sesión iniciada",
+      text: `${user.nickname} has iniciado sesión exitosamente como administrador`,
+      icon: "success",
+    });
 
-      dispatch(login());
+    dispatch(login());
 
-      const postUser = {
-        email: user.email,
-        nickname: user.nickname,
-        picture: user.picture,
-      };
-
-      dispatch(registerUser(postUser));
-    } else if (isAuthenticated && !user.email_verified && contador === 2) {
-      Swal.fire({
-        title: "Sesión iniciada",
-        text: `${user.nickname} verifica tu Email para acceder a nuestros servicios`,
-        icon: "success",
-      });
-
-      dispatch(contar());
+    const postUser = {
+      email: user.email,
+      nickname: user.nickname,
+      picture: user.picture,
     };
-  }, [isAuthenticated, user]);
+
+    const postAdmin = {
+      nameAdmin: user.nickname,
+      emailAdmin: user.email,
+    };
+
+    dispatch(registerUser(postUser));
+    dispatch(registerAdmin(postAdmin));
+  } else if (isAuthenticated && user.email_verified && contador === 2) {
+    const previousRoute = localStorage.getItem('previousRoute');
+    localStorage.removeItem('previousRoute');
+    navigate(previousRoute || '/');
+    Swal.fire({
+      title: "Sesión iniciada",
+      text: `${user.nickname} has iniciado sesión exitosamente`,
+      icon: "success",
+    });
+
+    dispatch(login());
+
+    const postUser = {
+      email: user.email,
+      nickname: user.nickname,
+      picture: user.picture,
+    };
+
+    dispatch(registerUser(postUser));
+  } else if (isAuthenticated && !user.email_verified && contador === 2) {
+    Swal.fire({
+      title: "Sesión iniciada",
+      text: `${user.nickname} verifica tu Email para acceder a nuestros servicios`,
+      icon: "success",
+    });
+
+    dispatch(contar());
+  };
+
 
   const handleLogin = () => {
     localStorage.setItem('previousRoute', window.location.pathname);
@@ -102,9 +125,16 @@ const Login = () => {
       {!isLoggedIn && contador === 1 ? (
         <Button onClick={handleLogin} style={log}>Ingresar</Button>
       ) : (
+      <div>
+        <Link to={"/profile/"}>
+          <Button style={profile}>
+            <FontAwesomeIcon icon={faUser} />
+          </Button>
+        </Link>
         <Button onClick={handleLogout} variant="outline-success" style={out}>
-          <img src={logoutIcon} alt="Logout Icon" style={iconout} />
+          <FontAwesomeIcon icon={faRightToBracket} />
         </Button>
+      </div>
       )}
     </div>
   );
