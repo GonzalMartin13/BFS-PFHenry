@@ -30,7 +30,7 @@ import { SiGooglemaps } from "react-icons/si";
 import Swal from "sweetalert2";
 import { registerUser } from "../../redux/actions/userActions";
 import { login, contar } from "../../redux/Slices/userSlice";
-import imagenCaja from "../../assets/imageDimensiones.png";
+import imagenCaja from "./utils/imageDimensiones.png";
 export default function QuoteForm() {
   const state = useSelector((state) => state.shipping);
 
