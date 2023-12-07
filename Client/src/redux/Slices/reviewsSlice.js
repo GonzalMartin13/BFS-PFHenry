@@ -8,7 +8,6 @@ const initialState = {
     comment: "",
     UserEmail:""
   },
-  created: false,
   allReviews: [],
 };
 
@@ -20,6 +19,7 @@ export const submitReview = createAsyncThunk(
         "http://localhost:3001/reviews",
         reviewData
       );
+      console.log(response.data)
 
       const { id, rating, comment,UserEmail } = response.data;
       dispatch(setUserReview({ id, rating, comment,UserEmail }));
@@ -30,6 +30,28 @@ export const submitReview = createAsyncThunk(
     }
   }
 );
+
+export const editReview = createAsyncThunk(
+  "reviews/editReview",
+  async (reviewData, { dispatch }) => {
+    try {
+      const response = await axios.put(
+        `http://localhost:3001/reviews/${reviewData.id}`,
+        reviewData
+      );
+
+      console.log(response.data.updatedReview)
+
+      dispatch(setUserReview(response.data.updatedReview)); // Actualiza el estado con los nuevos datos
+      return response.data;
+    } catch (error) {
+      console.error("Error al enviar la revisión:", error.message);
+      throw error;
+    }
+  }
+);
+
+
 
 export const fetchAllReviews = createAsyncThunk(
   "reviews/fetchAllReviews",
@@ -48,8 +70,7 @@ export const reviews = createSlice({
       state.userReview.id = id;
       state.userReview.rating = rating;
       state.userReview.comment = comment;
-      state.userReview.userEmail = UserEmail;
-      state.created = true;
+      state.userReview.UserEmail = UserEmail;
     },
   },
   extraReducers: (builder) => {
@@ -57,7 +78,7 @@ export const reviews = createSlice({
       .addCase(fetchAllReviews.fulfilled, (state, action) => {
         state.allReviews = action.payload;
       })
-      .addCase(submitReview.fulfilled, (state, action) => {
+      .addCase(editReview.fulfilled, (state, action) => {
         
       });
   },
