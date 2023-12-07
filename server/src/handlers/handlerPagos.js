@@ -10,7 +10,7 @@ const getPagosHandler = async (req, res) =>{
         res.status(404).json(error.message)
     }
 }
-// endpoint: http://localhost:3001/pagos/crear
+// endpoint: https://bfs-pfhenry-production.up.railway.app/pagos/crear
 // Tipo : POST // Pide: total y  tipo de servico
 // Devuelve: link de pago para redirecionar al cliente
 
@@ -22,7 +22,7 @@ const getSuccesHandler = async (req, res) => {
         res.status(404).json(error.message)
     }
 }
-// endpoint: http://localhost:3001/pagos/exitosa
+// endpoint: https://bfs-pfhenry-production.up.railway.app/pagos/exitosa
 // Tipo : GET // 
 // Devuelve: 
 
@@ -34,7 +34,7 @@ const getPendienteHandler = async (req, res) =>{
         res.status(404).json(error.message)
     }
 }
-// endpoint: http://localhost:3001/pagos/pendiente
+// endpoint: https://bfs-pfhenry-production.up.railway.app/pagos/pendiente
 // Tipo : GET // 
 // Devuelve:
 
@@ -48,7 +48,7 @@ const fallidaHandler = async(req, res) => {
         res.status(404).send(error.message)
     }
 }
-// endpoint: http://localhost:3001/pagos/fallida
+// endpoint: https://bfs-pfhenry-production.up.railway.app/pagos/fallida
 // Tipo : GET // 
 // Devuelve:
 
@@ -62,7 +62,7 @@ const getWebHook = async(req, res) => {
         res.status(404).send(error.message)
     }
 }
-// endpoint: http://localhost:3001/pagos/webhook
+// endpoint: https://bfs-pfhenry-production.up.railway.app/pagos/webhook
 // Tipo : POST // 
 // Devuelve:
 

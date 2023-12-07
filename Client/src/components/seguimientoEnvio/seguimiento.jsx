@@ -67,7 +67,7 @@ function SeguimientoEnvio() {
     }
 
     try {
-      const response = await axios.get(`http://localhost:3001/envios/${id}`);
+      const response = await axios.get(`https://bfs-pfhenry-production.up.railway.app/envios/${id}`);
       dispatch(setPaquetesSeguimientos(response.data));
       setShowModal(true);
     } catch (error) {

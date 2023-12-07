@@ -34,7 +34,7 @@ const cotizarHandler = async (req, res) => {
 
 module.exports = cotizarHandler;
 
-/*  endpoint: http://localhost:3001/envios/price
+/*  endpoint: https://bfs-pfhenry-production.up.railway.app/envios/price
  tipo: post
  devuelve: devuelve el precio del envio
  */

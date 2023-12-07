@@ -50,7 +50,7 @@ const FormEnvio = () => {
       valores.imagen = imagenLocal;
       const porstEnviar = await enviarBD(valores);
       dispatch(setidShipping(porstEnviar.idDelEnvio.numeroEnvio));
-    } catch (error) {}
+    } catch (error) { console.log(error.message)}
   };
 
   const handleFileUpload = async () => {
@@ -103,7 +103,7 @@ const FormEnvio = () => {
   useEffect(() => {
     const mercadoPago = async () => {
       try {
-        const { data } = await axios.post("http://localhost:3001/pagos/crear", {
+        const { data } = await axios.post("https://bfs-pfhenry-production.up.railway.app/pagos/crear", {
           total,
           servicios,
         });

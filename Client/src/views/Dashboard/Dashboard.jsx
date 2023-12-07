@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable react/prop-types */
 import style from "./Dashboard.module.css";
 import { useEffect, useState } from "react";
 import Sidebar from "./Sidebar";
@@ -11,38 +13,42 @@ import Swal from "sweetalert2";
 import updateEnvio from "../../utils/updateEnvio";
 
 const Dashboard = ({ updateContextUser }) => {
+  const [setAdminGraphs] = useState([]);
   const [users, setUsers] = useState([]);
   const [envio, setEnvio] = useState([]);
   const [payments, setPayments] = useState([]);
   const [admin, setAdmin] = useState([]);
   const [selectedButton, setSelectedButton] = useState("");
 
-  useEffect(() => {
-    const session = JSON.parse(localStorage.getItem("userOnSession"));
-    if (session?.email !== "") {
-      updateContextUser(session);
-    }
-    handleUsers();
-    handleEnvio();
-    handlePayments();
-    handleAdmin();
-  }, []);
+	useEffect(() => {
+		const session = JSON.parse(localStorage.getItem("userOnSession"));
+		if (session?.email !== "") {
+			updateContextUser(session);
+		}
+		handleUsers();
+		handleEnvio();
+		handlePayments();
+		handleAdmin();
+	}, []);
 
-  const handleButtonClick = (button) => {
-    if (button === "Usuarios") {
-      handleUsers();
-      setSelectedButton(button);
-    } else if (button === "Envios") {
-      setSelectedButton(button);
-      handleEnvio();
-    } else if (button === "Pagos") {
-      setSelectedButton(button);
-      handlePayments();
-    } else if (button === "Admin") {
-      setSelectedButton(button);
-      handleAdmin();
-    }
-  };
+	const handleButtonClick = (button) => {
+		if (button === "adminGraphs") {
+			setSelectedButton(button);	
+			setAdminGraphs(true);
+		} else if (button === "Usuarios") {
+			setSelectedButton(button);
+			handleAdmin();
+		} else if (button === "Envios") {
+			setSelectedButton(button);
+			handleEnvio();
+		} else if (button === "Pagos") {
+			setSelectedButton(button);
+			handlePayments();
+		} else if (button === "Admin") {
+			setSelectedButton(button);
+			handleAdmin();
+		}
+	};
 
   const handleUsers = async () => {
     const usuarios = await getAllUser();
@@ -85,7 +91,7 @@ const Dashboard = ({ updateContextUser }) => {
         },
       }).then(async (result) => {
         if (result.isConfirmed) {
-          const response = await axios.put(`http://localhost:3001/user`, {
+          const response = await axios.put(`https://bfs-pfhenry-production.up.railway.app/user`, {
             ...user,
             enabled: false,
           });
@@ -118,7 +124,7 @@ const Dashboard = ({ updateContextUser }) => {
         },
       }).then(async (result) => {
         if (result.isConfirmed) {
-          const response = await axios.put(`http://localhost:3001/user`, {
+          const response = await axios.put(`https://bfs-pfhenry-production.up.railway.app/user`, {
             ...user,
             enabled: true,
           });
@@ -224,7 +230,7 @@ const Dashboard = ({ updateContextUser }) => {
         },
       }).then(async (result) => {
         if (result.isConfirmed) {
-          const response = await axios.put(`http://localhost:3001/admin`, {
+          const response = await axios.put(`https://bfs-pfhenry-production.up.railway.app/admin`, {
             ...admin,
             enabled: false,
           });
@@ -257,7 +263,7 @@ const Dashboard = ({ updateContextUser }) => {
         },
       }).then(async (result) => {
         if (result.isConfirmed) {
-          const response = await axios.put(`http://localhost:3001/admin`, {
+          const response = await axios.put(`https://bfs-pfhenry-production.up.railway.app/admin`, {
             ...admin,
             enabled: true,
           });
@@ -277,21 +283,26 @@ const Dashboard = ({ updateContextUser }) => {
     }
   };
 
-  return (
-    <div className={style.container}>
-      <Sidebar onButtonClick={handleButtonClick} />
-      <Content
-        selectedButton={selectedButton}
-        users={users}
-        envio={envio}
-        admin={admin}
-        payments={payments}
-        handleBlockUser={handleBlockUser}
-        handleBlockEnvio={handleBlockEnvio}
-        handleBlockAdmin={handleBlockAdmin}
-      />
-    </div>
-  );
+
+	return (
+		<div className={style.container}>
+			<Sidebar onButtonClick={handleButtonClick} />
+			<Content
+				selectedButton={selectedButton}
+				users={users}
+				envio={envio}
+				admin={admin}
+				payments={payments}
+				handleBlockUser={handleBlockUser}
+				handleBlockEnvio={handleBlockEnvio}
+				handleBlockAdmin={handleBlockAdmin}	
+			/>
+			
+		</div>
+
+		
+	);
+
 };
 
 export default Dashboard;
