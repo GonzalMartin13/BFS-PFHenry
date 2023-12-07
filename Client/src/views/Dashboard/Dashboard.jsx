@@ -51,7 +51,7 @@ const Dashboard = ({ updateContextUser }) => {
 	};
 
 
-  const handleButtonClick = (button) => {
+   const handleButtonClick = (button) => {
     if (button === "Usuarios") {
       handleUsers();
       setSelectedButton(button);
@@ -65,7 +65,7 @@ const Dashboard = ({ updateContextUser }) => {
       setSelectedButton(button);
       handleAdmin();
     }
-  };
+  }; 
 
   const handleUsers = async () => {
     const usuarios = await getAllUser();
