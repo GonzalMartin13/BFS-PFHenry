@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import style from "./Dashboard.module.css";
-import Button from "../../Components/Button/Button";
+import Button from "../../components/Button/Button";
 import { BsClipboardDataFill, BsCursorFill, BsPeopleFill, BsFillGearFill} from 'react-icons/bs';
 
 const Sidebar = ({ onButtonClick }) => {

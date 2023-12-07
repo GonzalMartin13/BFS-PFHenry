@@ -32,7 +32,7 @@ import { registerUser } from "../../redux/actions/userActions";
 import { login, contar, confirmed } from "../../redux/Slices/userSlice";
 import imagenCaja from "./utils/imageDimensiones.png";
 export default function QuoteForm() {
-  const state = useSelector((state) => state.shipping);
+ // const state = useSelector((state) => state.shipping);
 
   const { loginWithRedirect, isAuthenticated, user } = useAuth0();
   const { contador, isLoggedIn, isProfile } = useSelector((state) => state.user);
@@ -140,7 +140,7 @@ export default function QuoteForm() {
 
     try {
       const { data } = await axios.post(
-        "http://https://bfs-pfhenry-production.up.railway.app/envios/price",
+        "https://bfs-pfhenry-production.up.railway.app/envios/price",
         form
       );
 
