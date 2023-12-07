@@ -36,7 +36,8 @@
   border-bottom:1px solid #5d45f7;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
-  background-color: #8c7df0;
+  background-color: #222;
+  color: #ffffff;
 }
 
 .containerContext{

@@ -2,6 +2,9 @@ import PropTypes from 'prop-types';
 import styles from "./Dashboard.module.css";
 import Button from "../../Components/Button/Button";
 import Grafico from "./Graficos";
+import { useState } from 'react';
+
+
 
 const Content = ({
   selectedButton,
@@ -13,12 +16,22 @@ const Content = ({
   handleBlockEnvio,
 }) => {
 
+	const [adminList, setAdminList] = useState(admin);
+
+  const toggleActivation = (index) => {
+    const updatedAdminList = [...adminList];
+    updatedAdminList[index].isActive = !updatedAdminList[index].isActive;
+    setAdminList(updatedAdminList);
+  };
+
 	return (
 		
 		<div className={styles.containerContext}>
+			<div>
 			<h2>Registros de Administración del sistema</h2>
 			<br />
 			{selectedButton === "adminGraphs" && (<Grafico />)}
+			</div>
 			{selectedButton === "Usuarios" && (
 				<div className={styles.envios_table_container}>
 					<table className={styles.envios_table}>
@@ -160,8 +173,9 @@ const Content = ({
 					<table className={styles.envios_table}>
 						<thead>
 							<tr>
-								<th>Nombre de usuario</th>
+								<th>Nombre Admin</th>
 								<th>Email</th>
+								<th>Activar/Desactivar</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -169,10 +183,15 @@ const Content = ({
 								<tr key={index}>
 									<td>{admin.nameAdmin}</td>
 									<td>{admin.emailAdmin}</td>
+									<td>
+                    <button onClick={() => toggleActivation(index)}>
+                      {admin.isActive ? 'Desactivar' : 'Activar'}
+                    </button>
+                  </td>
 								</tr>
 							))}
 						</tbody>
-					</table>x
+					</table>
 					</div>
 					)}
 				

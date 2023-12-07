@@ -1,7 +1,8 @@
 const nav = {
   height: "auto",
   width: "100%",
-  borderBottom: "5px solid darkblue",
+  /* borderBottom: "2px solid darkblue", */
+  background: "linear-gradient(to right, #3838ff, #5b5bff00 )",
 };
 
 const logobfs = {
@@ -11,7 +12,7 @@ const logobfs = {
 };
 
 const menuout = {
-  border: "3px solid black",
+  border: "2px solid black",
   color: "black",
   marginRight: "30px",
   padding: "5px 10px",
@@ -23,13 +24,13 @@ const logoin = {
 };
 
 const menuin = {
-  borderLeft: "10px solid darkblue",
+  borderLeft: "2px solid grey",
   padding: "10px 10px"
 };
 
 const menuletter = {
-  color: "black",
-  borderBottom: "5px solid darkblue",
+  color: "dimgray",
+  borderBottom: "2px solid blue",
   margin: "15px 100px 15px 0px",
 };
 
@@ -41,4 +42,4 @@ export {
   logoin,
   menuin,
   menuletter
-}
+};

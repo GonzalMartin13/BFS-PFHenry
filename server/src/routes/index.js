@@ -30,4 +30,7 @@ router.use("/dashboard", userRoutes)
 // Dashboard post y get
 router.use("/admin", adminRoutes) 
 
+/* // Dashboard put
+router.use("/admin/:adminId", adminRoutes)  */
+
 module.exports = router;
