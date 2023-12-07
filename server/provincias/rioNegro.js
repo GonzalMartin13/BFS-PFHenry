@@ -1,0 +1,28 @@
+const rioNegro = {
+  nombre: "Río Negro",
+  distanciaEntreProvincias: [
+    { provincia: "Buenos Aires", distancia: 1212 },
+    { provincia: "Catamarca", distancia: 1467 },
+    { provincia: "Chaco", distancia: 1518 },
+    { provincia: "Chubut", distancia: 843 },
+    { provincia: "Córdoba", distancia: 832 },
+    { provincia: "Corrientes", distancia: 1437 },
+    { provincia: "Entre Ríos", distancia: 1692 },
+    { provincia: "Formosa", distancia: 1866 },
+    { provincia: "Jujuy", distancia: 1895 },
+    { provincia: "La Pampa", distancia: 939 },
+    { provincia: "La Rioja", distancia: 1202 },
+    { provincia: "Mendoza", distancia: 906 },
+    { provincia: "Misiones", distancia: 1800 },
+    { provincia: "Neuquén", distancia: 255 },
+    { provincia: "Salta", distancia: 1796 },
+    { provincia: "San Juan", distancia: 1037 },
+    { provincia: "San Luis", distancia: 844 },
+    { provincia: "Santa Cruz", distancia: 1567 },
+    { provincia: "Santa Fe", distancia: 1553 },
+    { provincia: "Santiago del Estero", distancia: 1459 },
+    { provincia: "Tierra del Fuego", distancia: 1500 },
+    { provincia: "Tucumán", distancia: 1571 },
+  ],
+};
+module.exports = rioNegro;

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 // userSlice.js
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
@@ -29,7 +30,6 @@ export const invoiceUserSlice = createSlice({
 export const { postInvoice, setidShipping, setStateInvoice } =
   invoiceUserSlice.actions;
 
-// Acción asíncrona utilizando Axios
 export const postInvoiceAsync = (jsonn) => async (dispatch) => {
   try {
     const res = await axios.post(
@@ -60,11 +60,9 @@ export const postInvoiceAsync = (jsonn) => async (dispatch) => {
       }
     );
     console.log(res.data);
-    // Manejo simple de la respuesta
     dispatch(postInvoice(res.data.file));
   } catch (error) {
     console.error("Error en la acción postInvoiceAsync:", error);
-    // Puedes manejar el error según tus necesidades
   }
 };
 

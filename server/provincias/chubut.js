@@ -1,0 +1,28 @@
+const chubut = {
+  nombre: "Chubut",
+  distanciaEntreProvincias: [
+    { provincia: "Buenos Aires", distancia: 1407 },
+    { provincia: "Catamarca", distancia: 1952 },
+    { provincia: "Chaco", distancia: 2193 },
+    { provincia: "Córdoba", distancia: 1137 },
+    { provincia: "Corrientes", distancia: 2112 },
+    { provincia: "Entre Ríos", distancia: 1974 },
+    { provincia: "Formosa", distancia: 2541 },
+    { provincia: "Jujuy", distancia: 2739 },
+    { provincia: "La Pampa", distancia: 1312 },
+    { provincia: "La Rioja", distancia: 1848 },
+    { provincia: "Mendoza", distancia: 1420 },
+    { provincia: "Misiones", distancia: 2372 },
+    { provincia: "Neuquén", distancia: 898 },
+    { provincia: "Río Negro", distancia: 843 },
+    { provincia: "Salta", distancia: 2640 },
+    { provincia: "San Juan", distancia: 1608 },
+    { provincia: "San Luis", distancia: 1687 },
+    { provincia: "Santa Cruz", distancia: 724 },
+    { provincia: "Santa Fe", distancia: 1683 },
+    { provincia: "Santiago del Estero", distancia: 2210 },
+    { provincia: "Tierra del Fuego", distancia: 1640 },
+    { provincia: "Tucumán", distancia: 2326 },
+  ],
+};
+module.exports = chubut;

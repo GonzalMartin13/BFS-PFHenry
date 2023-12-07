@@ -1,3 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-empty */
+/* eslint-disable no-unused-vars */
 import { useEffect } from "react";
 import { useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
@@ -13,10 +16,7 @@ import {
   clearShippingState,
 } from "../../redux/Slices/shippingSlice";
 import { clearState, setState } from "../../redux/Slices/quoterslice";
-import {
-  postInvoiceAsync,
-  setidShipping,
-} from "../../redux/Slices/invoiceUserSlice";
+import { setidShipping } from "../../redux/Slices/invoiceUserSlice";
 import Swal from "sweetalert2";
 import { Button } from "react-bootstrap";
 import Col from "react-bootstrap/Col";
@@ -272,7 +272,7 @@ const FormEnvio = () => {
           userID,
         } = valores;
 
-         const shippingInfo = {
+        const shippingInfo = {
           ...quoteState,
           nombreRemitente,
           razonSocialRemitente,
@@ -291,14 +291,12 @@ const FormEnvio = () => {
           userID,
         };
 
-
         // Envía la información del envío al estado global
         console.log("Antes de la actualización:", valores);
         dispatch(setShippingState(shippingInfo));
         console.log("Después de la actualización:", valores);
         console.log("Estado global después del submit:", shippingInfo);
-       
-         /* dispatch(postInvoiceAsync(jsonInvoise)) */; //descomentar para demo
+
         await handleEnvioBD(shippingInfo);
 
         window.location.href = linkPago;

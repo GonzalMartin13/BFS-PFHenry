@@ -1,0 +1,28 @@
+let entreRios = {
+  nombre: "Entre Ríos",
+  distanciaEntreProvincias: [
+    { provincia: "Buenos Aires", distancia: 494 },
+    { provincia: "Catamarca", distancia: 949 },
+    { provincia: "Chaco", distancia: 527 },
+    { provincia: "Chubut", distancia: 1974 },
+    { provincia: "Córdoba", distancia: 401 },
+    { provincia: "Corrientes", distancia: 446 },
+    { provincia: "Formosa", distancia: 682 },
+    { provincia: "Jujuy", distancia: 1167 },
+    { provincia: "La Pampa", distancia: 826 },
+    { provincia: "La Rioja", distancia: 885 },
+    { provincia: "Mendoza", distancia: 1041 },
+    { provincia: "Misiones", distancia: 756 },
+    { provincia: "Neuquén", distancia: 1437 },
+    { provincia: "Río Negro", distancia: 1692 },
+    { provincia: "Salta", distancia: 924 },
+    { provincia: "San Juan", distancia: 1107 },
+    { provincia: "San Luis", distancia: 783 },
+    { provincia: "Santa Cruz", distancia: 2568 },
+    { provincia: "Santa Fe", distancia: 316 },
+    { provincia: "Santiago del Estero", distancia: 688 },
+    { provincia: "Tierra del Fuego", distancia: 3314 },
+    { provincia: "Tucumán", distancia: 1010 },
+  ],
+};
+module.exports = entreRios;

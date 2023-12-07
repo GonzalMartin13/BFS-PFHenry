@@ -1,0 +1,28 @@
+const catamarca = {
+  nombre: "Catamarca",
+  distanciaEntreProvincias: [
+    { provincia: "Buenos Aires", distancia: 1158 },
+    { provincia: "Chaco", distancia: 343 },
+    { provincia: "Chubut", distancia: 1952 },
+    { provincia: "Córdoba", distancia: 426 },
+    { provincia: "Corrientes", distancia: 762 },
+    { provincia: "Entre Ríos", distancia: 949 },
+    { provincia: "Formosa", distancia: 691 },
+    { provincia: "Jujuy", distancia: 478 },
+    { provincia: "La Pampa", distancia: 1055 },
+    { provincia: "La Rioja", distancia: 204 },
+    { provincia: "Mendoza", distancia: 627 },
+    { provincia: "Misiones", distancia: 855 },
+    { provincia: "Neuquén", distancia: 1412 },
+    { provincia: "Río Negro", distancia: 1467 },
+    { provincia: "Salta", distancia: 379 },
+    { provincia: "San Juan", distancia: 511 },
+    { provincia: "San Luis", distancia: 623 },
+    { provincia: "Santa Cruz", distancia: 2814 },
+    { provincia: "Santa Fe", distancia: 876 },
+    { provincia: "Santiago del Estero", distancia: 258 },
+    { provincia: "Tierra del Fuego", distancia: 3120 },
+    { provincia: "Tucumán", distancia: 234 },
+  ],
+};
+module.exports = catamarca;
