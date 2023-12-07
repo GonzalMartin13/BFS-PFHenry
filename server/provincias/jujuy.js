@@ -1,0 +1,28 @@
+const jujuy = {
+  nombre: "Jujuy",
+  distanciaEntreProvincias: [
+    { provincia: "Buenos Aires", distancia: 1534 },
+    { provincia: "Catamarca", distancia: 478 },
+    { provincia: "Chaco", distancia: 821 },
+    { provincia: "Chubut", distancia: 2739 },
+    { provincia: "Córdoba", distancia: 1191 },
+    { provincia: "Corrientes", distancia: 740 },
+    { provincia: "Entre Ríos", distancia: 1167 },
+    { provincia: "Formosa", distancia: 1169 },
+    { provincia: "La Pampa", distancia: 1533 },
+    { provincia: "La Rioja", distancia: 743 },
+    { provincia: "Mendoza", distancia: 1384 },
+    { provincia: "Misiones", distancia: 1050 },
+    { provincia: "Neuquén", distancia: 1840 },
+    { provincia: "Río Negro", distancia: 1895 },
+    { provincia: "Salta", distancia: 200 },
+    { provincia: "San Juan", distancia: 939 },
+    { provincia: "San Luis", distancia: 1207 },
+    { provincia: "Santa Cruz", distancia: 3242 },
+    { provincia: "Santa Fe", distancia: 1354 },
+    { provincia: "Santiago del Estero", distancia: 736 },
+    { provincia: "Tierra del Fuego", distancia: 3900 },
+    { provincia: "Tucumán", distancia: 274 },
+  ],
+};
+module.exports = jujuy;

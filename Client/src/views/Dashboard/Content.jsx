@@ -1,9 +1,8 @@
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import styles from "./Dashboard.module.css";
 import Button from "../../Components/Button/Button";
 import Grafico from "./Graficos";
 import { useState } from 'react';
-
 
 
 const Content = ({
@@ -60,51 +59,55 @@ const Content = ({
 												<input type="checkbox" checked={false} />
 											)}
 
-											<div className={styles.checkmark}></div>
-										</label>
-									</td>
+                  {user.enabled ? (
+                    <td>
+                      <Button
+                        text={"Bloquear usuario"}
+                        onClick={() => handleBlockUser(user)}
+                      />
+                    </td>
+                  ) : (
+                    <td>
+                      <Button
+                        text={"Desbloquear usuario"}
+                        onClick={() => handleBlockUser(user)}
+                      />
+                    </td>
+                  )}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+      {selectedButton === "Envios" && (
+        <div className={styles.envios_table_container}>
+          <table className={styles.envios_table}>
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>Categoría</th>
+                <th>Total</th>
+                <th>Status</th>
+                <th>Estado</th>
+                <th>Bloquear/Desbloquear</th>
+              </tr>
+            </thead>
+            <tbody>
+              {envio?.map((envio, index) => (
+                <tr key={index}>
+                  <td>{envio.id}</td>
+                  <td>{envio.servicios}</td>
+                  <td>${envio.total}</td>
+                  <td>{envio.status}</td>
 
-									{user.enabled ? (
-										<td>
-											<Button
-												text={"Bloquear usuario"}
-												onClick={() => handleBlockUser(user)}
-											/>
-										</td>
-									) : (
-										<td>
-											<Button
-												text={"Desbloquear usuario"}
-												onClick={() => handleBlockUser(user)}
-											/>
-										</td>
-									)}
-								</tr>
-							))}
-						</tbody>
-					</table>
-				</div>
-			)}
-			{selectedButton === "Envios" && (
-				<div className={styles.envios_table_container}>
-					<table className={styles.envios_table}>
-						<thead>
-							<tr>
-								<th>Id</th>
-								<th>Categoría</th>
-								<th>Total</th>
-								<th>Status</th>
-								<th>Estado</th>
-								<th>Bloquear/Desbloquear</th>
-							</tr>
-						</thead>
-						<tbody>
-							{envio?.map((envio, index) => (
-								<tr key={index}>
-									<td>{envio.id}</td>
-									<td>{envio.servicios}</td>
-									<td>${envio.total}</td>
-									<td>{envio.status}</td>
+                  <td>
+                    <label className={styles.container_check}>
+                      {envio.enabled ? (
+                        <input type="checkbox" checked={true} />
+                      ) : (
+                        <input type="checkbox" checked={false} />
+                      )}
 
 									<td>
 										<label className={styles.container_check}>
@@ -198,6 +201,7 @@ const Content = ({
     </div>
 		
 	);
+
 };
 Content.propTypes = {
   selectedButton: PropTypes.string,

@@ -22,5 +22,6 @@ const Sidebar = ({ onButtonClick }) => {
 			</ul>
 		</div>
 	);
+
 };
 export default Sidebar;

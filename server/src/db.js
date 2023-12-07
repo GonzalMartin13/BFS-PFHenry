@@ -42,11 +42,14 @@ let capsEntries = entries.map((entry) => [
 ]);
 sequelize.models = Object.fromEntries(capsEntries);
 
-const {User, Package, Admin} = sequelize.models;
+const {User, Package, Admin, Review} = sequelize.models;
 
 //----------------Relacion de Uno A Muchos --------------------------------
 User.hasMany(Package); // un usuario hace muchos envios
 Package.belongsTo(User); // Muchis envios pertenecen a un usuario
+
+User.hasMany(Review); // un usuario hace muchos comentarios
+Review.belongsTo(User); // un cometario solo lo hace un Usuario
 
 //  ---------------->  Relacion de muchos A Muchos <-----------------------
 
