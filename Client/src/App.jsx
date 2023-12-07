@@ -24,9 +24,10 @@ import FormEnvio from "./components/FormEnvio/FormEnvio";
 
 function App() {
   const location = useLocation();
-  const { isLoggedIn, admin, name, lastName, phone, address } = useSelector(
-    (state) => state.user
-  );
+  const { isLoggedIn, admin } = useSelector((state) => state.user);
+  const currentUser = useSelector((state) => state.user.user);
+  console.log(currentUser);
+  const { name, lastName, phone } = currentUser;
 
   const { origen, destino, servicios, total } = useSelector(
     (state) => state.quoter
@@ -41,7 +42,7 @@ function App() {
     isNew: null,
     enabled: false,
   });
-
+  console.log("da true o no,", name);
   const updateContextUser = (newUser) => {
     setUser(newUser);
   };
@@ -72,7 +73,7 @@ function App() {
         <Route
           element={
             <ProtectedRoute
-              isAllowed={isLoggedIn && name && lastName & address && phone}
+              isAllowed={isLoggedIn && name && lastName && phone}
               redirectTo={"/profile"}
             />
           }
@@ -81,31 +82,24 @@ function App() {
           //si estado quote esta vacio no permite ingresar a ruta /confirmacion,
           quizas haya que modificar todo esto...
         </Route>
-        {isLoggedIn ? (
-          <Route
-            element={
-              <ProtectedRoute
-                isAllowed={
-                  name &&
-                  lastName & address &&
-                  phone &&
-                  origen != "" &&
-                  destino != "" &&
-                  total != "" &&
-                  servicios.length != 0
-                }
-                redirectTo="/profile"
-              />
-            }
-          >
-            <Route path="/confirmacion" element={<FormEnvio />} />
-          </Route>
-        ) : (
-          <Route
-            path="/confirmacion"
-            element={<ProtectedRoute isAllowed={false} />}
-          />
-        )}
+        <Route
+          element={
+            <ProtectedRoute
+              isAllowed={
+                name &&
+                lastName &&
+                phone &&
+                origen != "" &&
+                destino != "" &&
+                total != "" &&
+                servicios.length != 0
+              }
+              redirectTo="/profile"
+            />
+          }
+        >
+          <Route path="/confirmacion" element={<FormEnvio />} />
+        </Route>
         //verifica que admin.email y isLoggedIn sean true para ir a ruta
         "/dashboard", caso que de false redirige a "/"
         <Route

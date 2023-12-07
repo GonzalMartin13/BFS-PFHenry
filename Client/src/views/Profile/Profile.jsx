@@ -1,41 +1,40 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable no-empty */
-import { Form, Button, Row, Col, Container } from "react-bootstrap";
+import { Form, Button, Row, Col } from "react-bootstrap";
 import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { validarr } from "./validateProfile";
-import { userProfile } from "../../redux/actions/userActions";
-import Swal from "sweetalert2";
-import { confirmed } from "../../redux/Slices/userSlice";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { validarr } from "./validateProfile";
+import { registerUser } from "../../redux/actions/userActions";
+import Swal from "sweetalert2";
 
-const Profile = () => {
-  const {user, goConfirmacion} = useSelector((state) => state.user);
-
-  const navigate = useNavigate;
-
+function Profile() {
   const [input, setInput] = useState({
-    name: user.name,
-    lastName: user.lastName,
-    phone: user.phone,
-    email: user.email,
-    nickname: user.nickname
+    name: "",
+    lastName: "",
+    phone: "",
+    address: "",
+    email: "",
+    password: "",
   });
 
   const [errors, setErrors] = useState({
     name: "",
     lastName: "",
     phone: "",
-    nickname: ""
+    address: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
   });
 
   const [formValid, setFormValid] = useState(false);
 
   const handleChange = (event) => {
-    setInput({
-      ...input,
-      [event.target.name]: event.target.value,
-    });
+    if (event.target.name !== "confirmPassword") {
+      setInput({
+        ...input,
+        [event.target.name]: event.target.value,
+      });
+    }
 
     const validationErrors = validarr({
       ...input,
@@ -62,128 +61,151 @@ const Profile = () => {
   }, [input, errors]);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     try {
+      dispatch(registerUser(input));
+
+      setInput({
+        name: "",
+        lastName: "",
+        phone: "",
+        address: "",
+        email: "",
+        password: "",
+      });
+
       Swal.fire({
-        title: "Perfil actualizado Exitosamente",
-        text: "Tu perfil se ha completado en BFS",
+        title: "Registrado Exitosamente",
+        text: "Te has registrado en BFS",
         icon: "success",
       });
 
-      dispatch(userProfile(input));
-
-      if(goConfirmacion === true) {
-        navigate("/confirmacion");
-        dispatch(confirmed(false));
-      };
+      navigate("/");
     } catch (error) {}
   };
 
   return (
-    <div>
-      <Container className="mt-7">
-        <Row className="justify-content-center align-items-center min-vh-100 ">
-          <Form onSubmit={handleSubmit}>
-            {/*  <h1 className="mb-4 fs-2">Registro de usario</h1> */}
-            {/* Nombre y Apellido en la misma línea */}
-            <Row className="mb-3">
-              <Col>
-                <Form.Control
-                  name="name"
-                  value={input.name}
-                  onChange={handleChange}
-                  type="text"
-                  placeholder="Nombre"
-                  size="sm"
-                />
-                {errors.name && <span className="text-danger">{errors.name}</span>}
-              </Col>
-              <Col>
-                <Form.Control
-                  name="lastName"
-                  value={input.lastName}
-                  onChange={handleChange}
-                  type="text"
-                  placeholder="Apellido"
-                  size="sm"
-                />
-                {errors.lastName && (
-                  <span className="text-danger">{errors.lastName}</span>
-                )}
-              </Col>
-            </Row>
-
-            {/* Teléfono y Dirección en la misma línea */}
-            <Row className="mb-3">
-              <Col>
-                <Form.Control
-                  name="phone"
-                  value={input.phone}
-                  onChange={handleChange}
-                  type="text"
-                  placeholder="Teléfono"
-                  size="sm"
-                />
-                {errors.phone && (
-                  <span className="text-danger">{errors.phone}</span>
-                )}
-              </Col>
-            </Row>
-
-            {/* Email */}
-            <Row className="mb-3">
-              <Col>
-                <Form.Control
-                  name="email"
-                  value={input.email}
-                  onChange={handleChange}
-                  type="email"
-                  placeholder="Email"
-                  size="sm"
-                  disabled
-                />
-                {errors.email && <div className="text-danger">{errors.email}</div>}
-              </Col>
-            </Row>
-
-            <Row className="mb-3">
-              <Col>
-                <Form.Control
-                  name="nickname"
-                  value={input.nickname}
-                  onChange={handleChange}
-                  type="text"
-                  placeholder="Nickname"
-                  size="sm"
-                />
-                {errors.nickname && (
-                  <span className="text-danger">{errors.nickname}</span>
-                )}
-              </Col>
-            </Row>
-
-            {/* Renderizar el botón solo si no hay errores */}
-            {!errors.name &&
-              !errors.lastName &&
-              !errors.phone &&
-              !errors.nickname && (
-                <Button
-                  disabled={!formValid}
-                  variant="primary"
-                  type="submit"
-                  className="mb-2"
-                >
-                  Actualizar
-                </Button>
-              )}
-          </Form>
+    <Row className="justify-content-center align-items-center min-vh-100 ">
+      <Form onSubmit={handleSubmit}>
+        {/* Nombre y Apellido en la misma línea */}
+        <Row className="mb-3">
+          <Col>
+            <Form.Control
+              name="name"
+              value={input.name}
+              onChange={handleChange}
+              type="text"
+              placeholder="Nombre"
+              size="sm"
+            />
+            {errors.name && <span className="text-danger">{errors.name}</span>}
+          </Col>
+          <Col>
+            <Form.Control
+              name="lastName"
+              value={input.lastName}
+              onChange={handleChange}
+              type="text"
+              placeholder="Apellido"
+              size="sm"
+            />
+            {errors.lastName && (
+              <span className="text-danger">{errors.lastName}</span>
+            )}
+          </Col>
         </Row>
-      </Container>
-    </div>
+
+        {/* Teléfono y Dirección en la misma línea */}
+        <Row className="mb-3">
+          <Col>
+            <Form.Control
+              name="phone"
+              value={input.phone}
+              onChange={handleChange}
+              type="text"
+              placeholder="Teléfono"
+              size="sm"
+            />
+            {errors.phone && (
+              <span className="text-danger">{errors.phone}</span>
+            )}
+          </Col>
+          <Col>
+            <Form.Control
+              name="address"
+              value={input.address}
+              onChange={handleChange}
+              type="text"
+              placeholder="Dirección"
+              size="sm"
+            />
+            {errors.address && (
+              <span className="text-danger">{errors.address}</span>
+            )}
+          </Col>
+        </Row>
+
+        {/* Email y Password */}
+        <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Control
+            name="email"
+            value={input.email}
+            onChange={handleChange}
+            type="email"
+            placeholder="Enter email"
+            autoComplete="off"
+          />
+          {errors.email && <div className="text-danger">{errors.email}</div>}
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="formBasicPassword">
+          <Form.Control
+            name="password"
+            value={input.password}
+            onChange={handleChange}
+            type="password"
+            placeholder="Password"
+          />
+          {errors.password && (
+            <span className="text-danger">{errors.password}</span>
+          )}
+        </Form.Group>
+
+        {/* Confirm Password */}
+        <Form.Group className="mb-3" controlId="formBasicConfirmPassword">
+          <Form.Control
+            name="confirmPassword"
+            value={input.confirmPassword}
+            onChange={handleChange}
+            type="password"
+            placeholder="Confirm Password"
+          />
+          {errors.confirmPassword && (
+            <span className="text-danger">{errors.confirmPassword}</span>
+          )}
+        </Form.Group>
+
+        {/* Renderizar el botón solo si no hay errores */}
+        {!errors.phone &&
+          !errors.email &&
+          !errors.password &&
+          !errors.confirmPassword && (
+            <Button
+              disabled={!formValid}
+              variant="primary"
+              type="submit"
+              className="mb-2"
+            >
+              Registrarse
+            </Button>
+          )}
+      </Form>
+    </Row>
   );
-};
+}
 
 export default Profile;
