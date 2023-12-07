@@ -1,6 +1,6 @@
 const {
 	putUserController,
-} = require("../controllers/getControllers/getUserController");
+} = require("../controllers/getUsers");
 
 const putHandlerUser = async (req, res) => {
 	const { ID, name, lastName, phone, address, email, nickname, enabled } =

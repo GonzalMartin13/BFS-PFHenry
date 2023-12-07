@@ -1,19 +1,19 @@
 import PropTypes from "prop-types";
 import styles from "./Dashboard.module.css";
-import Button from "../../Components/Button/Button";
 import Grafico from "./Graficos";
 import { useState } from 'react';
+import {faEdit} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 
 const Content = ({
   selectedButton,
-  payments,
   envio,
   users,
   admin,
-  handleBlockUser,
-  handleBlockEnvio,
-}) => {
+	handleToggleUser,
+	handleToggleEnvio,
+  }) => {
 
 	const [adminList, setAdminList] = useState(admin);
 
@@ -22,15 +22,14 @@ const Content = ({
     updatedAdminList[index].isActive = !updatedAdminList[index].isActive;
     setAdminList(updatedAdminList);
   };
-
 	return (
-		
 		<div className={styles.containerContext}>
 			<div>
-			<h2>Registros de Administración del sistema</h2>
-			<br />
-			{selectedButton === "adminGraphs" && (<Grafico />)}
+				<h2>Registros de Administración del sistema</h2>
+				<br />
+				{selectedButton === "adminGraphs" && <Grafico />}
 			</div>
+	
 			{selectedButton === "Usuarios" && (
 				<div className={styles.envios_table_container}>
 					<table className={styles.envios_table}>
@@ -52,155 +51,104 @@ const Content = ({
 									<td>{user.name}</td>
 									<td>{user.lastName}</td>
 									<td>
-										<label className={styles.container_check}>
-											{user?.enabled ? (
-												<input type="checkbox" checked={true} />
-											) : (
-												<input type="checkbox" checked={false} />
-											)}
-
-                  {user.enabled ? (
-                    <td>
-                      <Button
-                        text={"Bloquear usuario"}
-                        onClick={() => handleBlockUser(user)}
+									<label className={styles.container_check}>
+                      <input
+                        type="checkbox"
+                        checked={user.enabled}
+                        onChange={() => handleToggleUser(user)}
+												disabled
                       />
-                    </td>
-                  ) : (
-                    <td>
-                      <Button
-                        text={"Desbloquear usuario"}
-                        onClick={() => handleBlockUser(user)}
-                      />
-                    </td>
-                  )}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
-      {selectedButton === "Envios" && (
-        <div className={styles.envios_table_container}>
-          <table className={styles.envios_table}>
-            <thead>
-              <tr>
-                <th>Id</th>
-                <th>Categoría</th>
-                <th>Total</th>
-                <th>Status</th>
-                <th>Estado</th>
-                <th>Bloquear/Desbloquear</th>
-              </tr>
-            </thead>
-            <tbody>
-              {envio?.map((envio, index) => (
-                <tr key={index}>
-                  <td>{envio.id}</td>
-                  <td>{envio.servicios}</td>
-                  <td>${envio.total}</td>
-                  <td>{envio.status}</td>
-
+                      <div className={styles.checkmark}></div>
+                    </label>
+                  </td>
                   <td>
-                    <label className={styles.container_check}>
-                      {envio.enabled ? (
-                        <input type="checkbox" checked={true} />
-                      ) : (
-                        <input type="checkbox" checked={false} />
-                      )}
-
-									<td>
-										<label className={styles.container_check}>
-											{envio.enabled ? (
-												<input type="checkbox" checked={true} />
-											) : (
-												<input type="checkbox" checked={false} />
-											)}
-
-											<div className={styles.checkmark}></div>
-										</label>
+                  <button onClick={() => handleToggleUser(user)} className="btn btn-warning">
+                   {user.enabled ? "Bloquear" : "Desbloquear"}
+										<FontAwesomeIcon icon={faEdit} />
+										</button>
 									</td>
-									{envio.enabled ? (
-										<td>
-											<Button
-												text={"Bloquear envio"}
-												onClick={() => handleBlockEnvio(envio)}
-											/>
-										</td>
-									) : (
-										<td>
-											<Button
-												text={"Desbloquear envio"}
-												onClick={() => handleBlockEnvio(envio)}
-											/>
-										</td>
-									)}
 								</tr>
 							))}
 						</tbody>
 					</table>
 				</div>
 			)}
-			{selectedButton === "Pagos" && (
+	
+			{selectedButton === "Envios" && (
 				<div className={styles.envios_table_container}>
 					<table className={styles.envios_table}>
 						<thead>
 							<tr>
-								<th>ID de Pago</th>
-								<th>Nombre de usuario</th>
-								<th>Fecha de Pago</th>
-								<th>Monto</th>
-								<th>Método de Pago</th>
-								<th>Estado de Pago</th>
+								<th>Id</th>
+								<th>Categoría</th>
+								<th>Total</th>
+								<th>Status</th>
+								<th>Estado</th>
+								<th>Bloquear/Desbloquear</th>
 							</tr>
 						</thead>
 						<tbody>
-							{payments?.map((payment) => (
-								<tr key={payment.id}>
-									<td>{payment.id}</td>
+							{envio?.map((envio, index) => (
+								<tr key={index}>
+									<td>{envio.id}</td>
+									<td>{envio.servicios}</td>
+									<td>${envio.total}</td>
+									<td>{envio.status}</td>
 									<td>
-										{payment.User.firstName} {payment.User.lastName}
+									<label className={styles.container_check}>
+                      <input
+                        type="checkbox"
+                        checked={envio.enabled}
+                        onChange={() => handleToggleEnvio(envio)}
+												disabled
+                      />
+                      <div className={styles.checkmark}></div>
+                    </label>
+                  </td>
+                  <td>
+									<button onClick={() => handleToggleEnvio(envio)} className="btn btn-warning">
+									<FontAwesomeIcon icon={faEdit} />
+                   {envio.enabled ? "Bloquear" : "Desbloquear"}
+                   </button>
 									</td>
-									<td>{payment.payment_date}</td>
-									<td>${payment.amount}</td>
-									<td>{payment.payment_method}</td>
-									<td>{payment.payment_status}</td>
 								</tr>
 							))}
 						</tbody>
 					</table>
-					</div>
-					)}
-					{selectedButton === "Admin" && (
+				</div>
+			)}
+			{selectedButton === "Admin" && (
 				<div className={styles.envios_table_container}>
 					<table className={styles.envios_table}>
 						<thead>
 							<tr>
+								<th>ID</th>
 								<th>Nombre Admin</th>
 								<th>Email</th>
-								<th>Activar/Desactivar</th>
+								<th>Estado</th>
 							</tr>
 						</thead>
 						<tbody>
 							{admin?.map((admin, index) => (
 								<tr key={index}>
+									<td>{admin.ID}</td>
 									<td>{admin.nameAdmin}</td>
 									<td>{admin.emailAdmin}</td>
 									<td>
-                    <button onClick={() => toggleActivation(index)}>
-                      {admin.isActive ? 'Desactivar' : 'Activar'}
-                    </button>
-                  </td>
+										<button onClick={() => toggleActivation(index)} className="btn btn-warning">
+											<FontAwesomeIcon icon={faEdit} />
+											{admin.isActive ? "Desactivar" : "Activar"}
+										</button>
+									</td>
 								</tr>
 							))}
 						</tbody>
 					</table>
-					</div>
-					)}
-				
-    </div>
-		
+				</div>
+			)}
+		</div>
 	);
+	
 
 };
 Content.propTypes = {
@@ -209,8 +157,8 @@ Content.propTypes = {
   envio: PropTypes.array,
   admin: PropTypes.array,
   users: PropTypes.array,
-  handleBlockUser: PropTypes.func,
-  handleBlockEnvio: PropTypes.func,
+  handleToggleEnvio: PropTypes.func,
+  handleToggleUser: PropTypes.func,
 };
 
 export default Content;
