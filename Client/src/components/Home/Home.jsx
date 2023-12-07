@@ -1,40 +1,39 @@
-import SeguimientoEnvio from "../../components/seguimientoEnvio/seguimiento";
+/* eslint-disable no-unused-vars */
+/* eslint-disable react-hooks/exhaustive-deps */
 import Cards from "../Card/Cards";
 import Slider from "../Carrousel/Carrousel";
 import Image from "react-bootstrap/Image";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
+import {useSelector } from "react-redux";
+
+
 
 const Home = () => {
+  const isLogged = useSelector((state) => state.user.isLoggedIn);
+
   return (
-
-    <div style={{ position: 'relative' }}>
-      <Image src="https://selfpackaging.es/blog/wp-content/uploads/2019/03/entrega-paquete-1.jpg" fluid style={{ width: '100%', height: '600px' }}/>
-      <div style={{ position: 'absolute', top: 50, left: 0, width: '100%', height: '100%' }}>
-
-        <SeguimientoEnvio />
-      </div>
+    <div style={{ position: "relative" }}>
       <br />
       <br />
       <h2 className="title-carousel margin center-items">
         ¡Tenemos un <b>gran compromiso</b>!
       </h2>
+      <br />
       <Slider />
       <br />
       <br />
-
-      <h3 className="title-carousel margin center-items">
-        ¡Conoce <b>nuestros servicios</b> adaptados a nuestros clientes!
-      </h3>
       <br />
-
       <h3 className="title-carousel margin center-items">
         ¡Conoce <b>nuestros servicios</b> adaptados a nuestros clientes!
       </h3>
       <Cards />
 
+      <Button href="/envios" variant="" />
+
       <br />
-      <Button href="/envios" variant="">
+
+      <Button href={isLogged ? "/envios" : "/login"} variant="">
         <Card style={{ width: "18rem" }}>
           <Card.Body>
             <Card.Title>Ver mis envíos</Card.Title>
@@ -44,15 +43,7 @@ const Home = () => {
           </Card.Body>
         </Card>
       </Button>
-
-      <Button href="/sucursales" variant="">
-        <Card style={{ width: "18rem" }}>
-          <Card.Body>
-            <Card.Title>Buscar sucursal</Card.Title>
-            <Card.Text>Encontrá la sucursal BFS más cercana.</Card.Text>
-          </Card.Body>
-        </Card>
-      </Button>
+   
     </div>
   );
 };

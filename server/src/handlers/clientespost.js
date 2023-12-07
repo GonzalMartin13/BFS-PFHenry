@@ -9,6 +9,10 @@ const formContacto = async(req, res) =>{
         res.status(500).json(error)
     }
 }
- // falta controler 
+/*  endpoint: http://localhost:3001/clientes/
+ tipo: post
+ devuelve: encapsula los datos de formulario en un objeto
+*/
+
 
 module.exports = formContacto

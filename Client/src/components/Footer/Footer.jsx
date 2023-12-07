@@ -19,9 +19,9 @@ const Footer = () => {
           <Col md={3}>
             <p className={style.colum1_p}>Mas informacion sobre BFS </p>
             <span className={style.colum1_spn}>
-             <a href="/about"><p>Quienes Somos</p></a>
-             <a href="/sucursales"><p>Sucursales</p></a>
-             <a href="/servicios"><p>Servicios</p></a>
+             <a href="/about"><p className={style.path}>Quienes Somos</p></a>
+             <a href="/sucursales"><p className={style.path}>Sucursales</p></a>
+             <a href="/servicios"><p className={style.path}>Servicios</p></a>
             </span>
           </Col>
           <Col md={3}>
@@ -52,11 +52,10 @@ const Footer = () => {
               <img src="https://i.ibb.co/nCbxwm9/gmail-icono.png" alt="" />
               <a
                 className={style.link}
-                href="https://mail.google.com/mail/u/1/#inbox"
-                target="_blank"
+                href="/contacto"
                 rel="noopener noreferrer"
                 >
-                bfs01@gmail.com
+                enviosbfs01@gmail.com
               </a>
             </div>
             <div className={style.row2}>

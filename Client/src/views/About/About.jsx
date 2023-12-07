@@ -28,8 +28,8 @@ return (
         <div className={styles.dev}>
           <a href="https://github.com/Abel-Leiva" target="blank">
             <img className={styles.imgDev} src="https://avatars.githubusercontent.com/u/110953504?v=4" alt="" />
-            <h2 style={{color:"blue", width:"70%"}}>Abel Leiva</h2>
-            <h4 style={{color:"black", width:"70%"}}>La tecnología está revolucionando la educación. <br /><br />
+            <h2 className={styles.title}>Abel Leiva</h2>
+            <h4 className={styles.text}>La tecnología está revolucionando la educación. <br /><br />
             (Barack Obama)           
               <div className={styles.git}><FaGithub />Abel-Leiva</div>
               </h4> 
@@ -38,8 +38,8 @@ return (
         <div className={styles.dev}>
           <a href="https://github.com/DFHenaoTigreros" target="blank">
             <img className={styles.imgDev} src="https://avatars.githubusercontent.com/u/126849575?v=4" alt="" />
-            <h2 style={{color:"blue", width:"70%"}}>David Henao</h2>
-            <h4 style={{color:"black", width:"70%"}}>La educación es el arma para cambiar el mundo.<br /> <br />
+            <h2 className={styles.title}>David Henao</h2>
+            <h4 className={styles.text}>La educación es el arma para cambiar el mundo.<br /> <br />
             (Nelson Mandela)
               <div className={styles.git}><FaGithub />DFHenaoTigreros · he/him</div>
               </h4>
@@ -48,8 +48,8 @@ return (
         <div className={styles.dev}>
           <a href="https://github.com/FSamayoa" target="blank">
             <img className={styles.imgDev} src="https://avatars.githubusercontent.com/u/137366812?v=4" alt="" />
-            <h2 style={{color:"blue", width:"70%"}}>Fernando Samayoa</h2>
-            <h4 style={{color:"black", width:"70%"}}>La tecnología no es la respuesta, es la herramienta. <br /><br />
+            <h2 className={styles.title}>Fernando Samayoa</h2>
+            <h4 className={styles.text}>La tecnología no es la respuesta, es la herramienta. <br /><br />
             (William Kamkwamba)
               <div className={styles.git}><FaGithub />FSamayoa</div>
               </h4>
@@ -58,8 +58,8 @@ return (
         <div className={styles.dev}>
           <a href="https://github.com/GonzalMartin13" target="blank">
             <img className={styles.imgDev} src="https://avatars.githubusercontent.com/u/104043132?v=4" alt="" />
-            <h2 style={{color:"blue", width:"70%"}}>Gonzalo Martin</h2>
-            <h4 style={{color:"black", width:"70%"}}>La tecnología puede amplificar el aprendizaje.<br /><br />
+            <h2 className={styles.title}>Gonzalo Martin</h2>
+            <h4 className={styles.text}>La tecnología puede amplificar el aprendizaje.<br /><br />
             ( Bill Gates.)
             <div className={styles.git}><FaGithub />GonzalMartin13</div>
             </h4>
@@ -68,8 +68,8 @@ return (
         <div className={styles.dev}>
           <a href="https://github.com/Lumari-suma" target="blank">
             <img className={styles.imgDev} src="https://avatars.githubusercontent.com/u/67979701?v=4" alt="" />
-            <h2 style={{color:"blue", width:"70%"}}>Lumari Suma</h2>
-            <h4 style={{color:"black", width:"70%"}}>La tecnología es la (ala) derecha de la educación.<br /><br />
+            <h2 className={styles.title}>Lumari Suma</h2>
+            <h4 className={styles.text}>La tecnología es la (ala) derecha de la educación.<br /><br />
            (Randy Pausch)
               <div className={styles.git}><FaGithub />Lumari-suma</div>
             </h4>
@@ -78,8 +78,8 @@ return (
         <div className={styles.dev}>
           <a href="https://github.com/CEGGonzalez" target="blank">
             <img className={styles.imgDev} src="https://avatars.githubusercontent.com/u/136920851?u=122fa7a82be9268997ae95ac89f34bf2b14a0f5c&v=4" alt="" />
-            <h2 style={{color:"blue", width:"70%"}}>Carlos González</h2>
-            <h4 style={{color:"black", width:"70%"}}>La educación y la tecnología se unen para el cambio.<br /><br />
+            <h2 className={styles.title}>Carlos González</h2>
+            <h4 className={styles.text}>La educación y la tecnología se unen para el cambio.<br /><br />
             (Salman Khan)
           <div className={styles.git}><FaGithub />CEGGonzalez</div>
             </h4>
@@ -88,8 +88,8 @@ return (
         <div className={styles.dev}>
           <a href="https://github.com/MarcelCausone" target="blank">
             <img className={styles.imgDev} src="https://avatars.githubusercontent.com/u/135276337?v=4" alt="" />
-            <h2 style={{color:"blue", width:"70%"}}>Marcel Causone</h2>
-            <h4 style={{color:"black", width:"70%"}}>La educación es el arte de hacer visibles las cosas invisibles.<br /><br />
+            <h2 className={styles.title}>Marcel Causone</h2>
+            <h4 className={styles.text}>La educación es el arte de hacer visibles las cosas invisibles.<br /><br />
             (Jean-François Lyotard)
           <div className={styles.git}><FaGithub />MarcelCausone</div>
             </h4>
@@ -98,8 +98,8 @@ return (
         <div className={styles.dev}>
           <a href="https://github.com/xavierCS78" target="blank">
             <img className={styles.imgDev} src="https://avatars.githubusercontent.com/u/107232749?v=4" alt="" />
-            <h2 style={{color:"blue", width:"70%"}}>Wilson</h2>
-            <h4 style={{color:"black", width:"70%"}}>La educación es el único camino para escapar de la esclavitud mental.<br /><br />
+            <h2 className={styles.title}>Wilson</h2>
+            <h4 className={styles.text}>La educación es el único camino para escapar de la esclavitud mental.<br /><br />
             (Frederick Douglass)
           <div className={styles.git}><FaGithub />xavierCS78</div>
             </h4>

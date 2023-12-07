@@ -4,39 +4,39 @@ module.exports = (sequelize) => {
     sequelize.define('User', {
         ID: {
           type: DataTypes.UUID,
-          primaryKey: true,
           defaultValue: DataTypes.UUIDV4,
         },
         name: {
           type: DataTypes.STRING,
-          allowNull: false,          
+          allowNull: true,         
         },
         lastName: {
           type: DataTypes.STRING,
-          allowNull: false,         
+          allowNull: true,            
         },
         phone: {
-          type: DataTypes.STRING,
-          allowNull: false,
+          type: DataTypes.INTEGER,
+          allowNull: true,     
         },
         address: {
           type: DataTypes.STRING,
-          allowNull: false,
+          allowNull: true,     
         },
         email: {
           type: DataTypes.STRING,
           allowNull: false,
           unique: true,
+          primaryKey: true, 
         },
-        password: {
+        nickname: {
           type: DataTypes.STRING,
-          allowNull: false,
+          allowNull: false, 
           unique: true,
         },
-        connect: {
-          type: DataTypes.BOOLEAN,
+        picture: {
+          type: DataTypes.STRING,
           allowNull: false,
         }
       }, { freezeTableName: true
     });
-}
+};

@@ -1,30 +1,29 @@
-// userActions.js
+// // userActions.js
 import axios from "axios";
-import { addUser, logUser } from "../Slices/userSlice"; // Asegúrate de importar addUser desde el archivo correcto
+import {addUser, addAdmin} from "../Slices/userSlice"; // Asegúrate de importar addUser desde el archivo correcto
 
-export function registerUser(input) {
+export function registerUser(postUser) {
   return async function (dispatch) {
     try {
       const response = await axios.post(
-        "http://localhost:3001/user/register",
-        input
+        "http://localhost:3001/user/register", 
+        postUser
       );
-
       dispatch(addUser(response.data));
     } catch (error) {
-      console.error("Error al registrar el usuario:", error);
+      throw Error("Error al registrar el usuario", error);
     }
-  };
+  }
 }
 
-export function loginUser(input) {
-  return async function (dispatch) {
+export const registerAdmin = (postAdmin) => {
+  return async (dispatch) => {
     try {
-      const response = await axios.put("http://localhost:3001/user/log", input);
-
-      dispatch(logUser(response.data));
+      const response = await axios.post("http://localhost:3001/admin/", postAdmin);
+      console.log(response.data)
+      dispatch(addAdmin(response.data));
     } catch (error) {
-      console.error("Error al inciar sesion:", error);
+      throw Error(error.message);
     }
   };
-}
+};

@@ -1,9 +1,11 @@
 // userSlice.js
-import { createSlice } from "@reduxjs/toolkit";
+import {createSlice} from "@reduxjs/toolkit";
 
 const initialState = {
-  users: [],
-  logUsers: [],
+  user: {},
+  isLoggedIn:false,
+  contador: 1,
+  admin: {}
 };
 
 export const userSlice = createSlice({
@@ -11,16 +13,28 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     addUser: (state, action) => {
-      state.users.push(action.payload);
+      state.user = (action.payload);
     },
-    logUser: (state, action) => {
-      state.logUsers.push(action.payload);
+    login: (state) => {
+      state.isLoggedIn = true;
+      state.contador = 3;
+    },
+    logouted : (state) => {
+      state.user = {};
+      state.isLoggedIn = false;
+      state.contador = 1;
+      state.admin = {};
+    }, 
+    contar: (state) => {
+      state.contador = (state.contador + 1);
+    }, 
+    addAdmin: (state, action) => {
+      state.admin = (action.payload);
     },
   },
 });
 
-console.log(initialState);
-
-export const { addUser, logUser } = userSlice.actions;
+export const {logouted, login, addUser, contar, addAdmin} = userSlice.actions;
 
 export default userSlice.reducer;
+

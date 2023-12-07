@@ -2,40 +2,32 @@ footer {
   padding: 20px 20px 0px 20px;
   bottom: 0;
   width: 100%;
-  background-color: rgb(0, 0, 0);
+  background-color: #696868;
   color: white;
-  
 }
 .Footer {
   width: 100%;
- 
 }
 .container_foot {
   display: flex;
-  
 }
 
 .colum1 {
   max-width: 400px;
 }
 .colum1_p {
+  margin-left: 25px;
   font-size: 22px;
-}
-.colum1_span {
-  font-size: 14px;
-  color: #c7c7c7;
-  margin-top: 20px;
 }
 
 .gd {
   margin-top: -10px;
   display: flex;
   flex-direction: row;
-  
 }
 .row {
   margin-top: 10px;
-  margin-left: 85px;
+  margin-left: 35%;
   display: flex;
 }
 
@@ -70,12 +62,18 @@ footer {
 }
 
 .container_footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;  
+  width: 100%;
   display: flex;
   justify-content: space-between;
-  padding-left: 10px;
-  padding-right: 10px;
+  padding-left: 40px;
+  padding-right: 40px;
   padding-bottom: 3px;
-  background-color: rgb(0, 0, 0);
+  background-color: #222;
+  
 }
 .copy a {
   text-decoration: none;
@@ -101,9 +99,13 @@ footer {
 
 .img__logo {
   margin-top: 20px;
-  height: 180px;
-  margin-left: 10px;
+  height: 110px;
 }
 .ordenador {
   display: flex;
 }
+.path {
+  color: white;
+}
+
+

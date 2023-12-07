@@ -2,12 +2,18 @@
 
 const {User} = require("../db");
 
-const postRegister = async(name, lastName, phone, address, email, password) => {
+const postRegister = async(email, nickname, picture) => {
   try {
-    if (name && lastName && phone && address && email && password) {
-      await User.create({name, lastName, phone, address, email, password, connect: false});
-      return "Usuario registrado";
-    } 
+    if (email && nickname && picture) {
+      const userFound = await User.findOne({where: {email: email, nickname: nickname, picture: picture}});
+
+      if(userFound) {
+        return userFound;
+      } else {
+        const userCreated = await User.create({email, nickname, picture});
+        return userCreated;
+      };
+    };
     throw Error ("Datos no recibidos completamente");
   } catch (error) {
     return "Error al registrar usuario";
@@ -17,6 +23,4 @@ const postRegister = async(name, lastName, phone, address, email, password) => {
 module.exports = {
   postRegister
 };
-
-
 
