@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 // En tu store.js
 import {
   configureStore,
