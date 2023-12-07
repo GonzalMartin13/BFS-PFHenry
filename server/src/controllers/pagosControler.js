@@ -19,7 +19,7 @@ try{
 
         back_urls:{ 
             success:"http://localhost:5173/factura" , // cambiar por pag del front
-            pending:"http://localhost:3001/pagos/pendiente",
+            pending:"http://https://bfs-pfhenry-production.up.railway.app/pagos/pendiente",
             failure:"http://localhost:5173/"
         },
         auto_return: "all",

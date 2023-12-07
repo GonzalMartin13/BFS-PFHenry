@@ -5,7 +5,7 @@ const updateEnvio = async (newDataEnvio) => {
 		newDataEnvio;
 	console.log(image, id, title, enabled, onSale, percentageDiscount, banned);
 	try {
-		const response = await axios.put(`http://localhost:3001/envios/edit`, newDataEnvio);
+		const response = await axios.put(`http://https://bfs-pfhenry-production.up.railway.app/envios/edit`, newDataEnvio);
 
 		if (response.status !== 200) {
 			throw new Error(`HTTP error! Status: ${response.status}`);
