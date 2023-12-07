@@ -16,13 +16,20 @@ res.status(500).json({error:error.message});
 
 const handlerPutProfile = async(req,res)=>{
     const { 
-        email, 
-        password 
+        name, 
+        lastName,
+        phone,
+        email,
+        nickname
     } = req.body;
+
     try {
         const response = await putProfile(
-            email, 
-            password
+            name,
+            lastName,
+            phone,
+            email,
+            nickname
         );
         !response ? res.status(400).json({ error:`No se encontró el usuario ${email}` })
             : res.status(200).json(response)
