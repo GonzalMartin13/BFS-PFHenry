@@ -6,7 +6,7 @@ export function registerUser(postUser) {
   return async function (dispatch) {
     try {
       const response = await axios.post(
-        "http://localhost:3001/user/register", 
+        "http://https://bfs-pfhenry-production.up.railway.app/user/register", 
         postUser
       );
       dispatch(addUser(response.data));
@@ -19,7 +19,7 @@ export function registerUser(postUser) {
 export const registerAdmin = (postAdmin) => {
   return async (dispatch) => {
     try {
-      const response = await axios.post("http://localhost:3001/admin/", postAdmin);
+      const response = await axios.post("http://https://bfs-pfhenry-production.up.railway.app/admin/", postAdmin);
       console.log(response.data)
       dispatch(addAdmin(response.data));
     } catch (error) {
