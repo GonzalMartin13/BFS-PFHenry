@@ -3,7 +3,7 @@ const searcher = {
   outline: "none",
   backgroundColor: "transparent",
   color: "black",
-  border: "3px solid darkblue",
+  border: "2px solid black",
   fontFamily: "inherit",
   width: "300px",
   fontSize: "15px",

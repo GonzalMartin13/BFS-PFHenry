@@ -28,7 +28,7 @@ router.use("/pagos", pagosRoutes)
 // Dashboard user
 router.use("/dashboard", userRoutes) 
 
-// Dashboard post y get
+// Dashboard post, get y put
 router.use("/admin", adminRoutes) 
 
 // Reviews post y get

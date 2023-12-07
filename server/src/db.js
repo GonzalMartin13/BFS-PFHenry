@@ -4,10 +4,9 @@ const pg = require("pg");
 const path = require("path");
 const fs = require("fs");
 
-const { DB_USER, DB_PASSWORD, DB_HOST } = process.env;
+const { DB_USER, DB_PASSWORD, DB_HOST, DEPLOY_URL } = process.env;
 
-const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/BFS`,
-	
+const sequelize = new Sequelize(DEPLOY_URL,	
 	{
 		logging: false,
 		native: false,

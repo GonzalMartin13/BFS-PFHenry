@@ -12,9 +12,9 @@ export function registerUser(postUser) {
       dispatch(addUser(response.data));
     } catch (error) {
       throw Error("Error al registrar el usuario", error);
-    };
-  };
-};
+    }
+  }
+}
 
 export const registerAdmin = (postAdmin) => {
   return async (dispatch) => {
@@ -24,6 +24,6 @@ export const registerAdmin = (postAdmin) => {
       dispatch(addAdmin(response.data));
     } catch (error) {
       throw Error(error.message);
-    };
+    }
   };
 };

@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable react/prop-types */
 import style from "./Dashboard.module.css";
 import { useEffect, useState } from "react";
 import Sidebar from "./Sidebar";
@@ -10,10 +12,12 @@ import Swal from "sweetalert2";
 import updateEnvio from "../../utils/updateEnvio";
 
 const Dashboard = ({ updateContextUser }) => {
+  const [setAdminGraphs] = useState([]);
   const [users, setUsers] = useState([]);
   const [envio, setEnvio] = useState([]);
   const [admin, setAdmin] = useState([]);
   const [selectedButton, setSelectedButton] = useState("");
+
 
 	const handleToggleUser = (user) => {
    
@@ -43,18 +47,31 @@ const Dashboard = ({ updateContextUser }) => {
     handleAdmin();
   }, []);
 
-  const handleButtonClick = (button) => {
-    if (button === "Usuarios") {
-      handleUsers();
-      setSelectedButton(button);
-    } else if (button === "Envios") {
-      setSelectedButton(button);
-      handleEnvio();
-    } else if (button === "Admin") {
-      setSelectedButton(button);
-      handleAdmin();
-    }
-  };
+	useEffect(() => {
+		const session = JSON.parse(localStorage.getItem("userOnSession"));
+		if (session?.email !== "") {
+			updateContextUser(session);
+		}
+		handleUsers();
+		handleEnvio();
+		handleAdmin();
+	}, []);
+
+	const handleButtonClick = (button) => {
+		if (button === "adminGraphs") {
+			setSelectedButton(button);	
+			setAdminGraphs(true);
+		} else if (button === "Usuarios") {
+			setSelectedButton(button);
+			handleAdmin();
+		} else if (button === "Envios") {
+			setSelectedButton(button);
+			handleEnvio();
+		} else if (button === "Admin") {
+			setSelectedButton(button);
+			handleAdmin();
+		}
+	};
 
   const handleUsers = async () => {
     const usuarios = await getAllUser();
@@ -278,22 +295,23 @@ const Dashboard = ({ updateContextUser }) => {
     }
   };
 
-  return (
-    <div className={style.container}>
-      <Sidebar onButtonClick={handleButtonClick} />
-      <Content
-        selectedButton={selectedButton}
-        users={users}
-        envio={envio}
-        admin={admin}
-        handleBlockUser={handleBlockUser}
-        handleBlockEnvio={handleBlockEnvio}
-        handleBlockAdmin={handleBlockAdmin}
-				handleToggleUser={handleToggleUser}
+	return (
+		<div className={style.container}>
+			<Sidebar onButtonClick={handleButtonClick} />
+			<Content
+				selectedButton={selectedButton}
+				users={users}
+				envio={envio}
+				admin={admin}
+				handleBlockUser={handleBlockUser}
+				handleBlockEnvio={handleBlockEnvio}
+				handleBlockAdmin={handleBlockAdmin}	
+        handleToggleUser={handleToggleUser}
 				handleToggleEnvio={handleToggleEnvio}
-      />
-    </div>
-  );
+			/>
+			
+		</div>
+	);
 };
 
 export default Dashboard;

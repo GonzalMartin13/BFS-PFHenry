@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import Cards from "../Card/Cards";
 import Slider from "../Carrousel/Carrousel";
@@ -18,7 +19,10 @@ const Home = () => {
       <h2 className="title-carousel margin center-items">
         ¡Tenemos un <b>gran compromiso</b>!
       </h2>
+      <br />
       <Slider />
+      <br />
+      <br />
       <br />
       <h3 className="title-carousel margin center-items">
         ¡Conoce <b>nuestros servicios</b> adaptados a nuestros clientes!

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Route, Routes, useLocation } from "react-router-dom";
 
 import NavBar from "./components/NavBar/NavBar";
