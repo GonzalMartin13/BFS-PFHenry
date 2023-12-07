@@ -12,9 +12,6 @@ const Sidebar = ({ onButtonClick }) => {
         <Button text={"Envios"} onClick={() => onButtonClick("Envios")}>
           envio
         </Button>
-        <Button text={"Pagos"} onClick={() => onButtonClick("Pagos")}>
-          payments
-        </Button>
         <Button text={"Admin"} onClick={() => onButtonClick("Admin")}>
           admin
         </Button>

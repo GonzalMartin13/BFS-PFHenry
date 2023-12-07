@@ -4,7 +4,6 @@ import Sidebar from "./Sidebar";
 import Content from "./Content";
 import { getAllUser } from "../../utils/getAllUser";
 import { getAllEnvios } from "../../utils/getAllEnvios";
-import { getAllPayments } from "../../utils/getAllPayments";
 import { getAllAdmin } from "../../utils/geatAllAdmin";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -13,9 +12,26 @@ import updateEnvio from "../../utils/updateEnvio";
 const Dashboard = ({ updateContextUser }) => {
   const [users, setUsers] = useState([]);
   const [envio, setEnvio] = useState([]);
-  const [payments, setPayments] = useState([]);
   const [admin, setAdmin] = useState([]);
   const [selectedButton, setSelectedButton] = useState("");
+
+	const handleToggleUser = (user) => {
+   
+    setUsers((prevUsers) =>
+      prevUsers.map((u) =>
+        u.ID === user.ID ? { ...u, enabled: !u.enabled } : u
+      )
+    );
+  };
+
+	const handleToggleEnvio = (envio) => {
+   
+    setEnvio((prevEnvio) =>
+      prevEnvio.map((e) =>
+        e.id === envio.id ? { ...e, enabled: !envio.enabled } : e
+      )
+    );
+  };
 
   useEffect(() => {
     const session = JSON.parse(localStorage.getItem("userOnSession"));
@@ -24,7 +40,6 @@ const Dashboard = ({ updateContextUser }) => {
     }
     handleUsers();
     handleEnvio();
-    handlePayments();
     handleAdmin();
   }, []);
 
@@ -35,9 +50,6 @@ const Dashboard = ({ updateContextUser }) => {
     } else if (button === "Envios") {
       setSelectedButton(button);
       handleEnvio();
-    } else if (button === "Pagos") {
-      setSelectedButton(button);
-      handlePayments();
     } else if (button === "Admin") {
       setSelectedButton(button);
       handleAdmin();
@@ -54,18 +66,7 @@ const Dashboard = ({ updateContextUser }) => {
     setEnvio(envio);
   };
 
-  const handlePayments = async () => {
-    try {
-      const paymentsData = await getAllPayments();
-      // Asegurar que paymentsData es un array
-      const paymentsArray = Array.isArray(paymentsData) ? paymentsData : [];
-      setPayments(paymentsArray);
-    } catch (error) {
-      console.error("Error fetching payments:", error);
-    }
-  };
-
-  const handleAdmin = async () => {
+   const handleAdmin = async () => {
     const admin = await getAllAdmin();
     setAdmin(admin);
   };
@@ -85,7 +86,7 @@ const Dashboard = ({ updateContextUser }) => {
         },
       }).then(async (result) => {
         if (result.isConfirmed) {
-          const response = await axios.put(`http://localhost:3001/user`, {
+          const response = await axios.put(`http://localhost:3001/user/:ID`, {
             ...user,
             enabled: false,
           });
@@ -118,7 +119,7 @@ const Dashboard = ({ updateContextUser }) => {
         },
       }).then(async (result) => {
         if (result.isConfirmed) {
-          const response = await axios.put(`http://localhost:3001/user`, {
+          const response = await axios.put(`http://localhost:3001/user/:ID`, {
             ...user,
             enabled: true,
           });
@@ -285,10 +286,11 @@ const Dashboard = ({ updateContextUser }) => {
         users={users}
         envio={envio}
         admin={admin}
-        payments={payments}
         handleBlockUser={handleBlockUser}
         handleBlockEnvio={handleBlockEnvio}
         handleBlockAdmin={handleBlockAdmin}
+				handleToggleUser={handleToggleUser}
+				handleToggleEnvio={handleToggleEnvio}
       />
     </div>
   );

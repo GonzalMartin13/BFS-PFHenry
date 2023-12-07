@@ -13,11 +13,21 @@ return {
   phone,
   address,
   email,
-  
-
 }
 })  
 return allUser;
 };
 
-module.exports = { getAllUsers };
+const putUserController = async (user) => {
+	const data = await User.update(user, {
+		where: { id: user.id },
+	});
+
+	if (!data) {
+		return "User Not Founded";
+	}
+
+	return data[0];
+};
+
+module.exports = { getAllUsers, putUserController };
