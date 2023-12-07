@@ -60,7 +60,8 @@ function App() {
         <Route path="/sucursales" element={<Mapa />} />
         <Route path="/guia" element={<Pdf />} />
         <Route path="/profile" element={<Profile />} />
-        //protege ruta /factura redirige a "/" si datos de compra estan vacios
+        //protege ruta "/factura", redirige a "/" si datos de compra estan
+        vacios
         <Route
           element={<ProtectedRoute isAllowed={isLoggedIn && !todosVacios} />}
         >
