@@ -50,23 +50,6 @@ const Dashboard = ({ updateContextUser }) => {
 		}
 	};
 
-
-   const handleButtonClick = (button) => {
-    if (button === "Usuarios") {
-      handleUsers();
-      setSelectedButton(button);
-    } else if (button === "Envios") {
-      setSelectedButton(button);
-      handleEnvio();
-    } else if (button === "Pagos") {
-      setSelectedButton(button);
-      handlePayments();
-    } else if (button === "Admin") {
-      setSelectedButton(button);
-      handleAdmin();
-    }
-  }; 
-
   const handleUsers = async () => {
     const usuarios = await getAllUser();
     setUsers(usuarios);
