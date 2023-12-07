@@ -9,7 +9,7 @@ const formContacto = async(req, res) =>{
         res.status(500).json(error)
     }
 }
-/*  endpoint: http://https://bfs-pfhenry-production.up.railway.app/clientes/
+/*  endpoint: https://bfs-pfhenry-production.up.railway.app/clientes/
  tipo: post
  devuelve: encapsula los datos de formulario en un objeto
 */
