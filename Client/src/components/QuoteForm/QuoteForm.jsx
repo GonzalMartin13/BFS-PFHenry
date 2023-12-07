@@ -140,7 +140,7 @@ export default function QuoteForm() {
 
     try {
       const { data } = await axios.post(
-        "http://localhost:3001/envios/price",
+        "http://https://bfs-pfhenry-production.up.railway.app/envios/price",
         form
       );
 

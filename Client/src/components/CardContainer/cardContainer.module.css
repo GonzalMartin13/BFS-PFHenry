@@ -4,11 +4,12 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    
+  
     margin: 100px;
     @media (max-width: 1000px) {
         .divCards {
           flex-direction: column; /* Cambia la dirección de flex a columna */
+         
         }
       
         .card {

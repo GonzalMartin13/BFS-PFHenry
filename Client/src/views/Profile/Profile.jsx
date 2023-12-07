@@ -1,4 +1,6 @@
-import { Form, Button, Row, Col } from "react-bootstrap";
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-empty */
+import { Form, Button, Row, Col, Container } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -89,8 +91,12 @@ function Profile() {
   };
 
   return (
+    <div>
+   
+    <Container className="mt-7">
     <Row className="justify-content-center align-items-center min-vh-100 ">
       <Form onSubmit={handleSubmit}>
+     {/*  <h1 className="mb-4 fs-2">Registro de usario</h1> */}
         {/* Nombre y Apellido en la misma línea */}
         <Row className="mb-3">
           <Col>
@@ -205,6 +211,8 @@ function Profile() {
           )}
       </Form>
     </Row>
+    </Container>
+    </div>
   );
 }
 

@@ -5,8 +5,8 @@ import styles from "../CardContainer/cardContainer.module.css"
 const Cards = () => {
   return (
     <div className={styles.divCard}>
-      <div >
-        <Card style={{ width: "18rem", height: "25rem", margin: "10px"}}>
+      <div>
+        <Card style={{ width: "18rem", height: "25rem", margin: "10px", backgroundColor: "#ffbc6587" }}>
           <Card.Img
             variant="top"
             src="https://libertyexpress.com/wp-content/themes/kutis/assets/svg/icons/servicioPickup.svg"
@@ -22,7 +22,7 @@ const Cards = () => {
         </Card>
       </div>
       <div>
-        <Card style={{ width: "18rem", height: "25rem", margin: "10px" }}>
+        <Card style={{ width: "18rem", height: "25rem", margin: "10px", backgroundColor: "#0000ff44" }}>
           <Card.Img
             variant="top"
             src="https://libertyexpress.com/wp-content/themes/kutis/assets/svg/icons/servicioCargaComercial.svg"
@@ -39,7 +39,7 @@ const Cards = () => {
       </div>
  
       <div>
-        <Card style={{ width: "18rem", height: "25rem", margin: "10px" }}>
+        <Card style={{ width: "18rem", height: "25rem", margin: "10px", backgroundColor: "#ffbc6587" }}>
           <Card.Img
             variant="top"
             src="https://libertyexpress.com/wp-content/themes/kutis/assets/svg/icons/servicioEnvioRecepcion.svg"
