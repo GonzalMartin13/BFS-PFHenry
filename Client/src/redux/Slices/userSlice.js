@@ -7,7 +7,8 @@ const initialState = {
   contador: 1,
   admin: {},
   isProfile: false,
-  goConfirmacion: false
+  goConfirmacion: false,
+  emails: ["dixongonzalezm2304@gmail.com", "bfspfhenry@gmail.com"]
 };
 
 export const userSlice = createSlice({

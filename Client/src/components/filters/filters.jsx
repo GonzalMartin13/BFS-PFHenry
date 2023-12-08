@@ -39,8 +39,8 @@ function VerticalExample() {
           id="bg-vertical-dropdown-1"
           onSelect={sortHandler}
         >
-          <Dropdown.Item value="fechaAsc" eventKey="fechaAsc">arriba</Dropdown.Item>
-          <Dropdown.Item value="fechaDesc" eventKey="fechaDesc">abajo</Dropdown.Item>
+          <Dropdown.Item value="fechaAsc" eventKey="fechaAsc">Último</Dropdown.Item>
+          <Dropdown.Item value="fechaDesc" eventKey="fechaDesc">Reciente</Dropdown.Item>
         </DropdownButton>
       </ButtonGroup>
   
