@@ -32,7 +32,6 @@ router.use("/dashboard", userRoutes)
 router.use("/admin", adminRoutes) 
 
 // Reviews post y get
-router.use("/reviews", reviewsRoutes)
-
+router.use("/reviews", reviewsRoutes); 
 
 module.exports = router;

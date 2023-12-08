@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-extra-semi */
 import {useDispatch, useSelector} from "react-redux";
-import {registerUser, registerAdmin} from "../../redux/actions/userActions";
+import {registerUser, registerAdmin, userProfile} from "../../redux/actions/userActions";
 import {login, logouted, contar} from "../../redux/Slices/userSlice";
 import Button from "react-bootstrap/Button";
 import Swal from "sweetalert2";
@@ -12,7 +12,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faRightToBracket } from '@fortawesome/free-solid-svg-icons';
  
 const Login = () => {
-  const {contador, isLoggedIn} = useSelector((state) => state.user);
+  const {contador, isLoggedIn, emails} = useSelector((state) => state.user);
+
+  const usuario = useSelector((state) => state.user.user);
 
   const navigate = useNavigate();
 
@@ -20,7 +22,6 @@ const Login = () => {
 
   const {loginWithRedirect, isAuthenticated, logout, user} = useAuth0();
 
-  const emails = ["dixongonzalezm2304@gmail.com", "bfspfhenry@gmail.com"]
 
   if (emails.includes(user?.email) && isAuthenticated && user.email_verified && contador === 2) {
     const previousRoute = localStorage.getItem('previousRoute');
@@ -76,6 +77,18 @@ const Login = () => {
     dispatch(contar());
   };
 
+  if (usuario.phone && contador === 3) {
+    const input = {
+      name: usuario.name,
+      lastName: usuario.lastName,
+      phone: usuario.phone,
+      email: usuario.email,
+      nickname: usuario.nickname
+    };
+    dispatch(contar());
+    dispatch(userProfile(input));
+  };
+
 
   const handleLogin = () => {
     localStorage.setItem('previousRoute', window.location.pathname);
@@ -122,7 +135,7 @@ const Login = () => {
 
   return (
     <div>
-      {!isLoggedIn && contador === 1 ? (
+      {!isLoggedIn ? (
         <Button onClick={handleLogin} style={log}>Ingresar</Button>
       ) : (
       <div>

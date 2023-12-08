@@ -1,12 +1,7 @@
 /* eslint-disable react/prop-types */
 import style from "./Dashboard.module.css";
-import Button from "../../Components/Button/Button";
-import {
-  BsClipboardDataFill,
-  BsCursorFill,
-  BsPeopleFill,
-  BsFillGearFill,
-} from "react-icons/bs";
+import Button from "../../components/Button/Button";
+import { BsClipboardDataFill, BsCursorFill, BsPeopleFill, BsFillGearFill} from 'react-icons/bs';
 
 const Sidebar = ({ onButtonClick }) => {
   return (
@@ -41,18 +36,13 @@ const Sidebar = ({ onButtonClick }) => {
           onClick={() => onButtonClick("Envios")}
         />
 
-        {/* <Button text={<><BsCashCoin /> Pagos</>} onClick={() => onButtonClick("Pagos")} /> */}
+				{/* <Button text={<><BsCashCoin /> Pagos</>} onClick={() => onButtonClick("Pagos")} /> */}
+					
+				<Button text={<><BsFillGearFill /> Admin</>} onClick={() => onButtonClick("Admin")} />
+					
+			</ul>
+		</div>
+	);
 
-        <Button
-          text={
-            <>
-              <BsFillGearFill /> Admin
-            </>
-          }
-          onClick={() => onButtonClick("Admin")}
-        />
-      </ul>
-    </div>
-  );
 };
 export default Sidebar;

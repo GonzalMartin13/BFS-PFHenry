@@ -11,11 +11,10 @@ import storage from "redux-persist/lib/storage";
 import userReducer from "../Slices/userSlice";
 import packageReducer from "../Slices/packageSlice";
 import quoterReducer from "../Slices/quoterslice";
-
 import invoiceUserReducer from "../Slices/invoiceUserSlice";
-
 import shippingReducer from "../Slices/shippingSlice";
 import seguimientoReducer from "../Slices/seguimientoSlice"
+import reviewsReducer from "../Slices/reviewsSlice"
 
 const persistConfig = {
   key: "root",
@@ -27,12 +26,11 @@ const persistedReducer = persistReducer(
   combineReducers({
     user: userReducer,
     quoter: quoterReducer,
-
     invoice: invoiceUserReducer,
-
     shipping: shippingReducer,
     packages: packageReducer,
-    seguimiento:seguimientoReducer
+    seguimiento:seguimientoReducer,
+    reviews:reviewsReducer
   })
 );
 

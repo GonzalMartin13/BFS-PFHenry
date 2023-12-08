@@ -1,31 +1,25 @@
 export function validarr(input) {
-  let errors = {};
-  let emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
-  let numbersRegex = /\d/;
-  let phoneRegex = /^\d+$/;
+  const errors = {};
+  const phoneRegex = /^\d+$/;
+  const letterRegex = /^[a-zA-Z]+$/;
+  const letterNumber = /^[0-9a-zA-Z]+$/;
 
-  if (!emailRegex.test(input.email)) {
-    errors.email = "Mail invalido";
-  }
-  if (input.email.length >= 35) {
-    errors.email = "No más de 35 caracteres";
-  }
-  if (!numbersRegex.test(input.password)) {
-    errors.password = "La contraseña debe tener al menos un número";
-  }
-  if (input.password.length < 6 || input.password.length > 10) {
-    errors.password = "La contraseña debe tener entre 6 y 10 caracteres";
-  }
+  if (input.name && !letterRegex.test(input.name)) {
+    errors.name = "El nombre solo puede contener letras";
+  };
 
-  // Validación adicional para confirmar la contraseña
-  if (input.password !== input.confirmPassword) {
-    errors.confirmPassword = "Las contraseñas no coinciden";
-  }
+  if (input.lastName && !letterRegex.test(input.lastName)) {
+    errors.lastName = "El apellido solo puede contener letras";
+  };
 
   // Validación para el número de teléfono
   if (input.phone && !phoneRegex.test(input.phone)) {
     errors.phone = "El teléfono solo puede contener números";
-  }
+  };
+
+  if (input.nickname && !letterNumber.test(input.nickname)) {
+    errors.nickname = "El nickname solo puede contener letras y numeros";
+  };
 
   return errors;
-}
+};

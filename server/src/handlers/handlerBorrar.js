@@ -11,7 +11,7 @@ const handlerBorrar = async(req, res) =>{
     };
 }
 
-// Endpoint: http://localhost:3001/envios/eliminar/:id
+// Endpoint: https://bfs-pfhenry-production.up.railway.app/envios/eliminar/:id
 // Tipo: DELETE -- Pide UUID por parametro
 // Devuelve: Mensaje de confirmacion de borrado
 

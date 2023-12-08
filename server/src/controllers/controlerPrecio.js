@@ -50,17 +50,18 @@ const contolerPrecio = async (origen, destino, volumen, peso, servicios) => {
       precioFinal += provinciaEncontrada.distancia * precioXKilometro;
     }
     //sumo % de servicio segun corresponda
+    let precioASumar = precioFinal;
     //express +40%
     if (servicios.includes("express")) {
-      precioFinal = precioFinal + precioFinal * 0.4;
+      precioFinal = precioFinal + precioASumar * 0.4;
     }
     //fragilBox +30%
     if (servicios.includes("fragilBox")) {
-      precioFinal = precioFinal + precioFinal * 0.4;
+      precioFinal = precioFinal + precioASumar * 0.4;
     }
     //certificada +30%
     if (servicios.includes("certificada")) {
-      precioFinal = precioFinal + precioFinal * 0.4;
+      precioFinal = precioFinal + precioASumar * 0.4;
     }
     //descuento si incluye express, certificada y fragil
     if (
@@ -68,7 +69,7 @@ const contolerPrecio = async (origen, destino, volumen, peso, servicios) => {
       servicios.includes("certificada") &&
       servicios.includes("fragilBox")
     ) {
-      precioFinal = precioFinal - precioFinal * 0.2;
+      precioFinal = precioFinal - precioFinal * 0.1;
     }
     //sumo % por peso segun corresponda
     precioFinal = precioFinal + precioFinal * (peso / 70);

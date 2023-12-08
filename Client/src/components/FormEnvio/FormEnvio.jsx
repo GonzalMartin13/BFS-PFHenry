@@ -41,6 +41,8 @@ const FormEnvio = () => {
     (state) => state.quoter
   );
 
+  const {user} = useSelector((state) => state.user);
+
   const sucursalOrigen = sucursales.find(
     (sucursal) => sucursal.Popup === origen
   );
@@ -53,7 +55,7 @@ const FormEnvio = () => {
       valores.imagen = imagenLocal;
       const porstEnviar = await enviarBD(valores);
       dispatch(setidShipping(porstEnviar.idDelEnvio.numeroEnvio));
-    } catch (error) {}
+    } catch (error) { console.log(error.message)}
   };
 
   const handleFileUpload = async () => {
@@ -106,7 +108,7 @@ const FormEnvio = () => {
   useEffect(() => {
     const mercadoPago = async () => {
       try {
-        const { data } = await axios.post("http://localhost:3001/pagos/crear", {
+        const { data } = await axios.post("https://bfs-pfhenry-production.up.railway.app/pagos/crear", {
           total,
           servicios,
         });
@@ -131,10 +133,10 @@ const FormEnvio = () => {
   return (
     <Formik
       initialValues={{
-        nombreRemitente: "",
+        nombreRemitente: `${user.name} ${user.lastName}`,
         razonSocialRemitente: "",
-        telefonoRemitente: "",
-        emailRemitente: "",
+        telefonoRemitente: user.phone,
+        emailRemitente: user.email,
         dniRemitente: "",
         nombreDestinatario: "",
         razonSocialDestinatario: "",
@@ -348,6 +350,7 @@ const FormEnvio = () => {
                   onChange={handleChange}
                   onBlur={handleBlur}
                   className={styles.input}
+                  disabled
                 ></input>
                 {touched.nombreRemitente && errors.nombreRemitente && (
                   <p className={styles.error}>{errors.nombreRemitente}</p>
@@ -383,6 +386,7 @@ const FormEnvio = () => {
                   onChange={handleChange}
                   onBlur={handleBlur}
                   className={styles.input}
+                  disabled
                 ></input>
                 {touched.telefonoRemitente && errors.telefonoRemitente && (
                   <p className={styles.error}>{errors.telefonoRemitente}</p>
@@ -399,6 +403,7 @@ const FormEnvio = () => {
                   onChange={handleChange}
                   onBlur={handleBlur}
                   className={styles.input}
+                  disabled
                 ></input>
                 {touched.emailRemitente && errors.emailRemitente && (
                   <p className={styles.error}>{errors.emailRemitente}</p>
