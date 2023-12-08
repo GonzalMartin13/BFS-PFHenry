@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from "react";
 import { omit } from "lodash";
@@ -272,18 +271,6 @@ export default function QuoteForm() {
     });
 
     dispatch(contar());
-  }
-
-  if (usuario.phone && contador === 3) {
-    const input = {
-      name: usuario.name,
-      lastName: usuario.lastName,
-      phone: usuario.phone,
-      email: usuario.email,
-      nickname: usuario.nickname
-    };
-    dispatch(contar());
-    dispatch(userProfile(input));
   }
 
   if (usuario.phone && contador === 3) {
