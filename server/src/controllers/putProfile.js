@@ -7,8 +7,7 @@ const putProfile = async(name, lastName, phone, email, nickname) => {
     if(name, lastName, phone, email, nickname) {
       const userFound = await User.findOne({where: {email: email}});
       if (userFound) {
-        const cellphone = Number(phone);
-        const userUpdated = await userFound.update({name: name, lastName: lastName, phone: cellphone, nickname: nickname});
+        const userUpdated = await userFound.update({name: name, lastName: lastName, phone: phone, nickname: nickname});
         if(userUpdated) {
           return userUpdated;
         };

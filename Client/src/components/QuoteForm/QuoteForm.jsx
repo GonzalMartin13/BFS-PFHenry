@@ -28,14 +28,15 @@ import { useNavigate } from "react-router-dom";
 import { setState, setTotal, clearState } from "../../redux/Slices/quoterslice";
 import { SiGooglemaps } from "react-icons/si";
 import Swal from "sweetalert2";
-import { registerUser } from "../../redux/actions/userActions";
+import { registerUser, registerAdmin, userProfile } from "../../redux/actions/userActions";
 import { login, contar, confirmed } from "../../redux/Slices/userSlice";
 import imagenCaja from "./utils/imageDimensiones.png";
 export default function QuoteForm() {
  // const state = useSelector((state) => state.shipping);
 
   const { loginWithRedirect, isAuthenticated, user } = useAuth0();
-  const { contador, isLoggedIn, isProfile } = useSelector((state) => state.user);
+  const { contador, isLoggedIn, isProfile, emails } = useSelector((state) => state.user);
+  const usuario = useSelector((state) => state.user.user);
   const [errors, setErrors] = useState({});
 
   const dispatch = useDispatch();
@@ -218,10 +219,35 @@ export default function QuoteForm() {
     dispatch(contar());
   };
 
-  if (isAuthenticated && user.email_verified && contador === 2) {
-    const previousRoute = localStorage.getItem("previousRoute");
-    localStorage.removeItem("previousRoute");
-    navigate(previousRoute || "/");
+  if (emails.includes(user?.email) && isAuthenticated && user.email_verified && contador === 2) {
+    const previousRoute = localStorage.getItem('previousRoute');
+    localStorage.removeItem('previousRoute');
+    navigate(previousRoute || '/');
+    Swal.fire({
+      title: "Sesión iniciada",
+      text: `${user.nickname} has iniciado sesión exitosamente como administrador`,
+      icon: "success",
+    });
+
+    dispatch(login());
+
+    const postUser = {
+      email: user.email,
+      nickname: user.nickname,
+      picture: user.picture,
+    };
+
+    const postAdmin = {
+      nameAdmin: user.nickname,
+      emailAdmin: user.email,
+    };
+
+    dispatch(registerUser(postUser));
+    dispatch(registerAdmin(postAdmin));
+  } else if (isAuthenticated && user.email_verified && contador === 2) {
+    const previousRoute = localStorage.getItem('previousRoute');
+    localStorage.removeItem('previousRoute');
+    navigate(previousRoute || '/');
     Swal.fire({
       title: "Sesión iniciada",
       text: `${user.nickname} has iniciado sesión exitosamente`,
@@ -237,7 +263,6 @@ export default function QuoteForm() {
     };
 
     dispatch(registerUser(postUser));
-    handleNavigation();
   } else if (isAuthenticated && !user.email_verified && contador === 2) {
     Swal.fire({
       title: "Sesión iniciada",
@@ -246,6 +271,18 @@ export default function QuoteForm() {
     });
 
     dispatch(contar());
+  };
+
+  if (usuario.phone && contador === 3) {
+    const input = {
+      name: usuario.name,
+      lastName: usuario.lastName,
+      phone: usuario.phone,
+      email: usuario.email,
+      nickname: usuario.nickname
+    };
+    dispatch(contar());
+    dispatch(userProfile(input));
   };
 
   //
