@@ -1,3 +1,4 @@
+import React from "react";
 /* eslint-disable no-unused-vars */
 import { Route, Routes, useLocation } from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
@@ -21,6 +22,9 @@ import MisEnvios from "./components/misEnvios/misEnvios";
 import "./App.css";
 
 import FormEnvio from "./components/FormEnvio/FormEnvio";
+import ErrorPage from "./views/ErrorPage/errorpage";
+import Reviews from "./components/Reviews/reviews";
+import ShowReviews from "./views/showReviews/showreviews"
 
 function App() {
   const location = useLocation();
@@ -46,9 +50,31 @@ function App() {
     setUser(newUser);
   };
 
+
+  const validRoutes = [
+    "/",
+    "/cotizacion",
+    "/about",
+    "/contacto",
+    "/payment",
+    "/servicios",
+    "/sucursales",
+    "/envios",
+    "/profile",
+    "/guia",
+    "/confirmacion",
+    "/dashboard",
+    "/factura",
+    "/reviews",
+  ];
+
+
+  const showNavBar = validRoutes.includes(location.pathname);
+
   return (
     <>
-      {location.pathname !== "/register" && <NavBar />}
+      {showNavBar && <NavBar />}
+    
 
       <Routes>
         <Route exact path="/" element={<Home />} />
@@ -60,6 +86,7 @@ function App() {
         <Route path="/sucursales" element={<Mapa />} />
         <Route path="/guia" element={<Pdf />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="*" element={<ErrorPage />} />
         //protege ruta /factura redirige a "/" si datos de compra estan vacios
         <Route
           element={<ProtectedRoute isAllowed={isLoggedIn && !todosVacios} />}
@@ -116,7 +143,8 @@ function App() {
           }
         />
       </Routes>
-      <Footer />
+<Footer/>
+     
     </>
   );
 }
