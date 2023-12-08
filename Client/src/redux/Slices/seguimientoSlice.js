@@ -4,7 +4,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   paqueteSeguimiento: {
     id: "",
-    status: "", // Agregamos el campo para almacenar el estado del paquete
+    status: "",
   },
 };
 
@@ -15,7 +15,7 @@ export const seguimiento = createSlice({
     setPaquetesSeguimientos: (state, action) => {
       const { id, status } = action.payload;
       state.paqueteSeguimiento.id = id;
-      state.paqueteSeguimiento.status = status; // Guardamos el estado del paquete
+      state.paqueteSeguimiento.status = status; 
     },
   },
 });

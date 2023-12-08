@@ -5,7 +5,7 @@ export function getPackages() {
   return async function (dispatch) {
     try {
       const response = await axios.get(
-        "http://https://bfs-pfhenry-production.up.railway.app/envios"
+        "https://bfs-pfhenry-production.up.railway.app/envios"
       );
       dispatch(addPackage(response.data));
     } catch (error) {
@@ -19,7 +19,7 @@ export function getUserPackages(UserEmail) {
   return async function (dispatch) {
     try {
 
-      const response = await axios.get(`http://https://bfs-pfhenry-production.up.railway.app/envios/user/${UserEmail}`);
+      const response = await axios.get(`https://bfs-pfhenry-production.up.railway.app/envios/user/${UserEmail}`);
   
       dispatch(addUserPackage(response.data));
     } catch (error) {
@@ -33,7 +33,7 @@ export function getUserPackages(UserEmail) {
     return async function (dispatch) {
       try {
         const response = await axios.get(
-          `http://https://bfs-pfhenry-production.up.railway.app/envios/${id}`
+          `https://bfs-pfhenry-production.up.railway.app/envios/${id}`
         );
         dispatch(addUserPackageById(response.data));
       } catch (error) {

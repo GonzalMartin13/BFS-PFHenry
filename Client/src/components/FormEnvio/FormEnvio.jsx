@@ -105,7 +105,7 @@ const FormEnvio = () => {
   useEffect(() => {
     const mercadoPago = async () => {
       try {
-        const { data } = await axios.post("https://bfs-pfhenry-production.up.railway.app//pagos/crear", {
+        const { data } = await axios.post("https://bfs-pfhenry-production.up.railway.app/pagos/crear", {
           total,
           servicios,
         });
