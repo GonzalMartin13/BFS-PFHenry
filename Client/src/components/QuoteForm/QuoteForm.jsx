@@ -212,14 +212,14 @@ export default function QuoteForm() {
         icon: "success",
       });
       return dispatch(confirmed(true));
-    };
+    }
 
     localStorage.setItem("previousRoute", "/confirmacion");
     loginWithRedirect();
     dispatch(contar());
   };
 
-  if (emails.includes(user?.email) && isAuthenticated && user.email_verified && contador === 2) {
+  if (emails?.includes(user?.email) && isAuthenticated && user.email_verified && contador === 2) {
     const previousRoute = localStorage.getItem('previousRoute');
     localStorage.removeItem('previousRoute');
     navigate(previousRoute || '/');
@@ -271,7 +271,7 @@ export default function QuoteForm() {
     });
 
     dispatch(contar());
-  };
+  }
 
   if (usuario.phone && contador === 3) {
     const input = {
@@ -283,7 +283,7 @@ export default function QuoteForm() {
     };
     dispatch(contar());
     dispatch(userProfile(input));
-  };
+  }
 
   //
   return (
