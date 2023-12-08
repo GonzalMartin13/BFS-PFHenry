@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import styles from "./Dashboard.module.css";
-import Button from "../../Components/Button/Button";
+import Button from "../../components/Button/Button";
 import Grafico from "./Graficos";
 import { useState } from "react";
 

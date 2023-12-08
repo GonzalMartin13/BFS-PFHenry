@@ -18,4 +18,4 @@ const mapResponse = response.map(us => {
 
 module.exports = { getAllPackage };
 
-//http://https://bfs-pfhenry-production.up.railway.app/envios  endPoint de busqueda
+//https://bfs-pfhenry-production.up.railway.app/envios  endPoint de busqueda
