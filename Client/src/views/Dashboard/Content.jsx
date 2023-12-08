@@ -127,6 +127,9 @@ const Content = ({
                       <div className={styles.checkmark}></div>
                     </label>
                   </td>
+                      <div className={styles.checkmark}></div>
+                    </label>
+                  </td>
 
                   {user.enabled ? (
                     <td>

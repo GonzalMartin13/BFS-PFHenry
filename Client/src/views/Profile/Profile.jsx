@@ -3,9 +3,19 @@
 import { Form, Button, Row, Col, Container } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { validarr } from "./validateProfile";
 import { userProfile } from "../../redux/actions/userActions";
+import { userProfile } from "../../redux/actions/userActions";
 import Swal from "sweetalert2";
+import { confirmed } from "../../redux/Slices/userSlice";
+import { useNavigate } from "react-router-dom";
+
+const Profile = () => {
+  const {user, goConfirmacion} = useSelector((state) => state.user);
+
+  const navigate = useNavigate;
+
 import { confirmed } from "../../redux/Slices/userSlice";
 import { useNavigate } from "react-router-dom";
 
