@@ -17,6 +17,6 @@ users.put('/profile', handlerPutProfile); // query + body
 //users.delete('/profile'/* handler */,); // query
 
 // Dashboard
-users.get('/dashboard', getAllUsersHandler)
+users.get('/dashboard', getAllUsersHandler);
 
 module.exports = users
