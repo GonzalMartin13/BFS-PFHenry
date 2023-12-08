@@ -286,6 +286,18 @@ export default function QuoteForm() {
     dispatch(userProfile(input));
   }
 
+  if (usuario.phone && contador === 3) {
+    const input = {
+      name: usuario.name,
+      lastName: usuario.lastName,
+      phone: usuario.phone,
+      email: usuario.email,
+      nickname: usuario.nickname
+    };
+    dispatch(contar());
+    dispatch(userProfile(input));
+  }
+
   //
   return (
     <Container className={`${style.containerForm} `} fluid>
