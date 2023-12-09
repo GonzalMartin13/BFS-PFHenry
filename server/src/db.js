@@ -7,6 +7,7 @@ const fs = require("fs");
 const { DB_USER, DB_PASSWORD, DB_HOST, DEPLOY_URL } = process.env;
 
 const sequelize = new Sequelize(DEPLOY_URL,
+
 	{
 		logging: false,
 		native: false,

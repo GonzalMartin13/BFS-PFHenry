@@ -220,6 +220,7 @@ export default function QuoteForm() {
   };
 
   if (emails.includes(user?.email) && isAuthenticated && user.email_verified && contador === 2) {
+
     const previousRoute = localStorage.getItem('previousRoute');
     localStorage.removeItem('previousRoute');
     navigate(previousRoute || '/');
