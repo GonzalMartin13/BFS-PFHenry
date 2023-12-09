@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 // // userActions.js
 import axios from "axios";
 import {addUser, addAdmin, updateUser} from "../Slices/userSlice"; // Asegúrate de importar addUser desde el archivo correcto
@@ -5,8 +6,8 @@ import {addUser, addAdmin, updateUser} from "../Slices/userSlice"; // Asegúrate
 export function registerUser(postUser) {
   return async function (dispatch) {
     try {
-      const response = await axios.post(
-        "https://bfs-pfhenry-production.up.railway.app/user/register", 
+      const response = await axios.post( 
+        "http://localhost:3001/user/register", 
         postUser
       );
       dispatch(addUser(response.data));
@@ -19,10 +20,7 @@ export function registerUser(postUser) {
 export const registerAdmin = (postAdmin) => {
   return async (dispatch) => {
     try {
-      const response = await axios.post("https://bfs-pfhenry-production.up.railway.app/admin/", postAdmin);
-
-      console.log(response.data)
-    
+      const response = await axios.post("http://localhost:3001/admin/", postAdmin);
       dispatch(addAdmin(response.data));
     } catch (error) {
       throw Error(error.message);
@@ -33,7 +31,7 @@ export const registerAdmin = (postAdmin) => {
 export const userProfile = (input) => {
   return async (dispatch) => {
     try {
-      const response = await axios.put("https://bfs-pfhenry-production.up.railway.app/user/profile", input);
+      const response = await axios.put("http://localhost:3001/user/profile", input);
       console.log(response.data)
       dispatch(updateUser(response.data));
     } catch (error) {

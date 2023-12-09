@@ -1,3 +1,4 @@
+//import React from "react";
 /* eslint-disable no-unused-vars */
 import { Route, Routes, useLocation } from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
@@ -49,7 +50,6 @@ function App() {
     setUser(newUser);
   };
 
-
   const validRoutes = [
     "/",
     "/cotizacion",
@@ -92,7 +92,8 @@ function App() {
         >
           <Route path="/factura" element={<Comprobante />} />
         </Route>
-      {/*   //Redirige a "/profile" para obligar al usuario a completar datos de
+
+        {/* //Redirige a "/profile" para obligar al usuario a completar datos de
         perfil */}
         <Route
           element={
@@ -103,7 +104,8 @@ function App() {
           }
         >
           <Route path="/envios" element={<MisEnvios />} />
-{/*           //si estado quote esta vacio no permite ingresar a ruta /confirmacion,
+
+         {/*  //si estado quote esta vacio no permite ingresar a ruta /confirmacion,
           quizas haya que modificar todo esto... */}
         </Route>
         {isLoggedIn ? (
@@ -131,7 +133,7 @@ function App() {
             element={<ProtectedRoute isAllowed={false} />}
           />
         )}
-{/*         //verifica que admin.email y isLoggedIn sean true para ir a ruta
+       {/*  //verifica que admin.email y isLoggedIn sean true para ir a ruta
         "/dashboard", caso que de false redirige a "/" */}
         <Route
           path="/dashboard"

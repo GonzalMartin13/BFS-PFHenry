@@ -3,6 +3,7 @@ import {image, font, background} from "./style";
 import paquetes from "../../assets/paquete.png"
 import repartidora from "../../assets/repartidora.png"
 import camion from "../../assets/camion.png"
+import './carrouserStyles.scss'
 
 const Slider = () => {
   return (

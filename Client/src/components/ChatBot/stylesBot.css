@@ -1,0 +1,13 @@
+.react-chatbot-kit-chat-container {
+    width: 50vh;
+}
+.react-chatbot-kit-chat-message-container {
+    width: 100%;
+    margin: 8px 0; 
+}
+.react-chatbot-kit-chat-bot-message-container {
+    width: 100%;
+}
+.react-chatbot-kit-chat-bot-message {
+    width: 800px;
+}

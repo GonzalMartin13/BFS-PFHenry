@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 const Profile = () => {
   const {user, goConfirmacion} = useSelector((state) => state.user);
 
-  const navigate = useNavigate;
+  const navigate = useNavigate();
 
   const [input, setInput] = useState({
     name: user.name,
@@ -63,7 +63,7 @@ const Profile = () => {
 
   const dispatch = useDispatch();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
@@ -73,7 +73,7 @@ const Profile = () => {
         icon: "success",
       });
 
-      dispatch(userProfile(input));
+      await dispatch(userProfile(input));
 
       if(goConfirmacion === true) {
         navigate("/confirmacion");
