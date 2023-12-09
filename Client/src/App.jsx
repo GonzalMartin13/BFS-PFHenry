@@ -49,12 +49,6 @@ function App() {
   const updateContextUser = (newUser) => {
     setUser(newUser);
   };
-    setUser(newUser);
-  };
-
-
-
-
 
   const validRoutes = [
     "/",
@@ -149,8 +143,7 @@ function App() {
         />
       </Routes>
 <Footer/>
-     
-<Footer/>
+
      
     </>
   );
