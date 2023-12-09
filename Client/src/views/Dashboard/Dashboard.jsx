@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 import style from "./Dashboard.module.css";
@@ -20,35 +21,35 @@ const Dashboard = ({ updateContextUser }) => {
   const [admin, setAdmin] = useState([]);
   const [selectedButton, setSelectedButton] = useState("");
 
-	useEffect(() => {
-		const session = JSON.parse(localStorage.getItem("userOnSession"));
-		if (session?.email !== "") {
-			updateContextUser(session);
-		}
-		handleUsers();
-		handleEnvio();
-		handlePayments();
-		handleAdmin();
-	}, []);
+  useEffect(() => {
+    const session = JSON.parse(localStorage.getItem("userOnSession"));
+    if (session?.email !== "") {
+      updateContextUser(session);
+    }
+    handleUsers();
+    handleEnvio();
+    handlePayments();
+    handleAdmin();
+  }, []);
 
-	const handleButtonClick = (button) => {
-		if (button === "adminGraphs") {
-			setSelectedButton(button);	
-			setAdminGraphs(true);
-		} else if (button === "Usuarios") {
-			setSelectedButton(button);
-			handleAdmin();
-		} else if (button === "Envios") {
-			setSelectedButton(button);
-			handleEnvio();
-		} else if (button === "Pagos") {
-			setSelectedButton(button);
-			handlePayments();
-		} else if (button === "Admin") {
-			setSelectedButton(button);
-			handleAdmin();
-		}
-	};
+  const handleButtonClick = (button) => {
+    if (button === "adminGraphs") {
+      setSelectedButton(button);
+      setAdminGraphs(true);
+    } else if (button === "Usuarios") {
+      setSelectedButton(button);
+      handleAdmin();
+    } else if (button === "Envios") {
+      setSelectedButton(button);
+      handleEnvio();
+    } else if (button === "Pagos") {
+      setSelectedButton(button);
+      handlePayments();
+    } else if (button === "Admin") {
+      setSelectedButton(button);
+      handleAdmin();
+    }
+  };
 
   const handleUsers = async () => {
     const usuarios = await getAllUser();
@@ -164,6 +165,26 @@ const Dashboard = ({ updateContextUser }) => {
             enabled: false,
             banned: true,
           });
+  const handleBlockEnvio = (envio) => {
+    if (envio.enabled === true) {
+      Swal.fire({
+        title: "¿Quieres bloquear este envio en la plataforma?",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3d0dca",
+        cancelButtonText: "Cancelar",
+        confirmButtonText: "Aceptar",
+        customClass: {
+          popup: "mySwal",
+        },
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          const response = await updateEnvio({
+            ...envio,
+            enabled: false,
+            banned: true,
+          });
 
           if (response) {
             Swal.fire({
@@ -198,7 +219,55 @@ const Dashboard = ({ updateContextUser }) => {
             enabled: true,
             banned: false,
           });
+          if (response) {
+            Swal.fire({
+              title: "Este envio ha sido bloqueado en BFS",
+              icon: "success",
+              customClass: {
+                popup: "mySwal",
+              },
+            });
+          }
+        }
+        await handleEnvio();
+      });
+      return;
+    }
+    if (envio.enabled === false) {
+      Swal.fire({
+        title: "¿Quieres desbloquear este envio de la plataforma?",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3d0dca",
+        cancelButtonText: "Cancelar",
+        confirmButtonText: "Aceptar",
+        customClass: {
+          popup: "mySwal",
+        },
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          const response = await updateEnvio({
+            ...envio,
+            enabled: true,
+            banned: false,
+          });
 
+          if (response) {
+            Swal.fire({
+              title: "Este envio ha sido desbloqueado en BFS",
+              icon: "success",
+              customClass: {
+                popup: "mySwal",
+              },
+            });
+          }
+        }
+        await handleEnvio();
+      });
+      return;
+    }
+  };
           if (response) {
             Swal.fire({
               title: "Este envio ha sido desbloqueado en BFS",
@@ -297,6 +366,7 @@ const Dashboard = ({ updateContextUser }) => {
 				handleBlockEnvio={handleBlockEnvio}
 				handleBlockAdmin={handleBlockAdmin}	
 			/>
+			
 			
 		</div>
 
