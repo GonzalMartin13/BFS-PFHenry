@@ -29,13 +29,15 @@ import { setState, setTotal, clearState } from "../../redux/Slices/quoterslice";
 import { SiGooglemaps } from "react-icons/si";
 import Swal from "sweetalert2";
 import { registerUser } from "../../redux/actions/userActions";
-import { login, contar } from "../../redux/Slices/userSlice";
+import { login, contar, confirmed } from "../../redux/Slices/userSlice";
 import imagenCaja from "./utils/imageDimensiones.png";
 export default function QuoteForm() {
   const state = useSelector((state) => state.shipping);
 
   const { loginWithRedirect, isAuthenticated, user } = useAuth0();
-  const { contador, isLoggedIn } = useSelector((state) => state.user);
+  const { contador, isLoggedIn, isProfile } = useSelector(
+    (state) => state.user
+  );
   const [errors, setErrors] = useState({});
 
   const dispatch = useDispatch();
@@ -201,7 +203,17 @@ export default function QuoteForm() {
   };
   ///
   const handleNavigation = () => {
-    if (isLoggedIn) return navigate("/confirmacion");
+    if (isProfile) return navigate("/confirmacion");
+
+    if (isLoggedIn) {
+      navigate("/profile");
+      Swal.fire({
+        title: "Actualiza tus datos",
+        text: "Para que puedas continuar con la confirmacion de tu pedido",
+        icon: "success",
+      });
+      return dispatch(confirmed(true));
+    }
 
     localStorage.setItem("previousRoute", "/confirmacion");
     loginWithRedirect();
@@ -227,6 +239,7 @@ export default function QuoteForm() {
     };
 
     dispatch(registerUser(postUser));
+    handleNavigation();
   } else if (isAuthenticated && !user.email_verified && contador === 2) {
     Swal.fire({
       title: "Sesión iniciada",
