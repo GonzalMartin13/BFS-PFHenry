@@ -13,7 +13,7 @@ import Swal from "sweetalert2";
 import updateEnvio from "../../utils/updateEnvio";
 
 const Dashboard = ({ updateContextUser }) => {
-  const [setAdminGraphs] = useState([]);
+  const [adminGraphs, setAdminGraphs] = useState([]);
   const [users, setUsers] = useState([]);
   const [envio, setEnvio] = useState([]);
   const [admin, setAdmin] = useState([]);
