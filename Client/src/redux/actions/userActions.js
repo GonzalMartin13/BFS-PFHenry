@@ -12,18 +12,21 @@ export function registerUser(postUser) {
       dispatch(addUser(response.data));
     } catch (error) {
       throw Error("Error al registrar el usuario", error);
-    };
+    }
   };
-};
+}
 
 export const registerAdmin = (postAdmin) => {
   return async (dispatch) => {
     try {
       const response = await axios.post("https://bfs-pfhenry-production.up.railway.app/admin/", postAdmin);
+
+      console.log(response.data)
+    
       dispatch(addAdmin(response.data));
     } catch (error) {
       throw Error(error.message);
-    };
+    }
   };
 };
 
@@ -35,6 +38,6 @@ export const userProfile = (input) => {
       dispatch(updateUser(response.data));
     } catch (error) {
       throw Error(error.message);
-    };
+    }
   };
 };

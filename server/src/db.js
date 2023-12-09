@@ -23,6 +23,15 @@ const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}
 	}
 );
 
+/* const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/BFS`,
+	
+	{
+		logging: false,
+		native: false,
+		dialectModule: pg,
+	}
+); */
+
 const basename = path.basename(__filename);
 
 // Lectura y carga dinámica de modelos desde la carpeta 'models'
