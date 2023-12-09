@@ -92,6 +92,7 @@ function App() {
         >
           <Route path="/factura" element={<Comprobante />} />
         </Route>
+
         {/* //Redirige a "/profile" para obligar al usuario a completar datos de
         perfil */}
         <Route
@@ -103,6 +104,7 @@ function App() {
           }
         >
           <Route path="/envios" element={<MisEnvios />} />
+
          {/*  //si estado quote esta vacio no permite ingresar a ruta /confirmacion,
           quizas haya que modificar todo esto... */}
         </Route>
@@ -143,7 +145,6 @@ function App() {
         />
       </Routes>
 <Footer/>
-
      
     </>
   );
@@ -231,4 +232,3 @@ export default App;
 // }
 
 // export default App;
-

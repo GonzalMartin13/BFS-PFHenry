@@ -8,7 +8,7 @@ const font = {
 
 const background = {
   backgroundColor: "rgba(0, 0, 0, 0.4)",
-  margin: "0px 135px"
+  margin: "0px 0px"
 };
 
 export {
@@ -16,3 +16,4 @@ export {
   font,
   background
 }
+
