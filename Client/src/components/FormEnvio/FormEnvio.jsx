@@ -1,3 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-empty */
+/* eslint-disable no-unused-vars */
 import { useEffect } from "react";
 import { useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
@@ -105,7 +108,7 @@ const FormEnvio = () => {
   useEffect(() => {
     const mercadoPago = async () => {
       try {
-        const { data } = await axios.post("https://bfs-pfhenry-production.up.railway.app//pagos/crear", {
+        const { data } = await axios.post("https://bfs-pfhenry-production.up.railway.app/pagos/crear", {
           total,
           servicios,
         });

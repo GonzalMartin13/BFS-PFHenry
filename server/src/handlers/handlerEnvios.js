@@ -13,7 +13,7 @@ const handlerGetEnvioXID = async (req, res) => {
   }
 };
 
-/*  endpoint: http://https://bfs-pfhenry-production.up.railway.app/envios/:id
+/*  endpoint: https://bfs-pfhenry-production.up.railway.app/envios/:id
  tipo: post
  devuelve: envio completo que coincida con la ID
  */
@@ -29,7 +29,7 @@ const handlerGetEnvio = async (req, res) => {
   }
 };
 
-/*  endpoint: http://https://bfs-pfhenry-production.up.railway.app/envios?user=/
+/*  endpoint: https://bfs-pfhenry-production.up.railway.app/envios?user=/
  tipo: post
  devuelve: envio completo que coincida con la ID
  */
@@ -76,7 +76,7 @@ const handlerPostEnvio = async (req, res) => {
 
 module.exports = { handlerPostEnvio };
 
-/*  endpoint: http://https://bfs-pfhenry-production.up.railway.app/envios/
+/*  endpoint: https://bfs-pfhenry-production.up.railway.app/envios/
  tipo: post
  devuelve: numero de id de envio
  */

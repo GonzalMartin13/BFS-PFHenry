@@ -18,9 +18,9 @@ try{
         ],
 
         back_urls:{ 
-            success:"http://localhost:5173/factura" , // cambiar por pag del front
-            pending:"http://https://bfs-pfhenry-production.up.railway.app/pagos/pendiente",
-            failure:"http://localhost:5173/"
+            success:"https://bfsonline-8puvhnmx0-gonzal13s-projects.vercel.app/factura" , // cambiar por pag del front
+            pending:"https://bfs-pfhenry-production.up.railway.app/pagos/pendiente",
+            failure:"localhost:5173/aaa"
         },
         auto_return: "all",
         payment_methods:{

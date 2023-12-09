@@ -1,3 +1,4 @@
+//import React from "react";
 /* eslint-disable no-unused-vars */
 import { Route, Routes, useLocation } from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
@@ -21,6 +22,9 @@ import MisEnvios from "./components/misEnvios/misEnvios";
 import "./App.css";
 
 import FormEnvio from "./components/FormEnvio/FormEnvio";
+import ErrorPage from "./views/ErrorPage/errorpage";
+import Reviews from "./components/Reviews/reviews";
+import ShowReviews from "./views/showReviews/showreviews";
 
 function App() {
   const location = useLocation();
@@ -47,9 +51,28 @@ function App() {
     setUser(newUser);
   };
 
+  const validRoutes = [
+    "/",
+    "/cotizacion",
+    "/about",
+    "/contacto",
+    "/payment",
+    "/servicios",
+    "/sucursales",
+    "/envios",
+    "/profile",
+    "/guia",
+    "/confirmacion",
+    "/dashboard",
+    "/factura",
+    "/reviews",
+  ];
+
+  const showNavBar = validRoutes.includes(location.pathname);
+
   return (
     <>
-      {location.pathname !== "/register" && <NavBar />}
+      {showNavBar && <NavBar />}
 
       <Routes>
         <Route exact path="/" element={<Home />} />
@@ -61,26 +84,25 @@ function App() {
         <Route path="/sucursales" element={<Mapa />} />
         <Route path="/guia" element={<Pdf />} />
         <Route path="/profile" element={<Profile />} />
-        //protege ruta "/factura", redirige a "/" si datos de compra estan
-        vacios
+        <Route path="*" element={<ErrorPage />} />
+        {/* //protege ruta /factura redirige a "/" si datos de compra estan vacios */}
         <Route
           element={<ProtectedRoute isAllowed={isLoggedIn && !todosVacios} />}
         >
           <Route path="/factura" element={<Comprobante />} />
         </Route>
-        //Redirige a "/profile" para obligar al usuario a completar datos de
-        perfil
+
+        {/* //Redirige a "/profile" para obligar al usuario a completar datos de
+        perfil */}
         <Route
           element={
-            <ProtectedRoute
-              isAllowed={isLoggedIn && name && lastName && phone}
-              redirectTo={"/profile"}
-            />
+            <ProtectedRoute isAllowed={isLoggedIn} redirectTo={"/profile"} />
           }
         >
           <Route path="/envios" element={<MisEnvios />} />
-          //si estado quote esta vacio no permite ingresar a ruta /confirmacion,
-          quizas haya que modificar todo esto...
+
+          {/*  //si estado quote esta vacio no permite ingresar a ruta /confirmacion,
+          quizas haya que modificar todo esto... */}
         </Route>
         <Route
           element={
@@ -100,12 +122,13 @@ function App() {
         >
           <Route path="/confirmacion" element={<FormEnvio />} />
         </Route>
-        //verifica que admin.email y isLoggedIn sean true para ir a ruta
-        "/dashboard", caso que de false redirige a "/"
+
+        {/*  //verifica que admin.email y isLoggedIn sean true para ir a ruta
+        "/dashboard", caso que de false redirige a "/" */}
         <Route
           path="/dashboard"
           element={
-            <ProtectedRoute isAllowed={isLoggedIn && admin.emailAdmin}>
+            <ProtectedRoute isAllowed={isLoggedIn}>
               <Dashboard updateContextUser={updateContextUser} />
             </ProtectedRoute>
           }

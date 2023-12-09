@@ -6,7 +6,9 @@ import Image from "react-bootstrap/Image";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import {useSelector } from "react-redux";
-
+import iconoEnvio from "../../assets/envio.svg"
+import Reviews from "../Reviews/reviews";
+import ShowReviews from "../../views/showReviews/showreviews"
 
 
 const Home = () => {
@@ -37,12 +39,24 @@ const Home = () => {
         <Card style={{ width: "18rem" }}>
           <Card.Body>
             <Card.Title>Ver mis envíos</Card.Title>
+            <br></br>
+            <img src={iconoEnvio}/>
             <Card.Text>
               Mirá el listado de envíos asociados a tu cuenta.
             </Card.Text>
           </Card.Body>
         </Card>
       </Button>
+<br/>
+<br/>
+<br/>
+
+      <Reviews/>
+<br/>
+ 
+<ShowReviews/>
+<br/>
+<br/>
    
     </div>
   );

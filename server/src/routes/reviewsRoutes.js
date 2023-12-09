@@ -3,7 +3,7 @@ const { handlerPostReview, handlerGetAllReviews, handlergetReviewsByUser, handle
 
 const review = Router();
 
-review.get("/:userEmail", handlergetReviewsByUser);
+review.get("/:UserEmail", handlergetReviewsByUser);
 review.post("/", handlerPostReview);
 review.get("/", handlerGetAllReviews);
 review.put("/:id", handlerPutReview)
