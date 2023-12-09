@@ -101,3 +101,19 @@ footer {
 .path {
   color: white;
 }
+
+.bot{
+  position: fixed;
+  bottom: 3vh;
+  right: 93vw;
+  z-index: 1000;
+  font-size: 45px;
+  background: none;
+  border-radius: 50px;
+  border: none;
+  transition: transform 0.3s;
+}
+
+.bot:hover {
+  transform: scale(1.1);
+}

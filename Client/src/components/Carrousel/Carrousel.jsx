@@ -1,5 +1,6 @@
 import Carousel from "react-bootstrap/Carousel";
 import {image, font, background} from "./style";
+import './carrouserStyles.scss'
 
 const Slider = () => {
   return (

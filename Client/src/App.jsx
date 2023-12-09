@@ -22,6 +22,7 @@ import "./App.css";
 import ComprobantePDF from "./components/Compra/ComprobantePDF"; */
 import FormEnvio from "./components/FormEnvio/FormEnvio";
 
+
 function App() {
   const location = useLocation();
   const {admin} = useSelector((state) => state.user)
@@ -39,7 +40,6 @@ function App() {
   return (
     <>
       {location.pathname !== "/register" && <NavBar />}
-
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route path="/cotizacion" element={<QuoteForm />} />

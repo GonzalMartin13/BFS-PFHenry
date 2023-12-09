@@ -1,0 +1,39 @@
+.contenedor{
+    border-radius: 8px;
+    border: 2px;
+    padding: 2px;
+    color: aliceblue;
+    background-color: #514fb2;
+    margin: 2px;
+}
+
+.seccion{
+    text-align: left;  
+}
+
+.seccion span{
+    background-color: rgba(225, 225, 225, 0.529);
+    color: #514fb2;
+}
+
+.nombres{
+    border-radius: 50px;
+    border: 2px;
+    padding: 2px;
+    color: aliceblue;
+    background-color: #2f96b8;
+    margin: 2px;
+    width: 70px;
+    height: 70px;
+    text-align: left;
+}
+
+.seccionNomb{
+    text-align: center;  
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.seccionNomb div{
+    width: calc(50% - 8px);
+}
