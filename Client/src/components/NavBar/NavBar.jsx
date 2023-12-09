@@ -67,9 +67,9 @@ export default function NavBar() {
                 {isLoggedIn ? (
                   <Nav.Link href="/envios" style={menuletter}>Mis envíos</Nav.Link>
                 ) : null}
-                {/* {admin.emailAdmin ? (
+                {admin.emailAdmin ? (
                   <Nav.Link href="/dashboard" style={menuletter}>Dashboard</Nav.Link>
-                ) : null} */}
+                ) : null}
 
                 {/* <NavDropdown
                     title="Servicios"
