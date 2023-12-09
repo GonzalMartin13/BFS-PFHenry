@@ -11,6 +11,7 @@ import {
   logouted,
   contar,
   contadorInTwo,
+  confirmed,
 } from "../../redux/Slices/userSlice";
 import Button from "react-bootstrap/Button";
 import Swal from "sweetalert2";
@@ -18,15 +19,11 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { useNavigate, Link } from "react-router-dom";
 import { log, out, profile } from "./style";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faUser,
-  faRightToBracket,
-  faLongArrowUp,
-} from "@fortawesome/free-solid-svg-icons";
-import { useEffect } from "react";
+import { faUser, faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 
 const Login = () => {
-  const { contador, isLoggedIn, emails } = useSelector((state) => state.user);
+  const { contador, isLoggedIn, emails, isProfile, goConfirmacion } =
+    useSelector((state) => state.user);
 
   const usuario = useSelector((state) => state.user.user);
 
@@ -51,8 +48,6 @@ const Login = () => {
       icon: "success",
     });
 
-    dispatch(login());
-
     const postUser = {
       email: user.email,
       nickname: user.nickname,
@@ -66,6 +61,7 @@ const Login = () => {
 
     dispatch(registerUser(postUser));
     dispatch(registerAdmin(postAdmin));
+    dispatch(login());
   } else if (isAuthenticated && user.email_verified && contador === 2) {
     const previousRoute = localStorage.getItem("previousRoute");
     localStorage.removeItem("previousRoute");
@@ -76,8 +72,6 @@ const Login = () => {
       icon: "success",
     });
 
-    dispatch(login());
-
     const postUser = {
       email: user.email,
       nickname: user.nickname,
@@ -85,6 +79,7 @@ const Login = () => {
     };
 
     dispatch(registerUser(postUser));
+    dispatch(login());
   } else if (isAuthenticated && !user.email_verified && contador === 2) {
     Swal.fire({
       title: "Sesión iniciada",
@@ -105,6 +100,20 @@ const Login = () => {
     };
     dispatch(contar());
     dispatch(userProfile(input));
+  }
+
+  if (isLoggedIn && goConfirmacion && contador === 3) {
+    if (isProfile) {
+      navigate("/confirmacion");
+      return dispatch(confirmed(false));
+    }
+    navigate("/profile");
+    Swal.fire({
+      title: "Actualiza tus datos",
+      text: "Para que puedas continuar con la confirmacion de tu pedido",
+      icon: "success",
+    });
+    return dispatch(confirmed(false));
   }
 
   const handleLogin = () => {

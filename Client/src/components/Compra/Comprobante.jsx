@@ -72,8 +72,16 @@ export default function Comprobante() {
 
   return (
     <Container className="mt-5" fluid style={{ height: "1000px" }}>
-      <h1>Gracias por confiar en nosotros!</h1>
-      <h4>
+      <h1
+        style={{
+          borderBottom: " 2px solid #969090",
+          display: "inline",
+          padding: "2px 15px",
+        }}
+      >
+        Gracias por confiar en nosotros!
+      </h1>
+      <h4 style={{ marginTop: "10px", marginBottom: "12px" }}>
         Tu solicitud de envío ha sido procesada con éxito. Aquí tienes los
         detalles:
       </h4>

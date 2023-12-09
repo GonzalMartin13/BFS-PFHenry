@@ -28,6 +28,7 @@ export const userSlice = createSlice({
       state.contador = 1;
       state.admin = {};
       state.isProfile = false;
+      state.goConfirmacion = false;
     },
     contar: (state) => {
       state.contador = state.contador + 1;

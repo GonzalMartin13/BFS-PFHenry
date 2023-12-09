@@ -8,7 +8,6 @@ export function registerUser(postUser) {
     try {
       const response = await axios.post(
         "http://localhost:3001/user/register",
-
         postUser
       );
       dispatch(addUser(response.data));
@@ -22,13 +21,9 @@ export const registerAdmin = (postAdmin) => {
   return async (dispatch) => {
     try {
       const response = await axios.post(
-        "https://bfs-pfhenry-production.up.railway.app/admin/",
-
+        "http://localhost:3001/admin/",
         postAdmin
       );
-
-      console.log(response.data);
-
       dispatch(addAdmin(response.data));
     } catch (error) {
       throw Error(error.message);
@@ -41,9 +36,7 @@ export const userProfile = (input) => {
     console.log(input);
     try {
       const response = await axios.put(
-        // "https://bfs-pfhenry-production.up.railway.app/user/profile",
         "http://localhost:3001/user/profile",
-
         input
       );
       console.log(response.data);
