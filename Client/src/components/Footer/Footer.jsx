@@ -5,8 +5,18 @@ import fb from "../../assets/fb.png"
 import insta from "../../assets/insta.png"
 import image from "../../assets/logo.png";
 import linkedin from "../../assets/linkedin.png"
+import { useState } from "react";
+import Chat from "../ChatBot/ChatBot";
+
 
 const Footer = () => {
+  const [chatActivo, setChatActivo] = useState(false);
+  const handleChat = () => {
+    setChatActivo((ChatVisible) => !ChatVisible);
+     
+  };
+
+
   return (
     <footer className={style.Footer}>
       <Container>
@@ -95,6 +105,9 @@ const Footer = () => {
             </div>
           </Col>
         </Row>
+
+        <button className={style.bot} onClick={handleChat}>🤖</button>
+        {chatActivo && <Chat />}
       </Container>
     </footer>
   );

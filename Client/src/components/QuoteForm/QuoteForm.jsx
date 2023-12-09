@@ -28,14 +28,13 @@ import { useNavigate } from "react-router-dom";
 import { setState, setTotal, clearState } from "../../redux/Slices/quoterslice";
 import { SiGooglemaps } from "react-icons/si";
 import Swal from "sweetalert2";
-import { registerUser } from "../../redux/actions/userActions";
-import { login, contar } from "../../redux/Slices/userSlice";
-import imagenCaja from "../../assets/imageDimensiones.png";
+import { confirmed, contadorInTwo } from "../../redux/Slices/userSlice";
+import imagenCaja from "./utils/imageDimensiones.png";
 export default function QuoteForm() {
  // const state = useSelector((state) => state.shipping);
 
-  const { loginWithRedirect, isAuthenticated, user } = useAuth0();
-  const { contador, isLoggedIn } = useSelector((state) => state.user);
+  const { loginWithRedirect } = useAuth0();
+  const { isLoggedIn, isProfile} = useSelector((state) => state.user);
   const [errors, setErrors] = useState({});
 
   const dispatch = useDispatch();
@@ -201,40 +200,22 @@ export default function QuoteForm() {
   };
   ///
   const handleNavigation = () => {
-    if (isLoggedIn) return navigate("/confirmacion");
-    localStorage.setItem("previousRoute", "/confirmacion");
-    loginWithRedirect();
-    dispatch(contar());
-  };
+    if (isProfile) return navigate("/confirmacion");
 
-  if (isAuthenticated && user.email_verified && contador === 2) {
-    const previousRoute = localStorage.getItem("previousRoute");
-    localStorage.removeItem("previousRoute");
-    navigate(previousRoute || "/");
-    Swal.fire({
-      title: "Sesión iniciada",
-      text: `${user.nickname} has iniciado sesión exitosamente`,
-      icon: "success",
-    });
-
-    dispatch(login());
-
-    const postUser = {
-      email: user.email,
-      nickname: user.nickname,
-      picture: user.picture,
+    if (isLoggedIn) {
+      navigate("/profile");
+      Swal.fire({
+        title: "Actualiza tus datos",
+        text: "Para que puedas continuar con la confirmacion de tu pedido",
+        icon: "success",
+      });
+      return dispatch(confirmed(true));
     };
 
-    dispatch(registerUser(postUser));
-  } else if (isAuthenticated && !user.email_verified && contador === 2) {
-    Swal.fire({
-      title: "Sesión iniciada",
-      text: `${user.nickname} verifica tu Email para acceder a nuestros servicios`,
-      icon: "success",
-    });
-
-    dispatch(contar());
-  }
+    dispatch(confirmed(true));
+    loginWithRedirect();
+    dispatch(contadorInTwo());
+  };
 
   //
   return (

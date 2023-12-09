@@ -1,3 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-empty */
+/* eslint-disable no-unused-vars */
 import { useEffect } from "react";
 import { useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
@@ -37,6 +40,8 @@ const FormEnvio = () => {
   const { origen, destino, servicios, total } = useSelector(
     (state) => state.quoter
   );
+
+  const {user} = useSelector((state) => state.user);
 
   const sucursalOrigen = sucursales.find(
     (sucursal) => sucursal.Popup === origen
@@ -128,10 +133,10 @@ const FormEnvio = () => {
   return (
     <Formik
       initialValues={{
-        nombreRemitente: "",
+        nombreRemitente: `${user.name} ${user.lastName}`,
         razonSocialRemitente: "",
-        telefonoRemitente: "",
-        emailRemitente: "",
+        telefonoRemitente: user.phone,
+        emailRemitente: user.email,
         dniRemitente: "",
         nombreDestinatario: "",
         razonSocialDestinatario: "",
@@ -345,6 +350,7 @@ const FormEnvio = () => {
                   onChange={handleChange}
                   onBlur={handleBlur}
                   className={styles.input}
+                  disabled
                 ></input>
                 {touched.nombreRemitente && errors.nombreRemitente && (
                   <p className={styles.error}>{errors.nombreRemitente}</p>
@@ -380,6 +386,7 @@ const FormEnvio = () => {
                   onChange={handleChange}
                   onBlur={handleBlur}
                   className={styles.input}
+                  disabled
                 ></input>
                 {touched.telefonoRemitente && errors.telefonoRemitente && (
                   <p className={styles.error}>{errors.telefonoRemitente}</p>
@@ -396,6 +403,7 @@ const FormEnvio = () => {
                   onChange={handleChange}
                   onBlur={handleBlur}
                   className={styles.input}
+                  disabled
                 ></input>
                 {touched.emailRemitente && errors.emailRemitente && (
                   <p className={styles.error}>{errors.emailRemitente}</p>
