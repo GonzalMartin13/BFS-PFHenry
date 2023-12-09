@@ -2,7 +2,7 @@
 /* eslint-disable no-extra-semi */
 import {useDispatch, useSelector} from "react-redux";
 import {registerUser, registerAdmin, userProfile} from "../../redux/actions/userActions";
-import {login, logouted, contar, contadorInTwo, confirmed} from "../../redux/Slices/userSlice";
+import {login, logouted, contar, contadorInTwo, confirmed, profiles} from "../../redux/Slices/userSlice";
 import Button from "react-bootstrap/Button";
 import Swal from "sweetalert2";
 import {useAuth0} from "@auth0/auth0-react";
@@ -12,7 +12,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faRightToBracket} from '@fortawesome/free-solid-svg-icons';
  
 const Login = () => {
-  const {contador, isLoggedIn, emails, isProfile, goConfirmacion} = useSelector((state) => state.user);
+  const {contador, isLoggedIn, emails, isProfile, goConfirmacion, goProfile} = useSelector((state) => state.user);
 
   const usuario = useSelector((state) => state.user.user);
 
@@ -33,20 +33,21 @@ const Login = () => {
       icon: "success",
     });
 
-    const postUser = {
-      email: user.email,
-      nickname: user.nickname,
-      picture: user.picture,
-    };
+    dispatch(login());
 
     const postAdmin = {
       nameAdmin: user.nickname,
       emailAdmin: user.email,
     };
 
-    dispatch(registerUser(postUser));
+    const postUser = {
+      email: user.email,
+      nickname: user.nickname,
+      picture: user.picture,
+    };
+
     dispatch(registerAdmin(postAdmin));
-    dispatch(login());
+    dispatch(registerUser(postUser));
   } else if (isAuthenticated && user.email_verified && contador === 2) {
     const previousRoute = localStorage.getItem('previousRoute');
     localStorage.removeItem('previousRoute');
@@ -57,6 +58,8 @@ const Login = () => {
       icon: "success",
     });
 
+    dispatch(login());
+
     const postUser = {
       email: user.email,
       nickname: user.nickname,
@@ -64,7 +67,6 @@ const Login = () => {
     };
 
     dispatch(registerUser(postUser));
-    dispatch(login());
   } else if (isAuthenticated && !user.email_verified && contador === 2) {
     Swal.fire({
       title: "Sesión iniciada",
@@ -73,6 +75,22 @@ const Login = () => {
     });
 
     dispatch(contar());
+  };
+
+  const confirmar = () => {
+    navigate("/confirmacion");
+    dispatch(confirmed(false));
+    dispatch(profiles(false));
+  };
+
+  const perfil = () => {
+    navigate("/profile");
+    Swal.fire({
+      title: "Actualiza tus datos",
+      text: "Para que puedas continuar con la confirmacion de tu pedido",
+      icon: "success",
+    });
+    dispatch(profiles(false));
   };
 
   if (usuario.phone && contador === 3) {
@@ -84,23 +102,12 @@ const Login = () => {
       nickname: usuario.nickname
     };
     dispatch(contar());
-    dispatch(userProfile(input));
-  };
 
-  if(isLoggedIn && goConfirmacion && contador === 3) {
-    if(isProfile) {
-      navigate("/confirmacion");
-      return dispatch(confirmed(false));
-    };
-    navigate("/profile");
-    Swal.fire({
-      title: "Actualiza tus datos",
-      text: "Para que puedas continuar con la confirmacion de tu pedido",
-      icon: "success",
-    });
-    return dispatch(confirmed(false));
+    dispatch(userProfile(input))
+    .then(() => goProfile && confirmar());
+  } else if (usuario.picture && contador === 3) {
+    goProfile && perfil();
   };
-
 
   const handleLogin = () => {
     localStorage.setItem('previousRoute', window.location.pathname);

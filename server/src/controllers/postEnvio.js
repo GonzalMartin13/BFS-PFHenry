@@ -10,7 +10,7 @@ const postEnvio = async (
   total,
   imagen,
   dni,
-  userEmail
+  UserEmail
 ) => {
   try {
     const crearEnvio = await Package.create({
@@ -24,9 +24,9 @@ const postEnvio = async (
       dni,
     });
 
-    if (userEmail) {
-      console.log("EL USER: ", userEmail);
-      const addUser = await User.findOne({ where: { email: userEmail } });
+    if (UserEmail) {
+      console.log("EL USER: ", UserEmail);
+      const addUser = await User.findOne({ where: { email: UserEmail } });
       console.log("PARA RELACIONAR: ", addUser);
 
       if (addUser) {
@@ -35,10 +35,12 @@ const postEnvio = async (
         throw new Error("Usuario no encontrado");
       }
     }
-
     return {
-      mensaje: `Su envío ha sido creado con la guía: ${crearEnvio.id}`,
-      numeroEnvio: crearEnvio.id,
+      mensaje: `Su envío ha sido creado con la guía: ${crearEnvio.id}`,      
+      envio: {
+        numeroEnvio: crearEnvio.id,
+        status: crearEnvio.status,
+      },
     };
   } catch (error) {
     throw new Error("Error interno del servidor");

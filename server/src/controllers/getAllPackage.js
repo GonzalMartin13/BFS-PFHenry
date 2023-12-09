@@ -7,9 +7,9 @@ const getAllPackage = async () => {
 const response = await Package.findAll();
 
 const mapResponse = response.map(us => {
-    const {id,origen,destino,dimensiones,servicios,peso,total,imagen,dni,UserID} = us;
+    const {id,origen,destino,dimensiones,servicios,peso,total,imagen,dni, status, UserID} = us;
     return {
-        id,origen,destino,dimensiones,servicios,peso,total,imagen,dni, UserID
+        id,origen,destino,dimensiones,servicios,peso,total,imagen,dni, status, UserID
     }
 })
   return mapResponse;

@@ -8,7 +8,7 @@ import { getAllEnvios } from "../../utils/getAllEnvios";
 
 const Content = ({
   selectedButton,
-  payments,
+  //payments,
   //envio,   
   users,
   admin,
@@ -42,11 +42,11 @@ const Content = ({
   };
 
   const renderTableRows = (data, currentPage, itemsPerPage) => {
+    console.log(data)
     return data
       ?.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage)
       ?.map((item, index) => (
         <tr key={index}>
-          {/* Renderizar las celdas según el tipo de dato (user, envío, admin, etc.) */}
           <td>{item.id}</td>
           <td>{item.servicios}</td>
           <td>${item.total}</td>
@@ -77,7 +77,43 @@ const Content = ({
                       />
                     </td>
                   )}
-          {/* ... otras celdas ... */}
+        </tr>
+      ));
+  };
+  const renderTableRowsUser = (data, currentPage, itemsPerPage) => {
+    return data
+      ?.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage)
+      ?.map((item, index) => (
+        <tr key={index}>
+          <td>{item.ID}</td>
+          <td>{item.email}</td>
+          <td>{item.name}</td>
+          <td>{item.lastName}</td>
+          <td>
+            <label className={styles.container_check}>
+              {item?.enabled ? (
+                <input type="checkbox" checked={true} />
+              ) : (
+                <input type="checkbox" checked={false} />
+              )}
+              <div className={styles.checkmark}></div>
+            </label>
+          </td>
+          {item.enabled ? (
+            <td>
+              <Button
+                text={"Bloquear usuario"}
+                onClick={() => handleBlockUser(item)}
+              />
+            </td>
+          ) : (
+            <td>
+              <Button
+                text={"Desbloquear usuario"}
+                onClick={() => handleBlockUser(item)}
+              />
+            </td>
+          )}
         </tr>
       ));
   };
@@ -93,77 +129,43 @@ const Content = ({
         )}
       </div>
       <div>
-      
       {selectedButton === "Usuarios" && (
-        <>
-        <h2>Administrador de Usuarios</h2>
-        <div className={styles.envios_table_container}>
-          <table className={styles.envios_table}>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Email</th>
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>Estado</th>
-                <th>Bloquear/Desbloquear</th>
-              </tr>
-            </thead>
-            <tbody>
-              {users?.map((user) => (
-                <tr key={user.id}>
-                  <td>{user.ID}</td>
-                  <td>{user.email}</td>
-                  <td>{user.name}</td>
-                  <td>{user.lastName}</td>
-                  <td>
-                    <label className={styles.container_check}>
-                      {user?.enabled ? (
-                        <input type="checkbox" checked={true} />
-                      ) : (
-                        <input type="checkbox" checked={false} />
-                      )}
-
-                      <div className={styles.checkmark}></div>
-                    </label>
-                  </td>
-                      <div className={styles.checkmark}></div>
-                
-                  {user.enabled ? (
-                    <td>
-                      <Button
-                        text={"Bloquear usuario"}
-                        onClick={() => handleBlockUser(user)}
-                      />
-                    </td>
-                  ) : (
-                    <td>
-                      <Button
-                        text={"Desbloquear usuario"}
-                        onClick={() => handleBlockUser(user)}
-                      />
-                    </td>
-                  )}
-                </tr>
-              ))}
-              {renderTableRows(users, currentPage, itemsPerPage)}
-            </tbody>
-          </table>
-        </div>
-        <ReactPaginate
-            previousLabel={"← Previous"}
-            nextLabel={"Next →"}
-            breakLabel={"..."}
-            pageCount={Math.ceil(users.length / itemsPerPage)}
-            marginPagesDisplayed={2}
-            pageRangeDisplayed={5}
-            onPageChange={(selected) => handlePageClick(selected, selectedButton)}
-            containerClassName={"pagination"}
-            subContainerClassName={"pages pagination"}
-            activeClassName={"active"}
-          />
-        </>
-      )}
+          <>
+            <h2>Administrador de Usuarios</h2>
+            <div className={styles.envios_table_container}>
+              <table className={styles.envios_table}>
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Email</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Estado</th>
+                    <th>Bloquear/Desbloquear</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {renderTableRowsUser(users, currentPage, itemsPerPage)}
+                </tbody>
+              </table>
+            </div>
+            {/* Componente de paginación */}
+            <ReactPaginate
+              previousLabel={"← Previous"}
+              nextLabel={"Next →"}
+              breakLabel={"..."}
+              pageCount={Math.ceil(users.length / itemsPerPage)}
+              marginPagesDisplayed={2}
+              pageRangeDisplayed={5}
+              onPageChange={(selected) =>
+                handlePageClick(selected, selectedButton)
+              }
+              containerClassName={"pagination"}
+              subContainerClassName={"pages pagination"}
+              activeClassName={"active"}
+            />
+          </>
+        )}
       </div>
       <div>
       
@@ -178,7 +180,6 @@ const Content = ({
                 <th>Categoría</th>
                 <th>Total</th>
                 <th>Status</th>
-                <th>Estado</th>
                 <th>Bloquear/Desbloquear</th>
               </tr>
             </thead>
@@ -202,38 +203,6 @@ const Content = ({
           />
         </>
       )}
-      </div>
-      {selectedButton === "Pagos" && (
-        <div className={styles.envios_table_container}>
-          <table className={styles.envios_table}>
-            <thead>
-              <tr>
-                <th>ID de Pago</th>
-                <th>Nombre de usuario</th>
-                <th>Fecha de Pago</th>
-                <th>Monto</th>
-                <th>Método de Pago</th>
-                <th>Estado de Pago</th>
-              </tr>
-            </thead>
-            <tbody>
-              {payments?.map((payment) => (
-                <tr key={payment.id}>
-                  <td>{payment.id}</td>
-                  <td>
-                    {payment.User.firstName} {payment.User.lastName}
-                  </td>
-                  <td>{payment.payment_date}</td>
-                  <td>${payment.amount}</td>
-                  <td>{payment.payment_method}</td>
-                  <td>{payment.payment_status}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
-      <div>
         
       {selectedButton === "Admin" && (
         <>
@@ -259,23 +228,9 @@ const Content = ({
                   </td>
                 </tr>
               ))}
-              {renderTableRows(admin, currentPage, itemsPerPage)}
             </tbody>
           </table>
         </div>
-         {/* Componente de paginación */}
-         <ReactPaginate
-            previousLabel={"← Previous"}
-            nextLabel={"Next →"}
-            breakLabel={"..."}
-            pageCount={Math.ceil(admin.length / itemsPerPage)}
-            marginPagesDisplayed={2}
-            pageRangeDisplayed={5}
-            onPageChange={(selected) => handlePageClick(selected, selectedButton)}
-            containerClassName={"pagination"}
-            subContainerClassName={"pages pagination"}
-            activeClassName={"active"}
-          />
         </>
       )}
       </div>
