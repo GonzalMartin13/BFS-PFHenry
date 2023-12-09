@@ -33,6 +33,12 @@ export const cleanDetailAction = createAsyncThunk("packages/cleanDetail", async 
   thunkAPI.dispatch(cleanDetail());
 });
 
+// export function cleanDetail(){
+//   return async function (dispatch){
+//   dispatch(cleanDetail())
+//   }
+// }
+
 const initialState = {
   allPackages: {},
   userPackages: [],

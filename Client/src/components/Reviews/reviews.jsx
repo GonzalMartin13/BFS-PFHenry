@@ -24,7 +24,7 @@ const Reviews = () => {
   const UserEmail = useSelector((state) => state.user.user.email);
   const idReview = useSelector((state) => state.reviews.userReview.id);
   const { comment, rating: pablo } = useSelector((state) => state.reviews.userReview);
-
+console.log(UserEmail)
 
   const dispatch = useDispatch();
 
@@ -76,6 +76,10 @@ const Reviews = () => {
       }
       Swal.fire("Gracias por dejar tu calificación!");
     } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "ya has echo una calificación",
+      });
       console.error("Error al enviar la revisión:", error.message);
     }
   };
