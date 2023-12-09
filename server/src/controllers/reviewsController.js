@@ -1,34 +1,23 @@
 const {Review, User} = require('../db')
 
 const postReview = async (rating, comment, UserEmail) => {
-    // Verificar si el usuario ya ha creado una revisión
-    const existingReview = await Review.findOne({
-        where: { UserEmail },
-    });
-
-    if (existingReview) {
-        throw new Error('Ya has creado una revisión. Solo se permite una revisión por usuario.');
-    }
-
-    // Si el usuario no ha creado una revisión, proceder con la creación
     const newReview = await Review.create({
         rating,
-        comment,
-    });
+        comment
+    })
+//console.log ('Correo: ',UserEmail);
 
-    const addRev = await User.findOne({
-        where: { email: UserEmail },
-    });
-
-    if (addRev) {
-        await newReview.setUser(addRev);
-    } else {
-        throw new Error('Usuario no encontrado');
-    }
-
+const addRev = await User.findOne({
+    where: {email: UserEmail}
+});
+console.log('Para relacionar: ',addRev);
+if (addRev){
+    await newReview.setUser(addRev);
+} else {
+    throw new Error ('Usuario no encontrado');
+}
     return newReview;
 };
-
 // ---------------------------------------------------------
 
 const getAllReviews = async() => {

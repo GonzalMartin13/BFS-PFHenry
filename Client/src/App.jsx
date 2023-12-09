@@ -2,11 +2,9 @@
 /* eslint-disable no-unused-vars */
 import { Route, Routes, useLocation } from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
-import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import NavBar from "./components/NavBar/NavBar";
 import Home from "./components/Home/Home";
 import About from "./views/About/About";
-import Dashboard from "./views/Dashboard/Dashboard";
 import Dashboard from "./views/Dashboard/Dashboard";
 import Footer from "./components/Footer/Footer";
 import CardContainer from "./components/CardContainer/CardContainer";
@@ -55,25 +53,7 @@ function App() {
   };
 
 
-  const validRoutes = [
-    "/",
-    "/cotizacion",
-    "/about",
-    "/contacto",
-    "/payment",
-    "/servicios",
-    "/sucursales",
-    "/envios",
-    "/profile",
-    "/guia",
-    "/confirmacion",
-    "/dashboard",
-    "/factura",
-    "/reviews",
-  ];
 
-
-  const showNavBar = validRoutes.includes(location.pathname);
 
 
   const validRoutes = [

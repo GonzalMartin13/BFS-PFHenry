@@ -71,6 +71,7 @@ const Dashboard = ({ updateContextUser }) => {
       console.error("Error fetching payments:", error);
     }
   };
+
   const handleAdmin = async () => {
     const admin = await getAllAdmin();
     setAdmin(admin);

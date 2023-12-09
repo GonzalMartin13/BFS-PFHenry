@@ -11,6 +11,17 @@ const contolerPrecio = async (origen, destino, volumen, peso, servicios) => {
     //en caso que sea la misma provincia de origen y destino
 
     const precioBase = !servicios.includes("carteria") ? 1900 : 1400;
+  try {
+    const data = provincias[origen];
+    const provinciaEncontrada = data.distanciaEntreProvincias.find(
+      (provincia) => provincia.provincia.toLowerCase() === destino.toLowerCase()
+    );
+    //
+    let precioFinal = 0;
+    //
+    //en caso que sea la misma provincia de origen y destino
+
+    const precioBase = !servicios.includes("carteria") ? 1900 : 1400;
 
     if (origen === destino) {
       precioFinal += precioBase;
