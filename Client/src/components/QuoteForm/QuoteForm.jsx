@@ -212,7 +212,7 @@ export default function QuoteForm() {
         icon: "success",
       });
       return dispatch(confirmed(true));
-    };
+    }
 
     loginWithRedirect();
     dispatch(contadorInTwo());

@@ -19,25 +19,6 @@ const Dashboard = ({ updateContextUser }) => {
   const [admin, setAdmin] = useState([]);
   const [selectedButton, setSelectedButton] = useState("");
 
-
-	const handleToggleUser = (user) => {
-   
-    setUsers((prevUsers) =>
-      prevUsers.map((u) =>
-        u.ID === user.ID ? { ...u, enabled: !u.enabled } : u
-      )
-    );
-  };
-
-	const handleToggleEnvio = (envio) => {
-   
-    setEnvio((prevEnvio) =>
-      prevEnvio.map((e) =>
-        e.id === envio.id ? { ...e, enabled: !envio.enabled } : e
-      )
-    );
-  };
-
   useEffect(() => {
     const session = JSON.parse(localStorage.getItem("userOnSession"));
     if (session?.email !== "") {
@@ -48,41 +29,6 @@ const Dashboard = ({ updateContextUser }) => {
     handleAdmin();
   }, []);
 
-	useEffect(() => {
-		const session = JSON.parse(localStorage.getItem("userOnSession"));
-		if (session?.email !== "") {
-			updateContextUser(session);
-		}
-		handleUsers();
-		handleEnvio();
-		handleAdmin();
-	}, []);
-  useEffect(() => {
-    const session = JSON.parse(localStorage.getItem("userOnSession"));
-    if (session?.email !== "") {
-      updateContextUser(session);
-    }
-    handleUsers();
-    handleEnvio();
-    handlePayments();
-    handleAdmin();
-  }, []);
-
-	const handleButtonClick = (button) => {
-		if (button === "adminGraphs") {
-			setSelectedButton(button);	
-			setAdminGraphs(true);
-		} else if (button === "Usuarios") {
-			setSelectedButton(button);
-			handleAdmin();
-		} else if (button === "Envios") {
-			setSelectedButton(button);
-			handleEnvio();
-		} else if (button === "Admin") {
-			setSelectedButton(button);
-			handleAdmin();
-		}
-	};
   const handleButtonClick = (button) => {
     if (button === "adminGraphs") {
       setSelectedButton(button);
@@ -93,9 +39,6 @@ const Dashboard = ({ updateContextUser }) => {
     } else if (button === "Envios") {
       setSelectedButton(button);
       handleEnvio();
-    } else if (button === "Pagos") {
-      setSelectedButton(button);
-      handlePayments();
     } else if (button === "Admin") {
       setSelectedButton(button);
       handleAdmin();
@@ -112,12 +55,12 @@ const Dashboard = ({ updateContextUser }) => {
     setEnvio(envio);
   };
 
-   const handleAdmin = async () => {
+  const handleAdmin = async () => {
     const admin = await getAllAdmin();
     setAdmin(admin);
   };
 
-  const handleBlockUser = async (user) => {
+  const handleToggleUser = async (user) => {
     if (user.enabled === true) {
       Swal.fire({
         title: "¿Deseas bloquear al usuario en la plataforma?",
@@ -185,27 +128,7 @@ const Dashboard = ({ updateContextUser }) => {
     }
   };
 
-  const handleBlockEnvio = (envio) => {
-    if (envio.enabled === true) {
-      Swal.fire({
-        title: "¿Quieres bloquear este envio en la plataforma?",
-        icon: "question",
-        showCancelButton: true,
-        confirmButtonColor: "#d33",
-        cancelButtonColor: "#3d0dca",
-        cancelButtonText: "Cancelar",
-        confirmButtonText: "Aceptar",
-        customClass: {
-          popup: "mySwal",
-        },
-      }).then(async (result) => {
-        if (result.isConfirmed) {
-          const response = await updateEnvio({
-            ...envio,
-            enabled: false,
-            banned: true,
-          });
-  const handleBlockEnvio = (envio) => {
+  const handleToggleEnvio = (envio) => {
     if (envio.enabled === true) {
       Swal.fire({
         title: "¿Quieres bloquear este envio en la plataforma?",
@@ -293,21 +216,6 @@ const Dashboard = ({ updateContextUser }) => {
             banned: false,
           });
 
-          if (response) {
-            Swal.fire({
-              title: "Este envio ha sido desbloqueado en BFS",
-              icon: "success",
-              customClass: {
-                popup: "mySwal",
-              },
-            });
-          }
-        }
-        await handleEnvio();
-      });
-      return;
-    }
-  };
           if (response) {
             Swal.fire({
               title: "Este envio ha sido desbloqueado en BFS",
@@ -392,6 +300,7 @@ const Dashboard = ({ updateContextUser }) => {
     }
   };
 
+
 	return (
 		<div className={style.container}>
 			<Sidebar onButtonClick={handleButtonClick} />
@@ -400,16 +309,17 @@ const Dashboard = ({ updateContextUser }) => {
 				users={users}
 				envio={envio}
 				admin={admin}
-				handleBlockUser={handleBlockUser}
-				handleBlockEnvio={handleBlockEnvio}
-				handleBlockAdmin={handleBlockAdmin}	
-        handleToggleUser={handleToggleUser}
+				handleToggleUser={handleToggleUser}
 				handleToggleEnvio={handleToggleEnvio}
+				handleBlockAdmin={handleBlockAdmin}	
 			/>
 			
 			
 		</div>
+
+		
 	);
+
 };
 
 export default Dashboard;

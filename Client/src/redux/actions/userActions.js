@@ -43,14 +43,4 @@ export const userProfile = (input) => {
   };
 };
 
-export const userProfile = (input) => {
-  return async (dispatch) => {
-    try {
-      const response = await axios.put("https://bfs-pfhenry-production.up.railway.app/user/profile", input);
-      console.log(response.data)
-      dispatch(updateUser(response.data));
-    } catch (error) {
-      throw Error(error.message);
-    }
-  };
-};
+
