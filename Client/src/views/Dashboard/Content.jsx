@@ -11,7 +11,7 @@ const Content = ({
   users,
   admin,
   handleToggleUser,
-  handleToggleEnvio,
+  
 }) => {
   const [adminList, setAdminList] = useState(admin);
   const [currentPage, setCurrentPage] = useState(0);
@@ -23,16 +23,25 @@ const Content = ({
     setAdminList(updatedAdminList);
   };
 
-  const handleCheckboxChange = (item) => {
-    handleToggleEnvio(item);
-  };
-
-  const handleCheckboxChanges = (item) => {
+   const handleCheckboxChanges = (item) => {
     handleToggleUser(item);
   };
   // Función para manejar el cambio de página
   const handlePageClick = ({ selected }) => {
     setCurrentPage(selected);
+  };
+
+  const getStatusColorClass = (status) => {
+    switch (status) {
+      case "En tránsito":
+        return styles.status_yellow; // Ajusta el nombre de la clase según tus estilos CSS
+      case "Entregado":
+        return styles.status_green;
+      case "Pendiente":
+        return styles.status_red;
+      default:
+        return ""; // Puedes manejar un valor predeterminado o no agregar ninguna clase si el estado no coincide
+    }
   };
 
   const renderTableRows = (data, currentPage, itemsPerPage) => {
@@ -44,32 +53,7 @@ const Content = ({
             <td>{item.id}</td>
             <td>{item.servicios}</td>
             <td>${item.total}</td>
-            <td>{item.status}</td>
-            <td>
-              <label className={styles.container_check}>
-                <input
-                  type="checkbox"
-                  defaultChecked={item.enabled}
-                  onChange={() => handleCheckboxChange(item)}
-                />
-                <div className={styles.checkmark}></div>
-              </label>
-            </td>
-            {item.enabled ? (
-              <td>
-                <Button
-                  text={"Bloquear envio"}
-                  onClick={() => handleToggleEnvio(item)}
-                />
-              </td>
-            ) : (
-              <td>
-                <Button
-                  text={"Desbloquear envio"}
-                  onClick={() => handleToggleEnvio(item)}
-                />
-              </td>
-            )}
+            <td className={getStatusColorClass(item.status)}>{item.status}</td>
           </tr>
         ))
     );
@@ -167,24 +151,22 @@ const Content = ({
       
       {selectedButton === "Envios" && (
         <>
-        <h2>Administrador de  Envios</h2>
-        <div className={styles.envios_table_container}>
-          <table className={styles.envios_table}>
-            <thead>
-              <tr>
-                <th>Id</th>
-                <th>Categoría</th>
-                <th>Total</th>
-                <th>Status</th>
-                <th>Estado</th>
-                <th>Bloquear/Desbloquear</th>
-              </tr>
-            </thead>
-            <tbody>
-               {renderTableRows(envio, currentPage, itemsPerPage)} 
-            </tbody>
-          </table>
-        </div>
+          <h2>Administrador de  Envios</h2>
+          <div className={styles.envios_table_container}>
+            <table className={styles.envios_table}>
+              <thead>
+                <tr>
+                  <th>Id</th>
+                  <th>Categoría</th>
+                  <th>Total</th>
+                  <th>Status</th>
+                  </tr>
+              </thead>
+              <tbody>
+                {renderTableRows(envio, currentPage, itemsPerPage)} 
+              </tbody>
+            </table>
+          </div>
          {/* Componente de paginación */}
          <ReactPaginate
             previousLabel={"← Previous"}
@@ -241,7 +223,6 @@ Content.propTypes = {
   admin: PropTypes.array,
   users: PropTypes.array,
   handleToggleUser: PropTypes.func,
-  handleToggleEnvio: PropTypes.func,
-};
+  };
 
 export default Content
