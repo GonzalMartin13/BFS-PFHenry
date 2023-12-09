@@ -8,9 +8,9 @@ const ErrorPage = () => {
   let hayquery = false
   if (query.search){
       hayquery = true
-  } 
+  }  // Reemplaza con la ruta correcta de tu imagen
 
-  return (
+return (
     <div >
       <img src="../../../src/assets/conectores-hembra-vector-desenchufados-diseno-minimalista-404-bichos-sobre-fondo-blanco-tema-electrico-concepto-de-banner-web-corte-de-electricidad-perdida-de-conexion-vector-2ddpt5j.png" alt="error" />
       <h2>Error 404</h2>
