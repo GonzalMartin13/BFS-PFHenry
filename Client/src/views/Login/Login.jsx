@@ -2,14 +2,15 @@
 /* eslint-disable no-extra-semi */
 import {useDispatch, useSelector} from "react-redux";
 import {registerUser, registerAdmin, userProfile} from "../../redux/actions/userActions";
-import {login, logouted, contar} from "../../redux/Slices/userSlice";
+import {login, logouted, contar, contadorInTwo} from "../../redux/Slices/userSlice";
 import Button from "react-bootstrap/Button";
 import Swal from "sweetalert2";
 import {useAuth0} from "@auth0/auth0-react";
 import { useNavigate, Link} from 'react-router-dom';
 import {log, out, profile} from "./style";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faRightToBracket } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faRightToBracket, faLongArrowUp } from '@fortawesome/free-solid-svg-icons';
+import { useEffect } from "react";
  
 const Login = () => {
   const {contador, isLoggedIn, emails} = useSelector((state) => state.user);
@@ -93,7 +94,7 @@ const Login = () => {
   const handleLogin = () => {
     localStorage.setItem('previousRoute', window.location.pathname);
     loginWithRedirect();
-    dispatch(contar());
+    dispatch(contadorInTwo());
   };
 
   const handleLogout = () => {

@@ -10,7 +10,6 @@ export function registerUser(postUser) {
         "https://bfs-pfhenry-production.up.railway.app/user/register", 
         postUser
       );
-      dispatch(addUser(response.data));
     } catch (error) {
       throw Error("Error al registrar el usuario", error);
     }
