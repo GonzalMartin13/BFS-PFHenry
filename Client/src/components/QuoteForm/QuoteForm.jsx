@@ -28,13 +28,13 @@ import { useNavigate } from "react-router-dom";
 import { setState, setTotal, clearState } from "../../redux/Slices/quoterslice";
 import { SiGooglemaps } from "react-icons/si";
 import Swal from "sweetalert2";
-import { confirmed, contadorInTwo } from "../../redux/Slices/userSlice";
+import { confirmed, contadorInTwo, profiles} from "../../redux/Slices/userSlice";
 import imagenCaja from "./utils/imageDimensiones.png";
 export default function QuoteForm() {
  // const state = useSelector((state) => state.shipping);
 
   const { loginWithRedirect } = useAuth0();
-  const { isLoggedIn, isProfile} = useSelector((state) => state.user);
+  const {isLoggedIn, isProfile} = useSelector((state) => state.user);
   const [errors, setErrors] = useState({});
 
   const dispatch = useDispatch();
@@ -212,6 +212,7 @@ export default function QuoteForm() {
       return dispatch(confirmed(true));
     };
 
+    dispatch(profiles(true));
     dispatch(confirmed(true));
     loginWithRedirect();
     dispatch(contadorInTwo());
