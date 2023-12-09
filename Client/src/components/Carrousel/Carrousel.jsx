@@ -40,7 +40,7 @@ const Slider = () => {
         </Carousel.Item>
         <Carousel.Item>
           <img
-            className="d-block mx-auto w-50"
+            className="d-block mx-auto w-5"
             src="https://www.beetrack.com/hs-fs/hubfs/entrega%20de%20paquetes%20fedex.jpg?width=724&name=entrega%20de%20paquetes%20fedex.jpg"
             alt="First slide"
             style={image}

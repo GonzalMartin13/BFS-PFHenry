@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 // userSlice.js
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
