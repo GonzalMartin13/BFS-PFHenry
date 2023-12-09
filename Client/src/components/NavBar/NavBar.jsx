@@ -1,7 +1,9 @@
+/* eslint-disable no-unused-vars */
 // import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Button from "react-bootstrap/Button";
+
 
 // import NavDropdown from "react-bootstrap/NavDropdown";
 
@@ -65,9 +67,9 @@ export default function NavBar() {
                 {isLoggedIn ? (
                   <Nav.Link href="/envios" style={menuletter}>Mis envíos</Nav.Link>
                 ) : null}
-                {admin.emailAdmin ? (
+                {/* {admin.emailAdmin ? (
                   <Nav.Link href="/dashboard" style={menuletter}>Dashboard</Nav.Link>
-                ) : null}
+                ) : null} */}
 
                 {/* <NavDropdown
                     title="Servicios"

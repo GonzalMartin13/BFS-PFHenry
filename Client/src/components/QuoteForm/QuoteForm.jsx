@@ -28,22 +28,23 @@ import { useNavigate } from "react-router-dom";
 import { setState, setTotal, clearState } from "../../redux/Slices/quoterslice";
 import { SiGooglemaps } from "react-icons/si";
 import Swal from "sweetalert2";
-import { registerUser } from "../../redux/actions/userActions";
-import { login, contar } from "../../redux/Slices/userSlice";
-
+import { registerUser, registerAdmin, userProfile } from "../../redux/actions/userActions";
+import { login, contar, confirmed, contadorInTwo } from "../../redux/Slices/userSlice";
+import imagenCaja from "./utils/imageDimensiones.png";
 export default function QuoteForm() {
-  const state = useSelector((state) => state.shipping);
+ // const state = useSelector((state) => state.shipping);
 
   const { loginWithRedirect, isAuthenticated, user } = useAuth0();
-  const { contador, isLoggedIn } = useSelector((state) => state.user);
+  const { contador, isLoggedIn, isProfile, emails } = useSelector((state) => state.user);
+  const usuario = useSelector((state) => state.user.user);
   const [errors, setErrors] = useState({});
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [servicios, setServicios] = useState({
-    discreto: null,
-    cuidado: null,
+    certificada: null,
+    fragilBox: null,
     paqueteria: true,
     carteria: null,
     express: null,
@@ -62,21 +63,39 @@ export default function QuoteForm() {
   //setea form(origen, destino, ancho, alto, largo,peso)
   function handleChange(event) {
     const { value, name } = event.target;
-    if (
-      name == "ancho" ||
-      name == "peso" ||
-      name == "largo" ||
-      name == "alto"
-    ) {
+
+    if (name === "ancho" || name === "largo" || name === "alto") {
+      if (/^[1-9]\d*$/.test(value) || value === "") {
+        setForm({ ...form, [name]: value });
+      }
+    } else if (name === "peso") {
       if (/^\d*$/.test(value) || value === "") {
         setForm({ ...form, [name]: value });
       }
-    }
-    if (name == "origen" || name == "destino") {
+    } else if (name === "origen" || name === "destino") {
       setForm({ ...form, [name]: value });
     }
+
     setErrors(validateForm({ ...form, [name]: value }, name));
   }
+
+  // function handleChange(event) {
+  //   const { value, name } = event.target;
+  //   if (
+  //     name == "ancho" ||
+  //     name == "peso" ||
+  //     name == "largo" ||
+  //     name == "alto"
+  //   ) {
+  //     if (/^\d*$/.test(value) || value === "") {
+  //       setForm({ ...form, [name]: value });
+  //     }
+  //   }
+  //   if (name == "origen" || name == "destino") {
+  //     setForm({ ...form, [name]: value });
+  //   }
+  //   setErrors(validateForm({ ...form, [name]: value }, name));
+  // }
   //setea estado servicio, si paqueteria es checked carteria no , y viceversa.
   const handleCheckboxChange = (e) => {
     const { name, checked } = e.target;
@@ -122,7 +141,7 @@ export default function QuoteForm() {
 
     try {
       const { data } = await axios.post(
-        "http://localhost:3001/envios/price",
+        "https://bfs-pfhenry-production.up.railway.app/envios/price",
         form
       );
 
@@ -183,51 +202,32 @@ export default function QuoteForm() {
   };
   ///
   const handleNavigation = () => {
-    if (isLoggedIn) return navigate("/confirmacion");
-    localStorage.setItem("previousRoute", "/confirmacion");
-    loginWithRedirect();
-    dispatch(contar());
-  };
+    if (isProfile) return navigate("/confirmacion");
 
-  if (isAuthenticated && user.email_verified && contador === 2) {
-    const previousRoute = localStorage.getItem("previousRoute");
-    localStorage.removeItem("previousRoute");
-    navigate(previousRoute || "/");
-    Swal.fire({
-      title: "Sesión iniciada",
-      text: `${user.nickname} has iniciado sesión exitosamente`,
-      icon: "success",
-    });
-
-    dispatch(login());
-
-    const postUser = {
-      email: user.email,
-      nickname: user.nickname,
-      picture: user.picture,
+    if (isLoggedIn) {
+      navigate("/profile");
+      Swal.fire({
+        title: "Actualiza tus datos",
+        text: "Para que puedas continuar con la confirmacion de tu pedido",
+        icon: "success",
+      });
+      return dispatch(confirmed(true));
     };
 
-    dispatch(registerUser(postUser));
-  } else if (isAuthenticated && !user.email_verified && contador === 2) {
-    Swal.fire({
-      title: "Sesión iniciada",
-      text: `${user.nickname} verifica tu Email para acceder a nuestros servicios`,
-      icon: "success",
-    });
-
-    dispatch(contar());
-  }
+    loginWithRedirect();
+    dispatch(contadorInTwo());
+  };
 
   //
   return (
-    <Container className={style.containerForm} fluid>
+    <Container className={`${style.containerForm} `} fluid>
       <Form
         onSubmit={handleFormSubmit}
         style={{
           margin: "auto auto 20px ",
           maxWidth: "800px",
           minHeight: "800px",
-          padding: "20px 20px",
+          padding: "15px 20px",
           borderRadius: "4px",
           backgroundColor: "#e4e1e1bd",
         }}
@@ -286,7 +286,7 @@ export default function QuoteForm() {
           </div>
         </div>
 
-        <h4 style={{ marginBottom: "20px" }}>
+        <h4 style={{ marginBottom: "10px" }}>
           ¿Qué tipo de envio queres hacer?{" "}
         </h4>
 
@@ -295,35 +295,55 @@ export default function QuoteForm() {
             inline
             label={
               <div>
-                <span style={{ marginRight: "2px" }}>Embalaje</span>
-                <Image src={icoDiscreto} rounded width="23px" alt="discreto" />
+                <span
+                  style={{ marginRight: "2px" }}
+                  title="Envío Certificado: Garantizamos la entrega segura al destinatario verificando su identidad mediante contacto telefónico con el remitente. Medidas adicionales de seguridad para asegurar la entrega correcta."
+                >
+                  Entrega Certificada
+                </span>
+                <Image
+                  src={icoDiscreto}
+                  rounded
+                  width="23px"
+                  alt="certificada"
+                />
               </div>
             }
-            name="discreto"
+            name="certificada"
             type="checkbox"
             onChange={handleCheckboxChange}
-            checked={servicios.discreto}
+            checked={servicios.certificada}
           />
 
           <Form.Check
             inline
             label={
               <div>
-                <span style={{ marginRight: "1px" }}>Cuidado</span>
-                <Image src={icoCuidado} rounded width="23px" alt="cuidado" />
+                <span
+                  style={{ marginRight: "1px" }}
+                  title="Envío Seguro para Artículos Frágiles: Embalaje especializado para proteger tus productos delicados durante el transporte, garantizando su llegada en óptimas condiciones."
+                >
+                  FragilBox
+                </span>
+                <Image src={icoCuidado} rounded width="23px" alt="fragilBox" />
               </div>
             }
-            name="cuidado"
+            name="fragilBox"
             type="checkbox"
             onChange={handleCheckboxChange}
-            checked={servicios.cuidado}
+            checked={servicios.fragilBox}
           />
 
           <Form.Check
             inline
             label={
               <div>
-                <span style={{ marginRight: "2px" }}>Carteria</span>
+                <span
+                  style={{ marginRight: "2px" }}
+                  title="Sobres de hasta 30 x 30 (cms) y de menos de 60 (grs)"
+                >
+                  Carteria
+                </span>
                 <Image src={icoSobre} rounded width="23px" alt="sobre" />
               </div>
             }
@@ -336,7 +356,12 @@ export default function QuoteForm() {
             inline
             label={
               <div>
-                <span style={{ marginRight: "2px" }}>Paqueteria</span>
+                <span
+                  style={{ marginRight: "2px" }}
+                  title="Paquetería Tradicional 📦: Envío de bultos con dimensiones de hasta 190 cm en alto, largo o ancho, y peso máximo de 100 kg. Servicio estándar de entrega para tus envíos convencionales, seguro y eficiente."
+                >
+                  Paqueteria
+                </span>
                 <Image src={icoCaja} rounded width="23px" alt="paqueteria" />
               </div>
             }
@@ -346,6 +371,7 @@ export default function QuoteForm() {
             checked={servicios.paqueteria}
           />
           <Form.Check
+            title="Express 🚀: Llega a la mitad del tiempo de un envío convencional. La opción perfecta para quienes buscan rapidez y eficiencia en la entrega de sus paquetes. ¡Haz que tus envíos lleguen más rápido con Express!"
             inline
             label={
               <div>
@@ -367,10 +393,43 @@ export default function QuoteForm() {
 
           <Form.Group
             className="mb-3"
-            style={{ height: "230px", marginTop: "60px" }}
+            style={{ height: "230px", marginTop: "30px" }}
           >
             {servicios.carteria ? null : (
               <>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+
+                    flexDirection: "column",
+                    padding: "0 4px",
+
+                    borderRadius: "8px",
+                    maxWidth: "800px",
+                  }}
+                >
+                  <Row>
+                    <Col style={{ display: "flex" }}>
+                      <div
+                        style={{
+                          color: "black",
+
+                          display: "flex",
+                          alignItems: "center",
+                        }}
+                      >
+                        Las medidas deben expresarse en centímetros. El peso
+                        máximo para un paquete es de 100 kg.
+                      </div>
+                    </Col>
+                    <Col>
+                      <div>
+                        <Image src={imagenCaja} width="140px"></Image>
+                      </div>
+                    </Col>
+                  </Row>
+                </div>
                 <Form.Group className="mb-3">
                   <Row>
                     <Col xs={6}>
@@ -382,7 +441,7 @@ export default function QuoteForm() {
                             type="text"
                             name="largo"
                             placeholder="Largo (cms)"
-                            style={{ marginTop: "30px" }}
+                            style={{ marginTop: "20px" }}
                             min="0"
                             className={errors.largo ? style.dangercontent : ""}
                           />
@@ -418,7 +477,7 @@ export default function QuoteForm() {
                             type="text"
                             placeholder="Ancho (cms)"
                             name="ancho"
-                            style={{ marginTop: "30px" }}
+                            style={{ marginTop: "20px" }}
                             min="0"
                             className={errors.ancho ? style.dangercontent : ""}
                           />
@@ -459,7 +518,7 @@ export default function QuoteForm() {
               padding: "5px 30px",
               fontSize: "25px",
               marginBottom: "5px",
-              marginTop: "30px",
+              marginTop: "145px",
             }}
             variant="primary"
             type="submit"

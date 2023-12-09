@@ -4,16 +4,23 @@ const pg = require("pg");
 const path = require("path");
 const fs = require("fs");
 
-const { DB_USER, DB_PASSWORD, DB_HOST } = process.env;
+const { DB_USER, DB_PASSWORD, DB_HOST, DEPLOY_URL } = process.env;
 
-const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/BFS`,
-	
+const sequelize = new Sequelize(DEPLOY_URL,
+
 	{
 		logging: false,
 		native: false,
 		dialectModule: pg,
 	}
 );
+/* const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/BFS`,
+	{
+		logging: false,
+		native: false,
+		dialectModule: pg,
+	}
+); */
 
 const basename = path.basename(__filename);
 
@@ -42,11 +49,14 @@ let capsEntries = entries.map((entry) => [
 ]);
 sequelize.models = Object.fromEntries(capsEntries);
 
-const {User, Package, Admin} = sequelize.models;
+const {User, Package, Admin, Review} = sequelize.models;
 
 //----------------Relacion de Uno A Muchos --------------------------------
 User.hasMany(Package); // un usuario hace muchos envios
 Package.belongsTo(User); // Muchis envios pertenecen a un usuario
+
+User.hasMany(Review); // un usuario hace muchos comentarios
+Review.belongsTo(User); // un cometario solo lo hace un Usuario
 
 //  ---------------->  Relacion de muchos A Muchos <-----------------------
 

@@ -1,0 +1,28 @@
+const santaCruz = {
+  nombre: "Santa Cruz",
+  distanciaEntreProvincias: [
+    { provincia: "Buenos Aires", distancia: 2092 },
+    { provincia: "Catamarca", distancia: 2814 },
+    { provincia: "Chaco", distancia: 2865 },
+    { provincia: "Chubut", distancia: 724 },
+    { provincia: "Córdoba", distancia: 2388 },
+    { provincia: "Corrientes", distancia: 2784 },
+    { provincia: "Entre Ríos", distancia: 2568 },
+    { provincia: "Formosa", distancia: 3213 },
+    { provincia: "Jujuy", distancia: 3242 },
+    { provincia: "La Pampa", distancia: 2040 },
+    { provincia: "La Rioja", distancia: 2303 },
+    { provincia: "Mendoza", distancia: 2462 },
+    { provincia: "Misiones", distancia: 3040 },
+    { provincia: "Neuquén", distancia: 1622 },
+    { provincia: "Río Negro", distancia: 1567 },
+    { provincia: "Salta", distancia: 3368 },
+    { provincia: "San Juan", distancia: 2242 },
+    { provincia: "San Luis", distancia: 2411 },
+    { provincia: "Santa Fe", distancia: 2411 },
+    { provincia: "Santiago del Estero", distancia: 2660 },
+    { provincia: "Tierra del Fuego", distancia: 1046 },
+    { provincia: "Tucumán", distancia: 2830 },
+  ],
+};
+module.exports = santaCruz;

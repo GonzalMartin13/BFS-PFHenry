@@ -1,22 +1,40 @@
-const contolerPrecio = require("../controllers/controlerPrecio")
+const contolerPrecio = require("../controllers/controlerPrecio");
 
-const cotizarHandler = async(req, res) =>{
-    const {origen, destino, largo, ancho, alto, peso, servicios} = req.body
-    const volumen = (ancho * largo * alto);
-    try{
-        const precioFinal = await contolerPrecio(origen, destino, volumen, peso, servicios)
-        res.status(200).json(precioFinal)
-    } catch (error){
-        console.log(error.message)
-        res.status(404).send(error.message)
+const cotizarHandler = async (req, res) => {
+  const { origen, destino, largo, ancho, alto, peso, servicios } = req.body;
+  const volumen = Number(ancho) + Number(largo) + Number(alto);
+  try {
+    if (largo > 190 || ancho > 190 || alto > 190) {
+      return res
+        .status(200)
+        .json(
+          "Por cuestiones operativas no podemos realizar envios de mas de 190 (cms) de alto, ancho o largo."
+        );
     }
+    if (peso > 100) {
+      return res
+        .status(200)
+        .json(
+          "Por cuestiones operativas no podemos realizar envios de mas 100 (kgs) de peso."
+        );
+    }
+    const precioFinal = await contolerPrecio(
+      origen,
+      destino,
+      volumen,
+      peso,
+      servicios
+    );
+    res.status(200).json(precioFinal);
+  } catch (error) {
+    console.log(error.message);
+    res.status(404).send(error.message);
+  }
+};
 
-}
+module.exports = cotizarHandler;
 
-module.exports = cotizarHandler
-
-
-/*  endpoint: http://localhost:3001/envios/price
+/*  endpoint: https://bfs-pfhenry-production.up.railway.app/envios/price
  tipo: post
  devuelve: devuelve el precio del envio
  */

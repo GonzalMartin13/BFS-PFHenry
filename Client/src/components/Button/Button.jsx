@@ -1,25 +1,27 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import Styles from "./Button.module.css";
 
 const Button = ({ text, onClick, string }) => {
-	const scrollToTop = () => {
-		window.scrollTo({
-			top: 0,
-		});
-	};
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+    });
+  };
 
-	return (
-		<div className={Styles.buttonContainer}>
-			<button
-				className={Styles.cssButtonSharpBlue}
-				onClick={() => {
-					onClick();
-					scrollToTop();
-				}}
-			>
-				{text}
-			</button>
-		</div>
-	);
+  return (
+    <div className={Styles.buttonContainer}>
+      <button
+        className={Styles.cssButtonSharpBlue}
+        onClick={() => {
+          onClick();
+          scrollToTop();
+        }}
+      >
+        {text}
+      </button>
+    </div>
+  );
 };
 
 export default Button;

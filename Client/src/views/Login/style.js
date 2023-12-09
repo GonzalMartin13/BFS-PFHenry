@@ -8,7 +8,7 @@ const log = {
 
 const out = {
   backgroundColor: "transparent",
-  border: "3px solid darkblue",
+  border: "2px solid black",
   color: "red",
   marginRight: "30px",
   padding: "5px 10px",
@@ -16,7 +16,7 @@ const out = {
 
 const profile = {
   backgroundColor: "transparent",
-  border: "3px solid black",
+  border: "2px solid black",
   color: "darkblue",
   marginRight: "60px",
   padding: "5px 10px",

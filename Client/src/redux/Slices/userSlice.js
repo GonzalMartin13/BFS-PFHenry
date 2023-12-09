@@ -3,9 +3,12 @@ import {createSlice} from "@reduxjs/toolkit";
 
 const initialState = {
   user: {},
-  isLoggedIn:false,
+  isLoggedIn: false,
   contador: 1,
-  admin: {}
+  admin: {},
+  isProfile: false,
+  goConfirmacion: false,
+  emails: ["dixongonzalezm2304@gmail.com", "bfspfhenry@gmail.com"]
 };
 
 export const userSlice = createSlice({
@@ -24,17 +27,28 @@ export const userSlice = createSlice({
       state.isLoggedIn = false;
       state.contador = 1;
       state.admin = {};
+      state.isProfile = false;
     }, 
     contar: (state) => {
       state.contador = (state.contador + 1);
-    }, 
+    },
+    contadorInTwo: (state) => {
+      state.contador = 2;
+    },
     addAdmin: (state, action) => {
       state.admin = (action.payload);
+    },
+    updateUser: (state, action) => {
+      state.user = (action.payload);
+      state.isProfile = true;
+    },
+    confirmed: (state, action) => {
+      state.goConfirmacion = (action.payload);
     },
   },
 });
 
-export const {logouted, login, addUser, contar, addAdmin} = userSlice.actions;
+export const {logouted, login, addUser, contar, addAdmin, updateUser, confirmed, contadorInTwo} = userSlice.actions;
 
 export default userSlice.reducer;
 

@@ -38,7 +38,7 @@ const enviarBD = async (valores) => {
 
   try {
     const response = await axios.post(
-      "http://localhost:3001/envios/",
+      "https://bfs-pfhenry-production.up.railway.app/envios/",
       datosEnvio
     );
 

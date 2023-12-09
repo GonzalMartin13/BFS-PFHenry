@@ -3,12 +3,15 @@ import emailjs from "@emailjs/browser";
 import style from "./Contact.module.css";
 import Image from "react-bootstrap/Image";
 import contacto from "../../assets/contacto.png";
+import { useSelector } from "react-redux";
 
 const Email = () => {
+  const {user} = useSelector((state) => state.user);
+  
   const [name, setName] = useState("");
   const [lastname, setLastname] = useState("");
   const [asunto, setAsunto] = useState("");
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState(user.email);
   const [message, setMessage] = useState("");
 
   const sendEmail = (event) => {
@@ -56,6 +59,7 @@ const Email = () => {
             name="user_email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            disabled
           />
           <label>Mensaje</label>
           <textarea
