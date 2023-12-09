@@ -7,8 +7,7 @@ export function registerUser(postUser) {
   return async function (dispatch) {
     try {
       const response = await axios.post(
-        "https://bfs-pfhenry-production.up.railway.app/user/register",
-        //"http://localhost:3001/user/register",
+        "http://localhost:3001/user/register",
 
         postUser
       );
@@ -24,6 +23,7 @@ export const registerAdmin = (postAdmin) => {
     try {
       const response = await axios.post(
         "https://bfs-pfhenry-production.up.railway.app/admin/",
+
         postAdmin
       );
 
@@ -38,10 +38,12 @@ export const registerAdmin = (postAdmin) => {
 
 export const userProfile = (input) => {
   return async (dispatch) => {
+    console.log(input);
     try {
       const response = await axios.put(
-        // "http://localhost:3001/user/profile",
-        "https://bfs-pfhenry-production.up.railway.app/user/profile",
+        // "https://bfs-pfhenry-production.up.railway.app/user/profile",
+        "http://localhost:3001/user/profile",
+
         input
       );
       console.log(response.data);

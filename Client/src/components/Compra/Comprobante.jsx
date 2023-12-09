@@ -10,7 +10,10 @@ const setStateQu = {
 };
 import { useDispatch, useSelector } from "react-redux";
 import { Container, Button, ListGroup } from "react-bootstrap";
-import { postInvoiceAsync, setStateInvoice } from "../../redux/Slices/invoiceUserSlice";
+import {
+  postInvoiceAsync,
+  setStateInvoice,
+} from "../../redux/Slices/invoiceUserSlice";
 
 import { Link, useNavigate } from "react-router-dom";
 import { setState } from "../../redux/Slices/quoterslice";
@@ -23,8 +26,7 @@ export default function Comprobante() {
   const envio = useSelector((state) => state.shipping);
   const { idShipping } = useSelector((state) => state.invoice);
   const { invoice } = useSelector((state) => state.invoice);
-
-
+  console.log(envio);
   let url = invoice;
 
   const jsonInvoise = {
@@ -58,9 +60,9 @@ export default function Comprobante() {
       telDestinatario: envio.telefonoDestinatario,
     },
   };
- useEffect(()=>{
- // dispatch(postInvoiceAsync(jsonInvoise))
- },[dispatch])
+  useEffect(() => {
+    // dispatch(postInvoiceAsync(jsonInvoise))
+  }, [dispatch]);
   const resetStates = () => {
     dispatch(setState(setStateQu));
     dispatch(setStateInvoice());
@@ -94,7 +96,12 @@ export default function Comprobante() {
           Código de seguimiento: {idShipping}
         </ListGroup.Item>
       </ListGroup>
-      <a href={url} target="_blank" rel="noreferrer" className="btn btn-primary m-3 p-2">
+      <a
+        href={url}
+        target="_blank"
+        rel="noreferrer"
+        className="btn btn-primary m-3 p-2"
+      >
         Descargar factura
       </a>
       <Button

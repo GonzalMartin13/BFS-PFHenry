@@ -33,7 +33,12 @@ import {
   registerAdmin,
   userProfile,
 } from "../../redux/actions/userActions";
-import { login, contar, confirmed } from "../../redux/Slices/userSlice";
+import {
+  login,
+  contar,
+  confirmed,
+  contadorInTwo,
+} from "../../redux/Slices/userSlice";
 import imagenCaja from "./utils/imageDimensiones.png";
 export default function QuoteForm() {
   // const state = useSelector((state) => state.shipping);
@@ -147,9 +152,7 @@ export default function QuoteForm() {
 
     try {
       const { data } = await axios.post(
-        //"http://localhost:3001/envios/price",
         "https://bfs-pfhenry-production.up.railway.app/envios/price",
-
         form
       );
 
@@ -222,81 +225,9 @@ export default function QuoteForm() {
       return dispatch(confirmed(true));
     }
 
-    localStorage.setItem("previousRoute", "/confirmacion");
     loginWithRedirect();
-    dispatch(contar());
+    dispatch(contadorInTwo());
   };
-
-  if (
-    emails?.includes(user?.email) &&
-    isAuthenticated &&
-    user.email_verified &&
-    contador === 2
-  ) {
-    const previousRoute = localStorage.getItem("previousRoute");
-    localStorage.removeItem("previousRoute");
-    navigate(previousRoute || "/");
-    Swal.fire({
-      title: "Sesión iniciada",
-      text: `${user.nickname} has iniciado sesión exitosamente como administrador`,
-      icon: "success",
-    });
-
-    dispatch(login());
-
-    const postUser = {
-      email: user.email,
-      nickname: user.nickname,
-      picture: user.picture,
-    };
-
-    const postAdmin = {
-      nameAdmin: user.nickname,
-      emailAdmin: user.email,
-    };
-
-    dispatch(registerUser(postUser));
-    dispatch(registerAdmin(postAdmin));
-  } else if (isAuthenticated && user.email_verified && contador === 2) {
-    const previousRoute = localStorage.getItem("previousRoute");
-    localStorage.removeItem("previousRoute");
-    navigate(previousRoute || "/");
-    Swal.fire({
-      title: "Sesión iniciada",
-      text: `${user.nickname} has iniciado sesión exitosamente`,
-      icon: "success",
-    });
-
-    dispatch(login());
-
-    const postUser = {
-      email: user.email,
-      nickname: user.nickname,
-      picture: user.picture,
-    };
-
-    dispatch(registerUser(postUser));
-  } else if (isAuthenticated && !user.email_verified && contador === 2) {
-    Swal.fire({
-      title: "Sesión iniciada",
-      text: `${user.nickname} verifica tu Email para acceder a nuestros servicios`,
-      icon: "success",
-    });
-
-    dispatch(contar());
-  }
-
-  if (usuario.phone && contador === 3) {
-    const input = {
-      name: usuario.name,
-      lastName: usuario.lastName,
-      phone: usuario.phone,
-      email: usuario.email,
-      nickname: usuario.nickname,
-    };
-    dispatch(contar());
-    dispatch(userProfile(input));
-  }
 
   //
   return (
@@ -381,7 +312,12 @@ export default function QuoteForm() {
                 >
                   Entrega Certificada
                 </span>
-                <Image src={icoDiscreto} width="23px" alt="certificada" />
+                <Image
+                  src={icoDiscreto}
+                  rounded
+                  width="23px"
+                  alt="certificada"
+                />
               </div>
             }
             name="certificada"
@@ -400,11 +336,7 @@ export default function QuoteForm() {
                 >
                   FragilBox
                 </span>
-                <Image
-                  src={icoCuidado}
-                  style={{ width: "23px" }}
-                  alt="fragilBox"
-                />
+                <Image src={icoCuidado} rounded width="23px" alt="fragilBox" />
               </div>
             }
             name="fragilBox"
@@ -423,7 +355,7 @@ export default function QuoteForm() {
                 >
                   Carteria
                 </span>
-                <Image src={icoSobre} width="23px" alt="sobre" />
+                <Image src={icoSobre} rounded width="23px" alt="sobre" />
               </div>
             }
             name="carteria"
@@ -441,7 +373,7 @@ export default function QuoteForm() {
                 >
                   Paqueteria
                 </span>
-                <Image src={icoCaja} width="23px" alt="paqueteria" />
+                <Image src={icoCaja} rounded width="23px" alt="paqueteria" />
               </div>
             }
             name="paqueteria"
@@ -455,7 +387,7 @@ export default function QuoteForm() {
             label={
               <div>
                 <span style={{ marginRight: "1px" }}>Express</span>
-                <Image src={icoTiempo} width="23px" alt="Express" />
+                <Image src={icoTiempo} rounded width="23px" alt="Express" />
               </div>
             }
             name="express"

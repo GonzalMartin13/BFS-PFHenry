@@ -106,18 +106,7 @@ function App() {
         </Route>
         <Route
           element={
-            <ProtectedRoute
-              isAllowed={
-                name &&
-                lastName &&
-                phone &&
-                origen != "" &&
-                destino != "" &&
-                total != "" &&
-                servicios.length != 0
-              }
-              redirectTo="/profile"
-            />
+            <ProtectedRoute isAllowed={isLoggedIn} redirectTo="/profile" />
           }
         >
           <Route path="/confirmacion" element={<FormEnvio />} />

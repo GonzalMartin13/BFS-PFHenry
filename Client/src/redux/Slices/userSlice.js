@@ -32,6 +32,9 @@ export const userSlice = createSlice({
     contar: (state) => {
       state.contador = state.contador + 1;
     },
+    contadorInTwo: (state) => {
+      state.contador = 2;
+    },
     addAdmin: (state, action) => {
       state.admin = action.payload;
     },
@@ -53,6 +56,7 @@ export const {
   addAdmin,
   updateUser,
   confirmed,
+  contadorInTwo,
 } = userSlice.actions;
 
 export default userSlice.reducer;

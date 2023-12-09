@@ -18,7 +18,8 @@ const Profile = () => {
     name: user.name,
     lastName: user.lastName,
     phone: user.phone,
-    email: user.email,
+    email: user.email, //tuve que comentar esto porque el estado user o esta vacio o es un string error.
+    //  email: "a.ignacio.leivaleiva@gmail.com",
     nickname: user.nickname,
   });
 
@@ -63,7 +64,7 @@ const Profile = () => {
 
   const dispatch = useDispatch();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
@@ -73,7 +74,7 @@ const Profile = () => {
         icon: "success",
       });
 
-      dispatch(userProfile(input));
+      await dispatch(userProfile(input));
 
       if (goConfirmacion === true) {
         navigate("/confirmacion");
