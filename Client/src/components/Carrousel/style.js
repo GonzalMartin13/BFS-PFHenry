@@ -1,5 +1,6 @@
 const image = {
   height: "500px",
+  width: "675px"
 };
 
 const font = {
@@ -8,7 +9,7 @@ const font = {
 
 const background = {
   backgroundColor: "rgba(0, 0, 0, 0.4)",
-  margin: "0px 0px"
+  margin: "0px 135px"
 };
 
 export {

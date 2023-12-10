@@ -1,12 +1,13 @@
 import styles from '../About/About.module.css'
 import { FaGithub } from "react-icons/fa";
 import Image from 'react-bootstrap/Image';
+import picture from "../../assets/about.jpeg";
 
 const About = () => {
 
 return (
   <div>
-  <Image src="https://www.eltiempo.com/files/image_640_428/uploads/2018/04/24/5adf56453d3ce.jpeg" fluid style={{ width: '100%', height: '800px' }}/>
+  <Image src={picture} fluid style={{ width: '600px', height: '100%' }}/>
     <div className={styles.about}>
       <br />
       <div className={styles.cont}>
