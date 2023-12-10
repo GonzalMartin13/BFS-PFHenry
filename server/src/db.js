@@ -13,14 +13,14 @@ const sequelize = new Sequelize(DEPLOY_URL,
 		native: false,
 		dialectModule: pg,
 	}
-);
-/* const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/BFS`,
+); 
+/*  const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/BFS`,
 	{
 		logging: false,
 		native: false,
 		dialectModule: pg,
 	}
-); */
+);  */
 
 const basename = path.basename(__filename);
 

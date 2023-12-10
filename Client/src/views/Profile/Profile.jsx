@@ -78,7 +78,7 @@ const Profile = () => {
       if(goConfirmacion === true) {
         navigate("/confirmacion");
         dispatch(confirmed(false));
-      };
+      }
     } catch (error) {}
   };
 

@@ -3,7 +3,7 @@ import axios from "axios";
 
 export const getPackages = createAsyncThunk("packages/getPackages", async () => {
   try {
-    const response = await axios.get("http://localhost:3001/envios");
+    const response = await axios.get("https://bfs-pfhenry-production.up.railway.app/envios");
     return response.data;
   } catch (error) {
     throw Error("Error al obtener los envíos", error);
@@ -12,7 +12,7 @@ export const getPackages = createAsyncThunk("packages/getPackages", async () => 
 
 export const getUserPackages = createAsyncThunk("packages/getUserPackages", async (UserEmail) => {
   try {
-    const response = await axios.get(`http://localhost:3001/envios/user/${UserEmail}`);
+    const response = await axios.get(`https://bfs-pfhenry-production.up.railway.app/envios/user/${UserEmail}`);
     return response.data;
   } catch (error) {
     console.error("Error al obtener envíos del usuario", error);
@@ -22,7 +22,7 @@ export const getUserPackages = createAsyncThunk("packages/getUserPackages", asyn
 
 export const getUserPackagesById = createAsyncThunk("packages/getUserPackagesById", async (id) => {
   try {
-    const response = await axios.get(`http://localhost:3001/envios/${id}`);
+    const response = await axios.get(`https://bfs-pfhenry-production.up.railway.app/envios/${id}`);
     return response.data;
   } catch (error) {
     throw Error("Error al obtener el envío por ID", error);
