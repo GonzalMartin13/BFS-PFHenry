@@ -42,6 +42,7 @@ function App() {
   const todosVacios = Object.values(envio).every(
     (valor) => valor === "" || (Array.isArray(valor) && valor.length === 0)
   );
+  console.log(todosVacios);
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -88,9 +89,7 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="*" element={<ErrorPage />} />
         {/* //protege ruta "/factura" redirige a "/" si datos de compra estan vacios */}
-        <Route
-          element={<ProtectedRoute isAllowed={isLoggedIn && !todosVacios} />}
-        >
+        <Route element={<ProtectedRoute isAllowed={isLoggedIn} />}>
           <Route path="/factura" element={<Comprobante />} />
         </Route>
 
