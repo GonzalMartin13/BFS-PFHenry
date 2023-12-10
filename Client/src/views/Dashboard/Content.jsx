@@ -17,9 +17,14 @@ const Content = ({
   const [currentPage, setCurrentPage] = useState(0);
   const itemsPerPage = 10;
   
-    const toggleActivation = (index) => {
+  const toggleActivation = (index) => {
     const updatedAdminList = [...adminList];
+    const adminToUpdate = { ...updatedAdminList[index] };
+  
+    console.log('Índice:', index);
+    console.log('Estado actual del admin:', adminToUpdate);
     updatedAdminList[index].isActive = !updatedAdminList[index].isActive;
+    console.log('Estado actualizado del admin:', updatedAdminList[index]);
     setAdminList(updatedAdminList);
   };
 
@@ -34,13 +39,13 @@ const Content = ({
   const getStatusColorClass = (status) => {
     switch (status) {
       case "En tránsito":
-        return styles.status_yellow; // Ajusta el nombre de la clase según tus estilos CSS
+        return styles.status_yellow; 
       case "Entregado":
         return styles.status_green;
       case "Pendiente":
         return styles.status_red;
       default:
-        return ""; // Puedes manejar un valor predeterminado o no agregar ninguna clase si el estado no coincide
+        return ""; 
     }
   };
 
@@ -65,10 +70,10 @@ const Content = ({
           ?.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage)
           ?.map((item, index) => (
             <tr key={index}>
-              <td>{item.id}</td>
-              <td>{item.servicios}</td>
-              <td>${item.total}</td>
-              <td>{item.status}</td>
+              <td>{item.ID}</td>
+              <td>{item.email}</td>
+              <td>{item.name}</td>
+              <td>{item.lastName}</td>
               <td>
                 <label className={styles.container_check}>
                   <input
@@ -82,14 +87,14 @@ const Content = ({
               {item.enabled ? (
                 <td>
                   <Button
-                    text={"Bloquear envio"}
+                    text={"Bloquear"}
                     onClick={() => handleToggleUser(item)}
                   />
                 </td>
               ) : (
                 <td>
                   <Button
-                    text={"Desbloquear envio"}
+                    text={"Desbloquear"}
                     onClick={() => handleToggleUser(item)}
                   />
                 </td>
@@ -98,6 +103,8 @@ const Content = ({
           ))
       );
     };
+
+
   return (
     <div className={styles.containerContext}>
       <div>
@@ -121,7 +128,7 @@ const Content = ({
                     <th>Nombre</th>
                     <th>Apellido</th>
                     <th>Estado</th>
-                    <th>Bloquear/Desbloquear</th>
+                    <th>Accion</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -192,7 +199,8 @@ const Content = ({
               <tr>
                 <th>Nombre Admin</th>
                 <th>Email</th>
-                <th>Activar/Desactivar</th>
+                <th>Estado</th>
+                <th>Accion</th>
               </tr>
             </thead>
             <tbody>
@@ -200,6 +208,7 @@ const Content = ({
                 <tr key={index}>
                   <td>{admin.nameAdmin}</td>
                   <td>{admin.emailAdmin}</td>
+                  <td>{admin.isActive}</td>
                   <td>
                     <button onClick={() => toggleActivation(index)}>
                       {admin.isActive ? "Desactivar" : "Activar"}

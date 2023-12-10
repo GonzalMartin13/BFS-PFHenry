@@ -128,110 +128,7 @@ const Dashboard = ({ updateContextUser }) => {
     }
   };
 
-  const handleToggleEnvio = (envio) => {
-    if (envio.enabled === true) {
-      Swal.fire({
-        title: "¿Quieres bloquear este envio en la plataforma?",
-        icon: "question",
-        showCancelButton: true,
-        confirmButtonColor: "#d33",
-        cancelButtonColor: "#3d0dca",
-        cancelButtonText: "Cancelar",
-        confirmButtonText: "Aceptar",
-        customClass: {
-          popup: "mySwal",
-        },
-      }).then(async (result) => {
-        if (result.isConfirmed) {
-          const response = await updateEnvio({
-            ...envio,
-            enabled: false,
-            banned: true,
-          });
-
-          if (response) {
-            Swal.fire({
-              title: "Este envio ha sido bloqueado en BFS",
-              icon: "success",
-              customClass: {
-                popup: "mySwal",
-              },
-            });
-          }
-        }
-        await handleEnvio();
-      });
-      return;
-    }
-    if (envio.enabled === false) {
-      Swal.fire({
-        title: "¿Quieres desbloquear este envio de la plataforma?",
-        icon: "question",
-        showCancelButton: true,
-        confirmButtonColor: "#d33",
-        cancelButtonColor: "#3d0dca",
-        cancelButtonText: "Cancelar",
-        confirmButtonText: "Aceptar",
-        customClass: {
-          popup: "mySwal",
-        },
-      }).then(async (result) => {
-        if (result.isConfirmed) {
-          const response = await updateEnvio({
-            ...envio,
-            enabled: true,
-            banned: false,
-          });
-          if (response) {
-            Swal.fire({
-              title: "Este envio ha sido bloqueado en BFS",
-              icon: "success",
-              customClass: {
-                popup: "mySwal",
-              },
-            });
-          }
-        }
-        await handleEnvio();
-      });
-      return;
-    }
-    if (envio.enabled === false) {
-      Swal.fire({
-        title: "¿Quieres desbloquear este envio de la plataforma?",
-        icon: "question",
-        showCancelButton: true,
-        confirmButtonColor: "#d33",
-        cancelButtonColor: "#3d0dca",
-        cancelButtonText: "Cancelar",
-        confirmButtonText: "Aceptar",
-        customClass: {
-          popup: "mySwal",
-        },
-      }).then(async (result) => {
-        if (result.isConfirmed) {
-          const response = await updateEnvio({
-            ...envio,
-            enabled: true,
-            banned: false,
-          });
-
-          if (response) {
-            Swal.fire({
-              title: "Este envio ha sido desbloqueado en BFS",
-              icon: "success",
-              customClass: {
-                popup: "mySwal",
-              },
-            });
-          }
-        }
-        await handleEnvio();
-      });
-      return;
-    }
-  };
-
+  
   const handleBlockAdmin = async (admin) => {
     if (admin.enabled === true) {
       Swal.fire({
@@ -310,7 +207,6 @@ const Dashboard = ({ updateContextUser }) => {
 				envio={envio}
 				admin={admin}
 				handleToggleUser={handleToggleUser}
-				handleToggleEnvio={handleToggleEnvio}
 				handleBlockAdmin={handleBlockAdmin}	
 			/>
 			
