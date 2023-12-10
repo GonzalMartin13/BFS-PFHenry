@@ -6,7 +6,7 @@ let misiones = {
     { provincia: "Chaco", distancia: 229 },
     { provincia: "Chubut", distancia: 2372 },
     { provincia: "Córdoba", distancia: 1034 },
-    { provincia: "Corrientes", distancia: 208 },
+    { provincia: "Corrientes", distancia: 228 },
     { provincia: "Entre Ríos", distancia: 756 },
     { provincia: "Formosa", distancia: 535 },
     { provincia: "Jujuy", distancia: 1050 },

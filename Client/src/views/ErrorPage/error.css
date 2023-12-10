@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .ul{
     list-style: none;
 }
@@ -10,12 +11,26 @@
     margin-top: 1%;
     height: 470px;
     width: 100%;
-}
-.li{
-    text-decoration: underline;
-    color: gray;
+=======
+.ul {
+  list-style: none;
 }
 
-.li:hover{
-    color:blue
+.hache2 {
+  font-size: 3.5em;
+}
+
+.imgerror {
+  margin-top: 1%;
+  height: 470px;
+  width: 100%;
+>>>>>>> ae82b79d50c3b3e22ae5f929951fe8d69ac60d14
+}
+.li {
+  text-decoration: underline;
+  color: gray;
+}
+
+.li:hover {
+  color: blue;
 }

@@ -3,7 +3,7 @@
     /* background-color: ; 
   } */
 
-  /* Añadir un degradado azul al fondo del Navbar */
+/* Añadir un degradado azul al fondo del Navbar */
 .bg-gradient-blue {
   background: linear-gradient(to right, #5b5bff00, #3838ff);
 }
@@ -31,7 +31,8 @@
 }
 
 /* Estilo para los enlaces del Navbar en el estado activo o hover */
-.navbar-nav .nav-link:hover, .navbar-nav .nav-link.active {
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link.active {
   background-color: #000080; /* Color de fondo en estado hover o activo */
   color: white; /* Color del texto en estado hover o activo */
 }

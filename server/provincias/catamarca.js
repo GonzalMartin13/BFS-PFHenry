@@ -10,7 +10,7 @@ const catamarca = {
     { provincia: "Formosa", distancia: 691 },
     { provincia: "Jujuy", distancia: 478 },
     { provincia: "La Pampa", distancia: 1055 },
-    { provincia: "La Rioja", distancia: 204 },
+    { provincia: "La Rioja", distancia: 234 },
     { provincia: "Mendoza", distancia: 627 },
     { provincia: "Misiones", distancia: 855 },
     { provincia: "Neuquén", distancia: 1412 },

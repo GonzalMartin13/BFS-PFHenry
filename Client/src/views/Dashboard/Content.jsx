@@ -5,12 +5,12 @@ import Button from "../../components/Button/Button";
 import Grafico from "./Graficos";
 import ReactPaginate from "react-paginate";
 import { getAllEnvios } from "../../utils/getAllEnvios";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const Content = ({
   selectedButton,
   //payments,
-  //envio,   
+  //envio,
   users,
   admin,
   handleBlockUser,
@@ -21,7 +21,7 @@ const Content = ({
   const itemsPerPage = 10;
   const [envio, setEnvio] = useState("");
 
-  console.log(envio)
+  console.log(envio);
   useEffect(() => {
     handleEnvio();
   }, []);
@@ -43,7 +43,7 @@ const Content = ({
   };
 
   const renderTableRows = (data, currentPage, itemsPerPage) => {
-    console.log(data)
+    console.log(data);
     return data
       ?.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage)
       ?.map((item, index) => (
@@ -53,31 +53,31 @@ const Content = ({
           <td>${item.total}</td>
           <td>{item.status}</td>
           <td>
-              <label className={styles.container_check}>
-                  {item.enabled ? (
-                 <input type="checkbox" checked={true} />
-                      ) : (
-                        <input type="checkbox" checked={false} />
-                      )}
+            <label className={styles.container_check}>
+              {item.enabled ? (
+                <input type="checkbox" checked={true} />
+              ) : (
+                <input type="checkbox" checked={false} />
+              )}
 
-                      <div className={styles.checkmark}></div>
-                    </label>
-                  </td>
-                  {item.enabled ? (
-                    <td>
-                      <Button
-                        text={"Bloquear envio"}
-                        onClick={() => handleBlockEnvio(item)}
-                      />
-                    </td>
-                  ) : (
-                    <td>
-                      <Button
-                        text={"Desbloquear envio"}
-                        onClick={() => handleBlockEnvio(item)}
-                      />
-                    </td>
-                  )}
+              <div className={styles.checkmark}></div>
+            </label>
+          </td>
+          {item.enabled ? (
+            <td>
+              <Button
+                text={"Bloquear envio"}
+                onClick={() => handleBlockEnvio(item)}
+              />
+            </td>
+          ) : (
+            <td>
+              <Button
+                text={"Desbloquear envio"}
+                onClick={() => handleBlockEnvio(item)}
+              />
+            </td>
+          )}
         </tr>
       ));
   };
@@ -122,7 +122,7 @@ const Content = ({
   return (
     <div className={styles.containerContext}>
       <div>
-      {selectedButton === "adminGraphs" && (
+        {selectedButton === "adminGraphs" && (
           <>
             <h2>Registros de Administración del sistema</h2>
             <Grafico />
@@ -130,7 +130,7 @@ const Content = ({
         )}
       </div>
       <div>
-      {selectedButton === "Usuarios" && (
+        {selectedButton === "Usuarios" && (
           <>
             <h2>Administrador de Usuarios</h2>
             <div className={styles.envios_table_container}>
@@ -151,7 +151,8 @@ const Content = ({
               </table>
             </div>
             {/* Componente de paginación */}
-            <ReactPaginate className={styles.paginacion}
+            <ReactPaginate
+              className={styles.paginacion}
               previousLabel={"Anterior"}
               nextLabel={"Siguiente"}
               breakLabel={"..."}
@@ -169,71 +170,73 @@ const Content = ({
         )}
       </div>
       <div>
-      
-      {selectedButton === "Envios" && (
-        <>
-        <h2>Administrador de  Envios</h2>
-        <div className={styles.envios_table_container}>
-          <table className={styles.envios_table}>
-            <thead>
-              <tr>
-                <th>Id</th>
-                <th>Categoría</th>
-                <th>Total</th>
-                <th>Status</th>
-                <th>Bloquear/Desbloquear</th>
-              </tr>
-            </thead>
-            <tbody>
-               {renderTableRows(envio, currentPage, itemsPerPage)} 
-            </tbody>
-          </table>
-        </div>
-         {/* Componente de paginación */}
-         <ReactPaginate className={styles.paginacion}
-            previousLabel={"Anterior"}
-            nextLabel={"Siguiente"}
-            breakLabel={"..."}
-            pageCount={Math.ceil(envio.length / itemsPerPage)}
-            marginPagesDisplayed={2}
-            pageRangeDisplayed={5}
-            onPageChange={(selected) => handlePageClick(selected, selectedButton)}
-            containerClassName={"pagination justify-content-center gap: 1rem"}
-            subContainerClassName={"pages pagination"}
-            activeClassName={"active"}
-          />
-        </>
-      )}
-        
-      {selectedButton === "Admin" && (
-        <>
-        <h2>Administradores del sistema</h2>
-        <div className={styles.envios_table_container}>
-          <table className={styles.envios_table}>
-            <thead>
-              <tr>
-                <th>Nombre Admin</th>
-                <th>Email</th>
-                <th>Activar/Desactivar</th>
-              </tr>
-            </thead>
-            <tbody>
-              {admin?.map((admin, index) => (
-                <tr key={index}>
-                  <td>{admin.nameAdmin}</td>
-                  <td>{admin.emailAdmin}</td>
-                  <td>
-                    <button onClick={() => toggleActivation(index)}>
-                      {admin.isActive ? "Desactivar" : "Activar"}
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        </>
-      )}
+        {selectedButton === "Envios" && (
+          <>
+            <h2>Administrador de Envios</h2>
+            <div className={styles.envios_table_container}>
+              <table className={styles.envios_table}>
+                <thead>
+                  <tr>
+                    <th>Id</th>
+                    <th>Categoría</th>
+                    <th>Total</th>
+                    <th>Status</th>
+                    <th>Bloquear/Desbloquear</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {renderTableRows(envio, currentPage, itemsPerPage)}
+                </tbody>
+              </table>
+            </div>
+            {/* Componente de paginación */}
+            <ReactPaginate
+              className={styles.paginacion}
+              previousLabel={"Anterior"}
+              nextLabel={"Siguiente"}
+              breakLabel={"..."}
+              pageCount={Math.ceil(envio.length / itemsPerPage)}
+              marginPagesDisplayed={2}
+              pageRangeDisplayed={5}
+              onPageChange={(selected) =>
+                handlePageClick(selected, selectedButton)
+              }
+              containerClassName={"pagination justify-content-center gap: 1rem"}
+              subContainerClassName={"pages pagination"}
+              activeClassName={"active"}
+            />
+          </>
+        )}
+
+        {selectedButton === "Admin" && (
+          <>
+            <h2>Administradores del sistema</h2>
+            <div className={styles.envios_table_container}>
+              <table className={styles.envios_table}>
+                <thead>
+                  <tr>
+                    <th>Nombre Admin</th>
+                    <th>Email</th>
+                    <th>Activar/Desactivar</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {admin?.map((admin, index) => (
+                    <tr key={index}>
+                      <td>{admin.nameAdmin}</td>
+                      <td>{admin.emailAdmin}</td>
+                      <td>
+                        <button onClick={() => toggleActivation(index)}>
+                          {admin.isActive ? "Desactivar" : "Activar"}
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
@@ -248,4 +251,4 @@ Content.propTypes = {
   handleBlockEnvio: PropTypes.func,
 };
 
-export default Content
+export default Content;

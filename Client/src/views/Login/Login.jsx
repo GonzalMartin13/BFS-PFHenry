@@ -1,18 +1,30 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-extra-semi */
-import {useDispatch, useSelector} from "react-redux";
-import {registerUser, registerAdmin, userProfile} from "../../redux/actions/userActions";
-import {login, logouted, contar, contadorInTwo, confirmed, profiles} from "../../redux/Slices/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  registerUser,
+  registerAdmin,
+  userProfile,
+} from "../../redux/actions/userActions";
+import {
+  login,
+  logouted,
+  contar,
+  contadorInTwo,
+  confirmed,
+  profiles,
+} from "../../redux/Slices/userSlice";
 import Button from "react-bootstrap/Button";
 import Swal from "sweetalert2";
-import {useAuth0} from "@auth0/auth0-react";
-import { useNavigate, Link} from 'react-router-dom';
-import {log, out, profile} from "./style";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faRightToBracket} from '@fortawesome/free-solid-svg-icons';
- 
+import { useAuth0 } from "@auth0/auth0-react";
+import { useNavigate, Link } from "react-router-dom";
+import { log, out, profile } from "./style";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser, faRightToBracket } from "@fortawesome/free-solid-svg-icons";
+
 const Login = () => {
-  const {contador, isLoggedIn, emails, isProfile, goConfirmacion, goProfile} = useSelector((state) => state.user);
+  const { contador, isLoggedIn, emails, isProfile, goConfirmacion, goProfile } =
+    useSelector((state) => state.user);
 
   const usuario = useSelector((state) => state.user.user);
 
@@ -20,13 +32,17 @@ const Login = () => {
 
   const dispatch = useDispatch();
 
-  const {loginWithRedirect, isAuthenticated, logout, user} = useAuth0();
+  const { loginWithRedirect, isAuthenticated, logout, user } = useAuth0();
 
-
-  if (emails?.includes(user?.email) && isAuthenticated && user.email_verified && contador === 2) {
-    const previousRoute = localStorage.getItem('previousRoute');
-    localStorage.removeItem('previousRoute');
-    navigate(previousRoute || '/');
+  if (
+    emails?.includes(user?.email) &&
+    isAuthenticated &&
+    user.email_verified &&
+    contador === 2
+  ) {
+    const previousRoute = localStorage.getItem("previousRoute");
+    localStorage.removeItem("previousRoute");
+    navigate(previousRoute || "/");
     Swal.fire({
       title: "Sesión iniciada",
       text: `${user.nickname} has iniciado sesión exitosamente como administrador`,
@@ -49,9 +65,9 @@ const Login = () => {
     dispatch(registerAdmin(postAdmin));
     dispatch(registerUser(postUser));
   } else if (isAuthenticated && user.email_verified && contador === 2) {
-    const previousRoute = localStorage.getItem('previousRoute');
-    localStorage.removeItem('previousRoute');
-    navigate(previousRoute || '/');
+    const previousRoute = localStorage.getItem("previousRoute");
+    localStorage.removeItem("previousRoute");
+    navigate(previousRoute || "/");
     Swal.fire({
       title: "Sesión iniciada",
       text: `${user.nickname} has iniciado sesión exitosamente`,
@@ -75,7 +91,7 @@ const Login = () => {
     });
 
     dispatch(contar());
-  };
+  }
 
   const confirmar = () => {
     navigate("/confirmacion");
@@ -99,18 +115,17 @@ const Login = () => {
       lastName: usuario.lastName,
       phone: usuario.phone,
       email: usuario.email,
-      nickname: usuario.nickname
+      nickname: usuario.nickname,
     };
     dispatch(contar());
 
-    dispatch(userProfile(input))
-    .then(() => goProfile && confirmar());
+    dispatch(userProfile(input)).then(() => goProfile && confirmar());
   } else if (usuario.picture && contador === 3) {
     goProfile && perfil();
-  };
+  }
 
   const handleLogin = () => {
-    localStorage.setItem('previousRoute', window.location.pathname);
+    localStorage.setItem("previousRoute", window.location.pathname);
     loginWithRedirect();
     dispatch(contadorInTwo());
   };
@@ -145,7 +160,7 @@ const Login = () => {
             title: "Sesión cerrada!",
             text: "Haz cerrado sesíón",
             icon: "success",
-            showConfirmButton: false, 
+            showConfirmButton: false,
             timer: 3000,
           });
         }
@@ -155,18 +170,20 @@ const Login = () => {
   return (
     <div>
       {!isLoggedIn ? (
-        <Button onClick={handleLogin} style={log}>Ingresar</Button>
-      ) : (
-      <div>
-        <Link to={"/profile/"}>
-          <Button style={profile}>
-            <FontAwesomeIcon icon={faUser} />
-          </Button>
-        </Link>
-        <Button onClick={handleLogout} variant="outline-success" style={out}>
-          <FontAwesomeIcon icon={faRightToBracket} />
+        <Button onClick={handleLogin} style={log}>
+          Ingresar
         </Button>
-      </div>
+      ) : (
+        <div>
+          <Link to={"/profile/"}>
+            <Button style={profile}>
+              <FontAwesomeIcon icon={faUser} />
+            </Button>
+          </Link>
+          <Button onClick={handleLogout} variant="outline-success" style={out}>
+            <FontAwesomeIcon icon={faRightToBracket} />
+          </Button>
+        </div>
       )}
     </div>
   );
