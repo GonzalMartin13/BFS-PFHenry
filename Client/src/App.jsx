@@ -24,17 +24,20 @@ import "./App.css";
 import FormEnvio from "./components/FormEnvio/FormEnvio";
 import ErrorPage from "./views/ErrorPage/errorpage";
 import Reviews from "./components/Reviews/reviews";
-import ShowReviews from "./views/showReviews/showreviews"
+import ShowReviews from "./views/showReviews/showreviews";
 
 function App() {
   const location = useLocation();
-  const { isLoggedIn, admin, name, lastName, phone, address } = useSelector(
-    (state) => state.user
-  );
+  const { isLoggedIn, admin, isProfile } = useSelector((state) => state.user);
+  const currentUser = useSelector((state) => state.user.user);
+  console.log("el perfil", isProfile);
+  const { name, lastName, phone } = currentUser;
 
   const { origen, destino, servicios, total } = useSelector(
     (state) => state.quoter
   );
+  const quoteState =
+    origen != "" && destino != "" && servicios.length > 0 && total != "";
   const envio = useSelector((state) => state.shipping);
   const todosVacios = Object.values(envio).every(
     (valor) => valor === "" || (Array.isArray(valor) && valor.length === 0)
@@ -45,7 +48,7 @@ function App() {
     isNew: null,
     enabled: false,
   });
-
+  console.log("el cotizador tiene datos", quoteState);
   const updateContextUser = (newUser) => {
     setUser(newUser);
   };
@@ -67,13 +70,11 @@ function App() {
     "/reviews",
   ];
 
-
   const showNavBar = validRoutes.includes(location.pathname);
 
   return (
     <>
       {showNavBar && <NavBar />}
-    
 
       <Routes>
         <Route exact path="/" element={<Home />} />
@@ -86,54 +87,33 @@ function App() {
         <Route path="/guia" element={<Pdf />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="*" element={<ErrorPage />} />
-        {/* //protege ruta /factura redirige a "/" si datos de compra estan vacios */}
+        {/* //protege ruta "/factura" redirige a "/" si datos de compra estan vacios */}
         <Route
           element={<ProtectedRoute isAllowed={isLoggedIn && !todosVacios} />}
         >
           <Route path="/factura" element={<Comprobante />} />
         </Route>
 
-        {/* //Redirige a "/profile" para obligar al usuario a completar datos de
-        perfil */}
+        {/* para ingresar a "/envios" el usuario debe estar logueado*/}
         <Route
-          element={
-            <ProtectedRoute
-              isAllowed={isLoggedIn && name && lastName & address && phone}
-              redirectTo={"/profile"}
-            />
-          }
+          element={<ProtectedRoute isAllowed={isLoggedIn} redirectTo={"/"} />}
         >
           <Route path="/envios" element={<MisEnvios />} />
 
-         {/*  //si estado quote esta vacio no permite ingresar a ruta /confirmacion,
-          quizas haya que modificar todo esto... */}
+          {/*  //para navegar a "/confirmacion" el usuario debe estar logueado, tienen que existir los datos de perfil y tienen que existir la informacion del cotizador */}
         </Route>
-        {isLoggedIn ? (
-          <Route
-            element={
-              <ProtectedRoute
-                isAllowed={
-                  name &&
-                  lastName & address &&
-                  phone &&
-                  origen != "" &&
-                  destino != "" &&
-                  total != "" &&
-                  servicios.length != 0
-                }
-                redirectTo="/profile"
-              />
-            }
-          >
-            <Route path="/confirmacion" element={<FormEnvio />} />
-          </Route>
-        ) : (
-          <Route
-            path="/confirmacion"
-            element={<ProtectedRoute isAllowed={false} />}
-          />
-        )}
-       {/*  //verifica que admin.email y isLoggedIn sean true para ir a ruta
+        <Route
+          element={
+            <ProtectedRoute
+              isAllowed={isLoggedIn && isProfile && quoteState}
+              redirectTo="/"
+            />
+          }
+        >
+          <Route path="/confirmacion" element={<FormEnvio />} />
+        </Route>
+
+        {/*  //verifica que admin.email y isLoggedIn sean true para ir a ruta
         "/dashboard", caso que de false redirige a "/" */}
         <Route
           path="/dashboard"
@@ -144,8 +124,7 @@ function App() {
           }
         />
       </Routes>
-<Footer/>
-     
+      <Footer />
     </>
   );
 }

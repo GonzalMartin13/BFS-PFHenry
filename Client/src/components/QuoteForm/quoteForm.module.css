@@ -2,8 +2,7 @@
   background-color: #fafafa;
   min-height: 100%;
   color: #36a0ff;
-  padding-top: 60px;
-  margin: 0 auto;
+  padding-top: 40px;
 }
 
 .select {
@@ -39,4 +38,28 @@
 }
 .dangercontent {
   border: 1px solid rgba(255, 0, 0, 0.753);
+}
+/* En tu hoja de estilos CSS (styles.module.css) */
+.mySwalPopup {
+}
+.mySwalPopup h3 {
+  font-size: 40px;
+  color: #17a2b8;
+  margin-top: 10px;
+}
+.mySwalPopup h6 {
+  font-size: 20px;
+  border-bottom: 1px solid black;
+  padding: 12px 5px 2px;
+  margin-top: 10px;
+}
+.mySwalTitle {
+  padding-bottom: 8px;
+  background-color: #17a2b8;
+  color: #fafafa;
+}
+
+.mySwalContent {
+  /* Ajusta la altura de línea para separación */
+  /* Otros estilos específicos para el contenido si es necesario */
 }

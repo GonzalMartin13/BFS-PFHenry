@@ -12,7 +12,7 @@ const corrientes = {
     { provincia: "La Pampa", distancia: 1066 },
     { provincia: "La Rioja", distancia: 366 },
     { provincia: "Mendoza", distancia: 1007 },
-    { provincia: "Misiones", distancia: 208 },
+    { provincia: "Misiones", distancia: 228 },
     { provincia: "Neuquén", distancia: 1382 },
     { provincia: "Río Negro", distancia: 1437 },
     { provincia: "Salta", distancia: 641 },
