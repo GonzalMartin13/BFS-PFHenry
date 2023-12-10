@@ -5,9 +5,22 @@
   grid-template-columns: 15% 85%;
   align-items: stretch;
   justify-content: center;
-  padding: 1.5rem; 
+  padding: 1.5rem;
+  
+  
 }
 
+.status_yellow {
+  background-color: yellow;
+}
+
+.status_green {
+  background-color: green;
+}
+
+.status_red {
+  background-color: red;
+}
 
 .charts {
   display: flex;
@@ -136,7 +149,7 @@
   left: 0;
   height: 2.3em;
   width: 2.3em;
-  background-color: #f5eeee;
+  background-color: #cc1616;
   border-radius: 50%;
   transition: .4s;
 }

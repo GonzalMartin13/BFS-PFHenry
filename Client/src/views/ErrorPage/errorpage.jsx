@@ -12,8 +12,8 @@ const ErrorPage = () => {
 
   return (
     <div >
-      <img src="../../../src/assets/conectores-hembra-vector-desenchufados-diseno-minimalista-404-bichos-sobre-fondo-blanco-tema-electrico-concepto-de-banner-web-corte-de-electricidad-perdida-de-conexion-vector-2ddpt5j.png" alt="error" />
-      <h2>Error 404</h2>
+      <img className="imgerror" src="../../../src/assets/conectores-hembra-vector-desenchufados-diseno-minimalista-404-bichos-sobre-fondo-blanco-tema-electrico-concepto-de-banner-web-corte-de-electricidad-perdida-de-conexion-vector-2ddpt5j.png" alt="error" />
+      <h2 className="hache2">Error 404</h2>
       {hayquery ? (
         <h4>Hubo un problema en tu pago de mercadopago</h4>
 
@@ -24,7 +24,7 @@ const ErrorPage = () => {
         </>
       )}
       <p>Aqui tiene algunos enlaces que capaz te sean de gran ayuda </p>
-    <ul>
+    <ul className="ul">
       <li><Link className="li" to="/">Pagina Principal</Link></li>
       <li><Link className="li" to="/servicios">Nuestros Servicios</Link></li>
       <li><Link className="li" to="/cotizacion">Cotizador de envios</Link></li>

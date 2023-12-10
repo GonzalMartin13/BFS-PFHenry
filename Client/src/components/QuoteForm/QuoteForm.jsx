@@ -210,7 +210,7 @@ export default function QuoteForm() {
         icon: "success",
       });
       return dispatch(confirmed(true));
-    };
+    }
 
     dispatch(profiles(true));
     dispatch(confirmed(true));
