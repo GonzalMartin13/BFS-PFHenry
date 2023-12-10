@@ -5,6 +5,7 @@ import Button from "../../components/Button/Button";
 import Grafico from "./Graficos";
 import ReactPaginate from "react-paginate";
 import { getAllEnvios } from "../../utils/getAllEnvios";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Content = ({
   selectedButton,
@@ -150,9 +151,9 @@ const Content = ({
               </table>
             </div>
             {/* Componente de paginación */}
-            <ReactPaginate
-              previousLabel={"← Previous"}
-              nextLabel={"Next →"}
+            <ReactPaginate className={styles.paginacion}
+              previousLabel={"Anterior"}
+              nextLabel={"Siguiente"}
               breakLabel={"..."}
               pageCount={Math.ceil(users.length / itemsPerPage)}
               marginPagesDisplayed={2}
@@ -160,7 +161,7 @@ const Content = ({
               onPageChange={(selected) =>
                 handlePageClick(selected, selectedButton)
               }
-              containerClassName={"pagination"}
+              containerClassName={"pagination justify-content-center"}
               subContainerClassName={"pages pagination"}
               activeClassName={"active"}
             />
@@ -189,15 +190,15 @@ const Content = ({
           </table>
         </div>
          {/* Componente de paginación */}
-         <ReactPaginate
-            previousLabel={"← Previous"}
-            nextLabel={"Next →"}
+         <ReactPaginate className={styles.paginacion}
+            previousLabel={"Anterior"}
+            nextLabel={"Siguiente"}
             breakLabel={"..."}
             pageCount={Math.ceil(envio.length / itemsPerPage)}
             marginPagesDisplayed={2}
             pageRangeDisplayed={5}
             onPageChange={(selected) => handlePageClick(selected, selectedButton)}
-            containerClassName={"pagination"}
+            containerClassName={"pagination justify-content-center gap: 1rem"}
             subContainerClassName={"pages pagination"}
             activeClassName={"active"}
           />
