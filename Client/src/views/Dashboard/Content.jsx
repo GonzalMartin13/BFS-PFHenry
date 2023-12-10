@@ -1,9 +1,11 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 import styles from "./Dashboard.module.css";
-import Button from "../../components/Button/Button";
+// import Button from "../../components/Button/Button";
 import Grafico from "./Graficos";
 import ReactPaginate from "react-paginate";
+import {faEdit} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Content = ({
   selectedButton,
@@ -11,26 +13,11 @@ const Content = ({
   users,
   admin,
   handleToggleUser,
-  
+  toggleActivation,
 }) => {
-  const [adminList, setAdminList] = useState(admin);
   const [currentPage, setCurrentPage] = useState(0);
   const itemsPerPage = 10;
-  
-  const toggleActivation = (index) => {
-    const updatedAdminList = [...adminList];
-    const adminToUpdate = { ...updatedAdminList[index] };
-  
-    console.log('Índice:', index);
-    console.log('Estado actual del admin:', adminToUpdate);
-    updatedAdminList[index].isActive = !updatedAdminList[index].isActive;
-    console.log('Estado actualizado del admin:', updatedAdminList[index]);
-    setAdminList(updatedAdminList);
-  };
-
-   const handleCheckboxChanges = (item) => {
-    handleToggleUser(item);
-  };
+   
   // Función para manejar el cambio de página
   const handlePageClick = ({ selected }) => {
     setCurrentPage(selected);
@@ -75,30 +62,25 @@ const Content = ({
               <td>{item.name}</td>
               <td>{item.lastName}</td>
               <td>
-                <label className={styles.container_check}>
-                  <input
-                    type="checkbox"
-                    defaultChecked={item.enabled}
-                    onChange={() => handleCheckboxChanges(item)}
-                  />
-                  <div className={styles.checkmark}></div>
-                </label>
+              <label className={styles.container_check}>
+                      <input
+                        type="checkbox"
+                        checked={item.enabled}
+                        onChange={() => handleToggleUser(item)}
+                        disabled
+                      />
+                      <div className={styles.checkmark}></div>
+                    </label>
               </td>
-              {item.enabled ? (
-                <td>
-                  <Button
-                    text={"Bloquear"}
-                    onClick={() => handleToggleUser(item)}
-                  />
-                </td>
-              ) : (
-                <td>
-                  <Button
-                    text={"Desbloquear"}
-                    onClick={() => handleToggleUser(item)}
-                  />
-                </td>
-              )}
+              <td>
+              <button
+                onClick={() => handleToggleUser(item)} 
+                className="btn btn-warning"
+              >
+                {item.enabled ? "Bloquear" : "Desbloquear"}
+                <FontAwesomeIcon icon={faEdit} />
+              </button>
+            </td>
             </tr>
           ))
       );
@@ -208,11 +190,26 @@ const Content = ({
                 <tr key={index}>
                   <td>{admin.nameAdmin}</td>
                   <td>{admin.emailAdmin}</td>
-                  <td>{admin.isActive}</td>
+                 
                   <td>
-                    <button onClick={() => toggleActivation(index)}>
-                      {admin.isActive ? "Desactivar" : "Activar"}
-                    </button>
+                  <label className={styles.container_check}>
+                      <input
+                        type="checkbox"
+                        checked={admin.enabled}
+                        onChange={() => toggleActivation(admin)}
+                        disabled
+                      />
+                      <div className={styles.checkmark}></div>
+                    </label>
+                    </td>
+                    <td>
+                  <button
+                onClick={() => toggleActivation(admin)} 
+                className="btn btn-warning"
+              >
+                {admin.enabled ? "Bloquear" : "Desbloquear"}
+                <FontAwesomeIcon icon={faEdit} />
+              </button>
                   </td>
                 </tr>
               ))}
@@ -232,6 +229,7 @@ Content.propTypes = {
   admin: PropTypes.array,
   users: PropTypes.array,
   handleToggleUser: PropTypes.func,
+  toggleActivation: PropTypes.func,
   };
 
 export default Content
