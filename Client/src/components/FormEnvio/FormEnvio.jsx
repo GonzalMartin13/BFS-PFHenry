@@ -116,13 +116,15 @@ const FormEnvio = () => {
       try {
         const { data } = await axios.post(
           "https://bfs-pfhenry-production.up.railway.app/pagos/crear",
+          //"http://localhost:3001/pagos/crear",
+
           {
             total,
             servicios,
           }
         );
         setLinkPago(data);
-        console.log(data);
+        console.log("la url", data);
       } catch (error) {
         console.error("Error al realizar la solicitud a MercadoPago", error);
       }
@@ -310,7 +312,7 @@ const FormEnvio = () => {
 
         await handleEnvioBD(shippingInfo);
 
-        window.location.href = linkPago;
+        //window.location.href = linkPago;
 
         resetForm();
       }}
