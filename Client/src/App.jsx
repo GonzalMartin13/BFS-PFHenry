@@ -163,7 +163,7 @@ export default App; */}
 
 ///////////////////////////////////////////////////////////////////////////////////////
  import { Route, Routes, useLocation } from "react-router-dom";
-
+ import ErrorPage from "./views/ErrorPage/errorpage";
  import NavBar from "./components/NavBar/NavBar";
  import Home from "./components/Home/Home";
  import About from "./views/About/About";
@@ -220,6 +220,7 @@ export default App; */}
            }
          />
          <Route path="/factura" element={<Comprobante />} />
+         <Route path="*" element={<ErrorPage />} />
        </Routes>
        <Footer />
      </>
