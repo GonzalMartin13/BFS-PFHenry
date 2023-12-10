@@ -76,7 +76,7 @@ export default function NavBar() {
                     Mis envíos
                   </Nav.Link>
                 ) : null}
-                {admin.emailAdmin ? (
+                {admin?.emailAdmin ? (
                   <Nav.Link href="/dashboard" style={menuletter}>
                     Dashboard
                   </Nav.Link>

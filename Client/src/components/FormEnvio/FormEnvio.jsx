@@ -53,8 +53,12 @@ const FormEnvio = () => {
   const handleEnvioBD = async (valores) => {
     try {
       valores.imagen = imagenLocal;
-      const porstEnviar = await enviarBD(valores);
-      dispatch(setidShipping(porstEnviar.idDelEnvio.numeroEnvio));
+      const postEnviar = await enviarBD(valores);
+      console.log(
+        "quizas aca no llegue nda",
+        postEnviar.idDelEnvio.envio.numeroEnvio
+      );
+      dispatch(setidShipping(postEnviar.idDelEnvio.envio.numeroEnvio));
     } catch (error) {
       console.log(error.message);
     }

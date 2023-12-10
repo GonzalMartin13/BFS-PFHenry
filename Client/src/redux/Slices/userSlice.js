@@ -8,6 +8,7 @@ const initialState = {
   admin: {},
   isProfile: false,
   goConfirmacion: false,
+  goProfile: false,
   emails: ["dixongonzalezm2304@gmail.com", "bfspfhenry@gmail.com"],
 };
 
@@ -29,6 +30,7 @@ export const userSlice = createSlice({
       state.admin = {};
       state.isProfile = false;
       state.goConfirmacion = false;
+      state.goProfile = false;
     },
     contar: (state) => {
       state.contador = state.contador + 1;
@@ -46,6 +48,9 @@ export const userSlice = createSlice({
     confirmed: (state, action) => {
       state.goConfirmacion = action.payload;
     },
+    profiles: (state, action) => {
+      state.goProfile = action.payload;
+    },
   },
 });
 
@@ -58,6 +63,7 @@ export const {
   updateUser,
   confirmed,
   contadorInTwo,
+  profiles,
 } = userSlice.actions;
 
 export default userSlice.reducer;

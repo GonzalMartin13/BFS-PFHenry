@@ -16,7 +16,7 @@ import {
 } from "../../redux/Slices/invoiceUserSlice";
 
 import { Link, useNavigate } from "react-router-dom";
-import { setState } from "../../redux/Slices/quoterslice";
+import { setState, clearState } from "../../redux/Slices/quoterslice";
 import { clearShippingState } from "../../redux/Slices/shippingSlice";
 import { useEffect } from "react";
 
@@ -62,7 +62,8 @@ export default function Comprobante() {
   };
   useEffect(() => {
     // dispatch(postInvoiceAsync(jsonInvoise))
-  }, [dispatch]);
+    return () => dispatch(clearState());
+  }, []);
   const resetStates = () => {
     dispatch(setState(setStateQu));
     dispatch(setStateInvoice());

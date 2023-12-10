@@ -8,7 +8,7 @@ const ErrorPage = () => {
   let hayquery = false;
   if (query.search) {
     hayquery = true;
-  } // Reemplaza con la ruta correcta de tu imagen
+  }
 
   return (
     <div>
