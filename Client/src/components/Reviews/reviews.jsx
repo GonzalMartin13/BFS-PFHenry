@@ -5,7 +5,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { useSelector, useDispatch } from "react-redux";
 import Swal from "sweetalert2";
-import {submitReview, editReview } from "../../redux/Slices/reviewsSlice";
+import { submitReview, editReview,fetchAllReviews } from "../../redux/Slices/reviewsSlice";
 
 const Reviews = () => {
   const [rating, setRating] = useState(null);
@@ -24,15 +24,63 @@ const Reviews = () => {
   const UserEmail = useSelector((state) => state.user.user.email);
   const idReview = useSelector((state) => state.reviews.userReview.id);
   const { comment, rating: pablo } = useSelector((state) => state.reviews.userReview);
-
+  // const reviews = useSelector((state) => state.reviews.allReviews);
 
   const dispatch = useDispatch();
+  
 
   useEffect(() => {
     if (comment !== "" && pablo !== 0) {
       setReviewCreated(true);
     }
   }, [comment, pablo]);
+
+  // useEffect(() => {
+  //   // Reinicia el estado cuando el usuario cierra sesión
+  //   if (!isLoggedIn) {
+  //     setRating(null);
+  //     setHover(null);
+  //     setInput({
+  //       comment: "",
+  //       rating: 0,
+  //       UserEmail: "",
+  //     });
+  //     setEditMode(false);
+  //     setReviewCreated(false);
+  //   } else {
+  //     // Obtén todas las revisiones y filtra la revisión del usuario
+  //     dispatch(fetchAllReviews())
+  //       .then((response) => {
+  //         console.log("Respuesta de fetchAllReviews:", response);
+  
+  //         // Verifica si la respuesta es un array en la propiedad payload
+  //         if (Array.isArray(response.payload)) {
+  //           const userReview = response.payload.find((review) => review.UserEmail === UserEmail);
+  
+  //           if (userReview) {
+  //             const { comment, rating } = userReview;
+  //             setRating(rating);
+  //             setInput({
+  //               comment,
+  //               rating,
+  //               UserEmail,
+  //             });
+  //             setEditMode(true);
+  //             setReviewCreated(true);
+  //           }
+  //         } else {
+  //           // Maneja el caso cuando la propiedad payload no es un array
+  //           console.error("Error: la propiedad payload no es un array");
+  //         }
+  //       })
+  //       .catch((error) => {
+  //         console.error("Error al obtener las revisiones:", error.message);
+  //       });
+  //   }
+  // }, [isLoggedIn, UserEmail, dispatch]);
+  
+  
+  
 
   const handleRatingChange = (currentRating) => {
     setRating(currentRating);
@@ -52,20 +100,21 @@ const Reviews = () => {
 
   const submitHandler = async (event) => {
     event.preventDefault();
-
+  
     if (!isLoggedIn) {
       Swal.fire({
         icon: "info",
         title: "Debes iniciar sesión primero",
       });
-
+  
       setInput({
         comment: "",
         rating: 0,
-        UserEmail: ""
-      })
+        UserEmail: "",
+      });
       return;
     }
+  
 
     try {
       if (editMode) {
@@ -76,6 +125,10 @@ const Reviews = () => {
       }
       Swal.fire("Gracias por dejar tu calificación!");
     } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "ya has hecho una calificación",
+      });
       console.error("Error al enviar la revisión:", error.message);
     }
   };
@@ -84,7 +137,7 @@ const Reviews = () => {
     setEditMode(true);
     setReviewCreated(false);
 
-    const currentReview = { comment, rating: pablo }; 
+    const currentReview = { comment, rating: pablo };
     if (currentReview) {
       setInput({
         comment: currentReview.comment,
@@ -97,8 +150,7 @@ const Reviews = () => {
   return (
     <div className="reviews-container">
       <h2>Calificanos!</h2>
-      {reviewCreated ? (
-        
+      {reviewCreated && isLoggedIn ? (
         <div>
           <p>
             {" "}
@@ -110,9 +162,7 @@ const Reviews = () => {
           <Button onClick={editHandler}>Editar</Button>
         </div>
       ) : (
-       
         <form onSubmit={submitHandler}>
-        
           <div className="rating-container">
             {[...Array(5)].map((_, index) => (
               <label
@@ -132,8 +182,6 @@ const Reviews = () => {
               </label>
             ))}
           </div>
-
-     
           <FloatingLabel
             controlId="floatingTextarea2"
             label="Deja tu comentario"
@@ -149,8 +197,6 @@ const Reviews = () => {
               className="my-2"
             />
           </FloatingLabel>
-
-    
           <Button
             type="submit"
             disabled={!rating || !input.comment.trim()}

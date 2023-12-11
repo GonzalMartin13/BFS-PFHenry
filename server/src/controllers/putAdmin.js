@@ -20,7 +20,7 @@ const putAdmin = async (req, res) => {
 
     return res.status(200).json({ message: 'Estado de activación actualizado correctamente' });
   } catch (error) {
-    console.error('Error al actualizar el estado de activación:', error);
+    console.error("Error en la ruta /admin/:adminId", error);;
     return res.status(500).json({ error: 'Error interno del servidor' });
   }
 };
