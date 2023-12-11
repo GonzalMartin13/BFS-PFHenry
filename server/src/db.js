@@ -6,21 +6,21 @@ const fs = require("fs");
 
 const { DB_USER, DB_PASSWORD, DB_HOST, DEPLOY_URL } = process.env;
 
-const sequelize = new Sequelize(DEPLOY_URL,
+/* const sequelize = new Sequelize(DEPLOY_URL,
 
 	{
 		logging: false,
 		native: false,
 		dialectModule: pg,
 	}
-); 
-/*  const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/BFS`,
+);  */
+ const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/BFS`,
 	{
 		logging: false,
 		native: false,
 		dialectModule: pg,
 	}
-);  */
+);  
 
 const basename = path.basename(__filename);
 
