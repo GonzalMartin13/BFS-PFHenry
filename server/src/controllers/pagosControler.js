@@ -18,10 +18,15 @@ try{
         ],
 
         back_urls:{ 
-            success:"https://bfsonline-8puvhnmx0-gonzal13s-projects.vercel.app/factura" , // cambiar por pag del front
+            success:"http://localhost:5173/factura",
+            pending:"http://localhost:5173/home",
+            failure:"http://localhost:5173/error"
+        },
+/*         back_urls:{ 
+            success:"https://bfsonline-8puvhnmx0-gonzal13s-projects.vercel.app/factura"
             pending:"https://bfs-pfhenry-production.up.railway.app/pagos/pendiente",
             failure:"https://bfsonline-8puvhnmx0-gonzal13s-projects.vercel.app/error"
-        },
+        }, */
         auto_return: "all",
         payment_methods:{
             installments: null,
