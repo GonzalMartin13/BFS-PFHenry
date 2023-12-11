@@ -13,14 +13,18 @@ const { DB_USER, DB_PASSWORD, DB_HOST, DEPLOY_URL } = process.env;
 		native: false,
 		dialectModule: pg,
 	}
+
 );   */
 const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/BFS`,
+
 	{
 		logging: false,
 		native: false,
 		dialectModule: pg,
 	}
+
 );   
+
 
 const basename = path.basename(__filename);
 

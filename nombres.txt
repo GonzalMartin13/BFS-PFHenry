@@ -1,8 +1,112 @@
-Fernando Samayoa
-Carlos E. Gonzalez G.
-Luz Rivas Espinoza
-Marcel Causone Hidalgo
-Wilson Caro.
-Gonzalo Martin en la rama 2.0
-David Henao
+import PropTypes from 'prop-types';
+import styles from "./Dashboard.module.css";
+import Button from "../../Components/Button/Button";
+import BarsChart from './BarsChart';
+// import { useEffect, useState } from 'react';
+
+
+const Content = ({
+  selectedButton,
+  payments,
+	envio,
+  users,
+	admin,
+  handleBlockUser,
+  handleBlockEnvio,
+}) => {
+	const [user, setUser] = useState([]);
+	const [id, setId] = useState([]);
+	const [name, setName] = useState([]);
+	const [lastName, setLastName] = useState([]);
+	const [email, setEmail] = useState([]);
+	
+	useEffect( () =>{
+		getUser();
+	},[]);
+
+	const getUser = async () => {
+		const response = await axios.get(`http://localhost:3001/user`);
+		setUser(response.data)
+	}
+
+	return (
+		<div className={styles.containerContext}>
+			
+			<h2>Registros de {selectedButton || "Administracion"} del sistema</h2>
+			<div className="App">
+				<div className="container-fluid">
+					<div className="row mt 3">
+						<div className='col-md-4 offset-md-4'>
+							<div className="d-grid mx-auto">
+								<button className='btn btn-dark' data-bs-toggle='modal' data-bs-target='#modalUser'>
+									<i className='fa-solid fa-circle-plus'></i>Añadir
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div className="rw mt-5">
+							{selectedButton === "Usuarios" && (
+					<div className="col-12 col-lg-8 offset-lg-2">
+						<div className="table-responsive">
+							<table className='table table-bordered'>
+							<thead>
+							<tr>
+								<th>ID</th>
+								<th>Email</th>
+								<th>Nombre</th>
+								<th>Apellido</th>
+								<th>Estado</th>
+							</tr>
+						</thead>
+						<tbody className='table-group-divider'>
+							{users?.map((user) => (
+								<tr key={user.id}>
+									<td>{user.ID}</td>
+									<td>{user.email}</td>
+									<td>{user.name}</td>
+									<td>{user.lastName}</td>
+									<td>
+										<button className='btn btn-warning'>
+												<i className='fa-solid fa-edit'></i>
+										</button>
+										&nbsp;
+										<button className='btn btn-danger'>
+											<i className='fa-solid fa-trash'></i>
+										</button>
+									</td>
+									</tr>
+									))
+									}
+						</tbody>
+					</table>
+						</div>
+					{/* </div> */}
+							
+					<div id='modalUser' className="modal fade" aria-hidden="true">
+					<div className="modal-dialog">
+						<div className="modal-content">
+							<div className="modal-header">
+								<label className="h5">{name}</label>
+								<button type='button' className='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
+							</div>
+							<div className='modal-body'>
+								<input type="hidden" id='id'></input>
+								<div className="input-group mb-3">
+									<span className='input-group-text'><i className='fa-solid fa-gift'></i></span>
+									<input type="text" id='nombre' className='form-control' placeholder='Nombre'	value={name} onChange={(e)=> setName(e.target.value)}/>
+								</div>
+								<div className="input-group mb-3">
+									<span className='input-group-text'><i className='fa-solid fa-gift'></i></span>
+									<input type="text" id='lastName' className='form-control' placeholder='Apellido'	value={lastName} onChange={(e)=> setLastName(e.target.value)}/>
+								</div>
+								<div className="input-group mb-3">
+									<span className='input-group-text'><i className='fa-solid fa-gift'></i></span>
+									<input type="text" id='email' className='form-control' placeholder='Email'	value={email} onChange={(e)=> setEmail(e.target.value)}/>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+							)}
 
