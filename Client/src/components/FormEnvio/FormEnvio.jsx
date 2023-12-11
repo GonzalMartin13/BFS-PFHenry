@@ -115,8 +115,8 @@ const FormEnvio = () => {
     const mercadoPago = async () => {
       try {
         const { data } = await axios.post(
-          /* "https://bfs-pfhenry-production.up.railway.app/pagos/crear" */
-          "http://localhost:3001/pagos/crear",
+           "https://bfs-pfhenry-production.up.railway.app/pagos/crear" 
+          /* "http://localhost:3001/pagos/crear" */,
 
           {
             total:Number(total),
