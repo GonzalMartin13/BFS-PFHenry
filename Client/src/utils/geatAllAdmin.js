@@ -2,7 +2,8 @@ import axios from "axios";
 
 export const getAllAdmin = async () => {
 	try {
-		const response = await axios.get(`https://bfs-pfhenry-production.up.railway.app/admin`);
+		const response = await axios.get("http://localhost:3001/admin/"
+			/* `https://bfs-pfhenry-production.up.railway.app/admin` */);
 
 		if (response.status !== 200) {
 			throw new Error(`HTTP error! Status: ${response.status}`);
