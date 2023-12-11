@@ -5,8 +5,11 @@ import { setAdminList } from './adminSlice';
 // Función para activar/desactivar un administrador
 const toggleAdminActivationAsync = (adminId) => async (dispatch, getState) => {
   try {
-    await axios.put( `http://localhost:3001/admin/${adminId}`
-      /* `https://bfs-pfhenry-production.up.railway.app/admin/${adminId}` */);
+    // Realizar la llamada a la API para cambiar el estado del administrador
+    await axios.put(
+       `https://bfs-pfhenry-production.up.railway.app/admin/${adminId}/toggle-activation` 
+      /*` http://localhost:3001/admin/${adminId}/toggle-activation` */
+    );
 
     // Actualizar el estado en el frontend utilizando las acciones de Redux
     const adminList = getState().admin;
