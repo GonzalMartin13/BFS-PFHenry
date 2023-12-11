@@ -19,7 +19,7 @@ try{
 
         back_urls:{ 
             success:"http://localhost:5173/factura",
-            pending:"http://localhost:5173/home",
+            pending:"http://localhost:3001/pendiente",
             failure:"http://localhost:5173/error"
         },
 /*         back_urls:{ 
