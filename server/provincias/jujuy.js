@@ -15,7 +15,7 @@ const jujuy = {
     { provincia: "Misiones", distancia: 1050 },
     { provincia: "Neuquén", distancia: 1840 },
     { provincia: "Río Negro", distancia: 1895 },
-    { provincia: "Salta", distancia: 200 },
+    { provincia: "Salta", distancia: 240 },
     { provincia: "San Juan", distancia: 939 },
     { provincia: "San Luis", distancia: 1207 },
     { provincia: "Santa Cruz", distancia: 3242 },

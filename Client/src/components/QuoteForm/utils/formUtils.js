@@ -1,7 +1,7 @@
 export const resetForm = (setServicios, setForm) => {
   setServicios({
-    discreto: false,
-    cuidado: false,
+    certificada: false,
+    fragilBox: false,
     paqueteria: true,
     carteria: false,
     express: false,
@@ -29,4 +29,20 @@ export const handleCheck = (name, checked, servicios, setServicios) => {
   } else {
     return setServicios({ ...servicios, [name]: checked });
   }
+};
+export const contarServicios = (objeto) => {
+  let contador = 0;
+
+  for (const propiedad in objeto) {
+    if (
+      objeto[propiedad] === true &&
+      (propiedad === "fragilBox" ||
+        propiedad === "express" ||
+        propiedad === "certificada")
+    ) {
+      contador += 1;
+    }
+  }
+
+  return contador;
 };

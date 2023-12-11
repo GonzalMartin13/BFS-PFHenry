@@ -8,17 +8,17 @@ const cotizarHandler = async (req, res) => {
       return res
         .status(200)
         .json(
-          "Por cuestiones operativas no podemos realizar envios de mas de 190 (cms) de alto, ancho o largo."
+          "Por cuestiones operativas no podemos realizar envios de mas de 190 cms. de alto, ancho o largo."
         );
     }
     if (peso > 100) {
       return res
         .status(200)
         .json(
-          "Por cuestiones operativas no podemos realizar envios de mas 100 (kgs) de peso."
+          "Por cuestiones operativas no podemos realizar envios de mas 100 kgs. de peso."
         );
     }
-    const precioFinal = await contolerPrecio(
+    const data = await contolerPrecio(
       origen,
       destino,
       volumen,
@@ -26,7 +26,7 @@ const cotizarHandler = async (req, res) => {
       status,
       servicios
     );
-    res.status(200).json(precioFinal);
+    res.status(200).json(data);
   } catch (error) {
     console.log(error.message);
     res.status(404).send(error.message);

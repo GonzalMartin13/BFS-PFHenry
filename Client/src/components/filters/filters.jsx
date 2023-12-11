@@ -52,8 +52,8 @@ function VerticalExample() {
           onSelect={filterByService}
         >
           <Dropdown.Item eventKey="Paqueteria">Paqueteria</Dropdown.Item>
-          <Dropdown.Item eventKey="Discreto">Discreto</Dropdown.Item>
-          <Dropdown.Item eventKey="Cuidado">Cuidado</Dropdown.Item>
+          <Dropdown.Item eventKey="Discreto">Entrega Certificada</Dropdown.Item>
+          <Dropdown.Item eventKey="Cuidado">FragilBox</Dropdown.Item>
           <Dropdown.Item eventKey="Carteria">Carteria</Dropdown.Item>
           <Dropdown.Item eventKey="Express">Express</Dropdown.Item>
         </DropdownButton>
