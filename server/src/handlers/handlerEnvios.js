@@ -44,6 +44,7 @@ const handlerPostEnvio = async (req, res) => {
     peso,
     servicios,
     total,
+    status,
     imagen,
     dni,
     UserEmail,
@@ -58,6 +59,7 @@ const handlerPostEnvio = async (req, res) => {
       servicios,
       peso,
       total,
+      status,
       imagen,
       dni,
       UserEmail
