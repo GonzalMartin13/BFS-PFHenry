@@ -3,8 +3,8 @@ import axios from "axios";
 export const getAllPayments = async () => {
   try {
     const response = await axios.get(
-      `http://localhost:3001/payment`
-/*       `https://bfs-pfhenry-production.up.railway.app/payment` */
+ //     `http://localhost:3001/payment`
+       `https://bfs-pfhenry-production.up.railway.app/payment` 
     );
 
     if (response.status !== 200) {
