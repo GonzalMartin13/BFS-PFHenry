@@ -90,7 +90,6 @@ console.log(userPackages);
 <p style={{ marginBottom: '10px' }}>Fecha: {fecha ? fecha : 'Fecha no disponible'}</p>
 <p style={{ marginBottom: '10px' }}>Estatus: {selectedPackage.status}</p>
 <p style={{ marginBottom: '10px' }}>Peso: {selectedPackage.peso} kg</p>
-<p style={{ marginBottom: '10px' }}>Dimensiones: {selectedPackage.dimensiones}</p>
 <p style={{ marginBottom: '10px' }}>Total: {selectedPackage.total} $</p>
 {selectedPackage.imagen && (
   <img
