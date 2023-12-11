@@ -2,7 +2,7 @@ const laRioja = {
   nombre: "La Rioja",
   distanciaEntreProvincias: [
     { provincia: "Buenos Aires", distancia: 1158 },
-    { provincia: "Catamarca", distancia: 204 },
+    { provincia: "Catamarca", distancia: 234 },
     { provincia: "Chaco", distancia: 647 },
     { provincia: "Chubut", distancia: 1848 },
     { provincia: "Córdoba", distancia: 448 },

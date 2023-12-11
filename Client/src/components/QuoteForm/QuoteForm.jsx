@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from "react";
 import { omit } from "lodash";
+import { Tooltip } from "react-tooltip";
 import {
   Spinner,
   Button,
@@ -16,7 +17,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import style from "./quoteForm.module.css";
 import axios from "axios";
 import { provincias } from "./utils/provincias";
-import { resetForm, handleCheck } from "./utils/formUtils";
+import { resetForm, handleCheck, contarServicios } from "./utils/formUtils";
 import { validateForm, objeto } from "./utils/validate";
 import icoTiempo from "./utils/tiempo-rapido.png";
 import icoDiscreto from "./utils/confidencial.png/";
@@ -24,17 +25,21 @@ import icoCaja from "./utils/caja.png";
 import icoCuidado from "./utils/alerta.png";
 import icoSobre from "./utils/correo-electronico.png";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { setState, setTotal, clearState } from "../../redux/Slices/quoterslice";
 import { SiGooglemaps } from "react-icons/si";
 import Swal from "sweetalert2";
-import { confirmed, contadorInTwo, profiles} from "../../redux/Slices/userSlice";
+import {
+  confirmed,
+  contadorInTwo,
+  profiles,
+} from "../../redux/Slices/userSlice";
 import imagenCaja from "./utils/imageDimensiones.png";
 export default function QuoteForm() {
- // const state = useSelector((state) => state.shipping);
+  // const state = useSelector((state) => state.shipping);
 
   const { loginWithRedirect } = useAuth0();
-  const {isLoggedIn, isProfile} = useSelector((state) => state.user);
+  const { isLoggedIn, isProfile } = useSelector((state) => state.user);
   const [errors, setErrors] = useState({});
 
   const dispatch = useDispatch();
@@ -139,13 +144,15 @@ export default function QuoteForm() {
 
     try {
       const { data } = await axios.post(
-        "https://bfs-pfhenry-production.up.railway.app/envios/price",
+        // "https://bfs-pfhenry-production.up.railway.app/envios/price",
+        "http://localhost:3001/envios/price",
+
         form
       );
 
       // Función de alerta
-
-      typeof data === "number" ? alertFloat(data) : noPrice(data);
+      console.log("heee", data.precioFinal);
+      data.precioFinal ? alertFloat(data) : noPrice(data);
     } catch (error) {
       console.error(error);
     } finally {
@@ -158,14 +165,56 @@ export default function QuoteForm() {
     });
   };
 
-  const alertFloat = async (total) => {
+  const alertFloat = async (data) => {
+    console.log("que pasa", data);
+    let total = data.precioFinal;
+    let cant = contarServicios(servicios);
+
+    console.log("la cantidad", cant);
+
+    // Clasificar las propiedades
+    const propiedadesOrdenadas = Object.keys(servicios).sort((a, b) => {
+      if (a === "paqueteria" || a === "carteria") return -1;
+      if (b === "paqueteria" || b === "carteria") return 1;
+      return 0;
+    });
+
+    let serviciosText = propiedadesOrdenadas
+      .filter((propiedad) => servicios[propiedad] === true)
+      .map((propiedad) => {
+        if (
+          propiedad === "fragilBox" ||
+          propiedad === "express" ||
+          propiedad === "certificada"
+        ) {
+          return `<h6>(${propiedad} + 40%) + $${Number(
+            data.descuentoServicio
+          ).toFixed(2)}</h6>`;
+        } else {
+          return `<h6>(${propiedad}) $${Number(data.precioASumar).toFixed(
+            2
+          )}</h6>`;
+        }
+      })
+      .join("<br/>");
+    let extraDimensiones =
+      total - data.precioASumar - data.descuentoServicio * cant;
     setForm({ ...form, total: total });
 
     return await Swal.fire({
-      title: `Total envio: $${total}`,
+      title: `Envio de ${form.origen} a ${form.destino}`,
+      html: `${serviciosText}<br/><h6> (Rec. dim./peso) + $${
+        extraDimensiones.toFixed(2) > 0 ? extraDimensiones.toFixed(2) : 0
+      }</h6><br/> <h3 className={style.precioFinal}>Total: $${total}</h3>`,
       showCancelButton: true,
       confirmButtonText: "Contratar ahora",
+      confirmButtonColor: "#1ea13a",
       cancelButtonText: "En otro momento",
+      customClass: {
+        popup: style.mySwalPopup, // Aplica la clase de estilo al contenedor principal
+        title: style.mySwalTitle, // Aplica la clase de estilo al título
+        content: style.mySwalContent, // Aplica la clase de estilo al contenido
+      },
     }).then((response) => {
       if (response.isConfirmed) {
         setForm({ ...form, total: total });
@@ -179,6 +228,7 @@ export default function QuoteForm() {
       }
     });
   };
+
   //actualiza form.servicios con valor de objeto pasado a array de estado "servicio" solo si si la propiedad tiene valor true
   useEffect(() => {
     setForm({
@@ -210,7 +260,7 @@ export default function QuoteForm() {
         icon: "success",
       });
       return dispatch(confirmed(true));
-    };
+    }
 
     dispatch(profiles(true));
     dispatch(confirmed(true));
@@ -224,10 +274,10 @@ export default function QuoteForm() {
       <Form
         onSubmit={handleFormSubmit}
         style={{
-          margin: "auto auto 20px ",
+          margin: "0 auto 15px ",
           maxWidth: "800px",
           minHeight: "800px",
-          padding: "15px 20px",
+          padding: "10px 20px",
           borderRadius: "4px",
           backgroundColor: "#e4e1e1bd",
         }}
@@ -251,9 +301,14 @@ export default function QuoteForm() {
               <option value="" disabled hidden>
                 Selecciona una provincia
               </option>
-              {provincias.map((p, i) => (
-                <option key={i}>{p}</option>
-              ))}
+              {provincias.map(
+                (p, i) =>
+                  p !== form.destino && (
+                    <option key={i} value={p}>
+                      {p}
+                    </option>
+                  )
+              )}
             </Form.Select>
             {errors.origen && (
               <span className={style.danger}>{errors.origen}</span>
@@ -276,9 +331,14 @@ export default function QuoteForm() {
               <option value="" disabled hidden>
                 Selecciona una provincia
               </option>
-              {provincias.map((p, i) => (
-                <option key={i}>{p}</option>
-              ))}
+              {provincias.map(
+                (p, i) =>
+                  p !== form.origen && (
+                    <option key={i} value={p}>
+                      {p}
+                    </option>
+                  )
+              )}
             </Form.Select>
             {errors.destino && (
               <span className={style.danger}>{errors.destino}</span>
@@ -292,12 +352,15 @@ export default function QuoteForm() {
 
         <Form.Group className="mb-3">
           <Form.Check
+            data-tooltip-id="tooltipCertificada"
+            data-tooltip-variant="info"
             inline
             label={
               <div>
                 <span
                   style={{ marginRight: "2px" }}
-                  title="Envío Certificado: Garantizamos la entrega segura al destinatario verificando su identidad mediante contacto telefónico con el remitente. Medidas adicionales de seguridad para asegurar la entrega correcta."
+                  data-tooltip-id="tooltipCertificada"
+                  data-tooltip-variant="info"
                 >
                   Entrega Certificada
                 </span>
@@ -315,13 +378,27 @@ export default function QuoteForm() {
             checked={servicios.certificada}
           />
 
+          <Tooltip
+            id="tooltipCertificada"
+            effect="solid"
+            style={{ maxWidth: "400px", overflowX: "hidden" }}
+          >
+            Envío Certificado: Garantizamos la entrega segura al destinatario
+            verificando su identidad mediante contacto telefónico con el
+            remitente. Medidas adicionales de seguridad para asegurar la entrega
+            correcta. (40% + sobre el valor del tipo de envio (paqueteria o
+            carteria) por kms)
+          </Tooltip>
           <Form.Check
+            data-tooltip-id="tooltipFragilBox"
+            data-tooltip-variant="info"
             inline
             label={
               <div>
                 <span
+                  data-tooltip-id="tooltipFragilBox"
+                  data-tooltip-variant="info"
                   style={{ marginRight: "1px" }}
-                  title="Envío Seguro para Artículos Frágiles: Embalaje especializado para proteger tus productos delicados durante el transporte, garantizando su llegada en óptimas condiciones."
                 >
                   FragilBox
                 </span>
@@ -333,14 +410,26 @@ export default function QuoteForm() {
             onChange={handleCheckboxChange}
             checked={servicios.fragilBox}
           />
+          <Tooltip
+            id="tooltipFragilBox"
+            style={{ maxWidth: "400px", overflowX: "hidden" }}
+          >
+            Envío Seguro para Artículos Frágiles: Embalaje especializado para
+            proteger tus productos delicados durante el transporte, garantizando
+            su llegada en óptimas condiciones. (40% + sobre el valor del tipo de
+            envio (paqueteria o carteria) por kms)
+          </Tooltip>
 
           <Form.Check
+            data-tooltip-id="tooltipCarteria"
+            data-tooltip-variant="info"
             inline
             label={
               <div>
                 <span
+                  data-tooltip-id="tooltipCarteria"
+                  data-tooltip-variant="info"
                   style={{ marginRight: "2px" }}
-                  title="Sobres de hasta 30 x 30 (cms) y de menos de 60 (grs)"
                 >
                   Carteria
                 </span>
@@ -352,13 +441,22 @@ export default function QuoteForm() {
             onChange={handleCheckboxChange}
             checked={servicios.carteria}
           />
+          <Tooltip
+            id="tooltipCarteria"
+            style={{ maxWidth: "400px", overflowX: "hidden" }}
+          >
+            Sobres de hasta 30 x 30 cms. y de menos de 60 grs.
+          </Tooltip>
           <Form.Check
+            data-tooltip-id="tooltipPaqueteria"
+            data-tooltip-variant="info"
             inline
             label={
               <div>
                 <span
+                  data-tooltip-id="tooltipPaqueteria"
+                  data-tooltip-variant="info"
                   style={{ marginRight: "2px" }}
-                  title="Paquetería Tradicional 📦: Envío de bultos con dimensiones de hasta 190 cm en alto, largo o ancho, y peso máximo de 100 kg. Servicio estándar de entrega para tus envíos convencionales, seguro y eficiente."
                 >
                   Paqueteria
                 </span>
@@ -370,12 +468,29 @@ export default function QuoteForm() {
             onChange={handleCheckboxChange}
             checked={servicios.paqueteria}
           />
+          <Tooltip
+            id="tooltipPaqueteria"
+            style={{ maxWidth: "400px", overflowX: "hidden" }}
+          >
+            Paquetería Tradicional 📦: Envío de bultos con dimensiones de hasta
+            190 cm en alto, largo o ancho, y peso máximo de 100 kg. Servicio
+            estándar de entrega para tus envíos convencionales, seguro y
+            eficiente.
+          </Tooltip>
           <Form.Check
-            title="Express 🚀: Llega a la mitad del tiempo de un envío convencional. La opción perfecta para quienes buscan rapidez y eficiencia en la entrega de sus paquetes. ¡Haz que tus envíos lleguen más rápido con Express!"
+            data-tooltip-id="tooltipExpress"
+            data-tooltip-variant="info"
             inline
             label={
               <div>
-                <span style={{ marginRight: "1px" }}>Express</span>
+                <span
+                  style={{ marginRight: "1px" }}
+                  data-tooltip-id="tooltipExpress"
+                  data-tooltip-variant="info"
+                  mul
+                >
+                  Express
+                </span>
                 <Image src={icoTiempo} rounded width="23px" alt="Express" />
               </div>
             }
@@ -384,6 +499,17 @@ export default function QuoteForm() {
             onChange={handleCheckboxChange}
             checked={servicios.express}
           />
+          <Tooltip
+            id="tooltipExpress"
+            style={{ maxWidth: "400px", overflowX: "hidden" }}
+          >
+            Express 🚀: Llega a la mitad del tiempo de un envío convencional.{" "}
+            <br /> La opción perfecta para quienes buscan rapidez y eficiencia
+            en la entrega de sus paquetes.
+            <br /> ¡Haz que tus envíos lleguen más rápido con Express! <br />
+            (40% + sobre el valor del tipo de envio (paqueteria o carteria) por
+            kms)
+          </Tooltip>
 
           <div style={{ display: "block", height: "40px" }}>
             {loading && (

@@ -10,10 +10,13 @@ const setStateQu = {
 };
 import { useDispatch, useSelector } from "react-redux";
 import { Container, Button, ListGroup } from "react-bootstrap";
-import { postInvoiceAsync, setStateInvoice } from "../../redux/Slices/invoiceUserSlice";
+import {
+  postInvoiceAsync,
+  setStateInvoice,
+} from "../../redux/Slices/invoiceUserSlice";
 
 import { Link, useNavigate } from "react-router-dom";
-import { setState } from "../../redux/Slices/quoterslice";
+import { setState, clearState } from "../../redux/Slices/quoterslice";
 import { clearShippingState } from "../../redux/Slices/shippingSlice";
 import { useEffect } from "react";
 
@@ -23,8 +26,7 @@ export default function Comprobante() {
   const envio = useSelector((state) => state.shipping);
   const { idShipping } = useSelector((state) => state.invoice);
   const { invoice } = useSelector((state) => state.invoice);
-
-
+  console.log(envio);
   let url = invoice;
 
   const jsonInvoise = {
@@ -58,9 +60,10 @@ export default function Comprobante() {
       telDestinatario: envio.telefonoDestinatario,
     },
   };
- useEffect(()=>{
- // dispatch(postInvoiceAsync(jsonInvoise))
- },[dispatch])
+  useEffect(() => {
+    // dispatch(postInvoiceAsync(jsonInvoise))
+    return () => dispatch(clearState());
+  }, []);
   const resetStates = () => {
     dispatch(setState(setStateQu));
     dispatch(setStateInvoice());
@@ -70,8 +73,16 @@ export default function Comprobante() {
 
   return (
     <Container className="mt-5" fluid style={{ height: "1000px" }}>
-      <h1>Gracias por confiar en nosotros!</h1>
-      <h4>
+      <h1
+        style={{
+          borderBottom: " 2px solid #969090",
+          display: "inline",
+          padding: "2px 15px",
+        }}
+      >
+        Gracias por confiar en nosotros!
+      </h1>
+      <h4 style={{ marginTop: "10px", marginBottom: "12px" }}>
         Tu solicitud de envío ha sido procesada con éxito. Aquí tienes los
         detalles:
       </h4>
@@ -94,7 +105,12 @@ export default function Comprobante() {
           Código de seguimiento: {idShipping}
         </ListGroup.Item>
       </ListGroup>
-      <a href={url} target="_blank" rel="noreferrer" className="btn btn-primary m-3 p-2">
+      <a
+        href={url}
+        target="_blank"
+        rel="noreferrer"
+        className="btn btn-primary m-3 p-2"
+      >
         Descargar factura
       </a>
       <Button
