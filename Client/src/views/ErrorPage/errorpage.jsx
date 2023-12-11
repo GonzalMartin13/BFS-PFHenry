@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-//import "./error.css"
+import "./error.css"
 // Reemplaza con la ruta correcta de tu imagen
 
 const ErrorPage = () => {
