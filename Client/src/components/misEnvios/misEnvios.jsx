@@ -1,5 +1,4 @@
-/* eslint-disable no-unused-vars */
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
@@ -7,7 +6,8 @@ import Modal from "react-bootstrap/Modal";
 import Image from "react-bootstrap/Image";
 import flechaIcon from "../../assets/sign.svg";
 import VerticalExample from "../filters/filters";
-import { getUserPackages, cleanDetailAction } from "../../redux/Slices/packageSlice"; // Actualizado
+import { getUserPackages } from "../../redux/Slices/packageSlice"; // Actualizado
+import copiarIcon from "../../assets/copia.png";
 
 function MisEnvios() {
   const dispatch = useDispatch();
@@ -19,8 +19,6 @@ function MisEnvios() {
       dispatch(getUserPackages(UserEmail));
     }
   }, [dispatch, UserEmail]);
-
-console.log(userPackages);
 
   const [showModal, setShowModal] = useState(false);
   const handleCloseModal = () => {
@@ -35,6 +33,42 @@ console.log(userPackages);
   };
 
   const fecha = selectedPackage ? selectedPackage.fechaInicial.split("T")[0] : null;
+
+  const copyToClipboard = (text) => {
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+
+    textarea.style.position = 'fixed';
+    textarea.style.opacity = 0;
+
+    document.body.appendChild(textarea);
+    textarea.select();
+
+    try {
+      document.execCommand('copy');
+      console.log('Texto copiado al portapapeles:', text);
+    } catch (err) {
+      console.error('Error al copiar al portapapeles:', err);
+    } finally {
+      document.body.removeChild(textarea);
+    }
+  };
+
+  const handleCopyToClipboard = () => {
+    if (selectedPackage) {
+      copyToClipboard(selectedPackage.id);
+    }
+  };
+
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+  };
 
   return (
     <>
@@ -53,17 +87,36 @@ console.log(userPackages);
         <br />
         <div className="mis-envios-container d-flex flex-wrap justify-content-center">
           {userPackages.map((envio, idx) => (
-            <Card key={idx} style={{ width: "18rem", height: "100%", margin: "0 10px 20px" }} className="mb-3">
+            <Card
+              key={idx}
+              style={{
+                width: "18rem",
+                height: "100%",
+                margin: "0 10px 20px",
+                backgroundColor: "#f8f9fa",
+                border: "1px solid #dee2e6",
+                borderRadius: "10px",
+                boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)"
+              }}
+              className="mb-3"
+            >
               <Card.Body>
+                <h6>{envio.fechaInicial.split("T")[0]}</h6>
                 <Card.Title>{envio.servicios}</Card.Title>
-                <br></br>
                 <Card.Subtitle className="mb-2 text-muted">
                   <span style={{ marginRight: '5px' }}></span>
-                  {envio.origen} <img src={flechaIcon} alt="Logout Icon" style={{ width: '20px', height: '20px' }} /> {envio.destino}
+                  {envio.origen} <img src={flechaIcon} alt="Logout Icon" style={{ width: '20px', height: '20px', marginLeft: '5px' }} />
+                  {envio.destino}
                 </Card.Subtitle>
                 <Card.Text></Card.Text>
-                <br></br>
-                <Button variant="primary" onClick={() => handleDetalleButtonClick(envio)}>
+                <Button
+                  variant="outline-primary"
+                  style={{
+                    height: "40px",
+                    marginTop: "10px"
+                  }}
+                  onClick={() => handleDetalleButtonClick(envio)}
+                >
                   Detalle
                 </Button>
               </Card.Body>
@@ -83,22 +136,37 @@ console.log(userPackages);
                 Detalles del paquete
               </Modal.Title>
             </Modal.Header>
-           
 
-<Modal.Body style={{ padding: '20px', textAlign: 'left' }}>
-<p style={{ marginBottom: '10px', fontSize: '1.2rem', fontWeight: 'bold' }}>Numero de seguimiento: {selectedPackage.id}</p>
-<p style={{ marginBottom: '10px' }}>Fecha: {fecha ? fecha : 'Fecha no disponible'}</p>
-<p style={{ marginBottom: '10px' }}>Estatus: {selectedPackage.status}</p>
-<p style={{ marginBottom: '10px' }}>Peso: {selectedPackage.peso} kg</p>
-<p style={{ marginBottom: '10px' }}>Total: {selectedPackage.total} $</p>
-{selectedPackage.imagen && (
-  <img
-    src={selectedPackage.imagen}
-    alt="Imagen del paquete"
-    style={{ maxWidth: '100%', maxHeight: '200px', margin: '10px 0', borderRadius: '5px' }}
-  />
-)}
-</Modal.Body>
+            <Modal.Body style={{ padding: '20px', textAlign: 'left' }}>
+              <p style={{ marginBottom: '10px', fontSize: '1.2rem', fontWeight: 'bold' }}>
+                Numero de seguimiento: {selectedPackage.id} 
+                <Button
+                  variant="secondary"
+                  onClick={handleCopyToClipboard}
+                  style={{
+                    border: 'none',
+                    background: 'transparent',
+                    transform: isHovered ? 'scale(1.2)' : 'scale(1)',
+                    transition: 'transform 0.3s ease',
+                  }}
+                  onMouseEnter={handleMouseEnter}
+                  onMouseLeave={handleMouseLeave}
+                >
+                  <img src={copiarIcon} alt="copiar Icon" style={{ width: '20px', height: '20px', marginLeft: '5px' }} />
+                </Button>
+              </p>
+              <p style={{ marginBottom: '10px' }}>Fecha: {fecha ? fecha : 'Fecha no disponible'}</p>
+              <p style={{ marginBottom: '10px' }}>Estatus: {selectedPackage.status}</p>
+              <p style={{ marginBottom: '10px' }}>Peso: {selectedPackage.peso} kg</p>
+              <p style={{ marginBottom: '10px' }}>Total: {selectedPackage.total} $</p>
+              {selectedPackage.imagen && (
+                <img
+                  src={selectedPackage.imagen}
+                  alt="Imagen del paquete"
+                  style={{ maxWidth: '100%', maxHeight: '200px', margin: '10px 0', borderRadius: '5px' }}
+                />
+              )}
+            </Modal.Body>
           </Modal>
         )}
         <br />
@@ -110,7 +178,3 @@ console.log(userPackages);
 }
 
 export default MisEnvios;
-
-
-
-
