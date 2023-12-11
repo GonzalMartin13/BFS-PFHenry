@@ -4,47 +4,92 @@ import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Resp
 
 function Grafico() {
 
-    const data = [
+    const dataUno = [
         {
           name: 'Jun',
-          cr: 400,
-          cv: 240,
+          Usuarios: 400,
+          Visitas: 330,
           amt: 240,
         },
         {
           name: 'Jul',
-          cr: 300,
-          cv: 139,
+          Usuarios: 300,
+          Visitas: 139,
           amt: 221,
         },
         {
           name: 'Ago',
-          cr: 200,
-          cv: 580,
+          Usuarios: 580,
+          Visitas: 200,
           amt: 229,
         },
         {
           name: 'Sept',
-          cr: 278,
-          cv: 390,
+          Usuarios: 278,
+          Visitas: 390,
           amt: 200,
         },
         {
           name: 'Oct',
-          cr: 189,
-          cv: 480,
+          Usuarios: 189,
+          Visitas: 530,
           amt: 218,
         },
         {
           name: 'Nov',
-          cr: 239,
-          cv: 380,
+          Usuarios: 480,
+          Visitas: 120,
           amt: 250,
         },
         {
           name: 'Dic',
-          cr: 349,
-          cv: 430,
+          Usuarios: 349,
+          Visitas: 430,
+          amt: 210,
+        },
+      ];
+
+      const dataDos = [
+        {
+          name: 'Jun',
+          Paquetes: 500,
+          Documentos: 240,
+          amt: 240,
+        },
+        {
+          name: 'Jul',
+          Paquetes: 190,
+          Documentos: 302,
+          amt: 221,
+        },
+        {
+          name: 'Ago',
+          Paquetes: 450,
+          Documentos: 90,
+          amt: 229,
+        },
+        {
+          name: 'Sept',
+          Paquetes: 410,
+          Documentos: 492,
+          amt: 200,
+        },
+        {
+          name: 'Oct',
+          Paquetes: 189,
+          Documentos: 480,
+          amt: 218,
+        },
+        {
+          name: 'Nov',
+          Paquetes: 239,
+          Documentos: 380,
+          amt: 250,
+        },
+        {
+          name: 'Dic',
+          Paquetes: 349,
+          Documentos: 430,
           amt: 210,
         },
       ];
@@ -59,7 +104,7 @@ function Grafico() {
         
         width={500}
         height={300}
-        data={data}
+        data={dataUno}
         margin={{
             top: 5,
             right: 30,
@@ -73,8 +118,8 @@ function Grafico() {
             <YAxis />
             <Tooltip />
             <Legend />
-            <Bar dataKey="cr" fill="#e9c732" />
-            <Bar dataKey="cv" fill="#82ca9d" />
+            <Bar dataKey="Usuarios" fill="#82ca9d" />
+            <Bar dataKey="Visitas" fill="#e9c732" />
             </BarChart>
         </ResponsiveContainer>
         <br />
@@ -87,7 +132,7 @@ function Grafico() {
             <LineChart
             width={500}
             height={300}
-            data={data}
+            data={dataDos}
             margin={{
                 top: 5,
                 right: 30,
@@ -100,8 +145,8 @@ function Grafico() {
             <YAxis />
             <Tooltip />
             <Legend />
-            <Line type="monotone" dataKey="cr" stroke="#8884d8" activeDot={{ r: 8 }} />
-            <Line type="monotone" dataKey="cv " stroke="#82ca9d" />
+            <Line type="monotone" dataKey="Paquetes" stroke="#5d45f7" activeDot={{ r: 8 }} />
+            <Line type="monotone" dataKey="Documentos" stroke="#fd5000" />
             </LineChart>
         </ResponsiveContainer>
         </div>

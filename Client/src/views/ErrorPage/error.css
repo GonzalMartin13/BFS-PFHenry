@@ -1,6 +1,4 @@
-
 .ul{
-
     list-style: none;
 }
 
@@ -13,11 +11,11 @@
     height: 470px;
     width: 100%;
 }
-.li{
-    text-decoration: underline;
-    color: gray;
+.li {
+  text-decoration: underline;
+  color: gray;
 }
 
-.li:hover{
-    color:blue
-} 
+.li:hover {
+  color: blue;
+}

@@ -67,6 +67,18 @@
   background-color: #a89ded45;
   padding-top: 30px;
 }
+.containerContext h2 {
+  width: 100%;
+  background-color: #222;
+  padding: 10px;
+  text-align: center; /* Centra el texto horizontalmente */
+  text-transform: uppercase;
+  color: #fff;
+  border-radius: 10px;
+  position: relative;
+  margin-left: 0;
+}
+
 .menu {
     display: flex;
     font-size: 15px;
@@ -181,4 +193,91 @@
   box-shadow: 0.1em 0.1em 0em 0 rgba(0,0,0,0.3);
   transform: rotate(45deg);
 }
+
+.paginacion{
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.paginacion a {
+  text-decoration: none; /* Quitar subrayado del enlace */
+  border-bottom: none;   /* Quitar línea inferior del enlace */
+  color: #0066ff;        /* Color predeterminado del enlace */
+}
+
+.paginacion a:hover {
+  text-decoration: underline; /* Subrayado al pasar el ratón por encima */
+}
+
+.paginacion .active {
+  font-weight: bold;     /* Hacer que la página activa se destaque */
+  color: #fff;           /* Color del texto en la página activa */
+  background-color: #007bff; /* Color de fondo del cuadrado */
+  border-radius: 5px;    /* Borde redondeado del cuadrado */
+  padding: 5px 10px;      /* Espaciado interno del cuadrado */
+}
+
+.filtroContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.filtroInput {
+  width: 200px;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.filtroLabel {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.filtroButton {
+  background-color: blue;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.filtroButton:hover {
+  background-color: #45a049;
+}
+.buttonContainer {
+  display: flex;
+  gap: 5mm; /* Espaciado de 5 milímetros entre los botones */
+}
+
+.contenedorFiltro {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Aplica estilos al filtro y al select según sea necesario */
+.filtro {
+  padding: 5px;
+  font-size: 14px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.filtro select {
+  padding: 6px;
+  font-size: 14px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  border-radius: 5px;
+}
+
 

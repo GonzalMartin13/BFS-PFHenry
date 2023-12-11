@@ -41,7 +41,7 @@ const FormEnvio = () => {
     (state) => state.quoter
   );
 
-  const {user} = useSelector((state) => state.user);
+  const { user } = useSelector((state) => state.user);
 
   const sucursalOrigen = sucursales.find(
     (sucursal) => sucursal.Popup === origen
@@ -53,9 +53,15 @@ const FormEnvio = () => {
   const handleEnvioBD = async (valores) => {
     try {
       valores.imagen = imagenLocal;
-      const porstEnviar = await enviarBD(valores);
-      dispatch(setidShipping(porstEnviar.idDelEnvio.numeroEnvio));
-    } catch (error) { console.log(error.message)}
+      const postEnviar = await enviarBD(valores);
+      console.log(
+        "quizas aca no llegue nda",
+        postEnviar.idDelEnvio.envio.numeroEnvio
+      );
+      dispatch(setidShipping(postEnviar.idDelEnvio.envio.numeroEnvio));
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   const handleFileUpload = async () => {
@@ -108,17 +114,22 @@ const FormEnvio = () => {
   useEffect(() => {
     const mercadoPago = async () => {
       try {
-        const { data } = await axios.post("https://bfs-pfhenry-production.up.railway.app/pagos/crear", {
-          total,
-          servicios,
-        });
-        setLinkPago(data);
-        console.log(data);
+        const { data } = await axios.post(
+          /* "https://bfs-pfhenry-production.up.railway.app/pagos/crear" */
+          "http://localhost:3001/pagos/crear",
+
+          {
+            total:Number(total),
+            servicios,
+          }
+          );
+          setLinkPago(data);
+          console.log("la url", data);
       } catch (error) {
         console.error("Error al realizar la solicitud a MercadoPago", error);
       }
     };
-
+    
     mercadoPago();
   }, []);
 
@@ -134,12 +145,12 @@ const FormEnvio = () => {
     <Formik
       initialValues={{
         nombreRemitente: `${user.name} ${user.lastName}`,
-        razonSocialRemitente: "",
+        // razonSocialRemitente: "",
         telefonoRemitente: user.phone,
         emailRemitente: user.email,
         dniRemitente: "",
         nombreDestinatario: "",
-        razonSocialDestinatario: "",
+        // razonSocialDestinatario: "",
         telefonoDestinatario: "",
         emailDestinatario: "",
         dniDestinatario: "",
@@ -153,46 +164,46 @@ const FormEnvio = () => {
         let errores = {};
 
         //Validaciones para Remitente
-        if (!valores.nombreRemitente) {
-          errores.nombreRemitente = "Debes ingresar un nombre";
-        } else if (
-          !/^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ]+(?:\s+[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ]+){1,5}(?:\s+[-\sa-zA-ZáéíóúÁÉÍÓÚüÜñÑ]+)?$/.test(
-            valores.nombreRemitente
-          )
-        ) {
-          errores.nombreRemitente =
-            "Ingresa tu nombre completo sin contener simbolos";
-        } else if (valores.nombreRemitente.length < 3)
-          errores.nombreRemitente =
-            "El nombre es demaciado corto, pon tu nombre completo";
+        // if (!valores.nombreRemitente) {
+        //   errores.nombreRemitente = "Debes ingresar un nombre";
+        // } else if (
+        //   !/^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ]+(?:\s+[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ]+){1,5}(?:\s+[-\sa-zA-ZáéíóúÁÉÍÓÚüÜñÑ]+)?$/.test(
+        //     valores.nombreRemitente
+        //   )
+        // ) {
+        //   errores.nombreRemitente =
+        //     "Ingresa tu nombre completo sin contener simbolos";
+        // } else if (valores.nombreRemitente.length < 3)
+        //   errores.nombreRemitente =
+        //     "El nombre es demaciado corto, pon tu nombre completo";
 
         //Razon social Remitente
-        if (!valores.razonSocialRemitente) {
-          errores.razonSocialRemitente =
-            "Debes ingresar tu razon social o Particular";
-        } else if (
-          !/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(valores.razonSocialRemitente)
-        ) {
-          errores.razonSocialRemitente = "No puede tener simbolos";
-        }
+        // if (!valores.razonSocialRemitente) {
+        //   errores.razonSocialRemitente =
+        //     "Debes ingresar tu razon social o Particular";
+        // } else if (
+        //   !/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(valores.razonSocialRemitente)
+        // ) {
+        //   errores.razonSocialRemitente = "No puede tener simbolos";
+        // }
 
-        //Telefono Remitente
-        if (!valores.telefonoRemitente) {
-          errores.telefonoRemitente = "Debes ingresar tu numero de telefono";
-        } else if (!/^[0-9]{8}$/.test(valores.telefonoRemitente)) {
-          errores.telefonoRemitente =
-            "Debe ser un numero de telefono valido de 8 digitos";
-        }
-        //email Remitente
-        if (!valores.emailRemitente) {
-          errores.emailRemitente = "Debes ingresar tu correo electrinico";
-        } else if (
-          !/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/.test(
-            valores.emailRemitente
-          )
-        ) {
-          errores.emailRemitente = "Debe ser un correo valido";
-        }
+        // //Telefono Remitente
+        // if (!valores.telefonoRemitente) {
+        //   errores.telefonoRemitente = "Debes ingresar tu numero de telefono";
+        // } else if (!/^[0-9]{7}$/.test(valores.telefonoRemitente)) {
+        //   errores.telefonoRemitente =
+        //     "Debe ser un numero de telefono valido de 8 digitos";
+        // }
+        // //email Remitente
+        // if (!valores.emailRemitente) {
+        //   errores.emailRemitente = "Debes ingresar tu correo electrinico";
+        // } else if (
+        //   !/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/.test(
+        //     valores.emailRemitente
+        //   )
+        // ) {
+        //   errores.emailRemitente = "Debe ser un correo valido";
+        // }
         //DNI Remitente
         if (!valores.dniRemitente) {
           errores.dniRemitente = "Debes ingresar tu numero de DNI";
@@ -216,14 +227,14 @@ const FormEnvio = () => {
             "El nombre es demaciado corto, pon tu nombre completo";
 
         //Razon social Destinatario
-        if (!valores.razonSocialDestinatario) {
-          errores.razonSocialDestinatario =
-            "Debes ingresar tu razon social o Particular";
-        } else if (
-          !/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(valores.razonSocialDestinatario)
-        ) {
-          errores.razonSocialDestinatario = "No puede tener simbolos";
-        }
+        // if (!valores.razonSocialDestinatario) {
+        //   errores.razonSocialDestinatario =
+        //     "Debes ingresar tu razon social o Particular";
+        // } else if (
+        //   !/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(valores.razonSocialDestinatario)
+        // ) {
+        //   errores.razonSocialDestinatario = "No puede tener simbolos";
+        // }
 
         //Telefono Destinatario
         if (!valores.telefonoDestinatario) {
@@ -258,12 +269,12 @@ const FormEnvio = () => {
 
         const {
           nombreRemitente,
-          razonSocialRemitente,
+
           telefonoRemitente,
           emailRemitente,
           dniRemitente,
           nombreDestinatario,
-          razonSocialDestinatario,
+
           telefonoDestinatario,
           emailDestinatario,
           dniDestinatario,
@@ -277,12 +288,12 @@ const FormEnvio = () => {
         const shippingInfo = {
           ...quoteState,
           nombreRemitente,
-          razonSocialRemitente,
+
           telefonoRemitente,
           emailRemitente,
           dniRemitente,
           nombreDestinatario,
-          razonSocialDestinatario,
+
           telefonoDestinatario,
           emailDestinatario,
           dniDestinatario,
@@ -356,7 +367,7 @@ const FormEnvio = () => {
                   <p className={styles.error}>{errors.nombreRemitente}</p>
                 )}
               </div>
-              <div>
+              {/* <div>
                 <label className={styles.label}>Razon social</label>
                 <input
                   type="text"
@@ -373,8 +384,8 @@ const FormEnvio = () => {
                     <p className={styles.error}>
                       {errors.razonSocialRemitente}
                     </p>
-                  )}
-              </div>
+                  )} 
+              </div> */}
               <div>
                 <label className={styles.label}>Telefono</label>
                 <input
@@ -467,7 +478,7 @@ const FormEnvio = () => {
                   <p className={styles.error}>{errors.nombreDestinatario}</p>
                 )}
               </div>
-              <div>
+              {/* <div>
                 <label className={styles.label}>Razon social</label>
                 <input
                   type="text"
@@ -485,7 +496,7 @@ const FormEnvio = () => {
                       {errors.razonSocialDestinatario}
                     </p>
                   )}
-              </div>
+              </div> */}
               <div>
                 <label className={styles.label}>Telefono</label>
                 <input
@@ -631,14 +642,14 @@ const FormEnvio = () => {
             <div>
               <br></br>
               <button type="submit" className={styles.button}>
-                Proceder al pago
+                <a href={linkPago}> proceder al pago </a> 
               </button>
               <br></br>
             </div>
 
             <div>
               <br></br>
-              <Link to="/home" style={{ textDecoration: "none" }}>
+              <Link to="/" style={{ textDecoration: "none" }}>
                 <button
                   type="submit"
                   className={styles.buttonCancel}

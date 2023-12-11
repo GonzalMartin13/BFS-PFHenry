@@ -1,11 +1,13 @@
 import axios from "axios";
 
-export const getAllUser = async () => {
+export const getAllPayments = async () => {
   try {
-    const response = await axios.get(`http://localhost:3001/user`);
-    /* (`https://bfs-pfhenry-production.up.railway.app/user`) */ if (
-      response.status !== 200
-    ) {
+    const response = await axios.get(
+      `http://localhost:3001/payment`
+/*       `https://bfs-pfhenry-production.up.railway.app/payment` */
+    );
+
+    if (response.status !== 200) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
 
@@ -17,5 +19,3 @@ export const getAllUser = async () => {
     throw error;
   }
 };
-
-

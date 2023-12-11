@@ -10,7 +10,7 @@ const task = cron.schedule("0 14  * * *", () => {
 });
 
 conn.sync({ force: false }).then(() => {
-  server.listen({port}, () => {
+  server.listen({ port }, () => {
     console.log(`server conectado a base de datos, puerto ojete ${port}`);
   });
 });

@@ -5,18 +5,24 @@ import Slider from "../Carrousel/Carrousel";
 import Image from "react-bootstrap/Image";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
-import {useSelector } from "react-redux";
-import iconoEnvio from "../../assets/envio.svg"
+import { useDispatch, useSelector } from "react-redux";
+import iconoEnvio from "../../assets/envio.svg";
 import Reviews from "../Reviews/reviews";
-import ShowReviews from "../../views/showReviews/showreviews"
-
-
+import ShowReviews from "../../views/showReviews/showreviews";
+import { useEffect } from "react";
+import { setStateInvoice } from "../../redux/Slices/invoiceUserSlice";
+import { clearShippingState } from "../../redux/Slices/shippingSlice";
+import { clearState } from "../../redux/Slices/quoterslice";
 const Home = () => {
+  const dispatch = useDispatch();
   const isLogged = useSelector((state) => state.user.isLoggedIn);
+  useEffect(() => {
+    dispatch(setStateInvoice());
+    dispatch(clearShippingState());
+  }, []);
 
   return (
     <div style={{ position: "relative" }}>
-      <br />
       <br />
       <h2 className="title-carousel margin center-items">
         ¡Tenemos un <b>gran compromiso</b>!
@@ -40,24 +46,23 @@ const Home = () => {
           <Card.Body>
             <Card.Title>Ver mis envíos</Card.Title>
             <br></br>
-            <img src={iconoEnvio}/>
+            <img src={iconoEnvio} />
             <Card.Text>
               Mirá el listado de envíos asociados a tu cuenta.
             </Card.Text>
           </Card.Body>
         </Card>
       </Button>
-<br/>
-<br/>
-<br/>
+      <br />
+      <br />
+      <br />
 
-      <Reviews/>
-<br/>
- 
-<ShowReviews/>
-<br/>
-<br/>
-   
+      <Reviews />
+      <br />
+
+      <ShowReviews />
+      <br />
+      <br />
     </div>
   );
 };

@@ -7,6 +7,9 @@ import image from "../../assets/logo.png";
 import linkedin from "../../assets/linkedin.png"
 import { useState } from "react";
 import Chat from "../ChatBot/ChatBot";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFacebook, faInstagram, faLinkedin, faWhatsapp } from '@fortawesome/free-brands-svg-icons';
+import { faEnvelope, faLocationDot } from "@fortawesome/free-solid-svg-icons";
 
 
 const Footer = () => {
@@ -29,15 +32,15 @@ const Footer = () => {
           <Col md={3}>
             <p className={style.colum1_p}>Mas informacion sobre BFS </p>
             <span className={style.colum1_spn}>
-             <a href="/about"><p className={style.path}>Quienes Somos</p></a>
-             <a href="/sucursales"><p className={style.path}>Sucursales</p></a>
-             <a href="/servicios"><p className={style.path}>Servicios</p></a>
+             <a href="/about" style={{textDecoration: "none"}}><p className={style.path}>Quienes Somos</p></a>
+             <a href="/sucursales" style={{textDecoration: "none"}}><p className={style.path}>Sucursales</p></a>
+             <a href="/servicios" style={{textDecoration: "none"}}><p className={style.path}>Servicios</p></a>
             </span>
           </Col>
           <Col md={3}>
             <p className={style.colum1_p}>Informacion de contactos</p>
             <div className={style.row2}>
-              <img src="https://i.ibb.co/WvGMRvx/ubicacion-logo.png" alt="" />
+              <FontAwesomeIcon icon={faLocationDot} size="2x" style={{marginRight: "10px"}}/>
               <a
                 className={style.link}
                 href="https://www.google.com/maps?output=search&q=rosario+santa+fe&source=lnms&entry=mc&sa=X&ved=2ahUKEwiGpfv9tMqAAxUOuZUCHa2WAlIQ0pQJegQIDRAB"
@@ -48,7 +51,7 @@ const Footer = () => {
               </a>
             </div>
             <div className={style.row2}>
-              <img src="https://i.ibb.co/4VJwHrg/whatsapp-logo.png" alt="" />
+              <FontAwesomeIcon icon={faWhatsapp} size="2x" style={{marginRight: "10px"}}/>
               <a
                 className={style.link}
                 href="https://wa.me/message/"
@@ -59,7 +62,7 @@ const Footer = () => {
               </a>
             </div>
             <div className={style.row2}>
-              <img src="https://i.ibb.co/nCbxwm9/gmail-icono.png" alt="" />
+              <FontAwesomeIcon icon={faEnvelope} size="2x" style={{marginRight: "10px"}}/>
               <a
                 className={style.link}
                 href="/contacto"
@@ -84,9 +87,9 @@ const Footer = () => {
             <p className={style.colum1_p}>Redes Sociales</p>
             <div className={style.gd}>
                <div className={style.row}>
-               <p><img src={fb} alt="" /></p>  
-               <p><img src={insta} alt="" /></p>  
-               <p><img src={linkedin} alt="" /></p>  
+               <p><FontAwesomeIcon icon={faFacebook} size="2x" style={{marginRight: "20px"}}/></p>  
+               <p><FontAwesomeIcon icon={faInstagram} size="2x" style={{marginRight: "20px"}}/></p>  
+               <p><FontAwesomeIcon icon={faLinkedin} size="2x" style={{marginRight: "20px"}}/></p>  
               </div>
             </div>
           </Col>
@@ -95,8 +98,8 @@ const Footer = () => {
           <Col md={12}>
             <div className={style.container_footer}>
               <div className={style.copy}>
-                © 2018 Todos los Derechos Reservados |{" "}
-                <a href="#">Henry Corte 43a Grupo 01</a>
+                © 2023 Todos los Derechos Reservados |{" "}
+                <a href="#">SoyHenry Cohorte 43a Grupo 01</a>
               </div>
               <div className={style.info}>
                 <a href="">Privacidad y Politica</a> |{" "}
