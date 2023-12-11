@@ -8,6 +8,7 @@ const postEnvio = async (
   servicios,
   peso,
   total,
+  status,
   imagen,
   dni,
   UserEmail
@@ -20,6 +21,7 @@ const postEnvio = async (
       servicios,
       peso,
       total,
+      status,
       imagen,
       dni,
     });

@@ -9,18 +9,12 @@ import {
 } from "react-icons/bs";
 
 const Sidebar = ({ onButtonClick }) => {
-  return (
-    <div className={style.menuContext}>
-      <h1 className={style.panelAdminTitle}>
-        <Button
-          text={
-            <>
-              <BsClipboardDataFill /> Panel de Administración
-            </>
-          }
-          onClick={() => onButtonClick("adminGraphs")}
-        />
-      </h1>
+
+	return (
+		<div className={style.menuContext}>
+			<h1 className={style.panelAdminTitle}>
+			<Button text={<><BsClipboardDataFill /> Panel de Administración</>} onClick={() => onButtonClick("adminGraphs")} />			
+			</h1>
 
       <ul className={style.menu}>
         <Button
