@@ -9,7 +9,7 @@ const salta = {
     { provincia: "Corrientes", distancia: 641 },
     { provincia: "Entre Ríos", distancia: 924 },
     { provincia: "Formosa", distancia: 1070 },
-    { provincia: "Jujuy", distancia: 200 },
+    { provincia: "Jujuy", distancia: 240 },
     { provincia: "La Pampa", distancia: 1622 },
     { provincia: "La Rioja", distancia: 644 },
     { provincia: "Mendoza", distancia: 1097 },

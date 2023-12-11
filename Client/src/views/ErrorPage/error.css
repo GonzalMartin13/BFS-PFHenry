@@ -1,23 +1,21 @@
-
-.ul{
-
-    list-style: none;
+.ul {
+  list-style: none;
 }
 
-.hache2{
-    font-size: 3.5em;
+.hache2 {
+  font-size: 3.5em;
 }
 
-.imgerror{
-    margin-top: 1%;
-    height: 470px;
-    width: 100%;
+.imgerror {
+  margin-top: 1%;
+  height: 470px;
+  width: 100%;
 }
-.li{
-    text-decoration: underline;
-    color: gray;
+.li {
+  text-decoration: underline;
+  color: gray;
 }
 
-.li:hover{
-    color:blue
-} 
+.li:hover {
+  color: blue;
+}

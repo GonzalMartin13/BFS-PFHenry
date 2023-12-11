@@ -10,7 +10,7 @@ import { confirmed } from "../../redux/Slices/userSlice";
 import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
-  const {user, goConfirmacion} = useSelector((state) => state.user);
+  const { user, goConfirmacion } = useSelector((state) => state.user);
 
   const navigate = useNavigate();
 
@@ -18,15 +18,16 @@ const Profile = () => {
     name: user.name,
     lastName: user.lastName,
     phone: user.phone,
-    email: user.email,
-    nickname: user.nickname
+    email: user.email, //tuve que comentar esto porque el estado user o esta vacio o es un string error.
+    //  email: "a.ignacio.leivaleiva@gmail.com",
+    nickname: user.nickname,
   });
 
   const [errors, setErrors] = useState({
     name: "",
     lastName: "",
     phone: "",
-    nickname: ""
+    nickname: "",
   });
 
   const [formValid, setFormValid] = useState(false);
@@ -75,8 +76,8 @@ const Profile = () => {
 
       await dispatch(userProfile(input));
 
-      if(goConfirmacion === true) {
-        navigate("/confirmacion");
+      navigate("/confirmacion");
+      if (goConfirmacion === true) {
         dispatch(confirmed(false));
       }
     } catch (error) {}
@@ -99,7 +100,9 @@ const Profile = () => {
                   placeholder="Nombre"
                   size="sm"
                 />
-                {errors.name && <span className="text-danger">{errors.name}</span>}
+                {errors.name && (
+                  <span className="text-danger">{errors.name}</span>
+                )}
               </Col>
               <Col>
                 <Form.Control
@@ -145,7 +148,9 @@ const Profile = () => {
                   size="sm"
                   disabled
                 />
-                {errors.email && <div className="text-danger">{errors.email}</div>}
+                {errors.email && (
+                  <div className="text-danger">{errors.email}</div>
+                )}
               </Col>
             </Row>
 

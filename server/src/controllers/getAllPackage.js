@@ -2,7 +2,7 @@ const { Package, User } = require("../db");
 
 const getAllPackage = async () => {
   const response = await Package.findAll();
-  console.log("todos en la db", response);
+
   const mapResponse = response.map((us) => {
     const {
       id,
@@ -36,4 +36,4 @@ const getAllPackage = async () => {
 
 module.exports = { getAllPackage };
 
-//https://bfs-pfhenry-production.up.railway.app/envios  endPoint de busqueda
+//https://bfs-pfhenry-production.up.railway.app/envios  endPoint de busqueda
