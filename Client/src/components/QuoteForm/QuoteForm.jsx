@@ -144,8 +144,8 @@ export default function QuoteForm() {
 
     try {
       const { data } = await axios.post(
-        // "https://bfs-pfhenry-production.up.railway.app/envios/price",
-        "http://localhost:3001/envios/price",
+         "https://bfs-pfhenry-production.up.railway.app/envios/price"
+        /* "http://localhost:3001/envios/price" */,
 
         form
       );
@@ -487,7 +487,7 @@ export default function QuoteForm() {
                   style={{ marginRight: "1px" }}
                   data-tooltip-id="tooltipExpress"
                   data-tooltip-variant="info"
-                  mul
+                  
                 >
                   Express
                 </span>

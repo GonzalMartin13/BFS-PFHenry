@@ -108,7 +108,8 @@ const Dashboard = ({ updateContextUser }) => {
         },
       }).then(async (result) => {
         if (result.isConfirmed) {
-          const response = await axios.put(`https://bfs-pfhenry-production.up.railway.app/user`, {
+         // const response = await axios.put(`http://localhost:3001/user`, {
+          const response = await axios.put(`https://bfs-pfhenry-production.up.railway.app/user`, { 
             ...user,
             enabled: true,
           });
@@ -144,7 +145,8 @@ const Dashboard = ({ updateContextUser }) => {
         },
       }).then(async (result) => {
         if (result.isConfirmed) {
-          const response = await axios.put(`https://bfs-pfhenry-production.up.railway.app/admin`, {
+     //     const response = await axios.put(`http://localhost:3001/admin`, {
+           const response = await axios.put(`https://bfs-pfhenry-production.up.railway.app/admin`, { 
             ...admin,
             enabled: false,
           });
@@ -177,7 +179,8 @@ const Dashboard = ({ updateContextUser }) => {
         },
       }).then(async (result) => {
         if (result.isConfirmed) {
-          const response = await axios.put(`https://bfs-pfhenry-production.up.railway.app/admin`, {
+    //      const response = await axios.put(`http://localhost:3001/admin`, {
+           const response = await axios.put(`https://bfs-pfhenry-production.up.railway.app/admin`, { 
             ...admin,
             enabled: true,
           });
