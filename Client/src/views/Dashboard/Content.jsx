@@ -33,7 +33,8 @@ const Content = ({ selectedButton, envio, users, admin, handleToggleUser }) => {
       if (confirmed) {
      
         // Realiza la llamada a la API para cambiar el estado del administrador
-        await axios.put(`http://localhost:3001/admin/${admin.ID}`, {
+        //await axios.put(`http://localhost:3001/admin/${admin.ID}`, {
+        await axios.put(`https://bfs-pfhenry-production.up.railway.app/admin/${admin.ID}`, {
           isActive: !admin.isActive,
         });
 

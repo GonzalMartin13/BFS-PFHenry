@@ -8,7 +8,7 @@ import './carrouserStyles.scss'
 const Slider = () => {
   return (
     <>
-      <Carousel>
+      <Carousel >
         <Carousel.Item interval={4000}>
           <img
             className="d-block mx-auto w-50"

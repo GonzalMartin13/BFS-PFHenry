@@ -17,8 +17,9 @@ export const submitReview = createAsyncThunk(
   "reviews/submitReview",
   async (reviewData, { dispatch }) => {
     try {
-      const response = await axios.post("http://localhost:3001/reviews", reviewData
-        /*"https://bfs-pfhenry-production.up.railway.app/reviews", */ );
+      const response = await axios.post(/* "http://localhost:3001/reviews" */
+    "https://bfs-pfhenry-production.up.railway.app/reviews"
+      , reviewData);
       console.log(response.data)
 
       const { id, rating, comment,UserEmail } = response.data;
@@ -35,8 +36,8 @@ export const editReview = createAsyncThunk(
   "reviews/editReview",
   async (reviewData, { dispatch }) => {
     try {
-      const response = await axios.put(`http://localhost:3001/reviews/${reviewData.id}`, reviewData
-        //  `https://bfs-pfhenry-production.up.railway.app/reviews/${reviewData.id}`, 
+      const response = await axios.put(/* `http://localhost:3001/reviews/${reviewData.id}`, */ 
+      `https://bfs-pfhenry-production.up.railway.app/reviews/${reviewData.id}`, reviewData
       );
 
       console.log(response.data.updatedReview)
@@ -56,8 +57,8 @@ export const fetchAllReviews = createAsyncThunk(
   "reviews/fetchAllReviews",
   async () => {
 
-   const response = await axios.get(`http://localhost:3001/reviews`);
-    //  const response = await axios.get(`https://bfs-pfhenry-production.up.railway.app/reviews`); 
+   //const response = await axios.get(`http://localhost:3001/reviews`);
+      const response = await axios.get(`https://bfs-pfhenry-production.up.railway.app/reviews`); 
     return response.data;
   }
 );
