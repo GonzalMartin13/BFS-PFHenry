@@ -123,7 +123,7 @@ const Email = () => {
           </Form.Group>
   
           <Form.Group controlId="formMessage">
-            <Form.Label>Mensaje</Form.Label>
+            <Form.Label style={{marginTop:"10px"}}>Mensaje</Form.Label>
             <Form.Control
               as="textarea"
               rows={4}
