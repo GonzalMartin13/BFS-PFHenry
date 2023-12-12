@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import emailjs from "@emailjs/browser";
 import Image from "react-bootstrap/Image";
 import contacto from "../../assets/contacto.png";
+import Swal from "sweetalert2";
+import styles from "../Contact/Contact.module.css";
 import {
   validateName,
   validateMail,
@@ -33,18 +35,27 @@ const Email = () => {
     const error = validateMessage(value);
     setMessageError(error);
   };
-   
-  
 
   const sendEmail = (event) => {
     event.preventDefault();
-  
+
+    if (
+      nameError ||
+      emailError ||
+      messageError ||
+      !name ||
+      !email ||
+      !message
+    ) {
+      console.log("Formulario inválido");
+      return;
+    }
+
     if (nameError || emailError || messageError) {
       console.log("Formulario inválido");
       return;
     }
 
-      
     emailjs
       .sendForm(
         "service_ko3ekug",
@@ -59,9 +70,22 @@ const Email = () => {
         setAsunto("");
         setEmail("");
         setMessage("");
+        Swal.fire({
+          icon: "success",
+          title: "¡Mensaje enviado!",
+          text: "Hemos recibido tu mensaje, un miembro del equipo te contactara en breve.",
+        });
       })
       .catch((error) => console.log(error));
   };
+
+  const desabilitar =
+    !name ||
+    !email ||
+    !message ||
+    !!nameError ||
+    !!emailError ||
+    !!messageError;
 
   return (
     <div>
@@ -73,77 +97,61 @@ const Email = () => {
             Tienes dudas, comentarios, recomendaciones envianos un mensaje.{" "}
           </h6>
           <br></br>
-          <label>Nombre</label>
-          <br></br>
-          <input
-            type="text"
-            name="user_name"
-            value={name}
-            onChange={(e) => {
-              setName(e.target.value);
-              validateNameOnChange(e.target.value);
-            }}
-          /><br></br>
-           <span style={{ color: "red" }}>{nameError}</span>
-        
-          <br></br>
-          <label>Email</label>
-          <br></br>
-          <input
-            type="email"
-            name="user_email"
-            value={email}
-            onChange={(e) => {
-              setEmail(e.target.value);
-              validateEmailOnChange(e.target.value);
-            }}
-          /><br></br>
-           <span style={{ color: "red" }}>{emailError}</span>
-          <br></br>
-          <label>Mensaje</label>
-          <br></br>
-          <textarea
-            name="user_message"
-            cols="30"
-            value={message}
-            rows="10"
-            onChange={(e) => {
-              setMessage(e.target.value);
-              validateMessageOnChange(e.target.value);
-            }}
-          /><br></br>
-           <span style={{ color: "red" }}>{messageError}</span>
-          <hr />
-          <button>Send</button>
+          <div className={styles.contenedor}>
+            <label>Nombre</label>
+            <br></br>
+            <input
+              type="text"
+              name="user_name"
+              value={name}
+              onChange={(e) => {
+                setName(e.target.value);
+                validateNameOnChange(e.target.value);
+              }}
+            />
+            <br></br>
+            <span style={{ color: "red" }}>{nameError}</span>
+
+            <br></br>
+            <label>Email</label>
+            <br></br>
+            <input
+              type="email"
+              name="user_email"
+              value={email}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                validateEmailOnChange(e.target.value);
+              }}
+            />
+            <br></br>
+            <span style={{ color: "red" }}>{emailError}</span>
+            <br></br>
+            <label>Mensaje</label>
+            <br></br>
+            <textarea
+              name="user_message"
+              cols="30"
+              value={message}
+              rows="10"
+              onChange={(e) => {
+                setMessage(e.target.value);
+                validateMessageOnChange(e.target.value);
+              }}
+            />
+            <br></br>
+            <span style={{ color: "red" }}>{messageError}</span>
+            <hr />
+            <button type="submit" disabled={desabilitar} className={styles.boton}>
+              Enviar
+            </button>
+          </div>
+            <br></br>
+            <br></br>
         </form>
-   
       </div>
     </div>
   );
 };
 
 export default Email;
-
-
-// action
-// export const sendMessage = async (Data) => {
-//     try {
-//       const response = await axios.post('ruta', Data);
-//       return response.data;
-//     } catch (error) {
-//       throw error;
-//     }
-//   };
-
-// handle
-// const handleSubmit = async (event) => {
-//     event.preventDefault();
-//     if (FormValid()) {
-//       try {
-//         const response = await sendMessage(formData)
-
-//       } catch (error) {
-
-//       }
-//     }
-//   };
