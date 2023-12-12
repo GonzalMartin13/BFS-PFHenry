@@ -7,6 +7,7 @@ import Grafico from "./Graficos";
 import ReactPaginate from "react-paginate";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import logo from "../../assets/logo.png"
 
 const Content = ({ selectedButton, envio, users, admin, handleToggleUser }) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -14,6 +15,7 @@ const Content = ({ selectedButton, envio, users, admin, handleToggleUser }) => {
   const [currentPage, setCurrentPage] = useState(0);
   const [sortOrder, setSortOrder] = useState("asc");
   const itemsPerPage = 10;
+  const [hasPerformedAction, setHasPerformedAction] = useState(false);
 
   const handleSearchTermChange = (event) => {
     setSearchTerm(event.target.value);
@@ -21,6 +23,7 @@ const Content = ({ selectedButton, envio, users, admin, handleToggleUser }) => {
 
   const handleToggleActivation = async (admin) => {
     try {
+
       const confirmed = window.confirm(
         `¿Estás seguro de ${
           admin.isActive ? "desactivar" : "activar"
@@ -28,6 +31,7 @@ const Content = ({ selectedButton, envio, users, admin, handleToggleUser }) => {
       );
 
       if (confirmed) {
+     
         // Realiza la llamada a la API para cambiar el estado del administrador
         await axios.put(`http://localhost:3001/admin/${admin.ID}`, {
           isActive: !admin.isActive,
@@ -39,6 +43,7 @@ const Content = ({ selectedButton, envio, users, admin, handleToggleUser }) => {
         );
 
         setAdminList(updatedAdminList);
+        setHasPerformedAction(true);
       }
     } catch (error) {
       console.error("Error al activar/desactivar administrador:", error);
@@ -142,7 +147,23 @@ const Content = ({ selectedButton, envio, users, admin, handleToggleUser }) => {
 
   return (
     <div className={styles.containerContext}>
-      <div>
+      <div >
+      {!hasPerformedAction && selectedButton !== "adminGraphs" && (
+          selectedButton !== "Usuarios" && selectedButton !== "Admin" && selectedButton !== "Envios" && (
+            <img
+              src={logo}
+              alt="logo"
+              style={{
+                display: 'block', margin: 'auto',
+                border: "1px solid #dee2e6",
+                borderRadius: "45px",
+                boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)"
+              }}
+            />
+          )
+        )}
+
+
         {selectedButton === "adminGraphs" && (
           <>
             <h2>Registros de Administración</h2>
