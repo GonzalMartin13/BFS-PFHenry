@@ -44,29 +44,6 @@ export default function Comprobante() {
       },
     ],
 
-    /**
-  * "qr": { 
-        "origen": "corrientes",
-        "destino": "mendoza",
-        "peso": "1 kg",
-        "servicios": [
-            "paqueteria",
-            "express",
-            "fragil"
-        ],
-        "date": "29-12-2023",
-        "total": "3025,00",
-        "nombreRemitente": "Alfredo Hernandez",
-        "dniRemitente": "23546987",
-        "nombreDestinatario": "Juan Rodriguez",
-        "dniDestinatario": "58654123",
-        "numeroDeEnvio": "af7def3-f98f-4555-a337-7c7a68508bfd",
-        "telRemitente": "1139456712",
-        "telDestinatario": "1139456712"
-    }
-  * 
-  */
-
     qr: {
       origen: envio.origen,
       destino: envio.destino,
@@ -85,7 +62,7 @@ export default function Comprobante() {
   };
   console.log("el json", jsonInvoise);
   useEffect(() => {
-    dispatch(postInvoiceAsync(jsonInvoise));
+    //dispatch(postInvoiceAsync(jsonInvoise));
     return () => dispatch(clearState());
   }, []);
   const resetStates = () => {
