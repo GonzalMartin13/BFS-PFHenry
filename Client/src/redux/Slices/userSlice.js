@@ -9,7 +9,7 @@ const initialState = {
   isProfile: false,
   goConfirmacion: false,
   goProfile: false,
-  emails: ["dixongonzalezm2304@gmail.com", "bfspfhenry@gmail.com"],
+  emails: ["dixongonzalezm2304@gmail.com", "bfspfhenry@gmail.com", "elgato696969@gmail.com"],
 };
 
 export const userSlice = createSlice({

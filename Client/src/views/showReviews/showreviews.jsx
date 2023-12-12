@@ -18,24 +18,21 @@ const ShowReviews = () => {
 
   return (
     <div className="review-carousel-container">
-    <Carousel fade className="border rounded" style={{ maxWidth: "500px", margin: "auto" }}
-  prevIcon={<Button variant="secondary"><img src={chitaizq} style={{ width: '20px' }} alt="izquierda" /></Button>}
-  nextIcon={<Button variant="secondary"><img src={chitader} style={{ width: '20px' }} alt="derecha" /></Button>}
-    >
-      {reviews.map((review) => (
-        <Carousel.Item key={review.id} className="review-item">
-          <div className="text-container">
-          <div className="stars-container" style={{ marginBottom: '40px' }}>
-              {[...Array(review.rating)].map((_, index) => (
-                <FaStar key={index} size={20} color="#ffc107" />
-              ))}
-            </div>
-            <p className="comment-text">"{review.comment}"</p>
-            <p className="user-email">{review.UserEmail}</p>
-          </div>
-        </Carousel.Item>
-      ))}
-    </Carousel>
+    <Carousel fade className="border rounded" style={{ maxWidth: "500px", margin: "auto" }}>
+ {reviews.map((review) => (
+    <Carousel.Item key={review.id} className="review-item">
+      <div className="text-container">
+        <div className="stars-container" style={{ marginBottom: '30px' }}>
+          {[...Array(review.rating)].map((_, index) => (
+            <FaStar key={index} size={20} color="#ffc107" />
+          ))}
+        </div>
+        <p className="comment-text">"{review.comment}"</p>
+        <p className="user-email">{review.UserEmail}</p>
+      </div>
+    </Carousel.Item>
+  ))}
+</Carousel>
   </div>
   );
 };

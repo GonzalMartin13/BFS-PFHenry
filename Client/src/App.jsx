@@ -141,7 +141,7 @@ export default App;
 
 ///////////////////////////////////////////////////////////////////////////////////////
 // import { Route, Routes, useLocation } from "react-router-dom";
-
+// import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 // import NavBar from "./components/NavBar/NavBar";
 // import Home from "./components/Home/Home";
 // import About from "./views/About/About";
@@ -160,13 +160,25 @@ export default App;
 // import MisEnvios from "./components/misEnvios/misEnvios";
 
 // import "./App.css";
-// /* import Compra from "./components/Compra/Compra";
-// import ComprobantePDF from "./components/Compra/ComprobantePDF"; */
+
 // import FormEnvio from "./components/FormEnvio/FormEnvio";
+// import ErrorPage from "./views/ErrorPage/errorpage";
+// import Reviews from "./components/Reviews/reviews";
+// import ShowReviews from "./views/showReviews/showreviews"
 
 // function App() {
 //   const location = useLocation();
-//   const { admin } = useSelector((state) => state.user);
+//   const { isLoggedIn, admin, name, lastName, phone, address } = useSelector(
+//     (state) => state.user
+//   );
+
+//   const { origen, destino, servicios, total } = useSelector(
+//     (state) => state.quoter
+//   );
+//   const envio = useSelector((state) => state.shipping);
+//   const todosVacios = Object.values(envio).every(
+//     (valor) => valor === "" || (Array.isArray(valor) && valor.length === 0)
+//   );
 //   const [user, setUser] = useState({
 //     email: "",
 //     password: "",
@@ -178,9 +190,31 @@ export default App;
 //     setUser(newUser);
 //   };
 
+
+//   const validRoutes = [
+//     "/",
+//     "/cotizacion",
+//     "/about",
+//     "/contacto",
+//     "/payment",
+//     "/servicios",
+//     "/sucursales",
+//     "/envios",
+//     "/profile",
+//     "/guia",
+//     "/confirmacion",
+//     "/dashboard",
+//     "/factura",
+//     "/reviews",
+//   ];
+
+
+//   const showNavBar = validRoutes.includes(location.pathname);
+
 //   return (
 //     <>
-//       {location.pathname !== "/register" && <NavBar />}
+//       {showNavBar && <NavBar />}
+    
 
 //       <Routes>
 //         <Route exact path="/" element={<Home />} />
@@ -190,21 +224,67 @@ export default App;
 //         <Route path="/payment" element={<About />} />
 //         <Route path="/servicios" element={<CardContainer />} />
 //         <Route path="/sucursales" element={<Mapa />} />
-//         <Route path="/envios" element={<MisEnvios />} />
-//         <Route path="/profile" element={<Profile />} />
 //         <Route path="/guia" element={<Pdf />} />
-//         <Route path="/confirmacion" element={<FormEnvio />} />
+//         <Route path="/profile" element={<Profile />} />
+//         <Route path="*" element={<ErrorPage />} />
+//         //protege ruta /factura redirige a "/" si datos de compra estan vacios
+//         <Route
+//           element={<ProtectedRoute isAllowed={isLoggedIn && !todosVacios} />}
+//         >
+//           <Route path="/factura" element={<Comprobante />} />
+//         </Route>
+//         //Redirige a "/profile" para obligar al usuario a completar datos de
+//         perfil
+//         <Route
+//           element={
+//             <ProtectedRoute
+//               isAllowed={isLoggedIn && name && lastName & address && phone}
+//               redirectTo={"/profile"}
+//             />
+//           }
+//         >
+//           <Route path="/envios" element={<MisEnvios />} />
+//           //si estado quote esta vacio no permite ingresar a ruta /confirmacion,
+//           quizas haya que modificar todo esto...
+//         </Route>
+//         {isLoggedIn ? (
+//           <Route
+//             element={
+//               <ProtectedRoute
+//                 isAllowed={
+//                   name &&
+//                   lastName & address &&
+//                   phone &&
+//                   origen != "" &&
+//                   destino != "" &&
+//                   total != "" &&
+//                   servicios.length != 0
+//                 }
+//                 redirectTo="/profile"
+//               />
+//             }
+//           >
+//             <Route path="/confirmacion" element={<FormEnvio />} />
+//           </Route>
+//         ) : (
+//           <Route
+//             path="/confirmacion"
+//             element={<ProtectedRoute isAllowed={false} />}
+//           />
+//         )}
+//         //verifica que admin.email y isLoggedIn sean true para ir a ruta
+//         "/dashboard", caso que de false redirige a "/"
 //         <Route
 //           path="/dashboard"
 //           element={
-//             admin.emailAdmin && (
+//             <ProtectedRoute isAllowed={isLoggedIn && admin.emailAdmin}>
 //               <Dashboard updateContextUser={updateContextUser} />
-//             )
+//             </ProtectedRoute>
 //           }
 //         />
-//         <Route path="/factura" element={<Comprobante />} />
 //       </Routes>
-//       <Footer />
+// <Footer/>
+     
 //     </>
 //   );
 // }

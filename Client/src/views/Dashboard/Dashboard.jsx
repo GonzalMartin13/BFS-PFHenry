@@ -10,7 +10,6 @@ import { getAllEnvios } from "../../utils/getAllEnvios";
 import { getAllAdmin } from "../../utils/geatAllAdmin";
 import axios from "axios";
 import Swal from "sweetalert2";
-import updateEnvio from "../../utils/updateEnvio";
 
 const Dashboard = ({ updateContextUser }) => {
   const [adminGraphs, setAdminGraphs] = useState([]);
@@ -61,75 +60,58 @@ const Dashboard = ({ updateContextUser }) => {
   };
 
   const handleToggleUser = async (user) => {
-    if (user.enabled === true) {
-      Swal.fire({
-        title: "¿Deseas bloquear al usuario en la plataforma?",
-        icon: "question",
-        showCancelButton: true,
-        confirmButtonColor: "#d33",
-        cancelButtonColor: "#3d0dca",
-        cancelButtonText: "Cancelar",
-        confirmButtonText: "Aceptar",
-        customClass: {
-          popup: "mySwal",
-        },
-      }).then(async (result) => {
-        if (result.isConfirmed) {
-          const response = await axios.put(`https://bfs-pfhenry-production.up.railway.app/user`, {
-            ...user,
-            enabled: false,
-          });
-          if (response) {
-            Swal.fire({
-              title: "Este usuario ha sido desbloqueado en BFS",
-              icon: "success",
-              customClass: {
-                popup: "mySwal",
-              },
-            });
-          }
-        }
-        await handleUsers();
-      });
-      return;
-    }
-
-    if (user.enabled === false) {
-      Swal.fire({
-        title: "¿Deseas desbloquear a este usuario en la plataforma?",
-        icon: "question",
-        showCancelButton: true,
-        confirmButtonColor: "#d33",
-        cancelButtonColor: "#3d0dca",
-        cancelButtonText: "Cancelar",
-        confirmButtonText: "Aceptar",
-        customClass: {
-          popup: "mySwal",
-        },
-      }).then(async (result) => {
-        if (result.isConfirmed) {
-         // const response = await axios.put(`http://localhost:3001/user`, {
-          const response = await axios.put(`https://bfs-pfhenry-production.up.railway.app/user`, { 
-            ...user,
-            enabled: true,
-          });
-          if (response) {
-            Swal.fire({
-              title: "Este usuario ha sido desbloqueado en BFS",
-              icon: "success",
-              customClass: {
-                popup: "mySwal",
-              },
-            });
-          }
-        }
-        await handleUsers();
-      });
-      return;
+    const message = user.enabled
+      ? "bloquear a este usuario"
+      : "desbloquear a este usuario";
+  
+    const result = await Swal.fire({
+      title: `¿Deseas ${message} en la plataforma?`,
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3d0dca",
+      cancelButtonText: "Cancelar",
+      confirmButtonText: "Aceptar",
+      customClass: {
+        popup: "mySwal",
+      },
+    });
+  
+    if (result.isConfirmed) {
+      try {
+        // Realiza la solicitud HTTP
+        await axios.get(`http://localhost:3001/user/`, {
+          ...user,
+          enabled: !user.enabled,
+        });
+  
+        // Actualiza el estado local y persiste los cambios en localStorage
+        setUsers((prevUsers) =>
+          prevUsers.map((u) => (u.ID === user.ID ? { ...u, enabled: !u.enabled } : u))
+        );
+        localStorage.setItem('users', JSON.stringify(users));
+  
+        Swal.fire({
+          title: `Este usuario ha sido ${user.enabled ? "bloqueado" : "desbloqueado"} en BFS`,
+          icon: "success",
+          customClass: {
+            popup: "mySwal",
+          },
+        });
+      } catch (error) {
+        console.error("Error al realizar la solicitud HTTP:", error);
+        Swal.fire({
+          title: "Error al realizar la acción",
+          text: "Hubo un problema al intentar realizar la acción. Por favor, inténtalo de nuevo.",
+          icon: "error",
+          customClass: {
+            popup: "mySwal",
+          },
+        });
+      }
     }
   };
 
-  
   const handleBlockAdmin = async (admin) => {
     if (admin.enabled === true) {
       Swal.fire({
@@ -145,14 +127,17 @@ const Dashboard = ({ updateContextUser }) => {
         },
       }).then(async (result) => {
         if (result.isConfirmed) {
-     //     const response = await axios.put(`http://localhost:3001/admin`, {
-           const response = await axios.put(`https://bfs-pfhenry-production.up.railway.app/admin`, { 
-            ...admin,
-            enabled: false,
-          });
+          console.log("Admin ID:", admin.adminId);
+          const response = await axios.put( `http://localhost:3001/admin/${admin.ID}`
+            /* `https://bfs-pfhenry-production.up.railway.app/admin/${adminId}` */,
+            {
+              ...admin,
+              enabled: false,
+            }
+          );
           if (response) {
             Swal.fire({
-              title: "Este Admin ha sido desbloqueado en BFS",
+              title: "Este Admin ha sido Activado en BFS",
               icon: "success",
               customClass: {
                 popup: "mySwal",
@@ -179,11 +164,13 @@ const Dashboard = ({ updateContextUser }) => {
         },
       }).then(async (result) => {
         if (result.isConfirmed) {
-    //      const response = await axios.put(`http://localhost:3001/admin`, {
-           const response = await axios.put(`https://bfs-pfhenry-production.up.railway.app/admin`, { 
-            ...admin,
-            enabled: true,
-          });
+          const response = await axios.put(`http://localhost:3001/admin/${admin.ID}`
+            /* `https://bfs-pfhenry-production.up.railway.app/admin ${adminId}` */,
+            {
+              ...admin,
+              enabled: true,
+            }
+          );
           if (response) {
             Swal.fire({
               title: "Este Admin ha sido desbloqueado en BFS",
@@ -200,25 +187,19 @@ const Dashboard = ({ updateContextUser }) => {
     }
   };
 
-
-	return (
-		<div className={style.container}>
-			<Sidebar onButtonClick={handleButtonClick} />
-			<Content
-				selectedButton={selectedButton}
-				users={users}
-				envio={envio}
-				admin={admin}
-				handleToggleUser={handleToggleUser}
-				handleBlockAdmin={handleBlockAdmin}	
-			/>
-			
-			
-		</div>
-
-		
-	);
-
+  return (
+    <div className={style.container}>
+      <Sidebar onButtonClick={handleButtonClick} />
+      <Content
+        selectedButton={selectedButton}
+        users={users}
+        envio={envio}
+        admin={admin}
+        handleToggleUser={handleToggleUser}
+        handleBlockAdmin={handleBlockAdmin}
+      />
+    </div>
+  );
 };
 
 export default Dashboard;
