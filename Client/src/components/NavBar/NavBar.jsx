@@ -144,8 +144,8 @@ export default function NavBar() {
                 <Nav.Link href="/contacto" style={menuletter}>
                   Contacto
                 </Nav.Link>
-                <Nav.Link href="/" style={menuletter}>
-                  Servicios
+                <Nav.Link href="/sucursales" style={menuletter}>
+                  Sucursales
                 </Nav.Link>
                 {isLoggedIn ? (
                   <Nav.Link href="/envios" style={menuletter}>

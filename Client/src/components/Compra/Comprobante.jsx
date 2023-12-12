@@ -14,25 +14,27 @@ import {
   postInvoiceAsync,
   setStateInvoice,
 } from "../../redux/Slices/invoiceUserSlice";
-
+import emailjs from "@emailjs/browser";
 import { Link, useNavigate } from "react-router-dom";
 import { setState, clearState } from "../../redux/Slices/quoterslice";
 import { clearShippingState } from "../../redux/Slices/shippingSlice";
 import { useEffect } from "react";
-
+emailjs.init("uDbWg3CSPOZhYDph2");
 export default function Comprobante() {
+  const { user } = useSelector((state) => state.user);
+  console.log("el mail de usuario", user.email);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const envio = useSelector((state) => state.shipping);
   const { idShipping } = useSelector((state) => state.invoice);
   const { invoice } = useSelector((state) => state.invoice);
-  console.log(envio);
+  console.log("el estado shipping", envio);
   let url = invoice;
 
   const jsonInvoise = {
     //  currency: "USD",
     tax: 21,
-    company_name: "B.F.S. Logistica",
+    company_name: "B.F.S. Correos S.A.",
     email: "contacto@bfs.com.ar",
     tel: "011-4312-4567",
     client: "Consumidor final",
@@ -55,13 +57,42 @@ export default function Comprobante() {
       dniRemitente: envio.dniRemitente,
       nombreDestinatario: envio.nombreDestinatario,
       dniDestinatario: envio.dniDestinatario,
-      numeroDeEnvio: "11223344",
+      numeroDeEnvio: idShipping,
       telRemitente: envio.telefonoRemitente,
       telDestinatario: envio.telefonoDestinatario,
     },
   };
+  console.log("el json", jsonInvoise);
+
   useEffect(() => {
-    // dispatch(postInvoiceAsync(jsonInvoise))
+    const enviarCorreo = () => {
+      const templateParams = {
+        origen: envio.origen,
+        destino: envio.destino,
+        servicios: envio.servicios,
+        codigoSeguimiento: idShipping,
+        nombreDestinatario: envio.nombreDestinatario,
+        nombreRemitente: envio.nombreRemitente,
+        link: url,
+        email: user.email,
+        web: "https://bfsonline.vercel.app/",
+      };
+      console.log("el templateMail", templateParams);
+
+      const templateId = "template_a1busup";
+
+      emailjs
+        .send("service_n2dez8w", templateId, templateParams)
+        .then((response) => {
+          console.log("Correo enviado correctamente", response);
+        })
+        .catch((error) => {
+          console.error("Error al enviar el correo", error);
+        });
+    };
+    enviarCorreo();
+
+    //dispatch(postInvoiceAsync(jsonInvoise));
     return () => dispatch(clearState());
   }, []);
   const resetStates = () => {
@@ -90,14 +121,21 @@ export default function Comprobante() {
         <ListGroup.Item variant="info">Origen: {envio.origen}</ListGroup.Item>
         <ListGroup.Item variant="info">Destino: {envio.destino}</ListGroup.Item>
         <ListGroup.Item variant="info">
-          Dimensiones de la caja:{" "}
-          {`Largo: ${envio.largo || "no especificado"} x  Ancho: ${
-            envio.ancho || "no especificado"
-          } x  Alto: ${envio.alto || "no especificado"}`}
+          Servicios: {envio.servicios.join(", ")}
         </ListGroup.Item>
-        <ListGroup.Item variant="info">
-          Peso: {`${envio.largo || "no especificado"} `}
-        </ListGroup.Item>
+        {envio.ancho && envio.alto && envio.ancho && (
+          <ListGroup.Item variant="info">
+            Dimensiones de la caja:{" "}
+            {`Largo: ${envio.largo || "no especificado"} x  Ancho: ${
+              envio.ancho || "no especificado"
+            } x  Alto: ${envio.alto || "no especificado"}`}
+          </ListGroup.Item>
+        )}
+        {envio.peso && (
+          <ListGroup.Item variant="info">
+            Peso: {`${envio.largo || "no especificado"} `}
+          </ListGroup.Item>
+        )}
         <ListGroup.Item variant="info">
           Total pagado: $ {envio.total}
         </ListGroup.Item>

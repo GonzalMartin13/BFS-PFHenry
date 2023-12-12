@@ -115,21 +115,19 @@ const FormEnvio = () => {
     const mercadoPago = async () => {
       try {
         const { data } = await axios.post(
-           "https://bfs-pfhenry-production.up.railway.app/pagos/crear" 
-          /* "http://localhost:3001/pagos/crear" */,
-
-          {
-            total:Number(total),
+          "https://bfs-pfhenry-production.up.railway.app/pagos/crear",
+          /* "http://localhost:3001/pagos/crear" */ {
+            total: Number(total),
             servicios,
           }
-          );
-          setLinkPago(data);
-          console.log("la url", data);
+        );
+        setLinkPago(data);
+        console.log("la url", data);
       } catch (error) {
         console.error("Error al realizar la solicitud a MercadoPago", error);
       }
     };
-    
+
     mercadoPago();
   }, []);
 
@@ -642,7 +640,7 @@ const FormEnvio = () => {
             <div>
               <br></br>
               <button type="submit" className={styles.button}>
-                <a href={linkPago}> proceder al pago </a> 
+               Proceder al pago
               </button>
               <br></br>
             </div>
@@ -683,6 +681,8 @@ const FormEnvio = () => {
                 )}
               </MapContainer>
             </div>
+            <br></br>
+            <br></br>
           </div>
         </form>
       )}

@@ -71,25 +71,15 @@ const Footer = () => {
                 enviosbfs01@gmail.com
               </a>
             </div>
-            <div className={style.row2}>
-              <img src="https://i.imgur.com/6cAn2M9.png" alt="" />
-              <a
-                className={style.link}
-                href="http://localhost:5173/sucursales"
-              
-                rel="noopener noreferrer"
-                >
-                sucursales
-              </a>
-            </div>
+           
           </Col>
           <Col md={3}>
             <p className={style.colum1_p}>Redes Sociales</p>
             <div className={style.gd}>
                <div className={style.row}>
-               <p><FontAwesomeIcon icon={faFacebook} size="2x" style={{marginRight: "20px"}}/></p>  
-               <p><FontAwesomeIcon icon={faInstagram} size="2x" style={{marginRight: "20px"}}/></p>  
-               <p><FontAwesomeIcon icon={faLinkedin} size="2x" style={{marginRight: "20px"}}/></p>  
+               <a href="http://www.facebook.com" target="blanc"><FontAwesomeIcon icon={faFacebook} size="2x" style={{marginRight: "20px"}}/></a>  
+               <a href="http://www.instagram.com" target="blanc"><FontAwesomeIcon icon={faInstagram} size="2x" style={{marginRight: "20px"}}/></a>  
+               <a href="http://www.linkedin.com" target="blanc"><FontAwesomeIcon icon={faLinkedin} size="2x" style={{marginRight: "20px"}}/></a>  
               </div>
             </div>
           </Col>
@@ -99,7 +89,7 @@ const Footer = () => {
             <div className={style.container_footer}>
               <div className={style.copy}>
                 © 2023 Todos los Derechos Reservados |{" "}
-                <a href="#">SoyHenry Cohorte 43a Grupo 01</a>
+                <a >SoyHenry Cohorte 43a Grupo 01</a>
               </div>
               <div className={style.info}>
                 <a href="">Privacidad y Politica</a> |{" "}

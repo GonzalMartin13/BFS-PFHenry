@@ -9,6 +9,7 @@ export function registerUser(postUser) {
       const response = await axios.post(  "https://bfs-pfhenry-production.up.railway.app/user/register" 
        /*  "http://localhost:3001/user/register" */,
         postUser
+        // "https://bfs-pfhenry-production.up.railway.app/user/register
       );
       dispatch(addUser(response.data));
     } catch (error) {
