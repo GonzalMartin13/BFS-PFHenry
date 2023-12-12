@@ -10,10 +10,7 @@
   
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 3e1e70b8f7b4e7a444b9c374b4d50a19cd772a03
+
 .status_yellow {
   background-color: yellow;
 }
@@ -25,11 +22,7 @@
 .status_red {
   background-color: red;
 }
-<<<<<<< HEAD
-=======
->>>>>>> 24c59ac9f2c6cf753382cfec1013b7e1b95210f2
-=======
->>>>>>> 3e1e70b8f7b4e7a444b9c374b4d50a19cd772a03
+
 
 .charts {
   display: flex;
@@ -209,12 +202,13 @@
   justify-content: center;
   align-items: center;
   gap: 10px;
+  font-size: large;
 }
 
 .paginacion a {
-  text-decoration: none; /* Quitar subrayado del enlace */
-  border-bottom: none;   /* Quitar línea inferior del enlace */
-  color: #0066ff;        /* Color predeterminado del enlace */
+  text-decoration: none;
+  border-bottom: none;  
+  color: #0066ff;        
 }
 
 .paginacion a:hover {
@@ -223,10 +217,18 @@
 
 .paginacion .active {
   font-weight: bold;     /* Hacer que la página activa se destaque */
-  color: #fff;           /* Color del texto en la página activa */
+  color: #6f0b0b;           /* Color del texto en la página activa */
   background-color: #007bff; /* Color de fondo del cuadrado */
   border-radius: 5px;    /* Borde redondeado del cuadrado */
   padding: 5px 10px;      /* Espaciado interno del cuadrado */
+}
+
+.activePage {
+  background-color: #007bff; /* Color de fondo para la página activa */
+  color: #fff; /* Color del texto para la página activa */
+  border-radius: 50%; /* O cualquier valor de border-radius que desees */
+  padding: 8px; /* O cualquier valor de padding que desees */
+  /* Otros estilos que desees agregar */
 }
 
 .filtroContainer {
