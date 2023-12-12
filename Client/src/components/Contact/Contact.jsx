@@ -87,7 +87,7 @@ const Email = () => {
 
   return (
     <div>
-    <Image src={contacto} fluid style={{ width: "100%", height: "300px" }} />
+
     <div style={{
       border: "1px solid #dee2e6",
       borderRadius: "5px",
