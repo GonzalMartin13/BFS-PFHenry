@@ -117,7 +117,7 @@ function App() {
         <Route
           path="/dashboard"
           element={
-            <ProtectedRoute isAllowed={isLoggedIn && admin.emailAdmin}>
+            <ProtectedRoute isAllowed={true}>
               <Dashboard updateContextUser={updateContextUser} />
             </ProtectedRoute>
           }
@@ -190,7 +190,6 @@ export default App;
 //     setUser(newUser);
 //   };
 
-
 //   const validRoutes = [
 //     "/",
 //     "/cotizacion",
@@ -208,13 +207,11 @@ export default App;
 //     "/reviews",
 //   ];
 
-
 //   const showNavBar = validRoutes.includes(location.pathname);
 
 //   return (
 //     <>
 //       {showNavBar && <NavBar />}
-    
 
 //       <Routes>
 //         <Route exact path="/" element={<Home />} />
@@ -284,7 +281,7 @@ export default App;
 //         />
 //       </Routes>
 // <Footer/>
-     
+
 //     </>
 //   );
 // }
