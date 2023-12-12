@@ -116,7 +116,8 @@ footer {
   font-size: 45px;
   background: none;
   border-radius: 50px;
-  border: none;
+  border-color: rgb(0, 255, 0);
+  box-shadow: none;
   transition: transform 0.3s;
 }
 
