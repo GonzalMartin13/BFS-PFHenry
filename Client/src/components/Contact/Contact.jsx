@@ -13,6 +13,8 @@ import {
 const Email = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("12345678");
+  const [asunto, setAsunto] = useState("");
   const [message, setMessage] = useState("");
 
   const [nameError, setNameError] = useState("");
@@ -42,28 +44,42 @@ const Email = () => {
       return;
     }
 
-    try {
-      const response = await emailjs.sendForm(
-        "service_ko3ekug",
-        "template_efdhnp2",
-        event.target,
-        "Z07yDoQAt6am4G7K6"
-      );
-
-      console.log(response);
-
-      setName("");
-      setEmail("");
-      setMessage("");
-
-      Swal.fire({
-        icon: "success",
-        title: "¡Mensaje enviado!",
-        text: "Hemos recibido tu mensaje, un miembro del equipo te contactará en breve.",
-      });
-    } catch (error) {
-      console.error(error);
+    if (nameError || emailError || messageError) {
+      console.log("Formulario inválido");
+      return;
     }
+
+    emailjs
+      .sendForm(
+        "service_dr0btnj",
+        "template_s4ejomn",
+        event.target,
+        "ELPWCjAlQFhUotjly"
+      )
+      .then((response) => {
+        console.log(response);
+        setName("");
+        setPhone("");
+        setAsunto("");
+        setEmail("");
+        setMessage("");
+        return Promise.resolve(response);
+      })
+      .then((response) => {
+        Swal.fire({
+          icon: "success",
+          title: "¡Mensaje enviado!",
+          text: "Hemos recibido tu mensaje, un miembro del equipo te contactará en breve.",
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+        Swal.fire({
+          icon: "error",
+          title: "Error en el envío",
+          text: "Hubo un problema al enviar el mensaje. Por favor, inténtalo de nuevo más tarde.",
+        });
+      });
   };
 
   const disableButton =

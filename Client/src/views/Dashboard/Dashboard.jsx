@@ -82,7 +82,8 @@ const Dashboard = ({ updateContextUser }) => {
     if (result.isConfirmed) {
       try {
         // Realiza la solicitud HTTP
-        await axios.get(`http://localhost:3001/user/`, {
+        //await axios.get(`http://localhost:3001/user/`, {
+        await axios.get(`https://bfs-pfhenry-production.up.railway.app/user/`, {
           ...user,
           enabled: !user.enabled,
         });
@@ -127,7 +128,8 @@ const Dashboard = ({ updateContextUser }) => {
   
       if (result.isConfirmed) {
         // Realiza la llamada a la API para cambiar el estado del administrador
-        await axios.put(`http://localhost:3001/admin/${admin.ID}`, {
+        await axios.put(`https://bfs-pfhenry-production.up.railway.app/admin/${admin.ID}`, {
+        //await axios.put(`http://localhost:3001/admin/${admin.ID}`, {
           isActive: !admin.isActive,
         });
   
