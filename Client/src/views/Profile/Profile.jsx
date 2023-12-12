@@ -76,8 +76,8 @@ const Profile = () => {
 
       await dispatch(userProfile(input));
 
-      navigate("/confirmacion");
       if (goConfirmacion === true) {
+        navigate("/confirmacion");
         dispatch(confirmed(false));
       }
     } catch (error) {}
