@@ -87,7 +87,7 @@ const Email = () => {
 
   return (
     <div>
-    <Image src={contacto} fluid style={{ width: "100%", height: "300px" }} />
+
     <div style={{
       border: "1px solid #dee2e6",
       borderRadius: "5px",
@@ -154,7 +154,7 @@ const Email = () => {
           </Form.Group>
   
           <hr />
-          <Button type="submit" disabled={disableButton} className={styles.boton}>
+          <Button  variant="secondary" type="submit" disabled={disableButton} className={styles.boton}>
             Enviar
           </Button>
         </div>
