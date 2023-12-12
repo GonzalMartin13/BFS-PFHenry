@@ -7,17 +7,14 @@ import Sidebar from "./Sidebar";
 import Content from "./Content";
 import { getAllUser } from "../../utils/getAllUser";
 import { getAllEnvios } from "../../utils/getAllEnvios";
-import { getAllPayments } from "../../utils/getAllPayments";
 import { getAllAdmin } from "../../utils/geatAllAdmin";
 import axios from "axios";
 import Swal from "sweetalert2";
-import updateEnvio from "../../utils/updateEnvio";
 
 const Dashboard = ({ updateContextUser }) => {
   const [adminGraphs, setAdminGraphs] = useState([]);
   const [users, setUsers] = useState([]);
   const [envio, setEnvio] = useState([]);
-  const [payments, setPayments] = useState([]);
   const [admin, setAdmin] = useState([]);
   const [selectedButton, setSelectedButton] = useState("");
 
@@ -28,7 +25,6 @@ const Dashboard = ({ updateContextUser }) => {
     }
     handleUsers();
     handleEnvio();
-    handlePayments();
     handleAdmin();
   }, []);
 
@@ -42,9 +38,6 @@ const Dashboard = ({ updateContextUser }) => {
     } else if (button === "Envios") {
       setSelectedButton(button);
       handleEnvio();
-    } else if (button === "Pagos") {
-      setSelectedButton(button);
-      handlePayments();
     } else if (button === "Admin") {
       setSelectedButton(button);
       handleAdmin();
@@ -61,226 +54,61 @@ const Dashboard = ({ updateContextUser }) => {
     setEnvio(envio);
   };
 
-  const handlePayments = async () => {
-    try {
-      const paymentsData = await getAllPayments();
-      // Asegurar que paymentsData es un array
-      const paymentsArray = Array.isArray(paymentsData) ? paymentsData : [];
-      setPayments(paymentsArray);
-    } catch (error) {
-      console.error("Error fetching payments:", error);
-    }
-  };
-
   const handleAdmin = async () => {
     const admin = await getAllAdmin();
     setAdmin(admin);
   };
 
-  const handleBlockUser = async (user) => {
-    if (user.enabled === true) {
-      Swal.fire({
-        title: "¿Deseas bloquear al usuario en la plataforma?",
-        icon: "question",
-        showCancelButton: true,
-        confirmButtonColor: "#d33",
-        cancelButtonColor: "#3d0dca",
-        cancelButtonText: "Cancelar",
-        confirmButtonText: "Aceptar",
-        customClass: {
-          popup: "mySwal",
-        },
-      }).then(async (result) => {
-        if (result.isConfirmed) {
-          const response = await axios.put(`https://bfs-pfhenry-production.up.railway.app/user`, {
-            ...user,
-            enabled: false,
-          });
-          if (response) {
-            Swal.fire({
-              title: "Este usuario ha sido desbloqueado en BFS",
-              icon: "success",
-              customClass: {
-                popup: "mySwal",
-              },
-            });
-          }
-        }
-        await handleUsers();
-      });
-      return;
-    }
-
-    if (user.enabled === false) {
-      Swal.fire({
-        title: "¿Deseas desbloquear a este usuario en la plataforma?",
-        icon: "question",
-        showCancelButton: true,
-        confirmButtonColor: "#d33",
-        cancelButtonColor: "#3d0dca",
-        cancelButtonText: "Cancelar",
-        confirmButtonText: "Aceptar",
-        customClass: {
-          popup: "mySwal",
-        },
-      }).then(async (result) => {
-        if (result.isConfirmed) {
-          const response = await axios.put(`https://bfs-pfhenry-production.up.railway.app/user`, {
-            ...user,
-            enabled: true,
-          });
-          if (response) {
-            Swal.fire({
-              title: "Este usuario ha sido desbloqueado en BFS",
-              icon: "success",
-              customClass: {
-                popup: "mySwal",
-              },
-            });
-          }
-        }
-        await handleUsers();
-      });
-      return;
-    }
-  };
-
-  const handleBlockEnvio = (envio) => {
-    if (envio.enabled === true) {
-      Swal.fire({
-        title: "¿Quieres bloquear este envio en la plataforma?",
-        icon: "question",
-        showCancelButton: true,
-        confirmButtonColor: "#d33",
-        cancelButtonColor: "#3d0dca",
-        cancelButtonText: "Cancelar",
-        confirmButtonText: "Aceptar",
-        customClass: {
-          popup: "mySwal",
-        },
-      }).then(async (result) => {
-        if (result.isConfirmed) {
-          const response = await updateEnvio({
-            ...envio,
-            enabled: false,
-            banned: true,
-          });
-  const handleBlockEnvio = (envio) => {
-    if (envio.enabled === true) {
-      Swal.fire({
-        title: "¿Quieres bloquear este envio en la plataforma?",
-        icon: "question",
-        showCancelButton: true,
-        confirmButtonColor: "#d33",
-        cancelButtonColor: "#3d0dca",
-        cancelButtonText: "Cancelar",
-        confirmButtonText: "Aceptar",
-        customClass: {
-          popup: "mySwal",
-        },
-      }).then(async (result) => {
-        if (result.isConfirmed) {
-          const response = await updateEnvio({
-            ...envio,
-            enabled: false,
-            banned: true,
-          });
-
-          if (response) {
-            Swal.fire({
-              title: "Este envio ha sido bloqueado en BFS",
-              icon: "success",
-              customClass: {
-                popup: "mySwal",
-              },
-            });
-          }
-        }
-        await handleEnvio();
-      });
-      return;
-    }
-    if (envio.enabled === false) {
-      Swal.fire({
-        title: "¿Quieres desbloquear este envio de la plataforma?",
-        icon: "question",
-        showCancelButton: true,
-        confirmButtonColor: "#d33",
-        cancelButtonColor: "#3d0dca",
-        cancelButtonText: "Cancelar",
-        confirmButtonText: "Aceptar",
-        customClass: {
-          popup: "mySwal",
-        },
-      }).then(async (result) => {
-        if (result.isConfirmed) {
-          const response = await updateEnvio({
-            ...envio,
-            enabled: true,
-            banned: false,
-          });
-          if (response) {
-            Swal.fire({
-              title: "Este envio ha sido bloqueado en BFS",
-              icon: "success",
-              customClass: {
-                popup: "mySwal",
-              },
-            });
-          }
-        }
-        await handleEnvio();
-      });
-      return;
-    }
-    if (envio.enabled === false) {
-      Swal.fire({
-        title: "¿Quieres desbloquear este envio de la plataforma?",
-        icon: "question",
-        showCancelButton: true,
-        confirmButtonColor: "#d33",
-        cancelButtonColor: "#3d0dca",
-        cancelButtonText: "Cancelar",
-        confirmButtonText: "Aceptar",
-        customClass: {
-          popup: "mySwal",
-        },
-      }).then(async (result) => {
-        if (result.isConfirmed) {
-          const response = await updateEnvio({
-            ...envio,
-            enabled: true,
-            banned: false,
-          });
-
-          if (response) {
-            Swal.fire({
-              title: "Este envio ha sido desbloqueado en BFS",
-              icon: "success",
-              customClass: {
-                popup: "mySwal",
-              },
-            });
-          }
-        }
-        await handleEnvio();
-      });
-      return;
-    }
-  };
-          if (response) {
-            Swal.fire({
-              title: "Este envio ha sido desbloqueado en BFS",
-              icon: "success",
-              customClass: {
-                popup: "mySwal",
-              },
-            });
-          }
-        }
-        await handleEnvio();
-      });
-      return;
+  const handleToggleUser = async (user) => {
+    const message = user.enabled
+      ? "bloquear a este usuario"
+      : "desbloquear a este usuario";
+  
+    const result = await Swal.fire({
+      title: `¿Deseas ${message} en la plataforma?`,
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3d0dca",
+      cancelButtonText: "Cancelar",
+      confirmButtonText: "Aceptar",
+      customClass: {
+        popup: "mySwal",
+      },
+    });
+  
+    if (result.isConfirmed) {
+      try {
+        // Realiza la solicitud HTTP
+        await axios.get(`http://localhost:3001/user/`, {
+          ...user,
+          enabled: !user.enabled,
+        });
+  
+        // Actualiza el estado local y persiste los cambios en localStorage
+        setUsers((prevUsers) =>
+          prevUsers.map((u) => (u.ID === user.ID ? { ...u, enabled: !u.enabled } : u))
+        );
+        localStorage.setItem('users', JSON.stringify(users));
+  
+        Swal.fire({
+          title: `Este usuario ha sido ${user.enabled ? "bloqueado" : "desbloqueado"} en BFS`,
+          icon: "success",
+          customClass: {
+            popup: "mySwal",
+          },
+        });
+      } catch (error) {
+        console.error("Error al realizar la solicitud HTTP:", error);
+        Swal.fire({
+          title: "Error al realizar la acción",
+          text: "Hubo un problema al intentar realizar la acción. Por favor, inténtalo de nuevo.",
+          icon: "error",
+          customClass: {
+            popup: "mySwal",
+          },
+        });
+      }
     }
   };
 
@@ -299,13 +127,17 @@ const Dashboard = ({ updateContextUser }) => {
         },
       }).then(async (result) => {
         if (result.isConfirmed) {
-          const response = await axios.put(`https://bfs-pfhenry-production.up.railway.app/admin`, {
-            ...admin,
-            enabled: false,
-          });
+          console.log("Admin ID:", admin.adminId);
+          const response = await axios.put( `http://localhost:3001/admin/${admin.ID}`
+            /* `https://bfs-pfhenry-production.up.railway.app/admin/${adminId}` */,
+            {
+              ...admin,
+              enabled: false,
+            }
+          );
           if (response) {
             Swal.fire({
-              title: "Este Admin ha sido desbloqueado en BFS",
+              title: "Este Admin ha sido Activado en BFS",
               icon: "success",
               customClass: {
                 popup: "mySwal",
@@ -332,10 +164,13 @@ const Dashboard = ({ updateContextUser }) => {
         },
       }).then(async (result) => {
         if (result.isConfirmed) {
-          const response = await axios.put(`https://bfs-pfhenry-production.up.railway.app/admin`, {
-            ...admin,
-            enabled: true,
-          });
+          const response = await axios.put(`http://localhost:3001/admin/${admin.ID}`
+            /* `https://bfs-pfhenry-production.up.railway.app/admin ${adminId}` */,
+            {
+              ...admin,
+              enabled: true,
+            }
+          );
           if (response) {
             Swal.fire({
               title: "Este Admin ha sido desbloqueado en BFS",
@@ -352,27 +187,19 @@ const Dashboard = ({ updateContextUser }) => {
     }
   };
 
-
-	return (
-		<div className={style.container}>
-			<Sidebar onButtonClick={handleButtonClick} />
-			<Content
-				selectedButton={selectedButton}
-				users={users}
-				envio={envio}
-				admin={admin}
-				payments={payments}
-				handleBlockUser={handleBlockUser}
-				handleBlockEnvio={handleBlockEnvio}
-				handleBlockAdmin={handleBlockAdmin}	
-			/>
-			
-			
-		</div>
-
-		
-	);
-
+  return (
+    <div className={style.container}>
+      <Sidebar onButtonClick={handleButtonClick} />
+      <Content
+        selectedButton={selectedButton}
+        users={users}
+        envio={envio}
+        admin={admin}
+        handleToggleUser={handleToggleUser}
+        handleBlockAdmin={handleBlockAdmin}
+      />
+    </div>
+  );
 };
 
 export default Dashboard;

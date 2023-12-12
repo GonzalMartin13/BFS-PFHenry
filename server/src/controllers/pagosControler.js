@@ -18,13 +18,17 @@ const pagosControler = async (servicios, total) => {
         ],
 
         back_urls: {
-          //success:"https://bfsonline-8puvhnmx0-gonzal13s-projects.vercel.app/factura" , // cambiar por pag del front
           success: "http://localhost:5173/factura",
-
-          pending:
-            "https://bfs-pfhenry-production.up.railway.app/pagos/pendiente",
-          failure: "localhost:5173/aaa",
+          pending: "http://localhost:3001/pendiente",
+          failure: "http://localhost:5173/error",
         },
+        /*         back_urls:{ 
+            success:"https://bfsonline-8puvhnmx0-gonzal13s-projects.vercel.app/factura"
+            pending:"https://bfs-pfhenry-production.up.railway.app/pagos/pendiente",
+            failure:"https://bfsonline-8puvhnmx0-gonzal13s-projects.vercel.app/error"
+        }, 
+        */
+
         auto_return: "all",
         payment_methods: {
           installments: null,

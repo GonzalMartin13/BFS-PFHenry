@@ -1,40 +1,69 @@
-import { useState, useEffect } from "react";
+/* eslint-disable react/prop-types */
+import { useState } from "react";
+import axios from "axios";
 import PropTypes from "prop-types";
 import styles from "./Dashboard.module.css";
-import Button from "../../components/Button/Button";
 import Grafico from "./Graficos";
 import ReactPaginate from "react-paginate";
-import { getAllEnvios } from "../../utils/getAllEnvios";
-import "bootstrap/dist/css/bootstrap.min.css";
+import { faEdit } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const Content = ({
-  selectedButton,
-  //payments,
-  //envio,
-  users,
-  admin,
-  handleBlockUser,
-  handleBlockEnvio,
-}) => {
+const Content = ({ selectedButton, envio, users, admin, handleToggleUser }) => {
+  const [searchTerm, setSearchTerm] = useState("");
   const [adminList, setAdminList] = useState(admin);
   const [currentPage, setCurrentPage] = useState(0);
+  const [sortOrder, setSortOrder] = useState("asc");
   const itemsPerPage = 10;
-  const [envio, setEnvio] = useState("");
 
-  console.log(envio);
-  useEffect(() => {
-    handleEnvio();
-  }, []);
-
-  const handleEnvio = async () => {
-    const envios = await getAllEnvios();
-    setEnvio(envios);
+  const handleSearchTermChange = (event) => {
+    setSearchTerm(event.target.value);
   };
 
-  const toggleActivation = (index) => {
-    const updatedAdminList = [...adminList];
-    updatedAdminList[index].isActive = !updatedAdminList[index].isActive;
-    setAdminList(updatedAdminList);
+  const handleToggleActivation = async (admin) => {
+    try {
+      const confirmed = window.confirm(
+        `¿Estás seguro de ${
+          admin.isActive ? "desactivar" : "activar"
+        } este administrador?`
+      );
+
+      if (confirmed) {
+        // Realiza la llamada a la API para cambiar el estado del administrador
+        await axios.put(`http://localhost:3001/admin/${admin.ID}`, {
+          isActive: !admin.isActive,
+        });
+
+        // Actualiza el estado en el frontend utilizando las acciones de Redux
+        const updatedAdminList = adminList.map((a) =>
+          a.ID === admin.ID ? { ...a, isActive: !admin.isActive } : a
+        );
+
+        setAdminList(updatedAdminList);
+      }
+    } catch (error) {
+      console.error("Error al activar/desactivar administrador:", error);
+    }
+  };
+
+  const Checkbox = ({ value, onChange }) => {
+    const [checked, setChecked] = useState(value);
+
+    const handleChange = (e) => {
+      setChecked(e.target.checked);
+      onChange(e.target.checked);
+    };
+
+    return (
+      <label className={styles.container_check}>
+        <input
+          type="checkbox"
+          checked={checked}
+          onChange={handleChange}
+          disabled
+        />
+        <div className={styles.checkmark}></div>
+      </label>
+    );
   };
 
   // Función para manejar el cambio de página
@@ -42,8 +71,20 @@ const Content = ({
     setCurrentPage(selected);
   };
 
+  const getStatusColorClass = (status) => {
+    switch (status) {
+      case "En tránsito":
+        return styles.status_yellow;
+      case "Entregado":
+        return styles.status_green;
+      case "Pendiente":
+        return styles.status_red;
+      default:
+        return "";
+    }
+  };
+
   const renderTableRows = (data, currentPage, itemsPerPage) => {
-    console.log(data);
     return data
       ?.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage)
       ?.map((item, index) => (
@@ -51,72 +92,52 @@ const Content = ({
           <td>{item.id}</td>
           <td>{item.servicios}</td>
           <td>${item.total}</td>
-          <td>{item.status}</td>
-          <td>
-            <label className={styles.container_check}>
-              {item.enabled ? (
-                <input type="checkbox" checked={true} />
-              ) : (
-                <input type="checkbox" checked={false} />
-              )}
-
-              <div className={styles.checkmark}></div>
-            </label>
-          </td>
-          {item.enabled ? (
-            <td>
-              <Button
-                text={"Bloquear envio"}
-                onClick={() => handleBlockEnvio(item)}
-              />
-            </td>
-          ) : (
-            <td>
-              <Button
-                text={"Desbloquear envio"}
-                onClick={() => handleBlockEnvio(item)}
-              />
-            </td>
-          )}
+          <td className={getStatusColorClass(item.status)}>{item.status}</td>
         </tr>
       ));
   };
+
   const renderTableRowsUser = (data, currentPage, itemsPerPage) => {
-    return data
-      ?.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage)
-      ?.map((item, index) => (
+    const filteredUsers = data?.filter((user) => {
+      const userName = user?.name || "";
+      return userName.toLowerCase().includes(searchTerm.toLowerCase());
+    });
+
+    const sortedAndFilteredData = filteredUsers
+      ?.sort((a, b) => {
+        // Verificación de nulidad o indefinición antes de llamar a toUpperCase()
+        const nameA = a.name ? a.name.toUpperCase() : "";
+        const nameB = b.name ? b.name.toUpperCase() : "";
+        if (nameA < nameB) return sortOrder === "asc" ? -1 : 1;
+        if (nameA > nameB) return sortOrder === "asc" ? 1 : -1;
+        return 0;
+      })
+      ?.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage);
+    return (
+      sortedAndFilteredData &&
+      sortedAndFilteredData.map((item, index) => (
         <tr key={index}>
           <td>{item.ID}</td>
           <td>{item.email}</td>
           <td>{item.name}</td>
           <td>{item.lastName}</td>
           <td>
-            <label className={styles.container_check}>
-              {item?.enabled ? (
-                <input type="checkbox" checked={true} />
-              ) : (
-                <input type="checkbox" checked={false} />
-              )}
-              <div className={styles.checkmark}></div>
-            </label>
+            <Checkbox
+              value={item.enabled}
+              onChange={() => handleToggleUser(item)}
+            />
           </td>
-          {item.enabled ? (
-            <td>
-              <Button
-                text={"Bloquear usuario"}
-                onClick={() => handleBlockUser(item)}
-              />
-            </td>
-          ) : (
-            <td>
-              <Button
-                text={"Desbloquear usuario"}
-                onClick={() => handleBlockUser(item)}
-              />
-            </td>
-          )}
+          <td>
+            <button
+              onClick={() => handleToggleUser(item)}
+              className="btn btn-warning">
+              {item.enabled ? "Bloquear" : "Desbloquear"}
+              <FontAwesomeIcon icon={faEdit} />
+            </button>
+          </td>
         </tr>
-      ));
+      ))
+    );
   };
 
   return (
@@ -124,7 +145,7 @@ const Content = ({
       <div>
         {selectedButton === "adminGraphs" && (
           <>
-            <h2>Registros de Administración del sistema</h2>
+            <h2>Registros de Administración</h2>
             <Grafico />
           </>
         )}
@@ -132,17 +153,35 @@ const Content = ({
       <div>
         {selectedButton === "Usuarios" && (
           <>
-            <h2>Administrador de Usuarios</h2>
+            <h2>Tabla de Usuarios</h2>
+            <input
+              type="text"
+              placeholder="Buscar por nombre..."
+              value={searchTerm}
+              onChange={handleSearchTermChange}
+            />
+            <div className={styles.contenedorFiltro}>
+              <div className={styles.filtro}>
+                <label htmlFor="sortOrder">Ordenar por Nombre:</label>
+                <select
+                  id="sortOrder"
+                  value={sortOrder}
+                  onChange={(e) => setSortOrder(e.target.value)}>
+                  <option value="asc">A-Z</option>
+                  <option value="desc">Z-A</option>
+                </select>
+              </div>
+            </div>
             <div className={styles.envios_table_container}>
               <table className={styles.envios_table}>
                 <thead>
                   <tr>
                     <th>ID</th>
                     <th>Email</th>
-                    <th>Nombre</th>
+                    <th>Nombre {sortOrder === "asc" ? "A-Z" : "Z-A"}</th>
                     <th>Apellido</th>
                     <th>Estado</th>
-                    <th>Bloquear/Desbloquear</th>
+                    <th>Accion</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -172,7 +211,7 @@ const Content = ({
       <div>
         {selectedButton === "Envios" && (
           <>
-            <h2>Administrador de Envios</h2>
+            <h2>Tabla de Envios</h2>
             <div className={styles.envios_table_container}>
               <table className={styles.envios_table}>
                 <thead>
@@ -181,7 +220,6 @@ const Content = ({
                     <th>Categoría</th>
                     <th>Total</th>
                     <th>Status</th>
-                    <th>Bloquear/Desbloquear</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -210,24 +248,32 @@ const Content = ({
 
         {selectedButton === "Admin" && (
           <>
-            <h2>Administradores del sistema</h2>
+            <h2>Administradores</h2>
             <div className={styles.envios_table_container}>
               <table className={styles.envios_table}>
                 <thead>
                   <tr>
                     <th>Nombre Admin</th>
                     <th>Email</th>
-                    <th>Activar/Desactivar</th>
+                    <th>Estado</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {admin?.map((admin, index) => (
-                    <tr key={index}>
-                      <td>{admin.nameAdmin}</td>
-                      <td>{admin.emailAdmin}</td>
+                  {admin?.map((admin, ID) => (
+                    <tr key={ID}>
+                      <td>{admin?.nameAdmin || "N/A"}</td>
+                      <td>{admin?.emailAdmin || "N/A"}</td>
                       <td>
-                        <button onClick={() => toggleActivation(index)}>
-                          {admin.isActive ? "Desactivar" : "Activar"}
+                        <button
+                          onClick={() => handleToggleActivation(admin)}
+                          style={{
+                            backgroundColor: admin.isActive ? "green" : "red",
+                            color: "white",
+                            cursor: "pointer",
+                            padding: "4px",
+                            borderRadius: "5px",
+                          }}>
+                          {admin?.isActive ? "Activo" : "Inactivo"}
                         </button>
                       </td>
                     </tr>
@@ -247,8 +293,8 @@ Content.propTypes = {
   envio: PropTypes.array,
   admin: PropTypes.array,
   users: PropTypes.array,
-  handleBlockUser: PropTypes.func,
-  handleBlockEnvio: PropTypes.func,
+  handleToggleUser: PropTypes.func,
+  handleBlockAdmin: PropTypes.func,
 };
 
 export default Content;

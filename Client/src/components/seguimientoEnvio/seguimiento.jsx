@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import ProgressBar from "react-bootstrap/ProgressBar";
+//import ProgressBar from "react-bootstrap/ProgressBar";
 import Modal from "react-bootstrap/Modal";
 import Table from "react-bootstrap/Table";
 import { validate } from "./validation";
@@ -11,7 +11,7 @@ import axios from "axios";
 import { setPaquetesSeguimientos } from "../../redux/Slices/seguimientoSlice";
 import { useDispatch, useSelector } from "react-redux";
 import deliverytruck from "../../assets/delivery.svg";
-import { Image } from "react";
+//import { Image } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
@@ -40,8 +40,8 @@ function SeguimientoEnvio() {
   };
 
   const [showModal, setShowModal] = useState(false);
-  const [trackingNumber, setTrackingNumber] = useState("");
-  const [progress, setProgress] = useState(0);
+  //const [trackingNumber, setTrackingNumber] = useState("");
+  //const [progress, setProgress] = useState(0);
 
   const dispatch = useDispatch();
   const seguimiento = useSelector((state) => state.seguimiento.paqueteSeguimiento);
@@ -67,7 +67,7 @@ function SeguimientoEnvio() {
     }
 
     try {
-      const response = await axios.get(`https://bfs-pfhenry-production.up.railway.app/envios/${id}`);
+      const response = await axios.get(`http://localhost:3001/envios/${id}` /*`https://bfs-pfhenry-production.up.railway.app/envios/${id}` */);
       dispatch(setPaquetesSeguimientos(response.data));
       setShowModal(true);
     } catch (error) {

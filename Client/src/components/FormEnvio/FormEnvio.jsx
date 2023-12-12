@@ -115,10 +115,8 @@ const FormEnvio = () => {
     const mercadoPago = async () => {
       try {
         const { data } = await axios.post(
-          //"https://bfs-pfhenry-production.up.railway.app/pagos/crear",
-          "http://localhost:3001/pagos/crear",
-
-          {
+          "https://bfs-pfhenry-production.up.railway.app/pagos/crear",
+          /* "http://localhost:3001/pagos/crear" */ {
             total: Number(total),
             servicios,
           }
@@ -642,7 +640,7 @@ const FormEnvio = () => {
             <div>
               <br></br>
               <button type="submit" className={styles.button}>
-                Proceder al pago
+                <a href={linkPago}> proceder al pago </a>
               </button>
               <br></br>
             </div>

@@ -1,8 +1,9 @@
 const contolerPrecio = require("../controllers/controlerPrecio");
 
 const cotizarHandler = async (req, res) => {
-  const { origen, destino, largo, ancho, alto, peso, servicios } = req.body;
+  const { origen, destino, largo, ancho, alto, peso, status, servicios } = req.body;
   const volumen = Number(ancho) + Number(largo) + Number(alto);
+  console.log(typeof(servicios), servicios)
   try {
     if (largo > 190 || ancho > 190 || alto > 190) {
       return res

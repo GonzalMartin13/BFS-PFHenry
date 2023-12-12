@@ -6,12 +6,12 @@ const contolerPrecio = async (origen, destino, volumen, peso, servicios) => {
       (provincia) => provincia.provincia.toLowerCase() === destino.toLowerCase()
     );
     //
+    console.log(origen, destino, volumen, peso, servicios)
     let precioFinal = 0;
     //
     //en caso que sea la misma provincia de origen y destino
-
     const precioBase = !servicios.includes("carteria") ? 1900 : 1500;
-
+    
     if (origen === destino) {
       precioFinal += precioBase;
     }
