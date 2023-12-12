@@ -38,6 +38,7 @@
 }
 
 .button[type="submit"] {
+	text-decoration: none;
 	display: block;
 	background: #0085FF;
 	font-weight: 600;
