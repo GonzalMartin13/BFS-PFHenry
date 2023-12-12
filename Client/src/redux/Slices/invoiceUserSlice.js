@@ -37,7 +37,7 @@ export const postInvoiceAsync = (jsonn) => async (dispatch) => {
       {
         data: jsonn,
         load_data_from: null,
-        //template_id: "21677b238cfc6326", //descomentar para demo
+        template_id: "87677b23815c7024", //descomentar para demo
         version: 8,
         export_type: "json",
         expiration: 10080,
@@ -54,7 +54,7 @@ export const postInvoiceAsync = (jsonn) => async (dispatch) => {
       },
       {
         headers: {
-          "X-API-KEY": "acd0ODE5ODo4MjMzOnNld1ZSZ1lReU5Uc3I2d3Y",
+          "X-API-KEY": "eb36ODQ2Mzo4NDk5OlpLMFVscThta3FoQ1pOTFk",
           "Content-Type": "application/json",
         },
       }

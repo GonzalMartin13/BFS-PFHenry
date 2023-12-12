@@ -115,11 +115,11 @@ const FormEnvio = () => {
     const mercadoPago = async () => {
       try {
         const { data } = await axios.post(
-          "https://bfs-pfhenry-production.up.railway.app/pagos/crear",
-          //"http://localhost:3001/pagos/crear",
+          //"https://bfs-pfhenry-production.up.railway.app/pagos/crear",
+          "http://localhost:3001/pagos/crear",
 
           {
-            total,
+            total: Number(total),
             servicios,
           }
         );
@@ -312,7 +312,7 @@ const FormEnvio = () => {
 
         await handleEnvioBD(shippingInfo);
 
-        //window.location.href = linkPago;
+        window.location.href = linkPago;
 
         resetForm();
       }}
