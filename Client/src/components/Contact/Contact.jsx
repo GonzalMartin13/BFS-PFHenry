@@ -154,7 +154,7 @@ const Email = () => {
           </Form.Group>
   
           <hr />
-          <Button type="submit" disabled={disableButton} className={styles.boton}>
+          <Button  variant="secondary" type="submit" disabled={disableButton} className={styles.boton}>
             Enviar
           </Button>
         </div>
