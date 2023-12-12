@@ -1,0 +1,17 @@
+/* Estilo de animación */
+@keyframes colorChange {
+  0% {
+    background-color: transparent;
+  }
+  50% {
+    background-color: #5bc0de; /* Color de transición - azul claro */
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+/* Aplicar animación a la celda */
+.cell-animation {
+  animation: colorChange 1.5s ease-in-out infinite; /* Duración de la animación de 1.5 segundos, repetición infinita */
+}
