@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { Form, Button, Image } from "react-bootstrap";
 import emailjs from "@emailjs/browser";
-import Image from "react-bootstrap/Image";
-import contacto from "../../assets/contacto.png";
 import Swal from "sweetalert2";
+import contacto from "../../assets/contacto.png";
 import styles from "../Contact/Contact.module.css";
 import {
   validateName,
@@ -12,8 +12,6 @@ import {
 
 const Email = () => {
   const [name, setName] = useState("");
-  const [phone, setPhone] = useState("12345678");
-  const [asunto, setAsunto] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
 
@@ -36,17 +34,10 @@ const Email = () => {
     setMessageError(error);
   };
 
-  const sendEmail = (event) => {
+  const sendEmail = async (event) => {
     event.preventDefault();
 
-    if (
-      nameError ||
-      emailError ||
-      messageError ||
-      !name ||
-      !email ||
-      !message
-    ) {
+    if (nameError || emailError || messageError || !name || !email || !message) {
       console.log("Formulario inválido");
       return;
     }
@@ -79,78 +70,86 @@ const Email = () => {
       .catch((error) => console.log(error));
   };
 
-  const desabilitar =
-    !name ||
-    !email ||
-    !message ||
-    !!nameError ||
-    !!emailError ||
-    !!messageError;
+  const disableButton =
+    !name || !email || !message || !!nameError || !!emailError || !!messageError;
 
   return (
     <div>
-      <Image src={contacto} fluid style={{ width: "100%", height: "300px" }} />
-      <div>
-        <form onSubmit={sendEmail}>
-          <h3>Contactanos</h3>
-          <h6>
-            Tienes dudas, comentarios, recomendaciones envianos un mensaje.{" "}
-          </h6>
-          <br></br>
-          <div className={styles.contenedor}>
-            <label>Nombre</label>
-            <br></br>
-            <input
+    <Image src={contacto} fluid style={{ width: "100%", height: "300px" }} />
+    <div style={{
+      border: "1px solid #dee2e6",
+      borderRadius: "5px",
+      boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+      margin: "20px auto",
+      maxWidth: "600px",
+    }}>
+      <Form onSubmit={sendEmail} style={{
+        padding: "20px",
+      }}>
+        <div style={{
+          backgroundColor: "#f8f9fa",
+          border: "1px solid #dee2e6",
+          borderRadius: "10px",
+          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+          marginBottom: "20px",
+        }}>
+          <h3 style={{ margin: "15px 0" }}>Contactanos</h3>
+          <h6>Tienes dudas, comentarios, recomendaciones envíanos un mensaje.</h6>
+        </div>
+  
+        <div className={styles.contenedor}>
+          <Form.Group controlId="formName">
+            <Form.Label></Form.Label>
+            <Form.Control
               type="text"
-              name="user_name"
+              placeholder="Ingrese su nombre"
               value={name}
               onChange={(e) => {
                 setName(e.target.value);
                 validateNameOnChange(e.target.value);
               }}
             />
-            <br></br>
-            <span style={{ color: "red" }}>{nameError}</span>
-
-            <br></br>
-            <label>Email</label>
-            <br></br>
-            <input
+            <Form.Text style={{ color: "red" }}>{nameError}</Form.Text>
+          </Form.Group>
+  
+          <Form.Group controlId="formEmail">
+            <Form.Label></Form.Label>
+            <Form.Control
               type="email"
-              name="user_email"
+              placeholder="Ingrese su correo electrónico"
               value={email}
               onChange={(e) => {
                 setEmail(e.target.value);
                 validateEmailOnChange(e.target.value);
               }}
             />
-            <br></br>
-            <span style={{ color: "red" }}>{emailError}</span>
-            <br></br>
-            <label>Mensaje</label>
-            <br></br>
-            <textarea
-              name="user_message"
-              cols="30"
+            <Form.Text style={{ color: "red" }}>{emailError}</Form.Text>
+          </Form.Group>
+  
+          <Form.Group controlId="formMessage">
+            <Form.Label>Mensaje</Form.Label>
+            <Form.Control
+              as="textarea"
+              rows={4}
+              placeholder="Ingrese su mensaje"
               value={message}
-              rows="10"
               onChange={(e) => {
                 setMessage(e.target.value);
                 validateMessageOnChange(e.target.value);
               }}
             />
-            <br></br>
-            <span style={{ color: "red" }}>{messageError}</span>
-            <hr />
-            <button type="submit" disabled={desabilitar} className={styles.boton}>
-              Enviar
-            </button>
-          </div>
-            <br></br>
-            <br></br>
-        </form>
-      </div>
+            <Form.Text style={{ color: "red" }}>{messageError}</Form.Text>
+          </Form.Group>
+  
+          <hr />
+          <Button type="submit" disabled={disableButton} className={styles.boton}>
+            Enviar
+          </Button>
+        </div>
+      </Form>
     </div>
+  </div>
+  
   );
 };
 

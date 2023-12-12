@@ -153,7 +153,9 @@ function SeguimientoEnvio() {
       <Modal show={showModal} onHide={handleCloseModal} centered >
         <Modal.Header closeButton>
           <Modal.Title className="text-center">
-            Estado del envío: {seguimiento.id}
+            Estado del envío:
+            <br></br>
+             {seguimiento.id}
           </Modal.Title>
         </Modal.Header>
 

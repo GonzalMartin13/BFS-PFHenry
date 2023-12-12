@@ -161,6 +161,7 @@ const Dashboard = ({ updateContextUser }) => {
         handleToggleUser={handleToggleUser}
         handleToggleActivation={handleToggleActivation}
       />
+   
     </div>
   );
 };
