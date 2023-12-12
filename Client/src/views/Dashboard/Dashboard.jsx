@@ -60,12 +60,12 @@ const Dashboard = ({ updateContextUser }) => {
     setAdmin(admin);
   };
 
-  
+
   const handleToggleUser = async (user) => {
     const message = user.enabled
       ? "bloquear a este usuario"
       : "desbloquear a este usuario";
-  
+
     const result = await Swal.fire({
       title: `¿Deseas ${message} en la plataforma?`,
       icon: "question",
@@ -78,7 +78,7 @@ const Dashboard = ({ updateContextUser }) => {
         popup: "mySwal",
       },
     });
-  
+
     if (result.isConfirmed) {
       try {
         // Realiza la solicitud HTTP
@@ -86,13 +86,13 @@ const Dashboard = ({ updateContextUser }) => {
           ...user,
           enabled: !user.enabled,
         });
-  
+
         // Actualiza el estado local y persiste los cambios en localStorage
         setUsers((prevUsers) =>
           prevUsers.map((u) => (u.ID === user.ID ? { ...u, enabled: !u.enabled } : u))
         );
         localStorage.setItem('users', JSON.stringify(users));
-  
+
         Swal.fire({
           title: `Este usuario ha sido ${user.enabled ? "bloqueado" : "desbloqueado"} en BFS`,
           icon: "success",
@@ -124,20 +124,20 @@ const Dashboard = ({ updateContextUser }) => {
         confirmButtonText: 'Aceptar',
         cancelButtonText: 'Cancelar',
       });
-  
+
       if (result.isConfirmed) {
         // Realiza la llamada a la API para cambiar el estado del administrador
         await axios.put(`http://localhost:3001/admin/${admin.ID}`, {
           isActive: !admin.isActive,
         });
-  
+
         // Actualiza el estado en el frontend utilizando las acciones de Redux
         const updatedAdminList = adminList.map((a) =>
           a.ID === admin.ID ? { ...a, isActive: !admin.isActive } : a
         );
-  
+
         setAdminList(updatedAdminList); // Actualiza adminList
-  
+
         Swal.fire({
           title: 'Éxito',
           text: `El administrador ha sido ${admin.isActive ? 'desactivado' : 'activado'} correctamente.`,
@@ -148,7 +148,7 @@ const Dashboard = ({ updateContextUser }) => {
       console.error('Error al activar/desactivar administrador:', error);
     }
   };
-  
+
 
   return (
     <div className={style.container}>
