@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
-import axios from "axios";
 import PropTypes from "prop-types";
 import styles from "./Dashboard.module.css";
 import Grafico from "./Graficos";
@@ -8,9 +7,9 @@ import ReactPaginate from "react-paginate";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const Content = ({ selectedButton, envio, users, admin, handleToggleUser }) => {
+
+const Content = ({ selectedButton, envio, users, admin, handleToggleUser, handleToggleActivation }) => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [adminList, setAdminList] = useState(admin);
   const [currentPage, setCurrentPage] = useState(0);
   const [sortOrder, setSortOrder] = useState("asc");
   const itemsPerPage = 10;
@@ -19,31 +18,7 @@ const Content = ({ selectedButton, envio, users, admin, handleToggleUser }) => {
     setSearchTerm(event.target.value);
   };
 
-  const handleToggleActivation = async (admin) => {
-    try {
-      const confirmed = window.confirm(
-        `¿Estás seguro de ${
-          admin.isActive ? "desactivar" : "activar"
-        } este administrador?`
-      );
 
-      if (confirmed) {
-        // Realiza la llamada a la API para cambiar el estado del administrador
-        await axios.put(`http://localhost:3001/admin/${admin.ID}`, {
-          isActive: !admin.isActive,
-        });
-
-        // Actualiza el estado en el frontend utilizando las acciones de Redux
-        const updatedAdminList = adminList.map((a) =>
-          a.ID === admin.ID ? { ...a, isActive: !admin.isActive } : a
-        );
-
-        setAdminList(updatedAdminList);
-      }
-    } catch (error) {
-      console.error("Error al activar/desactivar administrador:", error);
-    }
-  };
 
   const Checkbox = ({ value, onChange }) => {
     const [checked, setChecked] = useState(value);
@@ -159,6 +134,11 @@ const Content = ({ selectedButton, envio, users, admin, handleToggleUser }) => {
               placeholder="Buscar por nombre..."
               value={searchTerm}
               onChange={handleSearchTermChange}
+              style={{
+                borderRadius: '8px',
+                padding: '8px',
+                border: '1px solid #ccc',
+              }}
             />
             <div className={styles.contenedorFiltro}>
               <div className={styles.filtro}>
@@ -198,12 +178,10 @@ const Content = ({ selectedButton, envio, users, admin, handleToggleUser }) => {
               pageCount={Math.ceil(users.length / itemsPerPage)}
               marginPagesDisplayed={2}
               pageRangeDisplayed={5}
-              onPageChange={(selected) =>
-                handlePageClick(selected, selectedButton)
-              }
+              onPageChange={handlePageClick}
               containerClassName={"pagination justify-content-center"}
               subContainerClassName={"pages pagination"}
-              activeClassName={"active"}
+              activeClassName={styles.activePage} 
             />
           </>
         )}
@@ -236,53 +214,52 @@ const Content = ({ selectedButton, envio, users, admin, handleToggleUser }) => {
               pageCount={Math.ceil(envio.length / itemsPerPage)}
               marginPagesDisplayed={2}
               pageRangeDisplayed={5}
-              onPageChange={(selected) =>
-                handlePageClick(selected, selectedButton)
-              }
-              containerClassName={"pagination justify-content-center gap: 1rem"}
+              onPageChange={(selected) => handlePageClick(selected, selectedButton)}
+              containerClassName={"pagination justify-content-center gap-1rem"}  
               subContainerClassName={"pages pagination"}
-              activeClassName={"active"}
-            />
+              activeClassName={styles.activePage} 
+             />
           </>
         )}
 
-        {selectedButton === "Admin" && (
-          <>
-            <h2>Administradores</h2>
-            <div className={styles.envios_table_container}>
-              <table className={styles.envios_table}>
-                <thead>
-                  <tr>
-                    <th>Nombre Admin</th>
-                    <th>Email</th>
-                    <th>Estado</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {admin?.map((admin, ID) => (
-                    <tr key={ID}>
-                      <td>{admin?.nameAdmin || "N/A"}</td>
-                      <td>{admin?.emailAdmin || "N/A"}</td>
-                      <td>
-                        <button
-                          onClick={() => handleToggleActivation(admin)}
-                          style={{
-                            backgroundColor: admin.isActive ? "green" : "red",
-                            color: "white",
-                            cursor: "pointer",
-                            padding: "4px",
-                            borderRadius: "5px",
-                          }}>
-                          {admin?.isActive ? "Activo" : "Inactivo"}
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </>
-        )}
+{selectedButton === "Admin" && (
+  <>
+    <h2>Administradores</h2>
+    <div className={styles.envios_table_container}>
+      <table className={styles.envios_table}>
+        <thead>
+          <tr>
+            <th>Nombre Admin</th>
+            <th>Email</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          {admin?.map((admin, ID) => (
+            <tr key={ID}>
+              <td>{admin?.nameAdmin || "N/A"}</td>
+              <td>{admin?.emailAdmin || "N/A"}</td>
+              <td>
+                <button
+                  onClick={() => handleToggleActivation(admin)}
+                  style={{
+                    backgroundColor: admin.isActive ? "green" : "red",
+                    color: "white",
+                    cursor: "pointer",
+                    padding: "4px",
+                    borderRadius: "5px",
+                  }}>
+                  {admin?.isActive ? "Activo" : "Inactivo"}
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </>
+)}
+
       </div>
     </div>
   );
@@ -295,6 +272,7 @@ Content.propTypes = {
   users: PropTypes.array,
   handleToggleUser: PropTypes.func,
   handleBlockAdmin: PropTypes.func,
+  handleToggleActivation: PropTypes.func,
 };
 
 export default Content;
