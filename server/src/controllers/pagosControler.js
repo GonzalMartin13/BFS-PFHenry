@@ -23,9 +23,9 @@ const pagosControler = async (servicios, total) => {
           failure: "http://localhost:5173/error",
         }, */
                  back_urls:{ 
-            success:"https://bfsonline-8puvhnmx0-gonzal13s-projects.vercel.app/factura",
-            pending:"https://bfs-pfhenry-production.up.railway.app/pagos/pendiente",
-            failure:"https://bfsonline-8puvhnmx0-gonzal13s-projects.vercel.app/error"
+            success:"https://bfsonline.vercel.app/factura",
+            pending:"https://bfsonline.vercel.app/pend",
+            failure:"https://bfsonline.vercel.app/error"
         }, 
         
 
