@@ -91,10 +91,10 @@ const Footer = () => {
                 © 2023 Todos los Derechos Reservados |{" "}
                 <a >SoyHenry Cohorte 43a Grupo 01</a>
               </div>
-              <div className={style.info}>
+              {/* <div className={style.info}>
                 <a href="">Privacidad y Politica</a> |{" "}
                 <a href="">Terminos y Condiciones</a>
-              </div>
+              </div> */}
             </div>
           </Col>
         </Row>
