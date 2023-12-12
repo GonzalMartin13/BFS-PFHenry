@@ -10,7 +10,7 @@ const out = {
   backgroundColor: "transparent",
   border: "2px solid black",
   color: "red",
-  marginRight: "30px",
+  marginRight: "40px",
   padding: "5px 10px",
 };
 
@@ -18,7 +18,7 @@ const profile = {
   backgroundColor: "transparent",
   border: "2px solid black",
   color: "darkblue",
-  marginRight: "60px",
+  marginRight: "15px",
   padding: "5px 10px",
 };
 
