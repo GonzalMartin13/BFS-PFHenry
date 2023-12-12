@@ -12,10 +12,9 @@ const logobfs = {
 };
 
 const menuout = {
-  border: "2px solid black",
+  border: "3px solid black",
   color: "black",
-  marginRight: "30px",
-  padding: "5px 10px",
+  marginLeft: "3.5%",
 };
 
 const logoin = {
