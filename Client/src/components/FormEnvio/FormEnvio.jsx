@@ -640,7 +640,7 @@ const FormEnvio = () => {
             <div>
               <br></br>
               <button type="submit" className={styles.button}>
-                <a href={linkPago}> proceder al pago </a>
+                <a href={linkPago} style={{ textDecoration: "none", color: "white"}} > Proceder al pago </a>
               </button>
               <br></br>
             </div>
@@ -681,6 +681,8 @@ const FormEnvio = () => {
                 )}
               </MapContainer>
             </div>
+            <br></br>
+            <br></br>
           </div>
         </form>
       )}
