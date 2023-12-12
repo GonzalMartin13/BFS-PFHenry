@@ -148,7 +148,7 @@ function MisEnvios() {
             show={showModal}
             onHide={handleCloseModal}
             aria-labelledby="example-modal-sizes-title-sm"
-            style={{ borderRadius: '10px' }}
+            style={{ borderRadius: '12px' }}
           >
             <Modal.Header closeButton style={{ background: '#007BFF', color: 'white', borderBottom: 'none' }}>
               <Modal.Title id="example-modal-sizes-title-sm" style={{ fontSize: '1.5rem' }}>
@@ -156,10 +156,11 @@ function MisEnvios() {
               </Modal.Title>
             </Modal.Header>
 
-            <Modal.Body style={{ padding: '20px', textAlign: 'left' }}>
-              <p style={{ marginBottom: '10px', fontSize: '1.2rem', fontWeight: 'bold' }}>
-                Numero de seguimiento: {selectedPackage.id} 
-
+            <Modal.Body style={{ padding: '22px', textAlign: 'center' }}>
+            <p  style={{ marginBottom: '13px', fontSize: '1.1rem', }}>Numero de seguimiento:</p>
+              <p style={{ marginBottom: '13px', fontSize: '1.1rem', fontWeight: 'bold' }}>
+                 {selectedPackage.id} 
+               
                 <OverlayTrigger
                 placement="right"
                 delay={{ show: 250, hide: 400 }}
