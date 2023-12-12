@@ -13,7 +13,7 @@ const config = {
           <strong>¿En qué puedo ayudarte?</strong>
           <br></br>
         </>
-        Solo escribe el numero o la seccion que deseas cosultar<br></br>
+        Solo escribe el numero o la seccion que deseas consultar<br></br>
         <>
           <strong>1</strong>-<strong>Envios.</strong> Para informacion sobre
           como realizar un envio

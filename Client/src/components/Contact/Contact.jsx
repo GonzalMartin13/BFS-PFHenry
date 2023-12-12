@@ -105,8 +105,8 @@ const Email = () => {
           boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
           marginBottom: "20px",
         }}>
-          <h3 style={{ margin: "15px 0" }}>Contactanos</h3>
-          <h6>Tienes dudas, comentarios, recomendaciones envíanos un mensaje.</h6>
+          <h3 style={{ margin: "15px " }}>Contactanos</h3>
+          <h6>Tienes dudas, comentario o recomendaciones envíanos un mensaje.</h6>
         </div>
   
         <div className={styles.contenedor}>
@@ -139,7 +139,7 @@ const Email = () => {
           </Form.Group>
   
           <Form.Group controlId="formMessage">
-            <Form.Label>Mensaje</Form.Label>
+            <Form.Label style={{marginTop:"10px"}}>Mensaje</Form.Label>
             <Form.Control
               as="textarea"
               rows={4}

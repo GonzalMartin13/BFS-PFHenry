@@ -128,9 +128,10 @@ function SeguimientoEnvio() {
 
       <Modal show={showModal} onHide={handleCloseModal} centered>
         <Modal.Header closeButton>
-          <Modal.Title className="text-center">
-            Estado del envío: {seguimiento.id}
+          <Modal.Title className="text-center"  style={{ fontSize: '1.3rem' }}>
+            Estado del envío:  {seguimiento.id}
           </Modal.Title>
+         
         </Modal.Header>
 
         <Modal.Body>
@@ -138,22 +139,22 @@ function SeguimientoEnvio() {
     src={deliverytruck}
     alt="Logo BFS"
     style={{
-      width: '65px',
-      height: '65px',
+      width: '150px',
+      height: '85px',
       marginLeft: seguimiento.status === "Pendiente" ? '0' : 'auto', // Ajustado para renderizar a la izquierda en "Pendiente"
       marginRight: seguimiento.status === "Entregado" ? '0' : 'auto', // Añadido para renderizar a la derecha en "Entregado"
       display: 'block', // Para asegurar que se centre o alinee correctamente
     }}
   />
-          <Table striped bordered hover responsive className="mt-3">
-            <thead>
-              <tr>
-                <th style={seguimiento.status === "Pendiente" ? { background: 'blue', color: 'white' } : {}}>Pendiente</th>
-                <th style={seguimiento.status === "En tránsito" ? { background: 'blue', color: 'white' } : {}}>En tránsito</th>
-                <th style={seguimiento.status === "Entregado" ? { background: 'blue', color: 'white' } : {}}>Entregado</th>
-              </tr>
-            </thead>
-          </Table>
+         <Table striped bordered hover responsive className="mt-3">
+  <thead>
+    <tr>
+      <th className={seguimiento.status === "Pendiente" ? "cell-animation" : ""} style={seguimiento.status === "Pendiente" ? { background: 'blue', color: 'white' } : {}}>Pendiente</th>
+      <th className={seguimiento.status === "En tránsito" ? "cell-animation" : ""} style={seguimiento.status === "En tránsito" ? { background: 'blue', color: 'white' } : {}}>En tránsito</th>
+      <th className={seguimiento.status === "Entregado" ? "cell-animation" : ""} style={seguimiento.status === "Entregado" ? { background: 'blue', color: 'white' } : {}}>Entregado</th>
+    </tr>
+  </thead>
+</Table>
         </Modal.Body>
       </Modal>
     </div>

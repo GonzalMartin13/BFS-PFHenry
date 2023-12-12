@@ -23,7 +23,8 @@ const sequelize = new Sequelize(
 		dialectModule: pg,
 	}
 
-);    */
+);    
+*/
 
 const basename = path.basename(__filename);
 
