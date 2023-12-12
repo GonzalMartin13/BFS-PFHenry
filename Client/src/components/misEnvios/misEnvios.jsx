@@ -4,10 +4,13 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Image from "react-bootstrap/Image";
-import flechaIcon from "../../assets/sign.svg";
+import flechaIcon from "../../assets/avance.png";
 import VerticalExample from "../filters/filters";
 import { getUserPackages } from "../../redux/Slices/packageSlice"; // Actualizado
 import copiarIcon from "../../assets/copia.png";
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
+
 
 function MisEnvios() {
   const dispatch = useDispatch();
@@ -54,10 +57,17 @@ function MisEnvios() {
     }
   };
 
+  const [isCopied, setIsCopied] = useState(false);
+
   const handleCopyToClipboard = () => {
     if (selectedPackage) {
       copyToClipboard(selectedPackage.id);
+      setIsCopied(true);
     }
+  };
+
+  const resetCopyState = () => {
+    setIsCopied(false);  
   };
 
   const [isHovered, setIsHovered] = useState(false);
@@ -69,6 +79,14 @@ function MisEnvios() {
   const handleMouseLeave = () => {
     setIsHovered(false);
   };
+
+  const renderTooltip = (props) => (
+    <Tooltip id="button-tooltip" {...props}>
+  Copiar
+    </Tooltip>
+  );
+
+
 
   return (
     <>
@@ -103,10 +121,11 @@ function MisEnvios() {
               <Card.Body>
                 <h6>{envio.fechaInicial.split("T")[0]}</h6>
                 <Card.Title>{envio.servicios}</Card.Title>
+                <br/>
                 <Card.Subtitle className="mb-2 text-muted">
                   <span style={{ marginRight: '5px' }}></span>
                   {envio.origen} <img src={flechaIcon} alt="Logout Icon" style={{ width: '20px', height: '20px', marginLeft: '5px' }} />
-                  {envio.destino}
+                  {""} {envio.destino}
                 </Card.Subtitle>
                 <Card.Text></Card.Text>
                 <Button
@@ -129,7 +148,7 @@ function MisEnvios() {
             show={showModal}
             onHide={handleCloseModal}
             aria-labelledby="example-modal-sizes-title-sm"
-            style={{ borderRadius: '10px' }}
+            style={{ borderRadius: '12px' }}
           >
             <Modal.Header closeButton style={{ background: '#007BFF', color: 'white', borderBottom: 'none' }}>
               <Modal.Title id="example-modal-sizes-title-sm" style={{ fontSize: '1.5rem' }}>
@@ -137,23 +156,35 @@ function MisEnvios() {
               </Modal.Title>
             </Modal.Header>
 
-            <Modal.Body style={{ padding: '20px', textAlign: 'left' }}>
-              <p style={{ marginBottom: '10px', fontSize: '1.2rem', fontWeight: 'bold' }}>
-                Numero de seguimiento: {selectedPackage.id} 
+            <Modal.Body style={{ padding: '22px', textAlign: 'center' }}>
+            <p  style={{ marginBottom: '13px', fontSize: '1.1rem', }}>Numero de seguimiento:</p>
+              <p style={{ marginBottom: '13px', fontSize: '1.1rem', fontWeight: 'bold' }}>
+                 {selectedPackage.id} 
+               
+                <OverlayTrigger
+                placement="right"
+                delay={{ show: 250, hide: 400 }}
+                overlay={renderTooltip}
+              >
                 <Button
                   variant="secondary"
                   onClick={handleCopyToClipboard}
                   style={{
                     border: 'none',
                     background: 'transparent',
-                    transform: isHovered ? 'scale(1.2)' : 'scale(1)',
+                    transform: isCopied ? 'scale(1.2)' : 'scale(1)',
                     transition: 'transform 0.3s ease',
                   }}
                   onMouseEnter={handleMouseEnter}
-                  onMouseLeave={handleMouseLeave}
+                  onMouseLeave={() => {
+                    handleMouseLeave();
+                    resetCopyState(); 
+                  }}
                 >
                   <img src={copiarIcon} alt="copiar Icon" style={{ width: '20px', height: '20px', marginLeft: '5px' }} />
                 </Button>
+              </OverlayTrigger>
+
               </p>
               <p style={{ marginBottom: '10px' }}>Fecha: {fecha ? fecha : 'Fecha no disponible'}</p>
               <p style={{ marginBottom: '10px' }}>Estatus: {selectedPackage.status}</p>

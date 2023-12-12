@@ -32,7 +32,7 @@ export default function Comprobante() {
   const jsonInvoise = {
     //  currency: "USD",
     tax: 21,
-    company_name: "B.F.S. Logistica",
+    company_name: "B.F.S. Correos S.A.",
     email: "contacto@bfs.com.ar",
     tel: "011-4312-4567",
     client: "Consumidor final",
@@ -55,13 +55,14 @@ export default function Comprobante() {
       dniRemitente: envio.dniRemitente,
       nombreDestinatario: envio.nombreDestinatario,
       dniDestinatario: envio.dniDestinatario,
-      numeroDeEnvio: "11223344",
+      numeroDeEnvio: idShipping,
       telRemitente: envio.telefonoRemitente,
       telDestinatario: envio.telefonoDestinatario,
     },
   };
+  console.log("el json", jsonInvoise);
   useEffect(() => {
-    // dispatch(postInvoiceAsync(jsonInvoise))
+    //dispatch(postInvoiceAsync(jsonInvoise));
     return () => dispatch(clearState());
   }, []);
   const resetStates = () => {
@@ -90,14 +91,21 @@ export default function Comprobante() {
         <ListGroup.Item variant="info">Origen: {envio.origen}</ListGroup.Item>
         <ListGroup.Item variant="info">Destino: {envio.destino}</ListGroup.Item>
         <ListGroup.Item variant="info">
-          Dimensiones de la caja:{" "}
-          {`Largo: ${envio.largo || "no especificado"} x  Ancho: ${
-            envio.ancho || "no especificado"
-          } x  Alto: ${envio.alto || "no especificado"}`}
+          Servicios: {envio.servicios.join(", ")}
         </ListGroup.Item>
-        <ListGroup.Item variant="info">
-          Peso: {`${envio.largo || "no especificado"} `}
-        </ListGroup.Item>
+        {envio.ancho && envio.alto && envio.ancho && (
+          <ListGroup.Item variant="info">
+            Dimensiones de la caja:{" "}
+            {`Largo: ${envio.largo || "no especificado"} x  Ancho: ${
+              envio.ancho || "no especificado"
+            } x  Alto: ${envio.alto || "no especificado"}`}
+          </ListGroup.Item>
+        )}
+        {envio.peso && (
+          <ListGroup.Item variant="info">
+            Peso: {`${envio.largo || "no especificado"} `}
+          </ListGroup.Item>
+        )}
         <ListGroup.Item variant="info">
           Total pagado: $ {envio.total}
         </ListGroup.Item>

@@ -17,6 +17,7 @@ const Dashboard = ({ updateContextUser }) => {
   const [envio, setEnvio] = useState([]);
   const [admin, setAdmin] = useState([]);
   const [selectedButton, setSelectedButton] = useState("");
+  const [adminList, setAdminList] = useState(admin);
 
   useEffect(() => {
     const session = JSON.parse(localStorage.getItem("userOnSession"));
@@ -26,7 +27,7 @@ const Dashboard = ({ updateContextUser }) => {
     handleUsers();
     handleEnvio();
     handleAdmin();
-  }, []);
+  }, [adminList]);
 
   const handleButtonClick = (button) => {
     if (button === "adminGraphs") {
@@ -59,6 +60,7 @@ const Dashboard = ({ updateContextUser }) => {
     setAdmin(admin);
   };
 
+  
   const handleToggleUser = async (user) => {
     const message = user.enabled
       ? "bloquear a este usuario"
@@ -111,81 +113,42 @@ const Dashboard = ({ updateContextUser }) => {
       }
     }
   };
-
-  const handleBlockAdmin = async (admin) => {
-    if (admin.enabled === true) {
-      Swal.fire({
-        title: "¿Deseas bloquear a este Admin en la plataforma?",
-        icon: "question",
+  const handleToggleActivation = async (admin) => {
+    try {
+      const result = await Swal.fire({
+        title: `¿Estás seguro de ${admin.isActive ? "desactivar" : "activar"} este administrador?`,
+        icon: 'question',
         showCancelButton: true,
-        confirmButtonColor: "#d33",
-        cancelButtonColor: "#3d0dca",
-        cancelButtonText: "Cancelar",
-        confirmButtonText: "Aceptar",
-        customClass: {
-          popup: "mySwal",
-        },
-      }).then(async (result) => {
-        if (result.isConfirmed) {
-          console.log("Admin ID:", admin.adminId);
-          const response = await axios.put( `http://localhost:3001/admin/${admin.ID}`
-            /* `https://bfs-pfhenry-production.up.railway.app/admin/${adminId}` */,
-            {
-              ...admin,
-              enabled: false,
-            }
-          );
-          if (response) {
-            Swal.fire({
-              title: "Este Admin ha sido Activado en BFS",
-              icon: "success",
-              customClass: {
-                popup: "mySwal",
-              },
-            });
-          }
-        }
-        await handleAdmin();
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Aceptar',
+        cancelButtonText: 'Cancelar',
       });
-      return;
-    }
-
-    if (admin.enabled === false) {
-      Swal.fire({
-        title: "¿Deseas desbloquear a este Admin en la plataforma?",
-        icon: "question",
-        showCancelButton: true,
-        confirmButtonColor: "#d33",
-        cancelButtonColor: "#3d0dca",
-        cancelButtonText: "Cancelar",
-        confirmButtonText: "Aceptar",
-        customClass: {
-          popup: "mySwal",
-        },
-      }).then(async (result) => {
-        if (result.isConfirmed) {
-          const response = await axios.put(`http://localhost:3001/admin/${admin.ID}`
-            /* `https://bfs-pfhenry-production.up.railway.app/admin ${adminId}` */,
-            {
-              ...admin,
-              enabled: true,
-            }
-          );
-          if (response) {
-            Swal.fire({
-              title: "Este Admin ha sido desbloqueado en BFS",
-              icon: "success",
-              customClass: {
-                popup: "mySwal",
-              },
-            });
-          }
-        }
-        await handleAdmin();
-      });
-      return;
+  
+      if (result.isConfirmed) {
+        // Realiza la llamada a la API para cambiar el estado del administrador
+        await axios.put(`http://localhost:3001/admin/${admin.ID}`, {
+          isActive: !admin.isActive,
+        });
+  
+        // Actualiza el estado en el frontend utilizando las acciones de Redux
+        const updatedAdminList = adminList.map((a) =>
+          a.ID === admin.ID ? { ...a, isActive: !admin.isActive } : a
+        );
+  
+        setAdminList(updatedAdminList); // Actualiza adminList
+  
+        Swal.fire({
+          title: 'Éxito',
+          text: `El administrador ha sido ${admin.isActive ? 'desactivado' : 'activado'} correctamente.`,
+          icon: 'success',
+        });
+      }
+    } catch (error) {
+      console.error('Error al activar/desactivar administrador:', error);
     }
   };
+  
 
   return (
     <div className={style.container}>
@@ -196,8 +159,9 @@ const Dashboard = ({ updateContextUser }) => {
         envio={envio}
         admin={admin}
         handleToggleUser={handleToggleUser}
-        handleBlockAdmin={handleBlockAdmin}
+        handleToggleActivation={handleToggleActivation}
       />
+   
     </div>
   );
 };

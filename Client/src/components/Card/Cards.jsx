@@ -8,32 +8,36 @@ const Cards = () => {
       <div>
         <Card style={{ width: "18rem", height: "25rem", margin: "10px", backgroundColor: "#ffbc6587" }}>
           <Card.Img
+            className= {styles.cartLogo}
             variant="top"
             src="https://libertyexpress.com/wp-content/themes/kutis/assets/svg/icons/servicioPickup.svg"
             style={{ width: '100px', height: '100px', }}
           />
-          <Card.Body>
+          <Card.Body 
+            className="my-2">
             <Card.Title>SERVICIO DE RECOGIDAS O PICKUP</Card.Title>
-            <Card.Text>
+            <Card.Text
+            className="my-2">
             Ideal para mandar a buscar lo que desees en cualquier provincia
             </Card.Text>
-            <Button variant="primary" href="/contacto">Contactanos</Button>
+            <Button className="my-3" variant="primary" href="/contacto">Contactanos</Button>
           </Card.Body>
         </Card>
       </div>
       <div>
         <Card style={{ width: "18rem", height: "25rem", margin: "10px", backgroundColor: "#0000ff44" }}>
           <Card.Img
+            className= {styles.cartLogo}
             variant="top"
             src="https://libertyexpress.com/wp-content/themes/kutis/assets/svg/icons/servicioCargaComercial.svg"
             style={{ width: '100px', height: '100px' }}
           />
-          <Card.Body>
+          <Card.Body className="my-2">
             <Card.Title>CARGA COMERCIAL Y PERSONAL</Card.Title>
-            <Card.Text>
+            <Card.Text >
             Ideal para empresas con alto volumen y personas que requieran de un servicio especializado
             </Card.Text>
-            <Button variant="primary" href="/cotizacion">Cotizar mi envio</Button>
+            <Button className="my-2" variant="primary" href="/cotizacion">Cotizar mi envio</Button>
           </Card.Body>
         </Card>
       </div>
@@ -41,11 +45,12 @@ const Cards = () => {
       <div>
         <Card style={{ width: "18rem", height: "25rem", margin: "10px", backgroundColor: "#ffbc6587" }}>
           <Card.Img
+                    className= {styles.cartLogo}
             variant="top"
             src="https://libertyexpress.com/wp-content/themes/kutis/assets/svg/icons/servicioEnvioRecepcion.svg"
-            style={{ width: '100px', height: '100px' }}
+            style={{ width: '110px', height: '110px' }}
           />
-          <Card.Body>
+          <Card.Body className="my-2">
             <Card.Title>RETIRA EN NUESTRAS SUCURSALES</Card.Title>
             <Card.Text>
             Retira tus paquetes en la sucursal que este más cercana a tu domicilio
