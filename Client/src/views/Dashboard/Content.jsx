@@ -222,43 +222,44 @@ const Content = ({ selectedButton, envio, users, admin, handleToggleUser, handle
           </>
         )}
 
-        {selectedButton === "Admin" && (
-          <>
-            <h2>Administradores</h2>
-            <div className={styles.envios_table_container}>
-              <table className={styles.envios_table}>
-                <thead>
-                  <tr>
-                    <th>Nombre Admin</th>
-                    <th>Email</th>
-                    <th>Estado</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {admin?.map((admin, ID) => (
-                    <tr key={ID}>
-                      <td>{admin?.nameAdmin || "N/A"}</td>
-                      <td>{admin?.emailAdmin || "N/A"}</td>
-                      <td>
-                        <button
-                          onClick={() => handleToggleActivation(admin)}
-                          style={{
-                            backgroundColor: admin.isActive ? "green" : "red",
-                            color: "white",
-                            cursor: "pointer",
-                            padding: "4px",
-                            borderRadius: "5px",
-                          }}>
-                          {admin?.isActive ? "Activo" : "Inactivo"}
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </>
-        )}
+{selectedButton === "Admin" && (
+  <>
+    <h2>Administradores</h2>
+    <div className={styles.envios_table_container}>
+      <table className={styles.envios_table}>
+        <thead>
+          <tr>
+            <th>Nombre Admin</th>
+            <th>Email</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          {admin?.map((admin, ID) => (
+            <tr key={ID}>
+              <td>{admin?.nameAdmin || "N/A"}</td>
+              <td>{admin?.emailAdmin || "N/A"}</td>
+              <td>
+                <button
+                  onClick={() => handleToggleActivation(admin)}
+                  style={{
+                    backgroundColor: admin.isActive ? "green" : "red",
+                    color: "white",
+                    cursor: "pointer",
+                    padding: "4px",
+                    borderRadius: "5px",
+                  }}>
+                  {admin?.isActive ? "Activo" : "Inactivo"}
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </>
+)}
+
       </div>
     </div>
   );

@@ -27,7 +27,7 @@ const Dashboard = ({ updateContextUser }) => {
     handleUsers();
     handleEnvio();
     handleAdmin();
-  }, []);
+  }, [adminList]);
 
   const handleButtonClick = (button) => {
     if (button === "adminGraphs") {
@@ -113,7 +113,6 @@ const Dashboard = ({ updateContextUser }) => {
       }
     }
   };
-
   const handleToggleActivation = async (admin) => {
     try {
       const result = await Swal.fire({
@@ -137,7 +136,7 @@ const Dashboard = ({ updateContextUser }) => {
           a.ID === admin.ID ? { ...a, isActive: !admin.isActive } : a
         );
   
-        setAdminList(updatedAdminList);
+        setAdminList(updatedAdminList); // Actualiza adminList
   
         Swal.fire({
           title: 'Éxito',
@@ -149,6 +148,7 @@ const Dashboard = ({ updateContextUser }) => {
       console.error('Error al activar/desactivar administrador:', error);
     }
   };
+  
 
   return (
     <div className={style.container}>
