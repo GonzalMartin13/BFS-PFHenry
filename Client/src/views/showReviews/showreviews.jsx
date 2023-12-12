@@ -12,28 +12,45 @@ const ShowReviews = () => {
   const dispatch = useDispatch();
   const reviews = useSelector((state) => state.reviews.allReviews);
 
+
   useEffect(() => {
     dispatch(fetchAllReviews());
   }, [dispatch]);
 
   return (
     <div className="review-carousel-container">
-    <Carousel fade className="border rounded" style={{ maxWidth: "500px", margin: "auto" }}>
- {reviews.map((review) => (
-    <Carousel.Item key={review.id} className="review-item">
-      <div className="text-container">
-        <div className="stars-container" style={{ marginBottom: '30px' }}>
-          {[...Array(review.rating)].map((_, index) => (
-            <FaStar key={index} size={20} color="#ffc107" />
-          ))}
+  <Carousel
+    fade
+    className="border rounded"
+    style={{
+      maxWidth: "500px",
+      margin: "auto",
+      backgroundColor: "#f8f9fa",
+      border: "1px solid #dee2e6",
+      borderRadius: "10px",
+      boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+      height: "190px"
+    }}
+  >
+    {reviews.map((review) => (
+      <Carousel.Item key={review.id} className="review-item">
+        <div className="text-container">
+          <div className="stars-container" style={{ marginBottom: '40px' }}>
+            {[...Array(review.rating)].map((_, index) => (
+              <FaStar key={index} size={20} color="#ffc107" />
+            ))}
+          </div>
+          <p className="comment-text">"{review.comment}"</p>
+          <p className="user-email">{review.UserEmail}</p>
         </div>
-        <p className="comment-text">"{review.comment}"</p>
-        <p className="user-email">{review.UserEmail}</p>
-      </div>
-    </Carousel.Item>
-  ))}
-</Carousel>
-  </div>
+
+      </Carousel.Item>
+    ))}
+
+  </Carousel>
+</div>
+
+  
   );
 };
 
