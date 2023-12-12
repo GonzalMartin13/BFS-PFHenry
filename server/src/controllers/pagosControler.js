@@ -16,16 +16,12 @@ const pagosControler = async (servicios, total) => {
             quantity: 1,
           },
         ],
-
-/*         back_urls: {
-          success: "http://localhost:5173/factura",
-          pending: "http://localhost:3001/pendiente",
-          failure: "http://localhost:5173/error",
-        }, */
-                 back_urls:{ 
+       
+        back_urls:{ 
             success:"https://bfsonline.vercel.app/factura",
             pending:"https://bfsonline.vercel.app/pend",
             failure:"https://bfsonline.vercel.app/error"
+
         }, 
         
 

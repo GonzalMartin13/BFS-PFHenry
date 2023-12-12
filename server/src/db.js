@@ -6,15 +6,15 @@ const fs = require("fs");
 
 const { DB_USER, DB_PASSWORD, DB_HOST, DEPLOY_URL } = process.env;
 
- const sequelize = new Sequelize(DEPLOY_URL,
+const sequelize = new Sequelize(
+  DEPLOY_URL,
 
- 	{
- 		logging: false,
- 		native: false,
- 		dialectModule: pg,
- 	}
-
-);  
+  {
+    logging: false,
+    native: false,
+    dialectModule: pg,
+  }
+);
 /*  const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/BFS`,
 
 	{
@@ -24,8 +24,6 @@ const { DB_USER, DB_PASSWORD, DB_HOST, DEPLOY_URL } = process.env;
 	}
 
 );    */
-
-
 
 const basename = path.basename(__filename);
 
@@ -54,7 +52,7 @@ let capsEntries = entries.map((entry) => [
 ]);
 sequelize.models = Object.fromEntries(capsEntries);
 
-const {User, Package, Admin, Review} = sequelize.models;
+const { User, Package, Admin, Review } = sequelize.models;
 
 //----------------Relacion de Uno A Muchos --------------------------------
 User.hasMany(Package); // un usuario hace muchos envios
@@ -65,13 +63,12 @@ Review.belongsTo(User); // un cometario solo lo hace un Usuario
 
 //  ---------------->  Relacion de muchos A Muchos <-----------------------
 
-User.belongsToMany(Admin, { through: 'User_Admin' }); // Muchos usuarios pueden enviar paquetes a muchas sucursales
-Admin.belongsToMany(User, { through: 'User_Admin' }); // Muchas sucursales reciben envios de muchos usuarios
+User.belongsToMany(Admin, { through: "User_Admin" }); // Muchos usuarios pueden enviar paquetes a muchas sucursales
+Admin.belongsToMany(User, { through: "User_Admin" }); // Muchas sucursales reciben envios de muchos usuarios
 
 //console.log(sequelize.models);
 
 module.exports = {
-	...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
-	conn: sequelize, // para importart la conexión { pool } = require('./db.js');
-  };
-
+  ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
+  conn: sequelize, // para importart la conexión { pool } = require('./db.js');
+};
