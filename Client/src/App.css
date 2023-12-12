@@ -1,7 +1,7 @@
-@font-face {
+/* @font-face {
   font-family: "roboto";
-  src: url("../src/assets/roboto.ttf") format('truetype');
-}
+  src: url("../src/assets/roboto.ttf") format("truetype");
+} */
 
 * {
   margin: 0;
@@ -20,7 +20,7 @@ html {
 }
 
 #root {
-  font-family: "roboto";
+  font-family: "Roboto", sans-serif;
   width: 100%;
   margin: auto;
   text-align: center;
