@@ -58,10 +58,10 @@ const Email = () => {
 
     emailjs
       .sendForm(
-        "service_ko3ekug",
-        "template_efdhnp2",
+        "service_dr0btnj",
+        "template_s4ejomn",
         event.target,
-        "Z07yDoQAt6am4G7K6"
+        "ELPWCjAlQFhUotjly"
       )
       .then((response) => {
         console.log(response);
@@ -70,13 +70,23 @@ const Email = () => {
         setAsunto("");
         setEmail("");
         setMessage("");
+        return Promise.resolve(response);
+      })
+      .then((response) => {
         Swal.fire({
           icon: "success",
           title: "¡Mensaje enviado!",
-          text: "Hemos recibido tu mensaje, un miembro del equipo te contactara en breve.",
+          text: "Hemos recibido tu mensaje, un miembro del equipo te contactará en breve.",
         });
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        console.log(error);
+        Swal.fire({
+          icon: "error",
+          title: "Error en el envío",
+          text: "Hubo un problema al enviar el mensaje. Por favor, inténtalo de nuevo más tarde.",
+        });
+      });
   };
 
   const desabilitar =
@@ -142,8 +152,9 @@ const Email = () => {
             <br></br>
             <span style={{ color: "red" }}>{messageError}</span>
             <hr />
-            <button type="submit" disabled={desabilitar} className={styles.boton}>
+            <button type="submit" disabled={desabilitar} className={styles.boton}><strong>
               Enviar
+              </strong>
             </button>
           </div>
             <br></br>
