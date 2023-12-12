@@ -58,10 +58,10 @@ const Email = () => {
 
     emailjs
       .sendForm(
-        "service_ko3ekug",
-        "template_efdhnp2",
+        "service_dr0btnj",
+        "template_s4ejomn",
         event.target,
-        "Z07yDoQAt6am4G7K6"
+        "ELPWCjAlQFhUotjly"
       )
       .then((response) => {
         console.log(response);
