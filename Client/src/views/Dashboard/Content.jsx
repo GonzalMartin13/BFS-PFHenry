@@ -19,22 +19,22 @@ const Content = ({ selectedButton, envio, users, admin, handleToggleUser, handle
   };
 
 
-  const handleToggleActivation = async (admin) => {
-    try {
+  // const handleToggleActivation = async (admin) => {
+  //   try {
 
-      const confirmed = window.confirm(
-        `¿Estás seguro de ${
-          admin.isActive ? "desactivar" : "activar"
-        } este administrador?`
-      );
+  //     const confirmed = window.confirm(
+  //       `¿Estás seguro de ${
+  //         admin.isActive ? "desactivar" : "activar"
+  //       } este administrador?`
+  //     );
 
-      if (confirmed) {
+  //     if (confirmed) {
      
-        // Realiza la llamada a la API para cambiar el estado del administrador
-        //await axios.put(`http://localhost:3001/admin/${admin.ID}`, {
-        await axios.put(`https://bfs-pfhenry-production.up.railway.app/admin/${admin.ID}`, {
-          isActive: !admin.isActive,
-        });
+  //       // Realiza la llamada a la API para cambiar el estado del administrador
+  //       //await axios.put(`http://localhost:3001/admin/${admin.ID}`, {
+  //       await axios.put(`https://bfs-pfhenry-production.up.railway.app/admin/${admin.ID}`, {
+  //         isActive: !admin.isActive,
+  //       });
 
 
 
