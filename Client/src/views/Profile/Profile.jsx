@@ -87,9 +87,30 @@ const Profile = () => {
 
   return (
     <div>
-      <Container className="mt-7">
-        <Row className="justify-content-center align-items-center min-vh-100 ">
-          <Form onSubmit={handleSubmit}>
+      <Container style={{
+      border: "2px solid #dee2e6",
+      borderRadius: "5px",
+      boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+      margin: "30px auto",
+      maxWidth: "700px",
+      marginTop:"30px",
+      maxHeight:"600px"
+  
+    }} className="mt-7">
+        <Row className="justify-content-center align-items-center">
+        <div style={{
+          backgroundColor: "#f8f9fa",
+          border: "1px solid #dee2e6",
+          borderRadius: "10px",
+          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+          maxWidth: "300px",
+          marginTop:"13px"
+        }}>
+          <h3 style={{ margin: "15px " }}>Completa tus datos</h3>
+
+        </div>
+          <Form onSubmit={handleSubmit} style={{padding: "50px"}}>
+   
             {/*  <h1 className="mb-4 fs-2">Registro de usario</h1> */}
             {/* Nombre y Apellido en la misma línea */}
             <Row className="mb-3">
@@ -178,8 +199,9 @@ const Profile = () => {
               !errors.phone &&
               !errors.nickname && (
                 <Button
+              
                   disabled={!formValid}
-                  variant="primary"
+                  variant="secondary"
                   type="submit"
                   className="mb-2"
                 >

@@ -11,49 +11,25 @@ const Mapa = () => {
     iconSize: [38, 38],
   });
 
-  return (
+  return  (
     <div>
-      <div style={{ position: "relative" }}>
-        <Image
-          src="https://andreani.hiringroom.com/data/accounts/andreani/microsite/2e7e726a39c966e8c72dd7b7321d683c.jpg"
-          fluid
-          style={{ width: "100%", height: "300px" }}
-        />
+      <div style={{
+        maxWidth: "960px",
+        margin: "1pc auto",
+        backgroundColor: "#f8f9fa",
+        border: "1px solid #dee2e6",
+        borderRadius: "5px",
+        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+        marginBottom: "20px",
+        marginTop: "20px",
+      }}>
+        <h3 style={{ margin: "15px" }}>Nuestras sucursales</h3>
       </div>
-      <br />
-      <h1>Nuestras Sucursales</h1>
-      <div
-        style={{
-          height: "550px",
-          width: "75%",
-          display: "flex",
-          margin: "auto",
-        }}
-      >
-        <MapContainer
-          center={position}
-          zoom={4}
-          style={{ height: "490px", width: "95%", margin: "auto" }}
-        >
-          <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          ></TileLayer>
 
-          {sucursales.map((sucursal) => (
-            <Marker
-              key={sucursal.key}
-              position={sucursal.coordenadas}
-              icon={myIcon}
-            >
-              <Popup>{sucursal.Popup}</Popup>
-            </Marker>
-          ))}
-        </MapContainer>
-      </div>
       <Row>
-        <Col md={6}>
-          <div style={{ marginBottom: "20px" }}>
+        {/* Columna del Listado de Sucursales */}
+        <Col md={4} >
+        <div style={{ marginBottom: "20px", border:"3px black solid", width:"80%", marginLeft:"3pc" }}>
             <div>
               <strong>Ciudad:</strong> Misiones
             </div>
@@ -62,7 +38,7 @@ const Mapa = () => {
               C1043AAL
             </div>
           </div>
-          <div style={{ marginBottom: "20px" }}>
+        <div style={{ marginBottom: "20px", border:"3px black solid", width:"80%", marginLeft:"3pc" }}>
             <div>
               <strong>Ciudad:</strong> Municipio de San Luis
             </div>
@@ -71,7 +47,7 @@ const Mapa = () => {
               Luis, CP: D5702JRP
             </div>
           </div>
-          <div style={{ marginBottom: "20px" }}>
+        <div style={{ marginBottom: "20px", border:"3px black solid", width:"80%", marginLeft:"3pc" }}>
             <div>
               <strong>Ciudad:</strong> Santa Cruz
             </div>
@@ -81,7 +57,7 @@ const Mapa = () => {
             </div>
           </div>
 
-          <div style={{ marginBottom: "20px" }}>
+        <div style={{ marginBottom: "20px", border:"3px black solid", width:"80%", marginLeft:"3pc" }}>
             <div>
               <strong>Ciudad:</strong> Río Negro
             </div>
@@ -91,7 +67,7 @@ const Mapa = () => {
             </div>
           </div>
 
-          <div style={{ marginBottom: "20px" }}>
+        <div style={{ marginBottom: "20px", border:"3px black solid", width:"80%", marginLeft:"3pc" }}>
             <div>
               <strong>Ciudad:</strong> Chubut
             </div>
@@ -100,7 +76,7 @@ const Mapa = () => {
             </div>
           </div>
 
-          <div style={{ marginBottom: "20px" }}>
+        <div style={{ marginBottom: "20px", border:"3px black solid", width:"80%", marginLeft:"3pc" }}>
             <div>
               <strong>Ciudad:</strong> Mendoza
             </div>
@@ -110,7 +86,7 @@ const Mapa = () => {
             </div>
           </div>
 
-          <div style={{ marginBottom: "20px" }}>
+        <div style={{ marginBottom: "20px", border:"3px black solid", width:"80%", marginLeft:"3pc" }}>
             <div>
               <strong>Ciudad:</strong> Entre Ríos
             </div>
@@ -119,7 +95,7 @@ const Mapa = () => {
               Entre Ríos, CP: E2820BLA
             </div>
           </div>
-          <div style={{ marginBottom: "20px" }}>
+        <div style={{ marginBottom: "20px", border:"3px black solid", width:"80%", marginLeft:"3pc" }}>
             <div>
               <strong>Ciudad:</strong> La Pampa
             </div>
@@ -127,7 +103,10 @@ const Mapa = () => {
               <strong>Dirección:</strong> Santa Rosa 3000, La Pampa, CP: 6300
             </div>
           </div>
-          <div style={{ marginBottom: "20px" }}>
+
+        </Col>
+        <Col md={4}>
+        <div style={{ marginBottom: "20px", border:"3px black solid", width:"80%" }}>
             <div>
               <strong>Ciudad:</strong> Santiago del Estero
             </div>
@@ -136,7 +115,7 @@ const Mapa = () => {
               G4200
             </div>
           </div>
-          <div style={{ marginBottom: "20px" }}>
+        <div style={{ marginBottom: "20px", border:"3px black solid", width:"80%" }}>
             <div>
               <strong>Ciudad:</strong> Corrientes
             </div>
@@ -145,7 +124,7 @@ const Mapa = () => {
             </div>
           </div>
 
-          <div style={{ marginBottom: "20px" }}>
+        <div style={{ marginBottom: "20px", border:"3px black solid", width:"80%" }}>
             <div>
               <strong>Ciudad:</strong> Tucumán
             </div>
@@ -155,7 +134,7 @@ const Mapa = () => {
             </div>
           </div>
 
-          <div style={{ marginBottom: "20px" }}>
+        <div style={{ marginBottom: "20px", border:"3px black solid", width:"80%" }}>
             <div>
               <strong>Ciudad:</strong> Neuquén
             </div>
@@ -164,10 +143,7 @@ const Mapa = () => {
               CP: 8322
             </div>
           </div>
-        </Col>
-
-        <Col md={6}>
-          <div style={{ marginBottom: "20px" }}>
+        <div style={{ marginBottom: "20px", border:"3px black solid", width:"80%" }}>
             <div>
               <strong>Ciudad:</strong> La Rioja
             </div>
@@ -177,7 +153,7 @@ const Mapa = () => {
             </div>
           </div>
 
-          <div style={{ marginBottom: "20px" }}>
+        <div style={{ marginBottom: "20px", border:"3px black solid", width:"80%" }}>
             <div>
               <strong>Ciudad:</strong> Catamarca
             </div>
@@ -187,7 +163,7 @@ const Mapa = () => {
             </div>
           </div>
 
-          <div style={{ marginBottom: "20px" }}>
+          <div style={{ marginBottom: "20px", border:"3px black solid", width:"80%" }}>
             <div>
               <strong>Ciudad:</strong> Salta
             </div>
@@ -195,8 +171,10 @@ const Mapa = () => {
               <strong>Dirección:</strong> Leguizamón 1946, Salta, CP: 4400
             </div>
           </div>
+        </Col>
 
-          <div style={{ marginBottom: "20px" }}>
+        <Col md={4}>
+        <div style={{ marginBottom: "20px", border:"3px black solid", width:"80%" }}>
             <div>
               <strong>Ciudad:</strong> Chaco
             </div>
@@ -205,7 +183,7 @@ const Mapa = () => {
             </div>
           </div>
 
-          <div style={{ marginBottom: "20px" }}>
+          <div style={{ marginBottom: "20px", border:"3px black solid", width:"80%" }}>
             <div>
               <strong>Ciudad:</strong> Formosa
             </div>
@@ -213,8 +191,7 @@ const Mapa = () => {
               <strong>Dirección:</strong> Jujuy 975, Formosa, CP: 3600
             </div>
           </div>
-
-          <div style={{ marginBottom: "20px" }}>
+          <div style={{ marginBottom: "20px", border:"3px black solid", width:"80%" }}>
             <div>
               <strong>Ciudad:</strong> Jujuy
             </div>
@@ -224,7 +201,7 @@ const Mapa = () => {
             </div>
           </div>
 
-          <div style={{ marginBottom: "20px" }}>
+          <div style={{ marginBottom: "20px", border:"3px black solid", width:"80%" }}>
             <div>
               <strong>Ciudad:</strong> Tierra del Fuego
             </div>
@@ -233,7 +210,7 @@ const Mapa = () => {
             </div>
           </div>
 
-          <div style={{ marginBottom: "20px" }}>
+          <div style={{ marginBottom: "20px", border:"3px black solid", width:"80%" }}>
             <div>
               <strong>Ciudad:</strong> Buenos Aires
             </div>
@@ -243,7 +220,7 @@ const Mapa = () => {
             </div>
           </div>
 
-          <div style={{ marginBottom: "20px" }}>
+          <div style={{ marginBottom: "20px", border:"3px black solid", width:"80%" }}>
             <div>
               <strong>Ciudad:</strong> Córdoba
             </div>
@@ -252,7 +229,7 @@ const Mapa = () => {
             </div>
           </div>
 
-          <div style={{ marginBottom: "20px" }}>
+          <div style={{ marginBottom: "20px", border:"3px black solid", width:"80%" }}>
             <div>
               <strong>Ciudad:</strong> San Juan
             </div>
@@ -261,13 +238,38 @@ const Mapa = () => {
             </div>
           </div>
 
-          <div style={{ marginBottom: "20px" }}>
+          <div style={{ marginBottom: "20px", border:"3px black solid", width:"80%" }}>
             <div>
               <strong>Ciudad:</strong> Santa Fe
             </div>
             <div>
               <strong>Dirección:</strong> Mendoza 4170, Santa Fe, CP: S3000
             </div>
+          </div>
+        </Col>
+              {/* Columna del Mapa */}
+              <Col md={6}>
+          <div style={{ height: "550px", width: "100%", marginLeft: "50%" }}>
+            <MapContainer
+              center={position}
+              zoom={4}
+              style={{ height: "490px", width: "100%" }}
+            >
+              <TileLayer
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              ></TileLayer>
+
+              {sucursales.map((sucursal, index) => (
+                <Marker
+                  key={index}
+                  position={sucursal.coordenadas}
+                  // Icono de marcador personalizado si lo deseas
+                >
+                  <Popup>{sucursal.Popup}</Popup>
+                </Marker>
+              ))}
+            </MapContainer>
           </div>
         </Col>
       </Row>

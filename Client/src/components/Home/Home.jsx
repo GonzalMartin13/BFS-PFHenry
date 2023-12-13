@@ -24,10 +24,9 @@ const Home = () => {
 
   return (
     <div style={{ position: "relative" }}>
-      <br />
-      <h2 className="title-carousel margin center-items">
+{/*       <h2 className="title-carousel margin center-items">
         ¡Tenemos un <b>gran compromiso</b>!
-      </h2>
+      </h2> */}
       <SeguimientoEnvio/>
       <br />
       <Slider />
@@ -43,18 +42,7 @@ const Home = () => {
 
       <br />
 
-      <Button href={isLogged ? "/envios" : "/login"} variant="">
-        <Card style={{ width: "18rem" }}>
-          <Card.Body>
-            <Card.Title>Ver mis envíos</Card.Title>
-            <br></br>
-            <img src={iconoEnvio} />
-            <Card.Text>
-              Mirá el listado de envíos asociados a tu cuenta.
-            </Card.Text>
-          </Card.Body>
-        </Card>
-      </Button>
+     
       <br />
       <br />
       <br />

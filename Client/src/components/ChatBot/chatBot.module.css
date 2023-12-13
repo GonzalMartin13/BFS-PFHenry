@@ -1,7 +1,9 @@
 .chat{
     position: fixed;
-    bottom: 12vh;
-    right: 70vw;
+    margin: 40px;
+    bottom: 9vh;
+    left: 10px;
+    right: auto;
     z-index: 1000;
     border-radius: 8px;
     border: 2px solid rgb(78, 83, 236);

@@ -1,13 +1,15 @@
 const searcher = {
   flexGrow: "1",
   outline: "none",
-  backgroundColor: "transparent",
+  backgroundColor: "whitesmoke",
   color: "black",
   border: "2px solid black",
   fontFamily: "inherit",
-  width: "300px",
-  fontSize: "15px",
-  marginLeft: "20px"
+  width: "40pc",
+  height: "5pc",
+  fontSize: "x-large",
+  marginLeft: "55px",
+  marginTop: "30pc"
 };
 
 const error = {
@@ -17,10 +19,13 @@ const error = {
 };
 
 const lupa = {
-  height: '0px', 
-  border: "none",
-  backgroundColor: "transparent",
-  color: "black"
+  height: '5pc',
+  width:"5pc", 
+  border: "solid black 2px",
+  backgroundColor: "whitesmoke",
+  color: "black",
+  marginTop: "30pc",
+  marginLeft: "1pc"
 };
 
 export {

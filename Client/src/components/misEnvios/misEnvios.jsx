@@ -6,11 +6,10 @@ import Modal from "react-bootstrap/Modal";
 import Image from "react-bootstrap/Image";
 import flechaIcon from "../../assets/avance.png";
 import VerticalExample from "../filters/filters";
-import { getUserPackages } from "../../redux/Slices/packageSlice"; // Actualizado
+import { getUserPackages } from "../../redux/Slices/packageSlice";
 import copiarIcon from "../../assets/copia.png";
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
-
 
 function MisEnvios() {
   const dispatch = useDispatch();
@@ -82,11 +81,17 @@ function MisEnvios() {
 
   const renderTooltip = (props) => (
     <Tooltip id="button-tooltip" {...props}>
-  Copiar
+      Copiar
     </Tooltip>
   );
 
+  const [showImageModal, setShowImageModal] = useState(false);
+  const [largeImageUrl, setLargeImageUrl] = useState("");
 
+  const handleOpenImageModal = (imageUrl) => {
+    setLargeImageUrl(imageUrl);
+    setShowImageModal(true);
+  };
 
   return (
     <>
@@ -109,35 +114,40 @@ function MisEnvios() {
               key={idx}
               style={{
                 width: "18rem",
-                height: "100%",
+                height: "300px", // Establecer una altura fija
                 margin: "0 10px 20px",
                 backgroundColor: "#f8f9fa",
                 border: "1px solid #dee2e6",
                 borderRadius: "10px",
-                boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)"
+                boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+                overflow: "hidden"
               }}
               className="mb-3"
             >
-              <Card.Body>
-                <h6>{envio.fechaInicial.split("T")[0]}</h6>
-                <Card.Title>{envio.servicios}</Card.Title>
-                <br/>
-                <Card.Subtitle className="mb-2 text-muted">
-                  <span style={{ marginRight: '5px' }}></span>
-                  {envio.origen} <img src={flechaIcon} alt="Logout Icon" style={{ width: '20px', height: '20px', marginLeft: '5px' }} />
-                  {""} {envio.destino}
-                </Card.Subtitle>
-                <Card.Text></Card.Text>
-                <Button
-                  variant="outline-primary"
-                  style={{
-                    height: "40px",
-                    marginTop: "10px"
-                  }}
-                  onClick={() => handleDetalleButtonClick(envio)}
-                >
-                  Detalle
-                </Button>
+              <Card.Body style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                <div>
+                  <h6>{envio.fechaInicial.split("T")[0]}</h6>
+                  <Card.Title>{envio.servicios}</Card.Title>
+                  <br/>
+                  <Card.Subtitle className="mb-2 text-muted">
+                    <span style={{ marginRight: '5px' }}></span>
+                    {envio.origen} <img src={flechaIcon} alt="Logout Icon" style={{ width: '20px', height: '20px', marginLeft: '5px' }} />
+                    {""} {envio.destino}
+                  </Card.Subtitle>
+                </div>
+                <div>
+                  <Card.Text></Card.Text>
+                  <Button
+                    variant="outline-primary"
+                    style={{
+                      height: "40px",
+                      marginTop: "10px"
+                    }}
+                    onClick={() => handleDetalleButtonClick(envio)}
+                  >
+                    Detalle
+                  </Button>
+                </div>
               </Card.Body>
             </Card>
           ))}
@@ -157,50 +167,55 @@ function MisEnvios() {
             </Modal.Header>
 
             <Modal.Body style={{ padding: '22px', textAlign: 'center' }}>
-            <p  style={{ marginBottom: '13px', fontSize: '1.1rem', }}>Numero de seguimiento:</p>
+              <p  style={{ marginBottom: '13px', fontSize: '1.1rem', }}>Numero de seguimiento:</p>
               <p style={{ marginBottom: '13px', fontSize: '1.1rem', fontWeight: 'bold' }}>
-                 {selectedPackage.id} 
-               
+                {selectedPackage.id} 
                 <OverlayTrigger
-                placement="right"
-                delay={{ show: 250, hide: 400 }}
-                overlay={renderTooltip}
-              >
-                <Button
-                  variant="secondary"
-                  onClick={handleCopyToClipboard}
-                  style={{
-                    border: 'none',
-                    background: 'transparent',
-                    transform: isCopied ? 'scale(1.2)' : 'scale(1)',
-                    transition: 'transform 0.3s ease',
-                  }}
-                  onMouseEnter={handleMouseEnter}
-                  onMouseLeave={() => {
-                    handleMouseLeave();
-                    resetCopyState(); 
-                  }}
+                  placement="right"
+                  delay={{ show: 250, hide: 400 }}
+                  overlay={renderTooltip}
                 >
-                  <img src={copiarIcon} alt="copiar Icon" style={{ width: '20px', height: '20px', marginLeft: '5px' }} />
-                </Button>
-              </OverlayTrigger>
-
+                  <Button
+                    variant="secondary"
+                    onClick={handleCopyToClipboard}
+                    style={{
+                      border: 'none',
+                      background: 'transparent',
+                      transform: isCopied ? 'scale(1.2)' : 'scale(1)',
+                      transition: 'transform 0.3s ease',
+                    }}
+                    onMouseEnter={handleMouseEnter}
+                    onMouseLeave={() => {
+                      handleMouseLeave();
+                      resetCopyState(); 
+                    }}
+                  >
+                    <img src={copiarIcon} alt="copiar Icon" style={{ width: '20px', height: '20px', marginLeft: '5px' }} />
+                  </Button>
+                </OverlayTrigger>
               </p>
               <p style={{ marginBottom: '10px' }}>Fecha: {fecha ? fecha : 'Fecha no disponible'}</p>
               <p style={{ marginBottom: '10px' }}>Estatus: {selectedPackage.status}</p>
               <p style={{ marginBottom: '10px' }}>Peso: {selectedPackage.peso} kg</p>
               <p style={{ marginBottom: '10px' }}>Total: {selectedPackage.total} $</p>
               {selectedPackage.imagen && (
-                <img
-                  src={selectedPackage.imagen}
-                  alt="Imagen del paquete"
-                  style={{ maxWidth: '100%', maxHeight: '200px', margin: '10px 0', borderRadius: '5px' }}
-                />
+                <Button onClick={() => handleOpenImageModal(selectedPackage.imagen)}>
+                  Ver Imagen
+                </Button>
               )}
             </Modal.Body>
           </Modal>
         )}
-        <br />
+        <Modal show={showImageModal} onHide={() => setShowImageModal(false)}>
+          <Modal.Header closeButton></Modal.Header>
+          <Modal.Body>
+            <img
+              src={largeImageUrl}
+              alt="Imagen del paquete"
+              style={{ width: '100%', height: 'auto' }}
+            />
+          </Modal.Body>
+        </Modal>
         <br />
         <br />
       </div>

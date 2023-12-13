@@ -16,6 +16,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import "./envios.css"
 
+
 function SeguimientoEnvio() {
   const [errors, setErrors] = useState({
     numero: "",
@@ -92,7 +93,7 @@ function SeguimientoEnvio() {
   };
 
   return (
-    <div className="seguimiento-envio-container ">
+    <div className="seguimiento-envio-container fondoenvio">
       <Form onSubmit={(e) => handleSubmit(input.numero, e)} className="form-container d-flex">
         <Form.Label className="mb-1"></Form.Label>
         <Form.Group>
