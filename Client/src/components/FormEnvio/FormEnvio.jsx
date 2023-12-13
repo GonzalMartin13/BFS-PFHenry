@@ -640,13 +640,7 @@ const FormEnvio = () => {
             <div>
               <br></br>
               <button type="submit" className={styles.button}>
-                <a
-                  href={linkPago}
-                  style={{ textDecoration: "none", color: "white" }}
-                >
-                  {" "}
-                  Proceder al pago{" "}
-                </a>
+                Proceder al pago
               </button>
               <br></br>
             </div>

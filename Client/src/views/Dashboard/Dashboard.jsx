@@ -45,9 +45,18 @@ const Dashboard = ({ updateContextUser }) => {
     }
   };
 
+  // const handleUsers = async () => {
+  //   const usuarios = await getAllUser();
+  //   setUsers(usuarios);
+  // };
+
   const handleUsers = async () => {
     const usuarios = await getAllUser();
-    setUsers(usuarios);
+    usuarios.map((user) => user.enabled = true);
+    const oldUsers = users;
+    const newUsers = usuarios.filter(newUser => !oldUsers.some(oldUser => oldUser.id === newUser.id));
+    console.log(newUsers);
+    setUsers([...oldUsers, ...newUsers]);
   };
 
   const handleEnvio = async () => {
@@ -60,12 +69,12 @@ const Dashboard = ({ updateContextUser }) => {
     setAdmin(admin);
   };
 
-  
+
   const handleToggleUser = async (user) => {
     const message = user.enabled
       ? "bloquear a este usuario"
       : "desbloquear a este usuario";
-  
+
     const result = await Swal.fire({
       title: `¿Deseas ${message} en la plataforma?`,
       icon: "question",
@@ -78,21 +87,22 @@ const Dashboard = ({ updateContextUser }) => {
         popup: "mySwal",
       },
     });
-  
+
     if (result.isConfirmed) {
       try {
         // Realiza la solicitud HTTP
-        await axios.get(`http://localhost:3001/user/`, {
+        //await axios.get(`http://localhost:3001/user/`, {
+        await axios.get(`https://bfs-pfhenry-production.up.railway.app/user/`, {
           ...user,
           enabled: !user.enabled,
         });
-  
+
         // Actualiza el estado local y persiste los cambios en localStorage
         setUsers((prevUsers) =>
           prevUsers.map((u) => (u.ID === user.ID ? { ...u, enabled: !u.enabled } : u))
         );
         localStorage.setItem('users', JSON.stringify(users));
-  
+
         Swal.fire({
           title: `Este usuario ha sido ${user.enabled ? "bloqueado" : "desbloqueado"} en BFS`,
           icon: "success",
@@ -127,7 +137,8 @@ const Dashboard = ({ updateContextUser }) => {
   
       if (result.isConfirmed) {
         // Realiza la llamada a la API para cambiar el estado del administrador
-        await axios.put(`http://localhost:3001/admin/${admin.ID}`, {
+        await axios.put(`https://bfs-pfhenry-production.up.railway.app/admin/${admin.ID}`, {
+        //await axios.put(`http://localhost:3001/admin/${admin.ID}`, {
           isActive: !admin.isActive,
         });
   
@@ -149,6 +160,7 @@ const Dashboard = ({ updateContextUser }) => {
     }
   };
   
+
 
   return (
     <div className={style.container}>

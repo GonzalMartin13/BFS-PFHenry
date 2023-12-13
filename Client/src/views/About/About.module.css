@@ -19,7 +19,7 @@
      display: flex;
      flex-direction: column;
      align-items: center;
-     width: 60%;
+     width: 100%;
      text-align: center;
 }
 
@@ -56,9 +56,9 @@
      display: flex;
      flex-direction: column;
      align-items: center;
-     justify-content: center;
+     justify-content: space-evenly;
      width: 20%;
-     height: 450px;
+     height: 400px;
      border-radius: 30px;
      background: #969191;
      margin: 10px;
@@ -139,13 +139,13 @@
      margin-top: 3rem;
 }
 .title {
-     color: blue;
      width: 70%;
-     font-size: 25px;
+     font-size: xx-large;
+     margin-top: 2pc;
 }
 .text {
      color: black;
-     width: 70%;
+     width: 100%;
      font-size: 20px;
 }
 

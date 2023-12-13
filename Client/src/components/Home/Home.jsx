@@ -13,6 +13,7 @@ import { useEffect } from "react";
 import { setStateInvoice } from "../../redux/Slices/invoiceUserSlice";
 import { clearShippingState } from "../../redux/Slices/shippingSlice";
 import { clearState } from "../../redux/Slices/quoterslice";
+import SeguimientoEnvio from "../seguimientoEnvio/seguimiento";
 const Home = () => {
   const dispatch = useDispatch();
   const isLogged = useSelector((state) => state.user.isLoggedIn);
@@ -23,10 +24,10 @@ const Home = () => {
 
   return (
     <div style={{ position: "relative" }}>
-      <br />
-      <h2 className="title-carousel margin center-items">
+{/*       <h2 className="title-carousel margin center-items">
         ¡Tenemos un <b>gran compromiso</b>!
-      </h2>
+      </h2> */}
+      <SeguimientoEnvio/>
       <br />
       <Slider />
       <br />

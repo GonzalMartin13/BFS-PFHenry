@@ -13,6 +13,8 @@ import {
 const Email = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState(""); // Cambiado el valor por defecto
+  const [asunto, setAsunto] = useState("");
   const [message, setMessage] = useState("");
 
   const [nameError, setNameError] = useState("");
@@ -42,28 +44,35 @@ const Email = () => {
       return;
     }
 
-    try {
-      const response = await emailjs.sendForm(
-        "service_ko3ekug",
-        "template_efdhnp2",
+    emailjs
+      .sendForm(
+        "service_dr0btnj",
+        "template_s4ejomn",
         event.target,
-        "Z07yDoQAt6am4G7K6"
-      );
+        "ELPWCjAlQFhUotjly"
+      )
+      .then((response) => {
+        console.log(response);
+        setName("");
+        setPhone("");
+        setAsunto("");
+        setEmail("");
+        setMessage("");
 
-      console.log(response);
-
-      setName("");
-      setEmail("");
-      setMessage("");
-
-      Swal.fire({
-        icon: "success",
-        title: "¡Mensaje enviado!",
-        text: "Hemos recibido tu mensaje, un miembro del equipo te contactará en breve.",
+        Swal.fire({
+          icon: "success",
+          title: "¡Mensaje enviado!",
+          text: "Hemos recibido tu mensaje, un miembro del equipo te contactará en breve.",
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+        Swal.fire({
+          icon: "error",
+          title: "Error en el envío",
+          text: "Hubo un problema al enviar el mensaje. Por favor, inténtalo de nuevo más tarde.",
+        });
       });
-    } catch (error) {
-      console.error(error);
-    }
   };
 
   const disableButton =
@@ -71,81 +80,80 @@ const Email = () => {
 
   return (
     <div>
-    <Image src={contacto} fluid style={{ width: "100%", height: "300px" }} />
-    <div style={{
-      border: "1px solid #dee2e6",
-      borderRadius: "5px",
-      boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-      margin: "20px auto",
-      maxWidth: "600px",
-    }}>
-      <Form onSubmit={sendEmail} style={{
-        padding: "20px",
+  
+      <div style={{
+        border: "1px solid #dee2e6",
+        borderRadius: "5px",
+        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+        margin: "20px auto",
+        maxWidth: "600px",
       }}>
-        <div style={{
-          backgroundColor: "#f8f9fa",
-          border: "1px solid #dee2e6",
-          borderRadius: "10px",
-          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-          marginBottom: "20px",
+        <Form onSubmit={sendEmail} style={{
+          padding: "20px",
         }}>
-          <h3 style={{ margin: "15px 0" }}>Contactanos</h3>
-          <h6>Tienes dudas, comentarios, recomendaciones envíanos un mensaje.</h6>
-        </div>
-  
-        <div className={styles.contenedor}>
-          <Form.Group controlId="formName">
-            <Form.Label></Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Ingrese su nombre"
-              value={name}
-              onChange={(e) => {
-                setName(e.target.value);
-                validateNameOnChange(e.target.value);
-              }}
-            />
-            <Form.Text style={{ color: "red" }}>{nameError}</Form.Text>
-          </Form.Group>
-  
-          <Form.Group controlId="formEmail">
-            <Form.Label></Form.Label>
-            <Form.Control
-              type="email"
-              placeholder="Ingrese su correo electrónico"
-              value={email}
-              onChange={(e) => {
-                setEmail(e.target.value);
-                validateEmailOnChange(e.target.value);
-              }}
-            />
-            <Form.Text style={{ color: "red" }}>{emailError}</Form.Text>
-          </Form.Group>
-  
-          <Form.Group controlId="formMessage">
-            <Form.Label>Mensaje</Form.Label>
-            <Form.Control
-              as="textarea"
-              rows={4}
-              placeholder="Ingrese su mensaje"
-              value={message}
-              onChange={(e) => {
-                setMessage(e.target.value);
-                validateMessageOnChange(e.target.value);
-              }}
-            />
-            <Form.Text style={{ color: "red" }}>{messageError}</Form.Text>
-          </Form.Group>
-  
-          <hr />
-          <Button type="submit" disabled={disableButton} className={styles.boton}>
-            Enviar
-          </Button>
-        </div>
-      </Form>
+          <div style={{
+            backgroundColor: "#f8f9fa",
+            border: "1px solid #dee2e6",
+            borderRadius: "10px",
+            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+            marginBottom: "20px",
+          }}>
+            <h3 style={{ margin: "15px " }}>Contactanos</h3>
+            <h6>Tienes dudas, comentario o recomendaciones envíanos un mensaje.</h6>
+          </div>
+    
+          <div className={styles.contenedor}>
+            <Form.Group controlId="formName">
+              <Form.Label></Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Ingrese su nombre"
+                value={name}
+                onChange={(e) => {
+                  setName(e.target.value);
+                  validateNameOnChange(e.target.value);
+                }}
+              />
+              <Form.Text style={{ color: "red" }}>{nameError}</Form.Text>
+            </Form.Group>
+    
+            <Form.Group controlId="formEmail">
+              <Form.Label></Form.Label>
+              <Form.Control
+                type="email"
+                placeholder="Ingrese su correo electrónico"
+                value={email}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  validateEmailOnChange(e.target.value);
+                }}
+              />
+              <Form.Text style={{ color: "red" }}>{emailError}</Form.Text>
+            </Form.Group>
+    
+            <Form.Group controlId="formMessage">
+              <Form.Label style={{marginTop:"10px"}}>Mensaje</Form.Label>
+              <Form.Control
+                as="textarea"
+                rows={4}
+                placeholder="Ingrese su mensaje"
+                value={message}
+                onChange={(e) => {
+                  setMessage(e.target.value);
+                  validateMessageOnChange(e.target.value);
+                }}
+              />
+              <Form.Text style={{ color: "red" }}>{messageError}</Form.Text>
+            </Form.Group>
+    
+            <hr />
+            <Button  variant="secondary" type="submit" disabled={disableButton} className={styles.boton}>
+              Enviar
+            </Button>
+          </div>
+        </Form>
+      </div>
     </div>
-  </div>
-  
   );
 };
 

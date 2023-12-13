@@ -3,6 +3,7 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import styles from "../CardContainer/cardContainer.module.css"
 import Image from 'react-bootstrap/Image';
+import { Link } from 'react-router-dom';
 
 const CardContainer = () => {
   return (
@@ -20,7 +21,9 @@ const CardContainer = () => {
             <Card.Text>
               Servicio Express Hasta 15 kg | 40x40x40 cm Paquetes urgentes que requieren entrega express
             </Card.Text>
+            <Link to='/cotizacion'>
             <Button variant="primary">Cotizar mi envio</Button>
+          </Link>
           </Card.Body>
         </Card>
       </div>
@@ -36,7 +39,9 @@ const CardContainer = () => {
               Servicio Regular Hasta 60 kg | 80x85x40 cm Requieres la entrega en
               el menor tiempo posible, para paquetes grandes, esta es tu opcion
             </Card.Text>
+            <Link to='/cotizacion'>
             <Button variant="primary">Cotizar mi envio</Button>
+            </Link>
           </Card.Body>
         </Card>
       </div>
@@ -51,7 +56,9 @@ const CardContainer = () => {
             <Card.Text>
             Servicio por volumen Hasta 800 kg | 330x145x140 cm Paquetes de grandes dimenciones, sin problema lo entregamos
             </Card.Text>
+            <Link to='/cotizacion'>
             <Button variant="primary">Cotizar mi envio</Button>
+            </Link>
           </Card.Body>
         </Card>
       </div>
@@ -66,7 +73,9 @@ const CardContainer = () => {
             <Card.Text>
             Servicio delicado Hasta 60 kg | 80x85x40 cm Sabemos lo importante de tus envios y lo manejaremos con extremo cuidado
             </Card.Text>
+            <Link to='/cotizacion'>
             <Button variant="primary">Cotizar mi envio</Button>
+            </Link>
           </Card.Body>
         </Card>
       </div>

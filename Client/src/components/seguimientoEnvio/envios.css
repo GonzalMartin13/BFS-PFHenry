@@ -15,3 +15,15 @@
 .cell-animation {
   animation: colorChange 1.5s ease-in-out infinite; /* Duración de la animación de 1.5 segundos, repetición infinita */
 }
+
+.fondoenvio{
+ background: url("../../assets/fondosxeguimiento.png");
+ height: 675px;
+ background-repeat: no-repeat;
+ background-size: cover;
+ border: 3px whitesmoke solid;
+}
+
+.inputseguimiento{
+  display: none;
+}
