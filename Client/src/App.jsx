@@ -12,6 +12,7 @@ import Profile from "./views/Profile/Profile";
 import QuoteForm from "./components/QuoteForm/QuoteForm";
 import Comprobante from "./components/Compra/Comprobante";
 import Mapa from "./components/Mapa/Mapa";
+import Servicios from "./views/servicios/Servicios";
 import Pdf from "./components/Pdf/Pdf";
 import { useState } from "react";
 import { useSelector } from "react-redux";
@@ -83,7 +84,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/contacto" element={<Email />} />
         <Route path="/payment" element={<About />} />
-        <Route path="/servicios" element={<CardContainer />} />
+        <Route path="/servicios" element={<Servicios />} />
         <Route path="/sucursales" element={<Mapa />} />
         <Route path="/guia" element={<Pdf />} />
         <Route path="/profile" element={<Profile />} />

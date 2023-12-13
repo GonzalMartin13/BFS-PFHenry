@@ -27,24 +27,17 @@ export default function NavBar() {
           style={nav}
         >
           {" "}
-
-
           <Navbar.Toggle
             aria-controls={`offcanvasNavbar-expand-${expand}`}
             style={menuout}
             className="p-2"
           />
-
-
           <Navbar.Brand href="/">
             <Image src={logo} alt="Logo BFS" style={logobfs} />
           </Navbar.Brand>
-
           <div className="">
             <Login></Login>
           </div>
-
-
           <Navbar.Offcanvas
             id={`offcanvasNavbar-expand-${expand}`}
             aria-labelledby={`offcanvasNavbarLabel-expand-${expand}`}
@@ -72,7 +65,10 @@ export default function NavBar() {
                 <Nav.Link href="/contacto" style={menuletter}>
                   Contacto
                 </Nav.Link>
-                <Nav.Link href="/" style={menuletter}>
+                <Nav.Link href="/sucursales" style={menuletter}>
+                  Sucursales
+                </Nav.Link>
+                <Nav.Link href="/servicios" style={menuletter}>
                   Servicios
                 </Nav.Link>
                 {isLoggedIn ? (
@@ -92,9 +88,7 @@ export default function NavBar() {
       ))}
     </>
 
-
-
-/*     <>
+    /*     <>
       {[false].map((expand) => (
         <Navbar
           key={expand}
