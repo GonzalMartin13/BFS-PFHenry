@@ -92,7 +92,7 @@ export default function Comprobante() {
     };
     enviarCorreo();
 
-    //dispatch(postInvoiceAsync(jsonInvoise));
+    dispatch(postInvoiceAsync(jsonInvoise));
     return () => dispatch(clearState());
   }, []);
   const resetStates = () => {

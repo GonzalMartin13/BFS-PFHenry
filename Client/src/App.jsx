@@ -118,7 +118,7 @@ function App() {
         <Route
           path="/dashboard"
           element={
-            <ProtectedRoute isAllowed={true}>
+            <ProtectedRoute isAllowed={isLoggedIn && admin.emailAdmin}>
               <Dashboard updateContextUser={updateContextUser} />
             </ProtectedRoute>
           }
