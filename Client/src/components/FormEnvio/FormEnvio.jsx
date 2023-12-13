@@ -161,7 +161,7 @@ const FormEnvio = () => {
       validate={(valores) => {
         let errores = {};
 
-        //Validaciones para Remitente
+        //validaciones para Remitente
         // if (!valores.nombreRemitente) {
         //   errores.nombreRemitente = "Debes ingresar un nombre";
         // } else if (
@@ -640,7 +640,7 @@ const FormEnvio = () => {
             <div>
               <br></br>
               <button type="submit" className={styles.button}>
-               Proceder al pago
+                Proceder al pago
               </button>
               <br></br>
             </div>
