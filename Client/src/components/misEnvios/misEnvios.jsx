@@ -108,50 +108,55 @@ function MisEnvios() {
         <br />
         <br />
         <br />
-        <div className="mis-envios-container d-flex flex-wrap justify-content-center">
-          {userPackages.map((envio, idx) => (
+        
+<div className="mis-envios-container d-flex flex-wrap justify-content-center">
+        {userPackages.length === 0 ? (
+          <p>No se encontraron envíos.</p>
+        ) : (
+          userPackages.map((envio, idx) => (
             <Card
-              key={idx}
-              style={{
-                width: "18rem",
-                height: "300px", // Establecer una altura fija
-                margin: "0 10px 20px",
-                backgroundColor: "#f8f9fa",
-                border: "1px solid #dee2e6",
-                borderRadius: "10px",
-                boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-                overflow: "hidden"
-              }}
-              className="mb-3"
-            >
-              <Card.Body style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-                <div>
-                  <h6>{envio.fechaInicial.split("T")[0]}</h6>
-                  <Card.Title>{envio.servicios}</Card.Title>
-                  <br/>
-                  <Card.Subtitle className="mb-2 text-muted">
-                    <span style={{ marginRight: '5px' }}></span>
-                    {envio.origen} <img src={flechaIcon} alt="Logout Icon" style={{ width: '20px', height: '20px', marginLeft: '5px' }} />
-                    {""} {envio.destino}
-                  </Card.Subtitle>
-                </div>
-                <div>
-                  <Card.Text></Card.Text>
-                  <Button
-                    variant="outline-primary"
-                    style={{
-                      height: "40px",
-                      marginTop: "10px"
-                    }}
-                    onClick={() => handleDetalleButtonClick(envio)}
-                  >
-                    Detalle
-                  </Button>
-                </div>
-              </Card.Body>
-            </Card>
-          ))}
-        </div>
+            key={idx}
+            style={{
+              width: "18rem",
+              height: "300px", // Establecer una altura fija
+              margin: "0 10px 20px",
+              backgroundColor: "#f8f9fa",
+              border: "1px solid #dee2e6",
+              borderRadius: "10px",
+              boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+              overflow: "hidden"
+            }}
+            className="mb-3"
+          >
+            <Card.Body style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+              <div>
+                <h6>{envio.fechaInicial.split("T")[0]}</h6>
+                <Card.Title>{envio.servicios}</Card.Title>
+                <br/>
+                <Card.Subtitle className="mb-2 text-muted">
+                  <span style={{ marginRight: '5px' }}></span>
+                  {envio.origen} <img src={flechaIcon} alt="Logout Icon" style={{ width: '20px', height: '20px', marginLeft: '5px' }} />
+                  {""} {envio.destino}
+                </Card.Subtitle>
+              </div>
+              <div>
+                <Card.Text></Card.Text>
+                <Button
+                  variant="outline-primary"
+                  style={{
+                    height: "40px",
+                    marginTop: "10px"
+                  }}
+                  onClick={() => handleDetalleButtonClick(envio)}
+                >
+                  Detalle
+                </Button>
+              </div>
+            </Card.Body>
+          </Card>
+          ))
+        )}
+      </div>
         {selectedPackage && (
           <Modal
             size="sm"
@@ -224,3 +229,4 @@ function MisEnvios() {
 }
 
 export default MisEnvios;
+
