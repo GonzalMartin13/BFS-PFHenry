@@ -68,11 +68,11 @@ function VerticalExample() {
           onSelect={filterByService}
           style={dropdownButtonStyle}
         >
-          <Dropdown.Item eventKey="Paqueteria">Paqueteria</Dropdown.Item>
-          <Dropdown.Item eventKey="Discreto">Entrega Certificada</Dropdown.Item>
-          <Dropdown.Item eventKey="Cuidado">FragilBox</Dropdown.Item>
-          <Dropdown.Item eventKey="Carteria">Carteria</Dropdown.Item>
-          <Dropdown.Item eventKey="Express">Express</Dropdown.Item>
+          <Dropdown.Item eventKey="paqueteria">Paqueteria</Dropdown.Item>
+          <Dropdown.Item eventKey="certificada">Entrega Certificada</Dropdown.Item>
+          <Dropdown.Item eventKey="fragilBox">FragilBox</Dropdown.Item>
+          <Dropdown.Item eventKey="carteria">Carteria</Dropdown.Item>
+          <Dropdown.Item eventKey="express">Express</Dropdown.Item>
         </DropdownButton>
       </ButtonGroup>
     </div>
