@@ -10,9 +10,18 @@ return (
     <div className="container-fluid my-3">
       <div className='row'>
         <div className='col-md-6'>
-          <Image src={picture} fluid style={{ width: '600px', height: '100%' }}/>
+          <Image src={picture} fluid style={{ width: '600px',
+          height: '548px', 
+          border: "1px solid #dee2e6",
+          borderRadius: "5px",
+          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)" }}/>
         </div>
-      <div className={`col-md-6 ${styles.cont}`}>
+      <div className={`col-md-6 ${styles.cont}`}  style={{
+        border: "1px solid #dee2e6",
+        borderRadius: "5px",
+        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+        padding:"12px"
+      }} >
         <div className={styles.nosotros}>
           <h2>¡Movemos tu mundo!</h2>
           <br />
@@ -25,6 +34,8 @@ return (
       </div>
     </div>
   </div>
+  <br></br>
+  <br></br>
       
         <h2><b>Nuestro equipo de desarrolladores de BSF</b></h2>
       <div className={` ${styles.devs}`}>
