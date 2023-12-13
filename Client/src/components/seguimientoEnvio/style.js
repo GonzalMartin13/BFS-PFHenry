@@ -8,7 +8,7 @@ const searcher = {
   width: "40pc",
   height: "5pc",
   fontSize: "x-large",
-  marginLeft: "85px",
+  marginLeft: "55px",
   marginTop: "30pc"
 };
 
