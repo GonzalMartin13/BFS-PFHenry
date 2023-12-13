@@ -3,10 +3,7 @@ import axios from "axios";
 
 export const getPackages = createAsyncThunk("packages/getPackages", async () => {
   try {
-
-   // const response = await axios.get("http://localhost:3001/envios");
-    const response = await axios.get("https://bfs-pfhenry-production.up.railway.app/envios"); 
-
+    const response = await axios.get("https://bfs-pfhenry-production.up.railway.app/envios");
     return response.data;
   } catch (error) {
     throw Error("Error al obtener los envíos", error);
@@ -15,9 +12,7 @@ export const getPackages = createAsyncThunk("packages/getPackages", async () => 
 
 export const getUserPackages = createAsyncThunk("packages/getUserPackages", async (UserEmail) => {
   try {
-
-    //const response = await axios.get(`http://localhost:3001/envios/user/${UserEmail}`);
-      const response = await axios.get(`https://bfs-pfhenry-production.up.railway.app/envios/user/${UserEmail}`); 
+    const response = await axios.get(`https://bfs-pfhenry-production.up.railway.app/envios/user/${UserEmail}`);
     return response.data;
   } catch (error) {
     console.error("Error al obtener envíos del usuario", error);
@@ -27,25 +22,16 @@ export const getUserPackages = createAsyncThunk("packages/getUserPackages", asyn
 
 export const getUserPackagesById = createAsyncThunk("packages/getUserPackagesById", async (id) => {
   try {
-
-   //const response = await axios.get(`http://localhost:3001/envios/${id}`);
-      const response = await axios.get(`https://bfs-pfhenry-production.up.railway.app/envios/${id}`); 
-
+    const response = await axios.get(`https://bfs-pfhenry-production.up.railway.app/envios/${id}`);
     return response.data;
   } catch (error) {
     throw Error("Error al obtener el envío por ID", error);
   }
 });
 
-export const cleanDetailAction = createAsyncThunk("packages/cleanDetail", async (id, thunkAPI) => {
+export const cleanDetailAction = createAsyncThunk("packages/cleanDetail", async (_, thunkAPI) => {
   thunkAPI.dispatch(cleanDetail());
 });
-
-// export function cleanDetail(){
-//   return async function (dispatch){
-//   dispatch(cleanDetail())
-//   }
-// }
 
 const initialState = {
   allPackages: {},
@@ -61,21 +47,11 @@ export const packageSlice = createSlice({
   name: "packages",
   initialState,
   reducers: {
-    sort: (state, action) => {
-      const order = action.payload;
-      state.userPackages = [...state.originalUserPackages]; 
-      state.userPackages.sort((a, b) => {
-        const dateA = new Date(a.fechaInicial).getTime();
-        const dateB = new Date(b.fechaInicial).getTime();
-        return order === "Ascendente" ? dateA - dateB : dateB - dateA;
-      });
-      state.userOrder = order;
-    },
     serviceFilter: (state, action) => {
       const selectedService = action.payload;
       state.currentFilter = selectedService;
-
-      state.userPackages = [...state.originalUserPackages]; 
+     
+      state.userPackages = JSON.parse(JSON.stringify(state.originalUserPackages)); 
       state.userPackages = selectedService
         ? state.userPackages.filter((paquete) => {
             const serviciosArray = paquete.servicios
@@ -84,10 +60,29 @@ export const packageSlice = createSlice({
             return serviciosArray.includes(selectedService.toLowerCase());
           })
         : state.userPackages;
-    },
+     
+      // Apply the sort on the filtered state
+      state.userPackages.sort((a, b) => {
+        const dateA = new Date(a.fechaInicial).getTime();
+        const dateB = new Date(b.fechaInicial).getTime();
+        return state.userOrder === "Ascendente" ? dateA - dateB : dateB - dateA;
+      });
+     },
+     
+     sort: (state, action) => {
+      const order = action.payload;
+      state.userOrder = order;
+     
+      // Apply the sort on the filtered state
+      state.userPackages.sort((a, b) => {
+        const dateA = new Date(a.fechaInicial).getTime();
+        const dateB = new Date(b.fechaInicial).getTime();
+        return order === "Ascendente" ? dateA - dateB : dateB - dateA;
+      });
+     },
 
     reset: (state) => {
-      state.userPackages = state.originalUserPackages;
+      state.userPackages = JSON.parse(JSON.stringify(state.originalUserPackages));
     },
     
   },
