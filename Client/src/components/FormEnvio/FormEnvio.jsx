@@ -603,10 +603,11 @@ const FormEnvio = () => {
                   <Button
                     onClick={handleFileUpload}
                     variant="success"
-                    style={{ padding: "9px 20px", fontSize: "16px" }}
+                    style={{ padding: "9px 20px", fontSize: "16px", width: "60%" }}
                     className="m-3"
-                  >
+                  ><strong>
                     Subir imagen
+                    </strong>
                   </Button>
                 </div>
 
@@ -672,8 +673,8 @@ const FormEnvio = () => {
                 <Link to="/" style={{ textDecoration: "none" }}>
                   <Button
                     type="submit"
-                    variant="secondary"
-                    // className={styles.buttonCancel}
+                    // variant="secondary"
+                    className={styles.buttonCancel}
                     onClick={clearStateShipping}
                   >
                     Cancelar y regresar
