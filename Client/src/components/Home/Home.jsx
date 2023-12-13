@@ -24,10 +24,9 @@ const Home = () => {
 
   return (
     <div style={{ position: "relative" }}>
-      <br />
-      <h2 className="title-carousel margin center-items">
+{/*       <h2 className="title-carousel margin center-items">
         ¡Tenemos un <b>gran compromiso</b>!
-      </h2>
+      </h2> */}
       <SeguimientoEnvio/>
       <br />
       <Slider />

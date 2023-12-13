@@ -13,15 +13,19 @@ const Mapa = () => {
 
   return (
     <div>
-      <div style={{ position: "relative" }}>
-        <Image
-          src="https://andreani.hiringroom.com/data/accounts/andreani/microsite/2e7e726a39c966e8c72dd7b7321d683c.jpg"
-          fluid
-          style={{ width: "100%", height: "300px" }}
-        />
-      </div>
-      <br />
-      <h1>Nuestras Sucursales</h1>
+     
+     <div style={{
+  maxWidth: "960px",  // Establece el ancho máximo que desees
+  margin: "0 auto",   // Centra el contenedor en la página
+  backgroundColor: "#f8f9fa",
+  border: "1px solid #dee2e6",
+  borderRadius: "5px",
+  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+  marginBottom: "20px",
+  marginTop: "20px",
+}}>
+  <h3 style={{ margin: "15px" }}>Nuestras sucursales</h3>
+</div>
       <div
         style={{
           height: "550px",
