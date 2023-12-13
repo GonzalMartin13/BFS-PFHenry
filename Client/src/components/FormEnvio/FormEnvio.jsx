@@ -18,13 +18,13 @@ import {
 import { clearState, setState } from "../../redux/Slices/quoterslice";
 import { setidShipping } from "../../redux/Slices/invoiceUserSlice";
 import Swal from "sweetalert2";
-import { Button } from "react-bootstrap";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import { handleUpload } from "../FormEnvio/utils/cloudinary";
 import { Link, useNavigate } from "react-router-dom";
 import { enviarBD } from "../FormEnvio/rutaDB";
 import axios from "axios";
+import { Form, Button, Image } from "react-bootstrap";
 
 const FormEnvio = () => {
   const [imagenLocal, setImagenLocal] = useState("");
@@ -323,49 +323,70 @@ const FormEnvio = () => {
         handleChange,
         handleBlur,
       }) => (
-        <form onSubmit={handleSubmit}>
-          <div>
-            <h3>Confirmacion de envio</h3>
-            <br></br>
-            <h4>
-              Elegiste realizar un envio: {""}
-              <span style={{ color: "#000" }}>
-                {servicios.length
-                  ? servicios
-                      .map((servicio) => capitalizeFirstLetter(servicio))
-                      .join(", ")
-                  : null}
-              </span>
-            </h4>
-
-            <h4>
-              De: {origen} a {destino}
-            </h4>
-            <br></br>
-            <h4>Agrega el resto de datos necesarios para tu envio:</h4>
-            <br></br>
-          </div>
-          <div>
-            <div className={styles.formRemitente}>
-              <div>
-                <p>Datos del Remitente</p>
-                <label className={styles.label}>Nombre Completo</label>
-                <input
-                  type="text"
-                  id="nombreRemitente"
-                  name="nombreRemitente"
-                  placeholder="Luis Alberto Morales"
-                  value={values.nombreRemitente}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  className={styles.input}
-                  disabled
-                ></input>
-                {touched.nombreRemitente && errors.nombreRemitente && (
-                  <p className={styles.error}>{errors.nombreRemitente}</p>
-                )}
+        <div
+          style={{
+            border: "1px solid #dee2e6",
+            borderRadius: "5px",
+            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+            margin: "20px auto",
+            maxWidth: "900px",
+            padding: "20px",
+          }}
+        >
+          <form onSubmit={handleSubmit}>
+            <div>
+              <div
+                style={{
+                  backgroundColor: "#f8f9fa",
+                  border: "1px solid #dee2e6",
+                  borderRadius: "10px",
+                  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+                  marginBottom: "20px",
+                  padding: "20px",
+                }}
+              >
+                <h3>Confirmacion de envio</h3>
               </div>
-              {/* <div>
+              <br></br>
+              <h4>
+                Elegiste realizar un envio: {""}
+                <span style={{ color: "#000" }}>
+                  {servicios.length
+                    ? servicios
+                        .map((servicio) => capitalizeFirstLetter(servicio))
+                        .join(", ")
+                    : null}
+                </span>
+              </h4>
+
+              <h4>
+                De: {origen} a {destino}
+              </h4>
+              <br></br>
+              <h4>Agrega el resto de datos necesarios para tu envio:</h4>
+              <br></br>
+            </div>
+            <div>
+              <div className={styles.formRemitente}>
+                <div>
+                  <p>Datos del Remitente</p>
+                  <label className={styles.label}>Nombre Completo</label>
+                  <input
+                    type="text"
+                    id="nombreRemitente"
+                    name="nombreRemitente"
+                    placeholder="Luis Alberto Morales"
+                    value={values.nombreRemitente}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    className={styles.input}
+                    disabled
+                  ></input>
+                  {touched.nombreRemitente && errors.nombreRemitente && (
+                    <p className={styles.error}>{errors.nombreRemitente}</p>
+                  )}
+                </div>
+                {/* <div>
                 <label className={styles.label}>Razon social</label>
                 <input
                   type="text"
@@ -384,99 +405,99 @@ const FormEnvio = () => {
                     </p>
                   )} 
               </div> */}
-              <div>
-                <label className={styles.label}>Telefono</label>
-                <input
-                  type="text"
-                  id="telefonoRemitente"
-                  name="telefonoRemitente"
-                  placeholder="54786978"
-                  value={values.telefonoRemitente}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  className={styles.input}
-                  disabled
-                ></input>
-                {touched.telefonoRemitente && errors.telefonoRemitente && (
-                  <p className={styles.error}>{errors.telefonoRemitente}</p>
-                )}
+                <div>
+                  <label className={styles.label}>Telefono</label>
+                  <input
+                    type="text"
+                    id="telefonoRemitente"
+                    name="telefonoRemitente"
+                    placeholder="54786978"
+                    value={values.telefonoRemitente}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    className={styles.input}
+                    disabled
+                  ></input>
+                  {touched.telefonoRemitente && errors.telefonoRemitente && (
+                    <p className={styles.error}>{errors.telefonoRemitente}</p>
+                  )}
+                </div>
+                <div>
+                  <label className={styles.label}>Email</label>
+                  <input
+                    type="email"
+                    id="emailRemitente"
+                    name="emailRemitente"
+                    placeholder="ejemplo@correo.com"
+                    value={values.emailRemitente}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    className={styles.input}
+                    disabled
+                  ></input>
+                  {touched.emailRemitente && errors.emailRemitente && (
+                    <p className={styles.error}>{errors.emailRemitente}</p>
+                  )}
+                </div>
+                <div>
+                  <label className={styles.label}>DNI</label>
+                  <input
+                    type="text"
+                    id="dniRemitente"
+                    name="dniRemitente"
+                    placeholder="12345678"
+                    value={values.dniRemitente}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    className={styles.input}
+                  ></input>
+                  {touched.dniRemitente && errors.dniRemitente && (
+                    <p className={styles.error}>{errors.dniRemitente}</p>
+                  )}
+                </div>
+                <div>
+                  <br></br>
+                  <label>Sucursal de Origen {origen}</label>
+                  <br></br>
+                  <label></label>
+                  <br></br>
+                  <label>Direccion para enviar el paquete </label>
+                  <br></br>
+                  <label>
+                    {" "}
+                    {sucursalOrigen
+                      ? sucursalOrigen.direccion.map((linea, index) => (
+                          <span key={index}>
+                            {linea}
+                            <br />
+                          </span>
+                        ))
+                      : ""}
+                  </label>
+                  <br></br>
+                </div>
               </div>
-              <div>
-                <label className={styles.label}>Email</label>
-                <input
-                  type="email"
-                  id="emailRemitente"
-                  name="emailRemitente"
-                  placeholder="ejemplo@correo.com"
-                  value={values.emailRemitente}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  className={styles.input}
-                  disabled
-                ></input>
-                {touched.emailRemitente && errors.emailRemitente && (
-                  <p className={styles.error}>{errors.emailRemitente}</p>
-                )}
-              </div>
-              <div>
-                <label className={styles.label}>DNI</label>
-                <input
-                  type="text"
-                  id="dniRemitente"
-                  name="dniRemitente"
-                  placeholder="12345678"
-                  value={values.dniRemitente}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  className={styles.input}
-                ></input>
-                {touched.dniRemitente && errors.dniRemitente && (
-                  <p className={styles.error}>{errors.dniRemitente}</p>
-                )}
-              </div>
-              <div>
-                <br></br>
-                <label>Sucursal de Origen {origen}</label>
-                <br></br>
-                <label></label>
-                <br></br>
-                <label>Direccion para enviar el paquete </label>
-                <br></br>
-                <label>
-                  {" "}
-                  {sucursalOrigen
-                    ? sucursalOrigen.direccion.map((linea, index) => (
-                        <span key={index}>
-                          {linea}
-                          <br />
-                        </span>
-                      ))
-                    : ""}
-                </label>
-                <br></br>
-              </div>
-            </div>
 
-            {/* Destinatario */}
-            <div className={styles.formDestinatario}>
-              <div>
-                <p>Datos del Destinatario</p>
-                <label className={styles.label}>Nombre Completo</label>
-                <input
-                  type="text"
-                  id="nombreDestinatario"
-                  name="nombreDestinatario"
-                  placeholder="Luis Alberto Morales"
-                  value={values.nombreDestinatario}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  className={styles.input}
-                ></input>
-                {touched.nombreDestinatario && errors.nombreDestinatario && (
-                  <p className={styles.error}>{errors.nombreDestinatario}</p>
-                )}
-              </div>
-              {/* <div>
+              {/* Destinatario */}
+              <div className={styles.formDestinatario}>
+                <div>
+                  <p>Datos del Destinatario</p>
+                  <label className={styles.label}>Nombre Completo</label>
+                  <input
+                    type="text"
+                    id="nombreDestinatario"
+                    name="nombreDestinatario"
+                    placeholder="Luis Alberto Morales"
+                    value={values.nombreDestinatario}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    className={styles.input}
+                  ></input>
+                  {touched.nombreDestinatario && errors.nombreDestinatario && (
+                    <p className={styles.error}>{errors.nombreDestinatario}</p>
+                  )}
+                </div>
+                {/* <div>
                 <label className={styles.label}>Razon social</label>
                 <input
                   type="text"
@@ -495,147 +516,149 @@ const FormEnvio = () => {
                     </p>
                   )}
               </div> */}
-              <div>
-                <label className={styles.label}>Telefono</label>
-                <input
-                  type="text"
-                  id="telefonoDestinatario"
-                  name="telefonoDestinatario"
-                  placeholder="54786978"
-                  value={values.telefonoDestinatario}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  className={styles.input}
-                ></input>
-                {touched.telefonoDestinatario &&
-                  errors.telefonoDestinatario && (
-                    <p className={styles.error}>
-                      {errors.telefonoDestinatario}
-                    </p>
+                <div>
+                  <label className={styles.label}>Telefono</label>
+                  <input
+                    type="text"
+                    id="telefonoDestinatario"
+                    name="telefonoDestinatario"
+                    placeholder="54786978"
+                    value={values.telefonoDestinatario}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    className={styles.input}
+                  ></input>
+                  {touched.telefonoDestinatario &&
+                    errors.telefonoDestinatario && (
+                      <p className={styles.error}>
+                        {errors.telefonoDestinatario}
+                      </p>
+                    )}
+                </div>
+                <div>
+                  <label className={styles.label}>Email</label>
+                  <input
+                    type="email"
+                    id="emailDestinatario"
+                    name="emailDestinatario"
+                    placeholder="ejemplo@correo.com"
+                    value={values.emailDestinatario}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    className={styles.input}
+                  ></input>
+                  {touched.emailDestinatario && errors.emailDestinatario && (
+                    <p className={styles.error}>{errors.emailDestinatario}</p>
                   )}
-              </div>
-              <div>
-                <label className={styles.label}>Email</label>
-                <input
-                  type="email"
-                  id="emailDestinatario"
-                  name="emailDestinatario"
-                  placeholder="ejemplo@correo.com"
-                  value={values.emailDestinatario}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  className={styles.input}
-                ></input>
-                {touched.emailDestinatario && errors.emailDestinatario && (
-                  <p className={styles.error}>{errors.emailDestinatario}</p>
-                )}
+                </div>
+
+                <div>
+                  <label className={styles.label}>DNI</label>
+                  <input
+                    type="text"
+                    id="dniDestinatario"
+                    name="dniDestinatario"
+                    placeholder="12345678"
+                    value={values.dniDestinatario}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    className={styles.input}
+                  ></input>
+                  {touched.dniDestinatario && errors.dniDestinatario && (
+                    <p className={styles.error}>{errors.dniDestinatario}</p>
+                  )}
+                </div>
+
+                <div>
+                  <br></br>
+                  <label>Sucursal de Destino {destino}</label>
+                  <br></br>
+                  <label></label>
+                  <br></br>
+                  <label>Direccion para recoger el paquete</label>
+                  <br></br>
+                  <label>
+                    {" "}
+                    {sucursalDestino
+                      ? sucursalDestino.direccion.map((linea, index) => (
+                          <span key={index}>
+                            {linea}
+                            <br />
+                          </span>
+                        ))
+                      : ""}
+                  </label>
+                  <br></br>
+                </div>
               </div>
 
               <div>
-                <label className={styles.label}>DNI</label>
-                <input
-                  type="text"
-                  id="dniDestinatario"
-                  name="dniDestinatario"
-                  placeholder="12345678"
-                  value={values.dniDestinatario}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  className={styles.input}
-                ></input>
-                {touched.dniDestinatario && errors.dniDestinatario && (
-                  <p className={styles.error}>{errors.dniDestinatario}</p>
-                )}
-              </div>
+                <br></br>
+                <br></br>
+                <h4>
+                  Deseas adjuntar una imagen del envio o documentacion
+                  relevante?
+                </h4>
+                <div>
+                  <Button
+                    onClick={handleFileUpload}
+                    variant="success"
+                    style={{ padding: "9px 20px", fontSize: "16px", width: "60%" }}
+                    className="m-3"
+                  ><strong>
+                    Subir imagen
+                    </strong>
+                  </Button>
+                </div>
 
-              <div>
-                <br></br>
-                <label>Sucursal de Destino {destino}</label>
-                <br></br>
-                <label></label>
-                <br></br>
-                <label>Direccion para recoger el paquete</label>
-                <br></br>
-                <label>
-                  {" "}
-                  {sucursalDestino
-                    ? sucursalDestino.direccion.map((linea, index) => (
-                        <span key={index}>
-                          {linea}
-                          <br />
-                        </span>
-                      ))
-                    : ""}
-                </label>
-                <br></br>
-              </div>
-            </div>
-
-            <div>
-              <br></br>
-              <br></br>
-              <h4>
-                Deseas adjuntar una imagen del envio o documentacion relevante?
-              </h4>
-              <div>
-                <Button
-                  onClick={handleFileUpload}
-                  variant="success"
-                  style={{ padding: "9px 20px", fontSize: "20px" }}
-                  className="m-4"
-                >
-                  Subir imagen
-                </Button>
-              </div>
-
-              <div>
-                <Col md="7" sm="12">
-                  {imagenLocal !== "" && (
-                    <div
-                      style={{
-                        position: "relative",
-                        height: "130px",
-                        width: "130px",
-                      }}
-                    >
-                      <Card.Img
-                        src={imagenLocal}
+                <div>
+                  <Col md="7" sm="12">
+                    {imagenLocal !== "" && (
+                      <div
                         style={{
+                          position: "relative",
                           height: "130px",
                           width: "130px",
-                          cursor: "pointer",
-                        }}
-                        className="img-fluid rounded-2 border w-100 h-100  d-block
-                              border border-success"
-                        onClick={showAlertImage}
-                      />
-
-                      <Button
-                        variant="danger"
-                        onClick={onDelete}
-                        style={{
-                          position: "absolute",
-                          top: -1.2,
-                          right: -1.3,
-                          fontSize: "0.7rem",
-                          zIndex: 1,
                         }}
                       >
-                        X
-                      </Button>
-                    </div>
-                  )}
-                </Col>
+                        <Card.Img
+                          src={imagenLocal}
+                          style={{
+                            height: "130px",
+                            width: "130px",
+                            cursor: "pointer",
+                          }}
+                          className="img-fluid rounded-2 border w-100 h-100  d-block
+                              border border-success"
+                          onClick={showAlertImage}
+                        />
+
+                        <Button
+                          variant="danger"
+                          onClick={onDelete}
+                          style={{
+                            position: "absolute",
+                            top: -1.2,
+                            right: -1.3,
+                            fontSize: "0.7rem",
+                            zIndex: 1,
+                          }}
+                        >
+                          X
+                        </Button>
+                      </div>
+                    )}
+                  </Col>
+                </div>
+
+                <br></br>
               </div>
 
-              <br></br>
-            </div>
-
-            <div>
-              <br></br>
-              <h4>Precio Final: ${total}</h4>
-              <br></br>
-            </div>
+              <div>
+                <br></br>
+                <h4><strong>Precio Final: $ {total}</strong></h4>
+                <br></br>
+              </div>
 
             <div>
               <br></br>
@@ -645,46 +668,58 @@ const FormEnvio = () => {
               <br></br>
             </div>
 
-            <div>
-              <br></br>
-              <Link to="/" style={{ textDecoration: "none" }}>
-                <button
-                  type="submit"
-                  className={styles.buttonCancel}
-                  onClick={clearStateShipping}
-                >
-                  Cancelar y regresar
-                </button>
-              </Link>
-              <br></br>
-            </div>
+              <div>
+                <br></br>
+                <Link to="/" style={{ textDecoration: "none" }}>
+                  <Button
+                    type="submit"
+                    // variant="secondary"
+                    className={styles.buttonCancel}
+                    onClick={clearStateShipping}
+                  >
+                    Cancelar y regresar
+                  </Button>
+                </Link>
+                <br></br>
+              </div>
 
-            <div>
-              <MapContainer
-                center={position}
-                zoom={4}
-                style={{ height: "390px", width: "70%", margin: "auto" }}
+              <div
+                style={{
+                  border: "1px solid #dee2e6",
+                  borderRadius: "5px",
+                  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+                  margin: "20px auto",
+                  maxWidth: "850px",
+                  height: "auto"
+                }}
               >
-                <TileLayer
-                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                ></TileLayer>
+                <br></br>
+                <MapContainer
+                  center={position}
+                  zoom={4}
+                  style={{ height: "390px", width: "70%", margin: "auto", padding: "10px" }}
+                >
+                  <TileLayer
+                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                  ></TileLayer>
 
-                <Marker position={coordenadasOrigen} icon={myIcon}>
-                  <Popup>{`Origen: ${origen}`}</Popup>
-                </Marker>
-
-                {coordenadasDestino && (
-                  <Marker position={coordenadasDestino} icon={myIcon}>
-                    <Popup>{`Destino: ${destino}`}</Popup>
+                  <Marker position={coordenadasOrigen} icon={myIcon}>
+                    <Popup>{`Origen: ${origen}`}</Popup>
                   </Marker>
-                )}
-              </MapContainer>
+
+                  {coordenadasDestino && (
+                    <Marker position={coordenadasDestino} icon={myIcon}>
+                      <Popup>{`Destino: ${destino}`}</Popup>
+                    </Marker>
+                  )}
+                </MapContainer>
+              <br></br>
+              </div>
+              <br></br>
             </div>
-            <br></br>
-            <br></br>
-          </div>
-        </form>
+          </form>
+        </div>
       )}
     </Formik>
   );
