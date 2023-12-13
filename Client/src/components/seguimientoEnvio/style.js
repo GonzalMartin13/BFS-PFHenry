@@ -8,8 +8,8 @@ const searcher = {
   width: "40pc",
   height: "5pc",
   fontSize: "x-large",
-  marginLeft: "85px",
-  marginTop: "30pc"
+  marginLeft: "55px",
+  marginTop: "24pc"
 };
 
 const error = {
@@ -24,7 +24,7 @@ const lupa = {
   border: "solid black 2px",
   backgroundColor: "whitesmoke",
   color: "black",
-  marginTop: "30pc",
+  marginTop: "24pc",
   marginLeft: "1pc"
 };
 
