@@ -46,10 +46,10 @@ const Email = () => {
 
     emailjs
       .sendForm(
-        "service_dr0btnj",
-        "template_s4ejomn",
+        "service_n2flao7",
+        "template_z3z0fip",
         event.target,
-        "ELPWCjAlQFhUotjly"
+        "fpKrN9OxpAI2I60z3"
       )
       .then((response) => {
         console.log(response);
