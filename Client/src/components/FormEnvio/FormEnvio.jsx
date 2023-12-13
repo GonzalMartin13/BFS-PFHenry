@@ -161,7 +161,7 @@ const FormEnvio = () => {
       validate={(valores) => {
         let errores = {};
 
-        //Validaciones para Remitente
+        //validaciones para Remitente
         // if (!valores.nombreRemitente) {
         //   errores.nombreRemitente = "Debes ingresar un nombre";
         // } else if (
