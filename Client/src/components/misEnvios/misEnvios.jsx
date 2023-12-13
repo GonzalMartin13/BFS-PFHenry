@@ -6,7 +6,7 @@ import Modal from "react-bootstrap/Modal";
 import Image from "react-bootstrap/Image";
 import flechaIcon from "../../assets/avance.png";
 import VerticalExample from "../filters/filters";
-import { getUserPackages } from "../../redux/Slices/packageSlice";
+import { getUserPackages,serviceFilter } from "../../redux/Slices/packageSlice";
 import copiarIcon from "../../assets/copia.png";
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
@@ -91,6 +91,14 @@ function MisEnvios() {
   const handleOpenImageModal = (imageUrl) => {
     setLargeImageUrl(imageUrl);
     setShowImageModal(true);
+  };
+
+  const [selectedFilter, setSelectedFilter] = useState(null);
+
+
+  const filterByService = (selectedKey) => {
+    dispatch(serviceFilter(selectedKey));
+    setSelectedFilter(selectedKey);
   };
 
   return (
