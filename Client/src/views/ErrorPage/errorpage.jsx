@@ -14,7 +14,7 @@ const ErrorPage = () => {
     <div>
       <img
         className="imgerror"
-        src="../../../src/assets/conectores-hembra-vector-desenchufados-diseno-minimalista-404-bichos-sobre-fondo-blanco-tema-electrico-concepto-de-banner-web-corte-de-electricidad-perdida-de-conexion-vector-2ddpt5j.png"
+        src="../../src/assets/conectores-hembra-vector-desenchufados-diseno-minimalista-404-bichos-sobre-fondo-blanco-tema-electrico-concepto-de-banner-web-corte-de-electricidad-perdida-de-conexion-vector-2ddpt5j.png"
         alt="error"
       />
       <h2 className="hache2">Error 404</h2>
