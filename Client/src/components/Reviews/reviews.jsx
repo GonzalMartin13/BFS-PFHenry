@@ -159,7 +159,7 @@ const Reviews = () => {
             ))}
           </p>
           <p>{comment}</p>
-          <Button onClick={editHandler}>Editar</Button>
+          <Button variant ="secondary" onClick={editHandler}>Editar</Button>
         </div>
       ) : (
         <form onSubmit={submitHandler}>

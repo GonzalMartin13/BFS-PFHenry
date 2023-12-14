@@ -8,6 +8,7 @@ import { userProfile } from "../../redux/actions/userActions";
 import Swal from "sweetalert2";
 import { confirmed } from "../../redux/Slices/userSlice";
 import { useNavigate } from "react-router-dom";
+import {Link} from 'react-router-dom'
 
 const Profile = () => {
   const { user, goConfirmacion } = useSelector((state) => state.user);
@@ -208,6 +209,16 @@ const Profile = () => {
                   Actualizar
                 </Button>
               )}
+              <br></br>
+              <br></br>
+              <Link to='/'>
+               <Button
+              variant="secondary"
+              className="mb-2"
+            >
+              Volver
+            </Button>
+            </Link>
           </Form>
         </Row>
       </Container>
