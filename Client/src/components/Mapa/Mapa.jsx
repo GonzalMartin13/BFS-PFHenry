@@ -2,7 +2,7 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { Icon } from "leaflet";
 import sucursales from "./Sucursales";
-import Image from "react-bootstrap/Image";
+//import Image from "react-bootstrap/Image";
 import { Row, Col } from "react-bootstrap";
 const Mapa = () => {
   const position = [-35.4132981, -65.0205861];
@@ -264,6 +264,7 @@ const Mapa = () => {
                 <Marker
                   key={index}
                   position={sucursal.coordenadas}
+                  icon={myIcon}
                   // Icono de marcador personalizado si lo deseas
                 >
                   <Popup>{sucursal.Popup}</Popup>

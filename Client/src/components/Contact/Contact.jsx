@@ -47,7 +47,7 @@ const Email = () => {
     emailjs
       .sendForm(
         "service_n2flao7",
-        "template_z3z0fip",
+        "template_ms9d9mr",
         event.target,
         "fpKrN9OxpAI2I60z3"
       )
@@ -108,6 +108,7 @@ const Email = () => {
               <Form.Control
                 type="text"
                 placeholder="Ingrese su nombre"
+                name="user_name"
                 value={name}
                 onChange={(e) => {
                   setName(e.target.value);
@@ -122,6 +123,7 @@ const Email = () => {
               <Form.Control
                 type="email"
                 placeholder="Ingrese su correo electrónico"
+                name="user_email" 
                 value={email}
                 onChange={(e) => {
                   setEmail(e.target.value);
@@ -137,6 +139,7 @@ const Email = () => {
                 as="textarea"
                 rows={4}
                 placeholder="Ingrese su mensaje"
+                name="user_message"
                 value={message}
                 onChange={(e) => {
                   setMessage(e.target.value);

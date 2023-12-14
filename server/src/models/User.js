@@ -32,7 +32,11 @@ module.exports = (sequelize) => {
         picture: {
           type: DataTypes.STRING,
           allowNull: false,
-        }
+        },
+        isBanned: {
+          type: DataTypes.BOOLEAN,
+          defaultValue: false, // Valor predeterminado: no baneado
+        },
       }, { freezeTableName: true
     });
 };

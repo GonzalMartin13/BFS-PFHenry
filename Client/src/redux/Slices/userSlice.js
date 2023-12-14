@@ -51,6 +51,12 @@ export const userSlice = createSlice({
     profiles: (state, action) => {
       state.goProfile = action.payload;
     },
+    deleteAdmin: (state, action) => {
+      state.emails = state.emails.filter((email) => email !== action.payload);
+    },
+    pushAdmin: (state, action) => {
+      state.emails.push(action.payload);
+    },
   },
 });
 
@@ -64,6 +70,8 @@ export const {
   confirmed,
   contadorInTwo,
   profiles,
+  deleteAdmin,
+  pushAdmin
 } = userSlice.actions;
 
 export default userSlice.reducer;
