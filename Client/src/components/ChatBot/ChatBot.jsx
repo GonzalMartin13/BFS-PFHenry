@@ -1,7 +1,7 @@
-import React from 'react';
+
 import Chatbot from 'react-chatbot-kit'
 import 'react-chatbot-kit/build/main.css'
-import { useState } from 'react';
+
 import config from '../ChatBot/config.jsx';
 import MessageParser from '../ChatBot/MessageParser.jsx';
 import ActionProvider from '../ChatBot/ActionProvider.jsx';
@@ -14,7 +14,7 @@ const Chat = () => {
   return (
     <div className={style.chat}>
   
-         <Chatbot
+        <Chatbot
         key="uniqueKey"
         config={config}
         messageParser={MessageParser}

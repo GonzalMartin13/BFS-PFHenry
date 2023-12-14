@@ -5,7 +5,7 @@ const getAllUsers = async () => {
   const response = await User.findAll();
 
 const allUser = response.map(user => {
-  const {ID, name, lastName, phone, address, email } = user;
+  const {ID, name, lastName, phone, address, email,isBanned } = user;
 return {
   ID,
   name,
@@ -13,6 +13,7 @@ return {
   phone,
   address,
   email,
+  isBanned
 }
 })  
 return allUser;
