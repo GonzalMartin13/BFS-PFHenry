@@ -22,6 +22,8 @@ import { useNavigate, Link } from "react-router-dom";
 import { log, out, profile } from "./style";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faRightToBracket } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios"
+import {useEffect} from "react"
 
 const Login = () => {
   const { contador, isLoggedIn, emails, isProfile, goConfirmacion, goProfile } =
@@ -34,6 +36,8 @@ const Login = () => {
   const dispatch = useDispatch();
 
   const { loginWithRedirect, isAuthenticated, logout, user } = useAuth0();
+
+  console.log(usuario)
 
   if (
     emails?.includes(user?.email) &&
@@ -92,6 +96,16 @@ const Login = () => {
     });
 
     dispatch(contar());
+  } else if (usuario.isBanned && contador === 3){
+    Swal.fire({
+      title: "Usuario Bloqueado",
+      text: ` no puedes acceder a la pagina por infringir nuestros trerminos y condiciones`,
+      icon: "warning",
+    });
+      dispatch(contar())
+      dispatch(logouted());
+      return
+
   }
 
   const confirmar = () => {
