@@ -6,7 +6,7 @@ const postRegister = async (email, nickname, picture) => {
   try {
     if (email && nickname && picture) {
       const userFound = await User.findOne({
-        where: { email: email, nickname: nickname, picture: picture },
+        where: {email: email},
       });
 
       if (userFound) {
