@@ -310,7 +310,7 @@ const FormEnvio = () => {
 
         await handleEnvioBD(shippingInfo);
 
-        //        window.location.href = linkPago;
+        window.location.href = linkPago;
 
         resetForm();
       }}
