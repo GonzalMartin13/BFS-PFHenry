@@ -1,8 +1,13 @@
-export function validarr(input) {
+import { getAllUser } from "../../utils/getAllUser";
+
+export const validarr = async (input) => {
   const errors = {};
   const phoneRegex = /^\d+$/;
   const letterRegex = /^[a-zA-Z\s]+$/;
   const letterNumber = /^[0-9a-zA-Z]+$/;
+
+  const response = await getAllUser();
+  const repeat = response.filter((user) => user.nickname === input.nickname);
 
   if (input.name && !letterRegex.test(input.name)) {
     errors.name = "El nombre solo puede contener letras";
@@ -27,6 +32,10 @@ export function validarr(input) {
 
   if (input.nickname &&  /\s/.test(input.nickname)) {
     errors.nickname = "El nickname no puede contener espacios";
+  };
+
+  if (repeat.length > 0) {
+    errors.nickname = `El nickname ${input.nickname} ya se encuentra, intenta otro`;
   };
 
   return errors;
