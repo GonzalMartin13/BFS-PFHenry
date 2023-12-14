@@ -10,8 +10,11 @@ import { getAllEnvios } from "../../utils/getAllEnvios";
 import { getAllAdmin } from "../../utils/geatAllAdmin";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { deleteAdmin, pushAdmin } from "../../redux/Slices/userSlice";
+import { useDispatch } from "react-redux";
 
 const Dashboard = ({ updateContextUser }) => {
+  const dispatch = useDispatch();
   const [adminGraphs, setAdminGraphs] = useState([]);
   const [users, setUsers] = useState([]);
   const [envio, setEnvio] = useState([]);
@@ -136,6 +139,8 @@ const Dashboard = ({ updateContextUser }) => {
       });
   
       if (result.isConfirmed) {
+        console.log(admin)
+        admin.isActive ? dispatch(deleteAdmin(admin.emailAdmin)) : dispatch(pushAdmin(admin.emailAdmin))
         // Realiza la llamada a la API para cambiar el estado del administrador
         await axios.put(`https://bfs-pfhenry-production.up.railway.app/admin/${admin.ID}`, {
         //await axios.put(`http://localhost:3001/admin/${admin.ID}`, {

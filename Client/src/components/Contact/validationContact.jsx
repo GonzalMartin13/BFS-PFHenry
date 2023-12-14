@@ -3,7 +3,7 @@ export function validateName(name) {
     return "El nombre es requerido";
   } else if (name.length < 3) {
     return "Parece que el nombre es demasiado corto";
-  } else if (!/^[a-zA-Z]+$/.test(name)) {
+  } else if (!/^[a-zA-Z\s]+(\s[a-zA-Z]+)*$/.test(name)) {
     return "El nombre debe contener solo letras";
   }
   return "";

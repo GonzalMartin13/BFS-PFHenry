@@ -37,30 +37,8 @@ const Home = () => {
         ¡Conoce <b>nuestros servicios</b> adaptados a nuestros clientes!
       </h3>
       <Cards />
-
-      <Button href="/envios" variant="" />
-
-      <br />
-
-      <Button href={isLogged ? "/envios" : "/login"} variant="">
-        <Card style={{ width: "18rem" }}>
-          <Card.Body>
-            <Card.Title>Ver mis envíos</Card.Title>
-            <br></br>
-            <img src={iconoEnvio} />
-            <Card.Text>
-              Mirá el listado de envíos asociados a tu cuenta.
-            </Card.Text>
-          </Card.Body>
-        </Card>
-      </Button>
-      <br />
-      <br />
-      <br />
-
       <Reviews />
       <br />
-
       <ShowReviews />
       <br />
       <br />
