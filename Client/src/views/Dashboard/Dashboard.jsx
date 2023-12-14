@@ -108,7 +108,7 @@ const Dashboard = ({ updateContextUser }) => {
         localStorage.setItem('users', JSON.stringify(users));
 
         Swal.fire({
-          title: `Este usuario ha sido ${user.isBanned? "bloqueado" : "desbloqueado"} en BFS`,
+          title: `Este usuario ha sido ${user.enabled? "bloqueado" : "desbloqueado"} en BFS`,
           icon: "success",
           customClass: {
             popup: "mySwal",
