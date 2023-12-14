@@ -6,6 +6,7 @@ import Button from "react-bootstrap/Button";
 import { useSelector, useDispatch } from "react-redux";
 import Swal from "sweetalert2";
 import { submitReview, editReview,fetchAllReviews } from "../../redux/Slices/reviewsSlice";
+import {validate} from "./validateReview"
 
 const Reviews = () => {
   const [rating, setRating] = useState(null);
@@ -16,6 +17,8 @@ const Reviews = () => {
     rating: 0,
     UserEmail: "",
   });
+
+  const [errors , setErrors] = useState ({})
 
   const [editMode, setEditMode] = useState(false);
   const [reviewCreated, setReviewCreated] = useState(false);
@@ -79,8 +82,6 @@ const Reviews = () => {
   //   }
   // }, [isLoggedIn, UserEmail, dispatch]);
   
-  
-  
 
   const handleRatingChange = (currentRating) => {
     setRating(currentRating);
@@ -95,6 +96,16 @@ const Reviews = () => {
       ...input,
       comment: event.target.value,
       UserEmail: UserEmail,
+    });
+  
+    const validationErrors = validate({
+      ...input,
+      [event.target.name]: event.target.value,
+    });
+  
+    setErrors({
+      ...errors,
+      comment: validationErrors.comment,
     });
   };
 
@@ -159,6 +170,9 @@ const Reviews = () => {
             ))}
           </p>
           <p>{comment}</p>
+          {errors.comment && (
+            <span className="text-danger">{errors.comment}</span>
+          )}
           <Button variant ="secondary" onClick={editHandler}>Editar</Button>
         </div>
       ) : (
@@ -196,14 +210,19 @@ const Reviews = () => {
               size="sm"
               className="my-2"
             />
+             {errors.comment && (
+              <span className="text-danger">{errors.comment}</span>
+            )}
           </FloatingLabel>
+          {!errors.comment && 
           <Button
-            type="submit"
-            disabled={!rating || !input.comment.trim()}
-            className="my-2"
-          >
-            {editMode ? "Guardar cambios" : "Enviar"}
-          </Button>
+          type="submit"
+          disabled={!rating || !input.comment.trim()}
+          className="my-2"
+        >
+          {editMode ? "Guardar cambios" : "Enviar"}
+        </Button>}
+          
         </form>
       )}
     </div>
