@@ -74,7 +74,7 @@ const Dashboard = ({ updateContextUser }) => {
 
 
   const handleToggleUser = async (user) => {
-    const message = user.isBanned
+    const message = user.enabled
       ? "desbloquear a este usuario"
       : "bloquear a este usuario";
 
