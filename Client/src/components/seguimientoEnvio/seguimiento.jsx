@@ -93,7 +93,7 @@ function SeguimientoEnvio() {
   };
 
   return (
-    <div className="seguimiento-envio-container fondoenvio">
+    <div className="fondoenvio">
       <Form onSubmit={(e) => handleSubmit(input.numero, e)} className="form-container d-flex">
         <Form.Label className="mb-1"></Form.Label>
         <Form.Group>
