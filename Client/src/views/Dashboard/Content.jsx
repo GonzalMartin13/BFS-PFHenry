@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 import PropTypes from "prop-types";
@@ -6,12 +7,14 @@ import Grafico from "./Graficos";
 import ReactPaginate from "react-paginate";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import logo from "../../assets/logo.png"
 
 
 const Content = ({ selectedButton, envio, users, admin, handleToggleUser, handleToggleActivation }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(0);
   const [sortOrder, setSortOrder] = useState("asc");
+  const [hasPerformedAction, setHasPerformedAction] = useState(false);
   const itemsPerPage = 10;
 
   const handleSearchTermChange = (event) => {
@@ -115,16 +118,10 @@ const Content = ({ selectedButton, envio, users, admin, handleToggleUser, handle
           <td>{item.name}</td>
           <td>{item.lastName}</td>
           <td>
-            <Checkbox
-              value={item.enabled}
-              onChange={() => handleToggleUser(item)}
-            />
-          </td>
-          <td>
             <button
               onClick={() => handleToggleUser(item)}
               className="btn btn-warning">
-              {item.enabled ? "Bloquear" : "Desbloquear"}
+              {item.enabled ? "Desbloquear" : "Bloquear"}
               <FontAwesomeIcon icon={faEdit} />
             </button>
           </td>
@@ -136,6 +133,21 @@ const Content = ({ selectedButton, envio, users, admin, handleToggleUser, handle
   return (
     <div className={styles.containerContext}>
       <div>
+      {!hasPerformedAction && selectedButton !== "adminGraphs" && (
+          selectedButton !== "Usuarios" && selectedButton !== "Admin" && selectedButton !== "Envios" && (
+            <img
+              src={logo}
+              alt="logo"
+              style={{
+                display: 'block', margin: 'auto',
+                border: "1px solid #dee2e6",
+                borderRadius: "45px",
+                boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)"
+              }}
+            />
+          )
+        )}
+
         {selectedButton === "adminGraphs" && (
           <>
             <h2>Registros de Administración</h2>
@@ -178,7 +190,6 @@ const Content = ({ selectedButton, envio, users, admin, handleToggleUser, handle
                     <th>Email</th>
                     <th>Nombre {sortOrder === "asc" ? "A-Z" : "Z-A"}</th>
                     <th>Apellido</th>
-                    <th>Estado</th>
                     <th>Accion</th>
                   </tr>
                 </thead>
