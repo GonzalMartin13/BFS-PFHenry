@@ -2,7 +2,7 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { Icon } from "leaflet";
 import sucursales from "./Sucursales";
-import Image from "react-bootstrap/Image";
+//import Image from "react-bootstrap/Image";
 import { Row, Col } from "react-bootstrap";
 const Mapa = () => {
   const position = [-35.4132981, -65.0205861];
@@ -29,7 +29,7 @@ const Mapa = () => {
       <Row>
         {/* Columna del Listado de Sucursales */}
         <Col md={4} >
-        <div style={{ marginBottom: "20px", border:"3px black solid", width:"80%", marginLeft:"3pc" }}>
+        <div style={{ marginBottom: "20px", border:"3px black solid", width:"80%", marginLeft:"3pc", borderRadius:"5px", backgroundColor:"aliceblue",boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",  }}>
             <div>
               <strong>Ciudad:</strong> Misiones
             </div>
@@ -38,7 +38,7 @@ const Mapa = () => {
               C1043AAL
             </div>
           </div>
-        <div style={{ marginBottom: "20px", border:"3px black solid", width:"80%", marginLeft:"3pc" }}>
+        <div style={{ marginBottom: "20px", border:"3px black solid", width:"80%", marginLeft:"3pc", borderRadius:"5px", backgroundColor:"aliceblue",boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",  }}>
             <div>
               <strong>Ciudad:</strong> Municipio de San Luis
             </div>
@@ -47,7 +47,7 @@ const Mapa = () => {
               Luis, CP: D5702JRP
             </div>
           </div>
-        <div style={{ marginBottom: "20px", border:"3px black solid", width:"80%", marginLeft:"3pc" }}>
+        <div style={{ marginBottom: "20px", border:"3px black solid", width:"80%", marginLeft:"3pc", borderRadius:"5px", backgroundColor:"aliceblue",boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",  }}>
             <div>
               <strong>Ciudad:</strong> Santa Cruz
             </div>
@@ -57,7 +57,7 @@ const Mapa = () => {
             </div>
           </div>
 
-        <div style={{ marginBottom: "20px", border:"3px black solid", width:"80%", marginLeft:"3pc" }}>
+        <div style={{ marginBottom: "20px", border:"3px black solid", width:"80%", marginLeft:"3pc", borderRadius:"5px", backgroundColor:"aliceblue",boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",  }}>
             <div>
               <strong>Ciudad:</strong> Río Negro
             </div>
@@ -67,7 +67,7 @@ const Mapa = () => {
             </div>
           </div>
 
-        <div style={{ marginBottom: "20px", border:"3px black solid", width:"80%", marginLeft:"3pc" }}>
+        <div style={{ marginBottom: "20px", border:"3px black solid", width:"80%", marginLeft:"3pc", borderRadius:"5px", backgroundColor:"aliceblue",boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",  }}>
             <div>
               <strong>Ciudad:</strong> Chubut
             </div>
@@ -76,7 +76,7 @@ const Mapa = () => {
             </div>
           </div>
 
-        <div style={{ marginBottom: "20px", border:"3px black solid", width:"80%", marginLeft:"3pc" }}>
+        <div style={{ marginBottom: "20px", border:"3px black solid", width:"80%", marginLeft:"3pc", borderRadius:"5px", backgroundColor:"aliceblue",boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",  }}>
             <div>
               <strong>Ciudad:</strong> Mendoza
             </div>
@@ -86,7 +86,7 @@ const Mapa = () => {
             </div>
           </div>
 
-        <div style={{ marginBottom: "20px", border:"3px black solid", width:"80%", marginLeft:"3pc" }}>
+        <div style={{ marginBottom: "20px", border:"3px black solid", width:"80%", marginLeft:"3pc", borderRadius:"5px", backgroundColor:"aliceblue",boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",  }}>
             <div>
               <strong>Ciudad:</strong> Entre Ríos
             </div>
@@ -95,7 +95,7 @@ const Mapa = () => {
               Entre Ríos, CP: E2820BLA
             </div>
           </div>
-        <div style={{ marginBottom: "20px", border:"3px black solid", width:"80%", marginLeft:"3pc" }}>
+        <div style={{ marginBottom: "20px", border:"3px black solid", width:"80%", marginLeft:"3pc", borderRadius:"5px", backgroundColor:"aliceblue",boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",  }}>
             <div>
               <strong>Ciudad:</strong> La Pampa
             </div>
@@ -106,7 +106,7 @@ const Mapa = () => {
 
         </Col>
         <Col md={4}>
-        <div style={{ marginBottom: "20px", border:"3px black solid", width:"80%" }}>
+        <div style={{ marginBottom: "20px", border:"3px black solid", width:"80%" , borderRadius:"5px", backgroundColor:"aliceblue",boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",  }}>
             <div>
               <strong>Ciudad:</strong> Santiago del Estero
             </div>
@@ -115,7 +115,7 @@ const Mapa = () => {
               G4200
             </div>
           </div>
-        <div style={{ marginBottom: "20px", border:"3px black solid", width:"80%" }}>
+        <div style={{ marginBottom: "20px", border:"3px black solid", width:"80%", borderRadius:"5px", backgroundColor:"aliceblue",boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",  }}>
             <div>
               <strong>Ciudad:</strong> Corrientes
             </div>
@@ -124,7 +124,7 @@ const Mapa = () => {
             </div>
           </div>
 
-        <div style={{ marginBottom: "20px", border:"3px black solid", width:"80%" }}>
+        <div style={{ marginBottom: "20px", border:"3px black solid", width:"80%" , borderRadius:"5px", backgroundColor:"aliceblue",boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",  }}>
             <div>
               <strong>Ciudad:</strong> Tucumán
             </div>
@@ -134,7 +134,7 @@ const Mapa = () => {
             </div>
           </div>
 
-        <div style={{ marginBottom: "20px", border:"3px black solid", width:"80%" }}>
+        <div style={{ marginBottom: "20px", border:"3px black solid", width:"80%", borderRadius:"5px", backgroundColor:"aliceblue",boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",  }}>
             <div>
               <strong>Ciudad:</strong> Neuquén
             </div>
@@ -143,7 +143,7 @@ const Mapa = () => {
               CP: 8322
             </div>
           </div>
-        <div style={{ marginBottom: "20px", border:"3px black solid", width:"80%" }}>
+        <div style={{ marginBottom: "20px", border:"3px black solid", width:"80%" , borderRadius:"5px", backgroundColor:"aliceblue",boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",  }}>
             <div>
               <strong>Ciudad:</strong> La Rioja
             </div>
@@ -153,7 +153,7 @@ const Mapa = () => {
             </div>
           </div>
 
-        <div style={{ marginBottom: "20px", border:"3px black solid", width:"80%" }}>
+        <div style={{ marginBottom: "20px", border:"3px black solid", width:"80%" , borderRadius:"5px", backgroundColor:"aliceblue",boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",  }}>
             <div>
               <strong>Ciudad:</strong> Catamarca
             </div>
@@ -163,7 +163,7 @@ const Mapa = () => {
             </div>
           </div>
 
-          <div style={{ marginBottom: "20px", border:"3px black solid", width:"80%" }}>
+          <div style={{ marginBottom: "20px", border:"3px black solid", width:"80%" , borderRadius:"5px", backgroundColor:"aliceblue",boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",  }}>
             <div>
               <strong>Ciudad:</strong> Salta
             </div>
@@ -174,7 +174,7 @@ const Mapa = () => {
         </Col>
 
         <Col md={4}>
-        <div style={{ marginBottom: "20px", border:"3px black solid", width:"80%" }}>
+        <div style={{ marginBottom: "20px", border:"3px black solid", width:"80%" , borderRadius:"5px", backgroundColor:"aliceblue",boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",  }}>
             <div>
               <strong>Ciudad:</strong> Chaco
             </div>
@@ -183,7 +183,7 @@ const Mapa = () => {
             </div>
           </div>
 
-          <div style={{ marginBottom: "20px", border:"3px black solid", width:"80%" }}>
+          <div style={{ marginBottom: "20px", border:"3px black solid", width:"80%" , borderRadius:"5px", backgroundColor:"aliceblue",boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",  }}>
             <div>
               <strong>Ciudad:</strong> Formosa
             </div>
@@ -191,7 +191,7 @@ const Mapa = () => {
               <strong>Dirección:</strong> Jujuy 975, Formosa, CP: 3600
             </div>
           </div>
-          <div style={{ marginBottom: "20px", border:"3px black solid", width:"80%" }}>
+          <div style={{ marginBottom: "20px", border:"3px black solid", width:"80%" , borderRadius:"5px", backgroundColor:"aliceblue",boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",  }}>
             <div>
               <strong>Ciudad:</strong> Jujuy
             </div>
@@ -201,7 +201,7 @@ const Mapa = () => {
             </div>
           </div>
 
-          <div style={{ marginBottom: "20px", border:"3px black solid", width:"80%" }}>
+          <div style={{ marginBottom: "20px", border:"3px black solid", width:"80%" , borderRadius:"5px", backgroundColor:"aliceblue",boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",  }}>
             <div>
               <strong>Ciudad:</strong> Tierra del Fuego
             </div>
@@ -210,7 +210,7 @@ const Mapa = () => {
             </div>
           </div>
 
-          <div style={{ marginBottom: "20px", border:"3px black solid", width:"80%" }}>
+          <div style={{ marginBottom: "20px", border:"3px black solid", width:"80%" , borderRadius:"5px", backgroundColor:"aliceblue",boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",  }}>
             <div>
               <strong>Ciudad:</strong> Buenos Aires
             </div>
@@ -220,7 +220,7 @@ const Mapa = () => {
             </div>
           </div>
 
-          <div style={{ marginBottom: "20px", border:"3px black solid", width:"80%" }}>
+          <div style={{ marginBottom: "20px", border:"3px black solid", width:"80%" , borderRadius:"5px", backgroundColor:"aliceblue",boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",  }}>
             <div>
               <strong>Ciudad:</strong> Córdoba
             </div>
@@ -229,7 +229,7 @@ const Mapa = () => {
             </div>
           </div>
 
-          <div style={{ marginBottom: "20px", border:"3px black solid", width:"80%" }}>
+          <div style={{ marginBottom: "20px", border:"3px black solid", width:"80%" , borderRadius:"5px", backgroundColor:"aliceblue",boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",  }}>
             <div>
               <strong>Ciudad:</strong> San Juan
             </div>
@@ -238,7 +238,7 @@ const Mapa = () => {
             </div>
           </div>
 
-          <div style={{ marginBottom: "20px", border:"3px black solid", width:"80%" }}>
+          <div style={{ marginBottom: "20px", border:"3px black solid", width:"80%" , borderRadius:"5px", backgroundColor:"aliceblue",boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",  }}>
             <div>
               <strong>Ciudad:</strong> Santa Fe
             </div>
@@ -264,6 +264,7 @@ const Mapa = () => {
                 <Marker
                   key={index}
                   position={sucursal.coordenadas}
+                  icon={myIcon}
                   // Icono de marcador personalizado si lo deseas
                 >
                   <Popup>{sucursal.Popup}</Popup>

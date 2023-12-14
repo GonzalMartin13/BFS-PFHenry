@@ -37,19 +37,8 @@ const Home = () => {
         ¡Conoce <b>nuestros servicios</b> adaptados a nuestros clientes!
       </h3>
       <Cards />
-
-      <Button href="/envios" variant="" />
-
-      <br />
-
-     
-      <br />
-      <br />
-      <br />
-
       <Reviews />
       <br />
-
       <ShowReviews />
       <br />
       <br />

@@ -3,6 +3,7 @@ const { handlerRegister } = require('../handlers/handlerRegister');
 const { handlerGetProfile, handlerPutProfile } = require('../handlers/handlerProfile')
 const { getAllUsersHandler } = require("../handlers/getAllUsersHandler")
 const { handlerUserByName } = require('../handlers/handlerUserByName');
+const { handlerBan } = require("../handlers/handlerBan")
 
 const { Router } = require("express");
 const { putHandlerUser } = require("../handlers/putHandlerUser");
@@ -23,4 +24,5 @@ users.put("/user/:ID", putHandlerUser); // query + body
 // Dashboard
 users.get('/dashboard', getAllUsersHandler);
 users.get('/name', handlerUserByName)
+users.put("/ban/:userMail", handlerBan)
 module.exports = users
