@@ -22,8 +22,6 @@ import { useNavigate, Link } from "react-router-dom";
 import { log, out, profile } from "./style";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faRightToBracket } from "@fortawesome/free-solid-svg-icons";
-import axios from "axios";
-import { useEffect } from "react";
 
 const Login = () => {
   const { contador, isLoggedIn, emails, isProfile, goConfirmacion, goProfile } =
@@ -37,15 +35,6 @@ const Login = () => {
 
   const { loginWithRedirect, isAuthenticated, logout, user } = useAuth0();
 
-
-
-    const {data} = axios(`https://bfs-pfhenry-production.up.railway.app/user/${usuario.email}`)
-    console.log("golaaaa", usuario.email, data)
-
-  
-
-  
-  
   if (
     emails?.includes(user?.email) &&
     isAuthenticated &&
@@ -103,12 +92,6 @@ const Login = () => {
     });
 
     dispatch(contar());
-  } else if (data){
-    Swal.fire({
-      title: "Esta cuenta esta baneada",
-      text: `${user.nickname} mo puedes crear envios por una violacion a nuestas reglas`,
-      icon: "danger",
-    });
   }
 
   const confirmar = () => {
