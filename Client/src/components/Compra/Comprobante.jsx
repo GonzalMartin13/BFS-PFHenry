@@ -104,88 +104,82 @@ export default function Comprobante() {
 
   return (
     <Container className="mt-5" fluid style={{ height: "1000px" }}>
+      <h1
+        style={{
+          borderBottom: " 2px solid #969090",
+          display: "inline",
+          padding: "2px 15px",
+        }}
+      >
+        Gracias por confiar en nosotros!
+      </h1>
+      <h4 style={{ marginTop: "10px", marginBottom: "12px" }}>
+        Tu solicitud de envío ha sido procesada con éxito. Aquí tienes los
+        detalles:
+      </h4>
+      <ListGroup className="fs-4">
+        <ListGroup.Item variant="info">Origen: {envio.origen}</ListGroup.Item>
+        <ListGroup.Item variant="info">Destino: {envio.destino}</ListGroup.Item>
+        <ListGroup.Item variant="info">
+          Servicios: {envio.servicios.join(", ")}
+        </ListGroup.Item>
+        {envio.ancho && envio.alto && envio.ancho && (
+          <ListGroup.Item variant="info">
+            Dimensiones de la caja:{" "}
+            {`Largo: ${envio.largo || "no especificado"} x  Ancho: ${
+              envio.ancho || "no especificado"
+            } x  Alto: ${envio.alto || "no especificado"}`}
+          </ListGroup.Item>
+        )}
+        {envio.peso && (
+          <ListGroup.Item variant="info">
+            Peso: {`${envio.largo || "no especificado"} `}
+          </ListGroup.Item>
+        )}
+        <ListGroup.Item variant="info">
+          Total pagado: $ {envio.total}
+        </ListGroup.Item>
+        <ListGroup.Item variant="info">
+          Código de seguimiento: {idShipping}
+        </ListGroup.Item>
+      </ListGroup>
       {url == "" ? (
-        <Spinner />
+        ""
       ) : (
-        <>
-          <h1
-            style={{
-              borderBottom: " 2px solid #969090",
-              display: "inline",
-              padding: "2px 15px",
-            }}
-          >
-            Gracias por confiar en nosotros!
-          </h1>
-          <h4 style={{ marginTop: "10px", marginBottom: "12px" }}>
-            Tu solicitud de envío ha sido procesada con éxito. Aquí tienes los
-            detalles:
-          </h4>
-          <ListGroup className="fs-4">
-            <ListGroup.Item variant="info">
-              Origen: {envio.origen}
-            </ListGroup.Item>
-            <ListGroup.Item variant="info">
-              Destino: {envio.destino}
-            </ListGroup.Item>
-            <ListGroup.Item variant="info">
-              Servicios: {envio.servicios.join(", ")}
-            </ListGroup.Item>
-            {envio.ancho && envio.alto && envio.ancho && (
-              <ListGroup.Item variant="info">
-                Dimensiones de la caja:{" "}
-                {`Largo: ${envio.largo || "no especificado"} x  Ancho: ${
-                  envio.ancho || "no especificado"
-                } x  Alto: ${envio.alto || "no especificado"}`}
-              </ListGroup.Item>
-            )}
-            {envio.peso && (
-              <ListGroup.Item variant="info">
-                Peso: {`${envio.largo || "no especificado"} `}
-              </ListGroup.Item>
-            )}
-            <ListGroup.Item variant="info">
-              Total pagado: $ {envio.total}
-            </ListGroup.Item>
-            <ListGroup.Item variant="info">
-              Código de seguimiento: {idShipping}
-            </ListGroup.Item>
-          </ListGroup>
-          <a
-            href={url}
-            target="_blank"
-            rel="noreferrer"
-            className="btn btn-primary m-3 p-2"
-          >
-            Descargar factura
-          </a>
-          <Button
-            onClick={resetStates}
-            variant="outline-success"
-            style={{ margin: "auto 10px" }}
-          >
-            Volver a inicio
-          </Button>
-          <p className="fs-5 m-4">
-            Para concluir el proceso, te invitamos a dirigirte a la{" "}
-            <Link to="/sucursales" target="_blank">
-              sucursal
-            </Link>{" "}
-            correspondiente a la ciudad de origen, llevando contigo tu paquete y
-            la factura asociada. Nuestro equipo estará encantado de asistirte
-            con el despacho.
-          </p>
-
-          <p className="fs-5">
-            Recuerda que puedes realizar un seguimiento en tiempo real del
-            estado de tu envío utilizando el Código de seguimiento
-            proporcionado. Apreciamos tu confianza en nuestro servicio y estamos
-            aquí para ayudarte en cada paso del camino. Si tienes alguna
-            pregunta o necesitas asistencia adicional, no dudes en ponerte en
-            contacto con nuestro equipo de soporte.
-          </p>
-        </>
+        <a
+          href={url}
+          target="_blank"
+          rel="noreferrer"
+          className="btn btn-primary m-3 p-2"
+        >
+          Descargar factura
+        </a>
       )}
+      <Button
+        onClick={resetStates}
+        variant="outline-success"
+        style={{ margin: "auto 10px" }}
+      >
+        Volver a inicio
+      </Button>
+      <p className="fs-5 m-4">
+        Para concluir el proceso, te invitamos a dirigirte a la{" "}
+        <Link to="/sucursales" target="_blank">
+          sucursal
+        </Link>{" "}
+        correspondiente a la ciudad de origen, llevando contigo tu paquete y la
+        factura asociada. Nuestro equipo estará encantado de asistirte con el
+        despacho.
+      </p>
+
+      <p className="fs-5">
+        Recuerda que puedes realizar un seguimiento en tiempo real del estado de
+        tu envío utilizando el Código de seguimiento proporcionado. Apreciamos
+        tu confianza en nuestro servicio y estamos aquí para ayudarte en cada
+        paso del camino. Si tienes alguna pregunta o necesitas asistencia
+        adicional, no dudes en ponerte en contacto con nuestro equipo de
+        soporte.
+      </p>
     </Container>
   );
 }
