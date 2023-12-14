@@ -55,7 +55,7 @@ const Dashboard = ({ updateContextUser }) => {
 
   const handleUsers = async () => {
     const usuarios = await getAllUser();
-    usuarios.map((user) => user.enabled = true);
+    //usuarios.map((user) => user.enabled = true);
     const oldUsers = users;
     const newUsers = usuarios.filter(newUser => !oldUsers.some(oldUser => oldUser.id === newUser.id));
     console.log(newUsers);
@@ -74,9 +74,10 @@ const Dashboard = ({ updateContextUser }) => {
 
 
   const handleToggleUser = async (user) => {
-    const message = user.enabled
-      ? "bloquear a este usuario"
-      : "desbloquear a este usuario";
+    const message = user.isBanned
+      ? "desbloquear a este usuario"
+      : "bloquear a este usuario";
+
 
     const result = await Swal.fire({
       title: `¿Deseas ${message} en la plataforma?`,
@@ -95,7 +96,7 @@ const Dashboard = ({ updateContextUser }) => {
       try {
         // Realiza la solicitud HTTP
         //await axios.get(`http://localhost:3001/user/`, {
-        await axios.get(`https://bfs-pfhenry-production.up.railway.app/user/`, {
+        await axios.put(`https://bfs-pfhenry-production.up.railway.app/user/ban/${user.email}`, {
           ...user,
           enabled: !user.enabled,
         });
@@ -107,7 +108,7 @@ const Dashboard = ({ updateContextUser }) => {
         localStorage.setItem('users', JSON.stringify(users));
 
         Swal.fire({
-          title: `Este usuario ha sido ${user.enabled ? "bloqueado" : "desbloqueado"} en BFS`,
+          title: `Este usuario ha sido ${user.isBanned? "bloqueado" : "desbloqueado"} en BFS`,
           icon: "success",
           customClass: {
             popup: "mySwal",
