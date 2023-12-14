@@ -310,7 +310,7 @@ const FormEnvio = () => {
 
         await handleEnvioBD(shippingInfo);
 
-        window.location.href = linkPago;
+        //        window.location.href = linkPago;
 
         resetForm();
       }}
@@ -603,11 +603,14 @@ const FormEnvio = () => {
                   <Button
                     onClick={handleFileUpload}
                     variant="success"
-                    style={{ padding: "9px 20px", fontSize: "16px", width: "60%" }}
+                    style={{
+                      padding: "9px 20px",
+                      fontSize: "16px",
+                      width: "60%",
+                    }}
                     className="m-3"
-                  ><strong>
-                    Subir imagen
-                    </strong>
+                  >
+                    <strong>Subir imagen</strong>
                   </Button>
                 </div>
 
@@ -656,17 +659,19 @@ const FormEnvio = () => {
 
               <div>
                 <br></br>
-                <h4><strong>Precio Final: $ {total}</strong></h4>
+                <h4>
+                  <strong>Precio Final: $ {total}</strong>
+                </h4>
                 <br></br>
               </div>
 
-            <div>
-              <br></br>
-              <button type="submit" className={styles.button}>
-                Proceder al pago
-              </button>
-              <br></br>
-            </div>
+              <div>
+                <br></br>
+                <button type="submit" className={styles.button}>
+                  Proceder al pago
+                </button>
+                <br></br>
+              </div>
 
               <div>
                 <br></br>
@@ -690,14 +695,19 @@ const FormEnvio = () => {
                   boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
                   margin: "20px auto",
                   maxWidth: "850px",
-                  height: "auto"
+                  height: "auto",
                 }}
               >
                 <br></br>
                 <MapContainer
                   center={position}
                   zoom={4}
-                  style={{ height: "390px", width: "70%", margin: "auto", padding: "10px" }}
+                  style={{
+                    height: "390px",
+                    width: "70%",
+                    margin: "auto",
+                    padding: "10px",
+                  }}
                 >
                   <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -714,7 +724,7 @@ const FormEnvio = () => {
                     </Marker>
                   )}
                 </MapContainer>
-              <br></br>
+                <br></br>
               </div>
               <br></br>
             </div>
