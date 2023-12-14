@@ -20,7 +20,7 @@
  background: url("../../assets/fondosxeguimiento.png");
  height: 675px;
  background-repeat: no-repeat;
- background-size: contain;
+ background-size: cover;
  border-top: 1px double whitesmoke;
  width: 120%;
 
