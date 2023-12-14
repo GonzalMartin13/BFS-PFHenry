@@ -30,14 +30,14 @@ const putUserController = async (user) => {
 	return data[0];
 };
 
-const getUserByName = async (name) => {
+const getUserByName = async (email) => {
 
-  const response = await User.findAll();
+  const response = await User.findByPk(email);
   //console.log('EN LA USER: ', response);
   const resName = response.filter(user => user.name.toLowerCase().includes(name.toLowerCase()));
 const userName = resName.map(user => {
-  const { ID, name, lastName, phone, address, email, nickname, picture} = user;
-  return{ID, name, lastName, phone, address, email, nickname, picture}
+  const { ID, name, lastName, phone, address, email, nickname, picture, isBanned} = user;
+  return{ID, name, lastName, phone, address, email, nickname, picture, isBanned}
 })
 
   return userName;

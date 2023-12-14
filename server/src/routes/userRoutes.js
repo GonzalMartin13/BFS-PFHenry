@@ -4,6 +4,7 @@ const { handlerGetProfile, handlerPutProfile } = require('../handlers/handlerPro
 const { getAllUsersHandler } = require("../handlers/getAllUsersHandler")
 const { handlerUserByName } = require('../handlers/handlerUserByName');
 const { handlerBan } = require("../handlers/handlerBan")
+const {usuarioXmail} = require("../handlers/xmail")
 
 const { Router } = require("express");
 const { putHandlerUser } = require("../handlers/putHandlerUser");
@@ -11,6 +12,7 @@ const { putHandlerUser } = require("../handlers/putHandlerUser");
 const users = Router()
 
 users.get('/', getAllUsersHandler)
+users.get("/:email", usuarioXmail)
 // Autenticación y Registro de Usuarios
 users.post('/register', handlerRegister); //body
 users.put('/log', handlerLog); //body
