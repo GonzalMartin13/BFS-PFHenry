@@ -9,7 +9,7 @@ const setStateQu = {
   total: "",
 };
 import { useDispatch, useSelector } from "react-redux";
-import { Container, Button, ListGroup } from "react-bootstrap";
+import { Container, Button, ListGroup, Spinner } from "react-bootstrap";
 import {
   postInvoiceAsync,
   setStateInvoice,
@@ -143,14 +143,18 @@ export default function Comprobante() {
           Código de seguimiento: {idShipping}
         </ListGroup.Item>
       </ListGroup>
-      <a
-        href={url}
-        target="_blank"
-        rel="noreferrer"
-        className="btn btn-primary m-3 p-2"
-      >
-        Descargar factura
-      </a>
+      {url == "" ? (
+        ""
+      ) : (
+        <a
+          href={url}
+          target="_blank"
+          rel="noreferrer"
+          className="btn btn-primary m-3 p-2"
+        >
+          Descargar factura
+        </a>
+      )}
       <Button
         onClick={resetStates}
         variant="outline-success"

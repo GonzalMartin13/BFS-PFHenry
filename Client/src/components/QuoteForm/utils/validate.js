@@ -13,14 +13,26 @@ export const validateForm = (form, name) => {
     if (form.largo < 1) {
       errors.largo = "Debe especificar el largo del paquete a cotizar";
     }
+    if (form.largo > 190) {
+      errors.largo = "El largo no puede superar los 190 cms";
+    }
     if (form.alto < 1) {
       errors.alto = "Debe especificar el alto del paquete a cotizar";
+    }
+    if (form.alto > 190) {
+      errors.alto = "El alto no puede superar los 190 cms";
     }
     if (form.ancho < 1) {
       errors.ancho = "Debe especificar el ancho del paquete a cotizar";
     }
+    if (form.ancho > 190) {
+      errors.ancho = "El ancho no puede superar los 190 cms";
+    }
     if (form.peso < 0.1) {
       errors.peso = "Debe especificar el peso del paquete a cotizar";
+    }
+    if (form.peso > 100) {
+      errors.peso = "El peso no puede superar los 100 kgs";
     }
   }
   if (name === "carteria" || !form.servicios.includes("carteria")) {
