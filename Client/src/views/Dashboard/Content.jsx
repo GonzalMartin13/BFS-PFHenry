@@ -21,26 +21,6 @@ const Content = ({ selectedButton, envio, users, admin, handleToggleUser, handle
     setSearchTerm(event.target.value);
   };
 
-
-  // const handleToggleActivation = async (admin) => {
-  //   try {
-
-  //     const confirmed = window.confirm(
-  //       `¿Estás seguro de ${
-  //         admin.isActive ? "desactivar" : "activar"
-  //       } este administrador?`
-  //     );
-
-  //     if (confirmed) {
-     
-  //       // Realiza la llamada a la API para cambiar el estado del administrador
-  //       //await axios.put(`http://localhost:3001/admin/${admin.ID}`, {
-  //       await axios.put(`https://bfs-pfhenry-production.up.railway.app/admin/${admin.ID}`, {
-  //         isActive: !admin.isActive,
-  //       });
-
-
-
   const Checkbox = ({ value, onChange }) => {
     const [checked, setChecked] = useState(value);
 
@@ -114,7 +94,7 @@ const Content = ({ selectedButton, envio, users, admin, handleToggleUser, handle
       sortedAndFilteredData.map((item, index) => (
         <tr key={index}>
           <td>{item.ID}</td>
-          <td>{item.email}</td>
+           <td className={`${styles.fullEmail}`}>{item.email}</td>
           <td>{item.name}</td>
           <td>{item.lastName}</td>
           <td>
@@ -133,17 +113,19 @@ const Content = ({ selectedButton, envio, users, admin, handleToggleUser, handle
   return (
     <div className={styles.containerContext}>
       <div>
-      {!hasPerformedAction && selectedButton !== "adminGraphs" && (
+        {!hasPerformedAction && selectedButton !== "adminGraphs" && (
           selectedButton !== "Usuarios" && selectedButton !== "Admin" && selectedButton !== "Envios" && (
             <img
-              src={logo}
-              alt="logo"
-              style={{
-                display: 'block', margin: 'auto',
-                border: "1px solid #dee2e6",
-                borderRadius: "45px",
-                boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)"
-              }}
+            src={logo}
+            alt="logo"
+            className="img-fluid"
+            style={{
+               display: 'block',
+               margin: 'auto',
+               border: "1px solid #dee2e6",
+               borderRadius: "45px",
+               boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)"
+            }}
             />
           )
         )}
@@ -158,7 +140,7 @@ const Content = ({ selectedButton, envio, users, admin, handleToggleUser, handle
       <div>
         {selectedButton === "Usuarios" && (
           <>
-            <h2>Tabla de Usuarios</h2>
+            <h2 className="mb-4">Tabla de Usuarios</h2>
             <input
               type="text"
               placeholder="Buscar por nombre..."
@@ -188,7 +170,7 @@ const Content = ({ selectedButton, envio, users, admin, handleToggleUser, handle
                   <tr>
                     <th>ID</th>
                     <th>Email</th>
-                    <th>Nombre {sortOrder === "asc" ? "A-Z" : "Z-A"}</th>
+                    <th>Nombre</th>
                     <th>Apellido</th>
                     <th>Accion</th>
                   </tr>
@@ -210,7 +192,7 @@ const Content = ({ selectedButton, envio, users, admin, handleToggleUser, handle
               onPageChange={handlePageClick}
               containerClassName={"pagination justify-content-center"}
               subContainerClassName={"pages pagination"}
-              activeClassName={styles.activePage} 
+              activeClassName={styles.activePage}
             />
           </>
         )}
@@ -218,7 +200,7 @@ const Content = ({ selectedButton, envio, users, admin, handleToggleUser, handle
       <div>
         {selectedButton === "Envios" && (
           <>
-            <h2>Tabla de Envios</h2>
+            <h2 className="mb-4">Tabla de Envios</h2>
             <div className={styles.envios_table_container}>
               <table className={styles.envios_table}>
                 <thead>
@@ -244,50 +226,50 @@ const Content = ({ selectedButton, envio, users, admin, handleToggleUser, handle
               marginPagesDisplayed={2}
               pageRangeDisplayed={5}
               onPageChange={(selected) => handlePageClick(selected, selectedButton)}
-              containerClassName={"pagination justify-content-center gap-1rem"}  
+              containerClassName={"pagination justify-content-center gap-1rem"}
               subContainerClassName={"pages pagination"}
-              activeClassName={styles.activePage} 
-             />
+              activeClassName={styles.activePage}
+            />
           </>
         )}
 
-{selectedButton === "Admin" && (
-  <>
-    <h2>Administradores</h2>
-    <div className={styles.envios_table_container}>
-      <table className={styles.envios_table}>
-        <thead>
-          <tr>
-            <th>Nombre Admin</th>
-            <th>Email</th>
-            <th>Estado</th>
-          </tr>
-        </thead>
-        <tbody>
-          {admin?.map((admin, ID) => (
-            <tr key={ID}>
-              <td>{admin?.nameAdmin || "N/A"}</td>
-              <td>{admin?.emailAdmin || "N/A"}</td>
-              <td>
-                <button
-                  onClick={() => handleToggleActivation(admin)}
-                  style={{
-                    backgroundColor: admin.isActive ? "green" : "red",
-                    color: "white",
-                    cursor: "pointer",
-                    padding: "4px",
-                    borderRadius: "5px",
-                  }}>
-                  {admin?.isActive ? "Activo" : "Inactivo"}
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  </>
-)}
+        {selectedButton === "Admin" && (
+          <>
+            <h2 className="mb-4">Administradores</h2>
+            <div className={styles.envios_table_container}>
+              <table className={styles.envios_table}>
+                <thead>
+                  <tr>
+                    <th>Nombre Admin</th>
+                    <th>Email</th>
+                    <th>Estado</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {admin?.map((admin, ID) => (
+                    <tr key={ID}>
+                      <td>{admin?.nameAdmin || "N/A"}</td>
+                      <td>{admin?.emailAdmin || "N/A"}</td>
+                      <td>
+                        <button
+                          onClick={() => handleToggleActivation(admin)}
+                          style={{
+                            backgroundColor: admin.isActive ? "green" : "red",
+                            color: "white",
+                            cursor: "pointer",
+                            padding: "4px",
+                            borderRadius: "5px",
+                          }}>
+                          {admin?.isActive ? "Activo" : "Inactivo"}
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </>
+        )}
 
       </div>
     </div>

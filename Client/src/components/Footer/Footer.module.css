@@ -1,4 +1,4 @@
-footer {
+.containerFooter {
   padding: 20px 20px 0px 20px;
   bottom: 0;
   width: 100%;
@@ -27,7 +27,7 @@ footer {
 }
 .row {
   margin-top: 10px;
-  margin-left: 35%;
+  /* margin-left: 35%; */
   display: flex;
 }
 
@@ -97,7 +97,7 @@ footer {
   margin-bottom: 10px;
 }
 
-.img__logo {
+.img_logo {
   margin-top: 20px;
   height: 110px;
 }
@@ -111,8 +111,8 @@ footer {
 .bot{
   position: fixed;
   bottom: 3vh;
-  left: 20px;
-  right: auto;
+  left: auto;
+  right: 20px;
   z-index: 1000;
   font-size: 45px;
   background: none;

@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
-import style from "./Dashboard.module.css";
+import styles from "./Dashboard.module.css";
 import { useEffect, useState } from "react";
 import Sidebar from "./Sidebar";
 import Content from "./Content";
@@ -48,17 +48,10 @@ const Dashboard = ({ updateContextUser }) => {
     }
   };
 
-  // const handleUsers = async () => {
-  //   const usuarios = await getAllUser();
-  //   setUsers(usuarios);
-  // };
-
   const handleUsers = async () => {
     const usuarios = await getAllUser();
-    //usuarios.map((user) => user.enabled = true);
     const oldUsers = users;
     const newUsers = usuarios.filter(newUser => !oldUsers.some(oldUser => oldUser.id === newUser.id));
-    console.log(newUsers);
     setUsers([...oldUsers, ...newUsers]);
   };
 
@@ -72,12 +65,8 @@ const Dashboard = ({ updateContextUser }) => {
     setAdmin(admin);
   };
 
-
   const handleToggleUser = async (user) => {
-    const message = user.enabled
-      ? "desbloquear a este usuario"
-      : "bloquear a este usuario";
-
+    const message = user.enabled ? "desbloquear a este usuario" : "bloquear a este usuario";
 
     const result = await Swal.fire({
       title: `¿Deseas ${message} en la plataforma?`,
@@ -94,21 +83,18 @@ const Dashboard = ({ updateContextUser }) => {
 
     if (result.isConfirmed) {
       try {
-        // Realiza la solicitud HTTP
-        //await axios.get(`http://localhost:3001/user/`, {
         await axios.put(`https://bfs-pfhenry-production.up.railway.app/user/ban/${user.email}`, {
           ...user,
           enabled: !user.enabled,
         });
 
-        // Actualiza el estado local y persiste los cambios en localStorage
         setUsers((prevUsers) =>
           prevUsers.map((u) => (u.ID === user.ID ? { ...u, enabled: !u.enabled } : u))
         );
         localStorage.setItem('users', JSON.stringify(users));
 
         Swal.fire({
-          title: `Este usuario ha sido ${user.enabled? "desbloqueado" : "bloqueado"} en BFS`,
+          title: `Este usuario ha sido ${user.enabled ? "desbloqueado" : "bloqueado"} en BFS`,
           icon: "success",
           customClass: {
             popup: "mySwal",
@@ -127,6 +113,7 @@ const Dashboard = ({ updateContextUser }) => {
       }
     }
   };
+
   const handleToggleActivation = async (admin) => {
     try {
       const result = await Swal.fire({
@@ -140,20 +127,16 @@ const Dashboard = ({ updateContextUser }) => {
       });
   
       if (result.isConfirmed) {
-        console.log(admin)
         admin.isActive ? dispatch(deleteAdmin(admin.emailAdmin)) : dispatch(pushAdmin(admin.emailAdmin))
-        // Realiza la llamada a la API para cambiar el estado del administrador
         await axios.put(`https://bfs-pfhenry-production.up.railway.app/admin/${admin.ID}`, {
-        //await axios.put(`http://localhost:3001/admin/${admin.ID}`, {
           isActive: !admin.isActive,
         });
   
-        // Actualiza el estado en el frontend utilizando las acciones de Redux
         const updatedAdminList = adminList.map((a) =>
           a.ID === admin.ID ? { ...a, isActive: !admin.isActive } : a
         );
   
-        setAdminList(updatedAdminList); // Actualiza adminList
+        setAdminList(updatedAdminList);
   
         Swal.fire({
           title: 'Éxito',
@@ -165,21 +148,22 @@ const Dashboard = ({ updateContextUser }) => {
       console.error('Error al activar/desactivar administrador:', error);
     }
   };
-  
-
 
   return (
-    <div className={style.container}>
-      <Sidebar onButtonClick={handleButtonClick} />
-      <Content
-        selectedButton={selectedButton}
-        users={users}
-        envio={envio}
-        admin={admin}
-        handleToggleUser={handleToggleUser}
-        handleToggleActivation={handleToggleActivation}
-      />
-   
+    <div className={styles.dashboardContainer}>
+      <div className="row">
+        <Sidebar onButtonClick={handleButtonClick} className={styles.sidebar} />
+        <div className={styles.content}>
+          <Content
+            selectedButton={selectedButton}
+            users={users}
+            envio={envio}
+            admin={admin}
+            handleToggleUser={handleToggleUser}
+            handleToggleActivation={handleToggleActivation}
+          />
+        </div>
+      </div>
     </div>
   );
 };
