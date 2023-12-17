@@ -68,11 +68,11 @@
   right: 0;  
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   padding-left: 40px;
   padding-right: 40px;
   padding-bottom: 3px;
-  background-color: #222;
+  /* background-color: #222; */
   
 }
 .copy a {
