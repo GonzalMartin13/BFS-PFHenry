@@ -1,10 +1,7 @@
 import style from "./Footer.module.css";
 import { Container, Row, Col } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import fb from "../../assets/fb.png";
-import insta from "../../assets/insta.png";
 import image from "../../assets/logo.png";
-import linkedin from "../../assets/linkedin.png";
 import { useState } from "react";
 import Chat from "../ChatBot/ChatBot";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -23,12 +20,12 @@ const Footer = () => {
   };
 
   return (
-    <footer className={style.Footer}>
+    <footer className={style.containerFooter}>
       <Container>
         <Row>
           <Col md={3}>
             <div>
-              <img src={image} alt="BFS" className={style.img__logo} />
+              <img src={image} alt="BFS" className={style.img_logo} />
             </div>
           </Col>
           <Col md={3}>
@@ -70,7 +67,7 @@ const Footer = () => {
               />
               <a
                 className={style.link}
-                href="https://wa.me/message/"
+                href="https://wa.me/56945797810?text=Hola,%20quiero%20contactarte"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -88,12 +85,12 @@ const Footer = () => {
                 href="/contacto"
                 rel="noopener noreferrer"
               >
-                enviosbfs01@gmail.com
+                bfspfhenry@gmail.com
               </a>
             </div>
           </Col>
           <Col md={3}>
-            <p className={style.colum1_p}>Redes Sociales</p>
+            
             <div className={style.gd}>
               <div className={style.row}>
                 <a href="http://www.facebook.com" target="blanc">
@@ -128,10 +125,6 @@ const Footer = () => {
                 © 2023 Todos los Derechos Reservados |{" "}
                 <a>SoyHenry Cohorte 43a Grupo 01</a>
               </div>
-              {/* <div className={style.info}>
-                <a href="">Privacidad y Politica</a> |{" "}
-                <a href="">Terminos y Condiciones</a>
-              </div> */}
             </div>
           </Col>
         </Row>

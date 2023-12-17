@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import "./error.css"
+import style from "./error.module.css"
 // Reemplaza con la ruta correcta de tu imagen
 
 const ErrorPage = () => {
@@ -13,11 +13,11 @@ const ErrorPage = () => {
   return (
     <div>
       <img
-        className="imgerror"
+        className={style.imgerror}
         src="https://i.pcmag.com/imagery/articles/04jAUMmQpJDt3aEZAQgEowt-2.fit_lim.v1623151030.jpg"
         alt="error"
       />
-      <h2 className="hache2">Error 404</h2>
+      <h2 className={style.hache2}>Error 404</h2>
       {hayquery ? (
         <h4>Hubo un problema en tu pago de mercadopago</h4>
       ) : (
@@ -27,29 +27,29 @@ const ErrorPage = () => {
         </>
       )}
       <p>Aqui tiene algunos enlaces que capaz te sean de gran ayuda </p>
-      <ul className="ul">
+      <ul className={style.ul}>
         <li>
-          <Link className="li" to="/">
+          <Link className={style.li} to="/">
             Pagina Principal
           </Link>
         </li>
         <li>
-          <Link className="li" to="/servicios">
+          <Link className={style.li} to="/servicios">
             Nuestros Servicios
           </Link>
         </li>
         <li>
-          <Link className="li" to="/cotizacion">
+          <Link className={style.li} to="/cotizacion">
             Cotizador de envios
           </Link>
         </li>
         <li>
-          <Link className="li" to="/envios">
+          <Link className={style.li} to="/envios">
             Mis envios
           </Link>
         </li>
         <li>
-          <Link className="li" to="/contacto">
+          <Link className={style.li} to="/contacto">
             Contactate con Nosotros!
           </Link>
         </li>

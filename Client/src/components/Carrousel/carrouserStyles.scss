@@ -1,21 +1,30 @@
-@import 'bootstrap/dist/css/bootstrap.min.css';
+.CarruselContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* O ajusta a la altura que desees */
+}
 
+.Carrusel {
+  width: 900px;
+  height: 700px;
+}
 
-.custom-carousel-control-prev,
-.custom-carousel-control-next {
+.ItemCarrusel {
   background-color: black;
-
 }
 
-
-.carousel-control-prev-icon {
-  background-color: darkblue; 
-  margin-left: 170px;
+.ImagenCarrusel {
+  width: 900px;
+  height: 700px;
 }
 
-.carousel-control-next-icon {
-  background-color: darkblue; 
-  margin-right: 170px;
-}
+/* carrouserStyles.scss */
 
+.custom-caption {
+  background-color: rgba(249, 245, 245, 0.7); /* Fondo oscuro con opacidad del 70% */
+  padding: 20px; /* Espaciado interno para los elementos h2 y h4 */
+  border-radius: 10px; /* Bordes redondeados para suavizar la apariencia */
+  color: #fff; /* Color del texto en el fondo oscuro */
+}
 

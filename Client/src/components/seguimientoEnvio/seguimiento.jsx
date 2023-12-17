@@ -6,7 +6,7 @@ import Modal from "react-bootstrap/Modal";
 import Table from "react-bootstrap/Table";
 import { validate } from "./validation";
 import Swal from "sweetalert2";
-import {searcher, error, lupa} from "./style";
+import { searcher, error, lupa } from "./style";
 import axios from "axios";
 import { setPaquetesSeguimientos } from "../../redux/Slices/seguimientoSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,7 +14,7 @@ import deliverytruck from "../../assets/delivery.svg";
 //import { Image } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import "./envios.css"
+import style from "./envios.module.css"
 
 
 function SeguimientoEnvio() {
@@ -47,7 +47,7 @@ function SeguimientoEnvio() {
 
   const dispatch = useDispatch();
   const seguimiento = useSelector((state) => state.seguimiento.paqueteSeguimiento);
- 
+
 
   const handleSubmit = async (id, e) => {
     e.preventDefault();
@@ -69,7 +69,7 @@ function SeguimientoEnvio() {
     }
 
     try {
-      const response = await axios.get( `https://bfs-pfhenry-production.up.railway.app/envios/${id}` /* `http://localhost:3001/envios/${id}` */);
+      const response = await axios.get(`https://bfs-pfhenry-production.up.railway.app/envios/${id}` /* `http://localhost:3001/envios/${id}` */);
       dispatch(setPaquetesSeguimientos(response.data));
       setShowModal(true);
     } catch (error) {
@@ -93,13 +93,13 @@ function SeguimientoEnvio() {
   };
 
   return (
-    <div className="fondoenvio">
-      <Form onSubmit={(e) => handleSubmit(input.numero, e)} className="form-container d-flex">
+    <div className={style.fondoenvio}>
+      <Form onSubmit={(e) => handleSubmit(input.numero, e)} className="form-container d-flex flex-wrap align-items-center justify-content-center">
         <Form.Label className="mb-1"></Form.Label>
         <Form.Group>
           <Form.Control
             className="form-input"
-            placeholder="Ingrese el número de seguimiento"
+            placeholder="Número de seguimiento"
             size="lg"
             value={input.numero}
             onChange={handleChange}
@@ -128,33 +128,33 @@ function SeguimientoEnvio() {
 
       <Modal show={showModal} onHide={handleCloseModal} centered>
         <Modal.Header closeButton>
-          <Modal.Title className="text-center"  style={{ fontSize: '1.3rem' }}>
+          <Modal.Title className="text-center" style={{ fontSize: '1.3rem' }}>
             Estado del envío:  {seguimiento.id}
           </Modal.Title>
-         
+
         </Modal.Header>
 
         <Modal.Body>
-        <img
-    src={deliverytruck}
-    alt="Logo BFS"
-    style={{
-      width: '150px',
-      height: '85px',
-      marginLeft: seguimiento.status === "Pendiente" ? '0' : 'auto', // Ajustado para renderizar a la izquierda en "Pendiente"
-      marginRight: seguimiento.status === "Entregado" ? '0' : 'auto', // Añadido para renderizar a la derecha en "Entregado"
-      display: 'block', // Para asegurar que se centre o alinee correctamente
-    }}
-  />
-         <Table striped bordered hover responsive className="mt-3">
-  <thead>
-    <tr>
-      <th className={seguimiento.status === "Pendiente" ? "cell-animation" : ""} style={seguimiento.status === "Pendiente" ? { background: 'blue', color: 'white' } : {}}>Pendiente</th>
-      <th className={seguimiento.status === "En tránsito" ? "cell-animation" : ""} style={seguimiento.status === "En tránsito" ? { background: 'blue', color: 'white' } : {}}>En tránsito</th>
-      <th className={seguimiento.status === "Entregado" ? "cell-animation" : ""} style={seguimiento.status === "Entregado" ? { background: 'blue', color: 'white' } : {}}>Entregado</th>
-    </tr>
-  </thead>
-</Table>
+          <img
+            src={deliverytruck}
+            alt="Logo BFS"
+            style={{
+              width: '150px',
+              height: '85px',
+              marginLeft: seguimiento.status === "Pendiente" ? '0' : 'auto', // Ajustado para renderizar a la izquierda en "Pendiente"
+              marginRight: seguimiento.status === "Entregado" ? '0' : 'auto', // Añadido para renderizar a la derecha en "Entregado"
+              display: 'block', // Para asegurar que se centre o alinee correctamente
+            }}
+          />
+          <Table striped bordered hover responsive className="mt-3">
+            <thead>
+              <tr>
+                <th className={seguimiento.status === "Pendiente" ? "cell-animation" : ""} style={seguimiento.status === "Pendiente" ? { background: 'blue', color: 'white' } : {}}>Pendiente</th>
+                <th className={seguimiento.status === "En tránsito" ? "cell-animation" : ""} style={seguimiento.status === "En tránsito" ? { background: 'blue', color: 'white' } : {}}>En tránsito</th>
+                <th className={seguimiento.status === "Entregado" ? "cell-animation" : ""} style={seguimiento.status === "Entregado" ? { background: 'blue', color: 'white' } : {}}>Entregado</th>
+              </tr>
+            </thead>
+          </Table>
         </Modal.Body>
       </Modal>
     </div>
