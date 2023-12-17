@@ -386,26 +386,7 @@ const FormEnvio = () => {
                     <p className={styles.error}>{errors.nombreRemitente}</p>
                   )}
                 </div>
-                {/* <div>
-                <label className={styles.label}>Razon social</label>
-                <input
-                  type="text"
-                  id="razonSocialRemitente"
-                  name="razonSocialRemitente"
-                  placeholder="Particular o Empresa SA de CV"
-                  value={values.razonSocialRemitente}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  className={styles.input}
-                ></input>
-                {touched.razonSocialRemitente &&
-                  errors.razonSocialRemitente && (
-                    <p className={styles.error}>
-                      {errors.razonSocialRemitente}
-                    </p>
-                  )} 
-              </div> */}
-                <div>
+                 <div>
                   <label className={styles.label}>Telefono</label>
                   <input
                     type="text"
@@ -497,25 +478,6 @@ const FormEnvio = () => {
                     <p className={styles.error}>{errors.nombreDestinatario}</p>
                   )}
                 </div>
-                {/* <div>
-                <label className={styles.label}>Razon social</label>
-                <input
-                  type="text"
-                  id="razonSocialDestinatario"
-                  name="razonSocialDestinatario"
-                  placeholder="Particular o Empresa SA de CV"
-                  value={values.razonSocialDestinatario}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  className={styles.input}
-                ></input>
-                {touched.razonSocialDestinatario &&
-                  errors.razonSocialDestinatario && (
-                    <p className={styles.error}>
-                      {errors.razonSocialDestinatario}
-                    </p>
-                  )}
-              </div> */}
                 <div>
                   <label className={styles.label}>Telefono</label>
                   <input
