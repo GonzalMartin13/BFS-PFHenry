@@ -93,10 +93,10 @@ const Content = ({ selectedButton, envio, users, admin, handleToggleUser, handle
       sortedAndFilteredData &&
       sortedAndFilteredData.map((item, index) => (
         <tr key={index}>
-          <td>{item.ID}</td>
+          {/* <td>{item.ID}</td> */}
            <td className={`${styles.fullEmail}`}>{item.email}</td>
           <td>{item.name}</td>
-          <td>{item.lastName}</td>
+          {/* <td>{item.lastName}</td> */}
           <td>
             <button
               onClick={() => handleToggleUser(item)}
@@ -168,10 +168,10 @@ const Content = ({ selectedButton, envio, users, admin, handleToggleUser, handle
               <table className={styles.envios_table}>
                 <thead>
                   <tr>
-                    <th>ID</th>
+                    {/* <th>ID</th> */}
                     <th>Email</th>
                     <th>Nombre</th>
-                    <th>Apellido</th>
+                    {/* <th>Apellido</th> */}
                     <th>Accion</th>
                   </tr>
                 </thead>
@@ -240,7 +240,7 @@ const Content = ({ selectedButton, envio, users, admin, handleToggleUser, handle
               <table className={styles.envios_table}>
                 <thead>
                   <tr>
-                    <th>Nombre Admin</th>
+                    {/* <th>Nombre Admin</th> */}
                     <th>Email</th>
                     <th>Estado</th>
                   </tr>
@@ -248,7 +248,7 @@ const Content = ({ selectedButton, envio, users, admin, handleToggleUser, handle
                 <tbody>
                   {admin?.map((admin, ID) => (
                     <tr key={ID}>
-                      <td>{admin?.nameAdmin || "N/A"}</td>
+                      {/* <td>{admin?.nameAdmin || "N/A"}</td> */}
                       <td>{admin?.emailAdmin || "N/A"}</td>
                       <td>
                         <button
