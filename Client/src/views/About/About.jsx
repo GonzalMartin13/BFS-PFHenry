@@ -137,6 +137,9 @@ return (
         </div>
       </div> 
       <hr />
+      <hr />
+      <h1>EL DREAMTEAM DE BFS</h1>
+      <img src="../../../src/assets/BFSTeam.jpg" alt="DreamTeam BSF" />
     </div>
   );
 }
