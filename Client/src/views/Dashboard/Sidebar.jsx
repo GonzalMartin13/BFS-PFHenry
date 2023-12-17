@@ -1,5 +1,4 @@
-/* eslint-disable react/prop-types */
-import style from "./Dashboard.module.css";
+import { Navbar, Nav } from "react-bootstrap";
 import Button from "../../components/Button/Button";
 import {
   BsClipboardDataFill,
@@ -9,44 +8,29 @@ import {
 } from "react-icons/bs";
 
 const Sidebar = ({ onButtonClick }) => {
-
-	return (
-		<div className={style.menuContext}>
-			<h1 className={style.panelAdminTitle}>
-			<Button text={<><BsClipboardDataFill /> Panel de Administración</>} onClick={() => onButtonClick("adminGraphs")} />			
-			</h1>
-
-      <ul className={style.menu}>
-        <Button
-          text={
-            <>
-              <BsPeopleFill /> Usuarios
-            </>
-          }
-          onClick={() => onButtonClick("Usuarios")}
-        />
-
-        <Button
-          text={
-            <>
-              <BsCursorFill /> Envíos
-            </>
-          }
-          onClick={() => onButtonClick("Envios")}
-        />
-
-        {/* <Button text={<><BsCashCoin /> Pagos</>} onClick={() => onButtonClick("Pagos")} /> */}
-
-        <Button
-          text={
-            <>
-              <BsFillGearFill /> Admin
-            </>
-          }
-          onClick={() => onButtonClick("Admin")}
-        />
-      </ul>
-    </div>
+  const sidebarStyle = {
+    width: '100%',
+  }
+  return (
+    <Navbar bg="dark" variant="dark" expand="md" style={sidebarStyle}>
+      <Navbar.Brand href="#">
+        <Button text={<><BsClipboardDataFill /> Panel de Administración</>} onClick={() => onButtonClick("adminGraphs")} />
+      </Navbar.Brand>
+      <Navbar.Toggle aria-controls="navbar-nav" />
+      <Navbar.Collapse id="navbar-nav">
+        <Nav className="mr-auto"> {/* Ajusta la clase de margin a 'mr-auto' */}
+          <Nav.Link onClick={() => onButtonClick("Usuarios")}>
+            <BsPeopleFill /> Usuarios
+          </Nav.Link>
+          <Nav.Link onClick={() => onButtonClick("Envios")}>
+            <BsCursorFill /> Envíos
+          </Nav.Link>
+          <Nav.Link onClick={() => onButtonClick("Admin")}>
+            <BsFillGearFill /> Admin
+          </Nav.Link>
+        </Nav>
+      </Navbar.Collapse>
+    </Navbar>
   );
 };
 export default Sidebar;

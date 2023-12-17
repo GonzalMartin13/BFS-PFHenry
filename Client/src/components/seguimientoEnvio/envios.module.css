@@ -1,0 +1,29 @@
+@keyframes colorChange {
+  0% {
+    background-color: transparent;
+  }
+  50% {
+    background-color: #5bc0de; 
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+.cell-animation {
+  animation: colorChange 1.5s ease-in-out infinite; 
+}
+
+.fondoenvio {
+  background: url("../../assets/bfs8.jpg");
+  background-repeat: no-repeat;
+  background-position: center; 
+  background-size: 100% 45rem ; 
+  border-top: 1px double whitesmoke;
+  /* width: 100%; */
+  height: 70vh; 
+}
+
+.inputseguimiento{
+  display: none;
+}

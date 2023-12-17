@@ -1,3 +1,5 @@
+// style.js
+
 const searcher = {
   flexGrow: "1",
   outline: "none",
@@ -5,28 +7,29 @@ const searcher = {
   color: "black",
   border: "2px solid black",
   fontFamily: "inherit",
-  width: "40pc",
-  height: "5pc",
-  fontSize: "x-large",
-  marginLeft: "55px",
-  marginTop: "33pc"
-};
+
+  width: "100%",
+  height: "50px",
+  fontSize: "1.5rem", 
+  margin: "5px 0", 
+}
+
+
 
 const error = {
-  marginTop: '5px',
-  fontSize: "10px",
-  marginLeft: "20px"
+  fontSize: "0.8rem",
+  marginLeft: "20px",
 };
 
 const lupa = {
-  height: '5pc',
-  width:"5pc", 
-  border: "solid black 2px",
+  height: '50px', // Ajustado para un alto fijo
+  width: '50px', // Ajustado para un ancho fijo
+  border: "2px solid black",
   backgroundColor: "whitesmoke",
   color: "black",
-  marginTop: "33pc",
-  marginLeft: "1pc"
-};
+  margin: "5px 0",
+}
+
 
 export {
   searcher,
