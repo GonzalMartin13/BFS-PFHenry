@@ -10,7 +10,7 @@ const searcher = {
   width: "100%",
   height: "50px",
   fontSize: "1.5rem", 
-  margin: "5px 0", 
+  marginLeft:"60px",
 }
 
 
