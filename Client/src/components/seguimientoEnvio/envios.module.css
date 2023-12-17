@@ -1,42 +1,27 @@
-/* Estilo de animación */
 @keyframes colorChange {
   0% {
     background-color: transparent;
   }
   50% {
-    background-color: #5bc0de; /* Color de transición - azul claro */
+    background-color: #5bc0de; 
   }
   100% {
     background-color: transparent;
   }
 }
 
-/* Aplicar animación a la celda */
 .cell-animation {
-  animation: colorChange 1.5s ease-in-out infinite; /* Duración de la animación de 1.5 segundos, repetición infinita */
+  animation: colorChange 1.5s ease-in-out infinite; 
 }
 
-/* .fondoenvio{
- background: url("../../assets/fondosxeguimiento.png");
- height: 675px;
- background-repeat: no-repeat;
- background-size: contain;
- border-top: 1px double whitesmoke;
- width: 100%;
-
-} */
-
 .fondoenvio {
-  background: url("../../assets/bfs2.png");
+  background: url("../../assets/bfs8.jpg");
   background-repeat: no-repeat;
-  background-size: cover; 
   background-position: center; 
+  background-size: 100% 45rem ; 
   border-top: 1px double whitesmoke;
-  width: 100%;
-  min-height: 100vh; 
-  flex-direction: column; 
-  align-items: center; 
-  justify-content: center; 
+  /* width: 100%; */
+  height: 70vh; 
 }
 
 .inputseguimiento{

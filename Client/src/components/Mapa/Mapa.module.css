@@ -1,8 +1,7 @@
-Mapa.module.css
-
 .mapContainer {
   margin-bottom: 20px;
-}
+  margin-left: 25%;
+  }
 
 .headerContainer {
   text-align: center;
