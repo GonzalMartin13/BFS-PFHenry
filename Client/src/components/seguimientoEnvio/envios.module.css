@@ -16,16 +16,6 @@
   animation: colorChange 1.5s ease-in-out infinite; /* Duración de la animación de 1.5 segundos, repetición infinita */
 }
 
-/* .fondoenvio{
- background: url("../../assets/fondosxeguimiento.png");
- height: 675px;
- background-repeat: no-repeat;
- background-size: contain;
- border-top: 1px double whitesmoke;
- width: 100%;
-
-} */
-
 .fondoenvio {
   background: url("../../assets/bfs2.png");
   background-repeat: no-repeat;
@@ -37,8 +27,8 @@
   flex-direction: column; 
   align-items: center; 
   justify-content: center; 
+  border-bottom: 5px double whitesmoke;
+  border-top: 5px double whitesmoke;
+  margin-bottom: 15px;
 }
 
-.inputseguimiento{
-  display: none;
-}

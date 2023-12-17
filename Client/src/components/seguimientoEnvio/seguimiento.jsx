@@ -15,6 +15,8 @@ import deliverytruck from "../../assets/delivery.svg";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import style from "./envios.module.css"
+import {Link} from "react-router-dom"
+import "./stilos.css"
 
 
 function SeguimientoEnvio() {
@@ -94,38 +96,46 @@ function SeguimientoEnvio() {
 
   return (
     <div className={style.fondoenvio}>
-      <Form onSubmit={(e) => handleSubmit(input.numero, e)} className="form-container d-flex flex-wrap align-items-center justify-content-center">
-        <Form.Label className="mb-1"></Form.Label>
-        <Form.Group>
-          <Form.Control
-            className="form-input"
-            placeholder="Número de seguimiento"
+      <div className="textosearch">
+        <h1>Bienvenido a BSF</h1>
+        <h2>Tenemos el objetivo de hace rque tus envios lleguen en el mejor tiempo y forma! </h2>
+        <h2>Para saber el estado de tu envio ingrese aqui el numero de Seguimiento</h2>
+        <Form onSubmit={(e) => handleSubmit(input.numero, e)} className="form-container d-flex flex-wrap align-items-center justify-content-center">
+          <Form.Label className="mb-1 "></Form.Label>
+          <Form.Group>
+            <Form.Control
+              className="inputseguimiento"
+              placeholder="ID del envio"
+              size="lg"
+              value={input.numero}
+              onChange={handleChange}
+              autoComplete="off"
+              name="numero"
+              aria-label="Número de Seguimiento"
+              type="search"
+              style={searcher}
+            />
+            {errors.numero && (
+              <div className="text-danger" style={error}>
+                {errors.numero}
+              </div>
+            )}
+          </Form.Group>
+          <Button
+            className="form-button "
+            variant="outline-success"
+            type="submit"
             size="lg"
-            value={input.numero}
-            onChange={handleChange}
-            autoComplete="off"
-            name="numero"
-            aria-label="Número de Seguimiento"
-            type="search"
-            style={searcher}
-          />
-          {errors.numero && (
-            <div className="text-danger" style={error}>
-              {errors.numero}
-            </div>
-          )}
-        </Form.Group>
-        <Button
-          className="form-button"
-          variant="outline-success"
-          type="submit"
-          size="lg"
-          style={lupa}
-        >
-          <FontAwesomeIcon icon={faSearch} />
-        </Button>
-      </Form>
-
+            style={lupa}
+          >
+            <FontAwesomeIcon icon={faSearch} />
+          </Button>
+        </Form>
+        <h2>Si quieres hacer un envio, haz click en el siguiente boton </h2>
+        <button type="button" className="btn btn-light"> 
+          <Link className="botonlink" to="/cotizacion"> Crear un nuevo envio </Link>
+        </button>
+      </div>
       <Modal show={showModal} onHide={handleCloseModal} centered>
         <Modal.Header closeButton>
           <Modal.Title className="text-center" style={{ fontSize: '1.3rem' }}>
