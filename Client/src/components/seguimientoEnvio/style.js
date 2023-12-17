@@ -7,11 +7,10 @@ const searcher = {
   color: "black",
   border: "2px solid black",
   fontFamily: "inherit",
-
   width: "100%",
   height: "50px",
   fontSize: "1.5rem", 
-  margin: "5px 0", 
+  marginLeft:"60px",
 }
 
 
