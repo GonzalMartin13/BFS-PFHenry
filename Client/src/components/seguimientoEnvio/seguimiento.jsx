@@ -16,7 +16,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import style from "./envios.module.css"
 import {Link} from "react-router-dom"
-import "./stilos.css"
+import styles from "./stilos.module.css"
 
 
 function SeguimientoEnvio() {
@@ -96,7 +96,7 @@ function SeguimientoEnvio() {
 
   return (
     <div className={style.fondoenvio}>
-      <div className="textosearch">
+      <div className={styles.textosearch}>
         <h1>Bienvenido a BSF</h1>
         <h2>Tenemos el objetivo de hace rque tus envios lleguen en el mejor tiempo y forma! </h2>
         <h2>Para saber el estado de tu envio ingrese aqui el numero de Seguimiento</h2>
@@ -104,7 +104,7 @@ function SeguimientoEnvio() {
           <Form.Label className="mb-1 "></Form.Label>
           <Form.Group>
             <Form.Control
-              className="inputseguimiento"
+              className="form-input"
               placeholder="ID del envio"
               size="lg"
               value={input.numero}
@@ -133,7 +133,7 @@ function SeguimientoEnvio() {
         </Form>
         <h2>Si quieres hacer un envio, haz click en el siguiente boton </h2>
         <button type="button" className="btn btn-light"> 
-          <Link className="botonlink" to="/cotizacion"> Crear un nuevo envio </Link>
+          <Link className={styles.botonlink} to="/cotizacion"> Crear un nuevo envio </Link>
         </button>
       </div>
       <Modal show={showModal} onHide={handleCloseModal} centered>
