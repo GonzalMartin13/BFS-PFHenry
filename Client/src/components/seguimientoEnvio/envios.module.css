@@ -17,10 +17,15 @@
 .fondoenvio {
   background: url("../../assets/paquete.png");
   background-repeat: no-repeat;
-  background-position: center; 
-  background-size: 100% 45rem ; 
+  background-size: cover;
+  background-position: -10px;
   border-top: 1px double whitesmoke;
-  height: 70vh; 
+  height: 80vh; 
+
+}
+
+.textosearch{
+  background-color:  rgba(245, 245, 245, 0.493);
 
 }
 
