@@ -2,7 +2,6 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { Icon } from "leaflet";
 import sucursales from "./Sucursales";
-//import Image from "react-bootstrap/Image";
 import { Row, Col } from "react-bootstrap";
 import styles from "./Mapa.module.css";
 
@@ -249,27 +248,43 @@ const Mapa = () => {
             </div>
           </div>
         </Col>
-        {/* Columna del Mapa */}
-        <Col md={6} className={styles.mapContainer}>
-          <div className={styles.headerContainer}>
-            <h3 style={{ margin: "15px" }}>Nuestras sucursales</h3>
-          </div>
+        <Col md={6}>
+  <div style={{ position: "relative", height: "550px", width: "100%" }}>
+    <div
+      style={{
+        position: "absolute",
+        top: "50%",
+        left: "50%",
+        transform: "translate(-50%, -50%)",
+        height: "490px",
+        width: "80%",  
+      }}
+    >
+      <MapContainer
+        center={position}
+        zoom={4}
+        style={{ height: "100%", width: "100%" }}
+      >
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        ></TileLayer>
 
-          <div className={styles.mapaContainer}>
-            <MapContainer center={position} zoom={4} style={{ height: "100%", width: "100%" }}>
-              <TileLayer
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-              ></TileLayer>
+        {sucursales.map((sucursal, index) => (
+          <Marker
+            key={index}
+            position={sucursal.coordenadas}
+            icon={myIcon}
+          >
+            <Popup>{sucursal.Popup}</Popup>
+          </Marker>
+        ))}
+      </MapContainer>
+    </div>
+  </div>
+</Col>
 
-              {sucursales.map((sucursal, index) => (
-                <Marker key={index} position={sucursal.coordenadas} icon={myIcon}>
-                  <Popup>{sucursal.Popup}</Popup>
-                </Marker>
-              ))}
-            </MapContainer>
-          </div>
-        </Col>
+
       </Row>
     </div>
   );

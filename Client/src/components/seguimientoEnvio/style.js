@@ -7,11 +7,13 @@ const searcher = {
   color: "black",
   border: "2px solid black",
   fontFamily: "inherit",
-  width: "80%",
+  width: "100%",
   height: "50px",
   fontSize: "1.5rem", 
   marginLeft:"60px",
 }
+
+
 
 const error = {
   fontSize: "0.8rem",
@@ -26,6 +28,7 @@ const lupa = {
   color: "black",
   margin: "5px 0",
 }
+
 
 export {
   searcher,
