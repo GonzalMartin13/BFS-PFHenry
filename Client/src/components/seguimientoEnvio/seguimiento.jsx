@@ -98,8 +98,8 @@ function SeguimientoEnvio() {
     <div className={style.fondoenvio}>
       <div className={styles.textosearch}>
         <h1>Bienvenido a BSF</h1>
-        <h2>Tenemos el objetivo de hace rque tus envios lleguen en el mejor tiempo y forma! </h2>
-        <h2>Para saber el estado de tu envio ingrese aqui el numero de Seguimiento</h2>
+        <h2>¡Tenemos el objetivo de hacer que tus envíos lleguen en el mejor tiempo y forma! Corrígeme las faltas de ortografía. </h2>
+        <h2>Para conocer el estado de tu envío, por favor ingresa aquí el número de seguimiento.</h2>
         <Form onSubmit={(e) => handleSubmit(input.numero, e)} className="form-container d-flex flex-wrap align-items-center justify-content-center">
           <Form.Label className="mb-1 "></Form.Label>
           <Form.Group>
